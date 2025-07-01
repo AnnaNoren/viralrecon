@@ -10,6 +10,7 @@ process BLAST_BLASTN {
     input:
     tuple val(meta), path(fasta)
     path  db
+    tuple val(meta3), path(taxidlist)
 
     output:
     tuple val(meta), path('*.blastn.txt'), emit: txt
@@ -22,6 +23,8 @@ process BLAST_BLASTN {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
+    export BLASTDB=${db}
+
     DB=`find -L ./ -name "*.ndb" | sed 's/\\.ndb\$//'`
     blastn \\
         -num_threads $task.cpus \\
