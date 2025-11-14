@@ -1,0 +1,35 @@
+process BLAST_REPORT {
+    label 'process_single'
+
+    conda "${moduleDir}/environment.yml"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/63/63c2848a35d4087421472ea90c04148fc97c4ccc2839c76f7cb3919458bb10ef/data' :
+        'community.wave.seqera.io/library/jinja2_matplotlib_pandas_python_seaborn:35dc011346333319' }"
+
+    input:
+    tuple val(meta), path(blast)
+
+    output:
+    path("*.html")      , emit: blast_report
+    path "versions.yml" , emit: versions
+
+    when:
+    task.ext.when == null || task.ext.when
+
+    script:  // This script is bundled with the pipeline, in nf-core/viralrecon/bin/
+    def args = task.ext.args ?: ''
+    def prefix = task.ext.prefix ?: meta.id
+    def suggestions = task.ext.args2 ?: '--no-suggest'
+
+    """
+    blast_report.py \\
+        --blast-file ${blast} \\
+        --output_file ${prefix}_blast_report.html \\
+        $args
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python --version | sed 's/Python //g')
+    END_VERSIONS
+    """
+}

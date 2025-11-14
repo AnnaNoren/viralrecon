@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enterovirus Rapport - {{ seq_name }}</title>
+    <style>
+      {{ css_content | safe }}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>Enterovirus Genotypning</h1>
+        <p>Prov: {{ seq_name }}</p>
+      </header>
+
+      <div class="metadata">
+        <span>Utförd: {{ time_stamp }}</span>
+      </div>
+
+      <div class="content">
+        <div class="suggestion">
+          <b>Föreslagen tolkning: {{ suggestion }}</b>
+        </div>
+
+        {% if varningstext %}
+        <div class="warning">{{ varningstext }}</div>
+        {% endif %}
+
+        <div class="figure-container">
+          <img src="{{ img_data_uri }}" alt="BLAST analys resultat" />
+        </div>
+
+        <div class="contigs-section">
+          <strong>{{ contig_count }} contig(er) funna</strong><br />
+          <div>{{ contigs_summary | safe }}</div>
+          <div>{{ contigs_content | safe }}</div>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <div style="margin-top: 40px; text-align: left">
+          <img src="data:image/png;base64,{{ logo_b64 }}" style="height: 60px" />
+        </div>
+        <p>
+          Generated automatically from <a href="https://github.com/nf-core/viralrecon">nf-core/viralrecon</a> using
+          filtered BLAST data.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
