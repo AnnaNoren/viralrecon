@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Enterovirus Rapport - {{ seq_name }}</title>
+    <title>Enterovirus Report - {{ seq_name }}</title>
     <style>
       {{ css_content | safe }}
     </style>
@@ -11,17 +11,17 @@
   <body>
     <div class="container">
       <header class="header">
-        <h1>Enterovirus Genotypning</h1>
-        <p>Prov: {{ seq_name }}</p>
+        <h1>Enterovirus Genotyping</h1>
+        <p>Sample: {{ seq_name }}</p>
       </header>
 
       <div class="metadata">
-        <span>Utförd: {{ time_stamp }}</span>
+        <span>Done: {{ time_stamp }}</span>
       </div>
 
       <div class="content">
         <div class="suggestion">
-          <b>Föreslagen tolkning: {{ suggestion }}</b>
+          <b>Proposed interpretation: {{ suggestion }}</b>
         </div>
 
         {% if varningstext %}
@@ -29,11 +29,11 @@
         {% endif %}
 
         <div class="figure-container">
-          <img src="{{ img_data_uri }}" alt="BLAST analys resultat" />
+          <img src="{{ img_data_uri }}" alt="BLAST analysis results" />
         </div>
 
         <div class="contigs-section">
-          <strong>{{ contig_count }} contig(er) funna</strong><br />
+          <strong>{{ contig_count }} contig(s) found</strong><br />
           <div>{{ contigs_summary | safe }}</div>
           <div>{{ contigs_content | safe }}</div>
         </div>
