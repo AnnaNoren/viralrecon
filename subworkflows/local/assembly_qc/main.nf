@@ -7,7 +7,6 @@ include { ABACAS        } from '../../../modules/nf-core/abacas/main'
 include { BLAST_BLASTN  } from '../../../modules/nf-core/blast/blastn/main'
 include { PLASMIDID     } from '../../../modules/nf-core/plasmidid/main'
 include { QUAST         } from '../../../modules/nf-core/quast/main'
-include { BLAST_REPORT  } from '../../../modules/local/blast_report'
 
 workflow ASSEMBLY_QC {
     take:
@@ -46,9 +45,6 @@ workflow ASSEMBLY_QC {
         ch_blast_txt = FILTER_BLASTN.out.blast
         ch_blast_filter_txt = FILTER_BLASTN.out.txt
         ch_versions         = ch_versions.mix(FILTER_BLASTN.out.versions.first())
-
-        BLAST_REPORT (FILTER_BLASTN.out.txt)
-        ch_versions = ch_versions.mix(BLAST_REPORT.out.versions)
     }
 
     //
@@ -113,23 +109,22 @@ workflow ASSEMBLY_QC {
     }
 
     emit:
-    blast_txt          = ch_blast_txt                  // channel: [ val(meta), [ txt ] ]
-    blast_filter_txt   = ch_blast_filter_txt           // channel: [ val(meta), [ txt ] ]
-    blast_report       = BLAST_REPORT.out.blast_report // channel: [ val(meta), [ html ] ]
+    blast_txt          = ch_blast_txt          // channel: [ val(meta), [ txt ] ]
+    blast_filter_txt   = ch_blast_filter_txt   // channel: [ val(meta), [ txt ] ]
 
-    quast_results      = ch_quast_results              // channel: [ val(meta), [ results ] ]
-    quast_tsv          = ch_quast_tsv                  // channel: [ val(meta), [ tsv ] ]
+    quast_results      = ch_quast_results      // channel: [ val(meta), [ results ] ]
+    quast_tsv          = ch_quast_tsv          // channel: [ val(meta), [ tsv ] ]
 
-    abacas_results     = ch_abacas_results             // channel: [ val(meta), [ results ] ]
+    abacas_results     = ch_abacas_results     // channel: [ val(meta), [ results ] ]
 
-    plasmidid_html     = ch_plasmidid_html             // channel: [ val(meta), [ html ] ]
-    plasmidid_tab      = ch_plasmidid_tab              // channel: [ val(meta), [ tab ] ]
-    plasmidid_images   = ch_plasmidid_images           // channel: [ val(meta), [ images/ ] ]
-    plasmidid_logs     = ch_plasmidid_logs             // channel: [ val(meta), [ logs/ ] ]
-    plasmidid_data     = ch_plasmidid_data             // channel: [ val(meta), [ data/ ] ]
-    plasmidid_database = ch_plasmidid_database         // channel: [ val(meta), [ database/ ] ]
-    plasmidid_fasta    = ch_plasmidid_fasta            // channel: [ val(meta), [ fasta_files/ ] ]
-    plasmidid_kmer     = ch_plasmidid_kmer             // channel: [ val(meta), [ kmer/ ] ]
+    plasmidid_html     = ch_plasmidid_html     // channel: [ val(meta), [ html ] ]
+    plasmidid_tab      = ch_plasmidid_tab      // channel: [ val(meta), [ tab ] ]
+    plasmidid_images   = ch_plasmidid_images   // channel: [ val(meta), [ images/ ] ]
+    plasmidid_logs     = ch_plasmidid_logs     // channel: [ val(meta), [ logs/ ] ]
+    plasmidid_data     = ch_plasmidid_data     // channel: [ val(meta), [ data/ ] ]
+    plasmidid_database = ch_plasmidid_database // channel: [ val(meta), [ database/ ] ]
+    plasmidid_fasta    = ch_plasmidid_fasta    // channel: [ val(meta), [ fasta_files/ ] ]
+    plasmidid_kmer     = ch_plasmidid_kmer     // channel: [ val(meta), [ kmer/ ] ]
 
-    versions           = ch_versions                   // channel: [ versions.yml ]
+    versions           = ch_versions           // channel: [ versions.yml ]
 }

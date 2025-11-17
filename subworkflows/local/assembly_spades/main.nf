@@ -8,6 +8,7 @@ include { GUNZIP as GUNZIP_SCAFFOLDS } from '../../../modules/nf-core/gunzip/mai
 include { GUNZIP as GUNZIP_GFA       } from '../../../modules/nf-core/gunzip/main'
 
 include { ASSEMBLY_QC   } from '../assembly_qc'
+include { BLAST_REPORT  } from '../../../modules/local/blast_report'
 
 workflow ASSEMBLY_SPADES {
     take:
@@ -103,6 +104,9 @@ workflow ASSEMBLY_SPADES {
     )
     ch_versions = ch_versions.mix(ASSEMBLY_QC.out.versions)
 
+    BLAST_REPORT (ASSEMBLY_QC.out.blast_filter_txt)
+    ch_versions = ch_versions.mix(BLAST_REPORT.out.versions)
+
     emit:
     scaffolds          = SPADES.out.scaffolds               // channel: [ val(meta), [ scaffolds ] ]
     contigs            = SPADES.out.contigs                 // channel: [ val(meta), [ contigs ] ]
@@ -116,6 +120,7 @@ workflow ASSEMBLY_SPADES {
 
     blast_txt          = ASSEMBLY_QC.out.blast_txt          // channel: [ val(meta), [ txt ] ]
     blast_filter_txt   = ASSEMBLY_QC.out.blast_filter_txt   // channel: [ val(meta), [ txt ] ]
+    blast_report       = BLAST_REPORT.out.blast_report      // channel: [ val(meta), [ html ] ]
 
     quast_results      = ASSEMBLY_QC.out.quast_results      // channel: [ val(meta), [ results ] ]
     quast_tsv          = ASSEMBLY_QC.out.quast_tsv          // channel: [ val(meta), [ tsv ] ]
