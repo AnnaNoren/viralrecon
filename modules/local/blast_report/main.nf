@@ -23,8 +23,8 @@ process BLAST_REPORT {
 
     """
     blast_report.py \\
-        --blast-file ${blast} \\
-        --output_file ${prefix}_blast_report.html \\
+        --blast_file ${blast} \\
+        --output_html ${prefix}_blast_report.html \\
         $args
 
     cat <<-END_VERSIONS > versions.yml

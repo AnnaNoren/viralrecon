@@ -22,44 +22,46 @@ def parser_args(args=None):
     """
     parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
 
+
     parser.add_argument(
         "-b",
-        "--blast-file",
+        "--blast_file",
         required=True,
         type=str,
         help="BLAST results file (required)",
     )
     parser.add_argument(
         "-o",
-        "--output-html",
+        "--output_html",
         required=True,
         type=str,
         help="Output HTML report file (required)",
     )
     parser.add_argument(
         "-sr"
-        "--suggest-min-rows",
+        "--suggest_min_rows",
         type=int,
         default=20,
         help='Minimum number of rows (hits) required to consider auto-suggestion (default: 20)'
     )
     parser.add_argument(
         "-si"
-        "--suggest-min-identity",
+        "--suggest_min_identity",
         type=float,
         default=90.0,
         help='Minimum max %% identity required to consider auto-suggestion (default: 90)')
     parser.add_argument(
         "-sb"
-        "--suggest-min-bitscore",
+        "--suggest_min_bitscore",
         type=float,
         default=300,
         help='Minimum max bitscore required to consider auto-suggestion (default: 300)')
     parser.add_argument(
         "-ns"
-        "--no-suggest",
+        "--no_suggest",
         action='store_true',
         help='Disable automated genotype suggestion')
+    return parser.parse_args(args)
 
 def extract_contig_headers(fasta_content):
     headers = []
@@ -76,7 +78,7 @@ def encode_plot_to_base64(fig, dpi=300):
     buffer.close()
     return f"data:image/png;base64,{img_base64}"
 
-def generate_report_data(blast_file, output_base, ticket, suggest_enabled=True,
+def generate_report_data(blast_file, output_base, suggest_enabled=True,
                          suggest_min_rows=20, suggest_min_identity=90.0, suggest_min_bitscore=300, dpi=300):
 
     df = pd.read_csv(blast_file, header=0)
@@ -116,7 +118,7 @@ def generate_report_data(blast_file, output_base, ticket, suggest_enabled=True,
     plt.close(fig)
 
     # Contigs
-    seq_file = f"{output_base}/{ticket}/ev_contig/{os.path.basename(blast_file).replace('.blast', '_200bp_minCov50.fasta')}"
+    seq_file = f"{output_base}/ev_contig/{os.path.basename(blast_file).replace('.blast', '_200bp_minCov50.fasta')}"
     with open(seq_file, 'r') as f:
         contigs_content = f.read()
     contig_headers = extract_contig_headers(contigs_content)
@@ -131,7 +133,6 @@ def generate_report_data(blast_file, output_base, ticket, suggest_enabled=True,
 
     return {
         'seq_name': os.path.basename(blast_file).replace('.blast', ''),
-        'ticket': ticket,
         'time_stamp': datetime.datetime.now().strftime("%Y-%m-%d"),
         'is_error_report': False,
         'warningtext': warningtext,
@@ -149,9 +150,9 @@ def render_report(template_file, output_file, data):
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(html_content)
 
-def main():
-    args = parser.parse_args()
-    data = generate_report_data(args.blast_file, "./", args.ticket)
+def main(args=None):
+    args = parser_args(args)
+    data = generate_report_data(args.blast_file, "./")
     render_report(args.output_html, os.path.join("./", f"{data['seq_name']}.html"), data)
     print(f"Report saved to: {args.output_html}")
 
