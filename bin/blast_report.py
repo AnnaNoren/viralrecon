@@ -91,7 +91,7 @@ def generate_report_data(blast_file, output_base, ticket, suggest_enabled=True,
         raise ValueError("No contigs meet filtering criteria")
 
     # Suggestion logic
-    suggestion = "Automatisk tolkning avstängd."
+    suggestion = "Automatic suggestion disabled."
     if suggest_enabled:
         try:
             max_pident = df.loc[df['pident'].idxmax()]
@@ -104,14 +104,14 @@ def generate_report_data(blast_file, output_base, ticket, suggest_enabled=True,
                 df['bitscore'].max() >= suggest_min_bitscore):
                 suggestion = str(max_pident['scomname'])
             else:
-                suggestion = "Var god bedöm manuellt."
+                suggestion = "Please do manual assessment."
         except:
-            suggestion = "Var god bedöm manuellt."
+            suggestion = "Please do manual assessment."
 
     # Plotting example (identity per genotype)
     fig, ax = plt.subplots(figsize=(10,6))
     sns.pointplot(data=df, x="pident", y="scomname", hue="contig", dodge=True, errorbar=None, ax=ax)
-    ax.set_title("Identitet per genotyp")
+    ax.set_title("Identity per genotype")
     img_data_uri = encode_plot_to_base64(fig, dpi=dpi)
     plt.close(fig)
 
@@ -125,16 +125,16 @@ def generate_report_data(blast_file, output_base, ticket, suggest_enabled=True,
     contigs_content_html = contigs_content.replace('\n', '<br>')
 
     # Warning
-    varningstext = ''
+    warningtext = ''
     if df['pident'].max() < 90:
-        varningstext = "&#9888; OBS! Högsta identitet < 90%"
+        warningtext = "&#9888; OBS! Highest identity < 90%"
 
     return {
         'seq_name': os.path.basename(blast_file).replace('.blast', ''),
         'ticket': ticket,
         'time_stamp': datetime.datetime.now().strftime("%Y-%m-%d"),
         'is_error_report': False,
-        'varningstext': varningstext,
+        'warningtext': warningtext,
         'img_data_uri': img_data_uri,
         'contigs_content': contigs_content_html,
         'contigs_summary': contigs_summary,
