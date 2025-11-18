@@ -28,6 +28,7 @@ process BLAST_REPORT {
         --fasta_file ${fasta} \\
         --sample_name ${meta.id} \\
         --output_html ${prefix}_blast_report.html \\
+        $suggestions \\
         $args
 
     cat <<-END_VERSIONS > versions.yml
