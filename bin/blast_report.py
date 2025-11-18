@@ -150,10 +150,12 @@ def generate_report_data(blast_file, output_base, suggest_enabled=True,
         'suggestion': suggestion
     }
 
-def render_report(template_file, output_file, data):
-    env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
-    template = env.get_template(template_file)
-    html_content = template.render(**data)
+def render_report(output_file, template, data, css_content):
+    html_content = template.render(
+        css_content=css_content,
+        data = data
+    )
+
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(html_content)
 
