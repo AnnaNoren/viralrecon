@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Enterovirus Report - {{ seq_name }}</title>
+    <title>Enterovirus Report</title>
     <style>
       {{ css_content | safe }}
     </style>
@@ -12,30 +12,91 @@
     <div class="container">
       <header class="header">
         <h1>Enterovirus Genotyping</h1>
-        <p>Sample: {{ seq_name }}</p>
+        <p>Sample: {{ data.sample_name }}</p>
       </header>
 
       <div class="metadata">
-        <span>Done: {{ time_stamp }}</span>
+        <div class="metadata-grid">
+          {% if data.id %}
+          <div class="metadata-item">
+            <span class="metadata-label">Identifier:</span>
+            <span class="metadata-value">{{ data.id }}</span>
+          </div>
+          {% endif %}
+          <div class="metadata-item">
+            <span class="metadata-label">Analysis date:</span>
+            <span class="metadata-value">{{ data.time_stamp }}</span>
+          </div>
+        </div>
       </div>
 
       <div class="content">
         <div class="suggestion">
-          <b>Proposed interpretation: {{ suggestion }}</b>
+          <b>Proposed interpretation: {{ data.suggestion }}</b>
         </div>
 
-        {% if warningtext %}
-        <div class="warning">{{ warningtext }}</div>
+        {% if data.warningtext %}
+        <div class="warning">{{ data.warningtext | safe }}</div>
         {% endif %}
 
         <div class="figure-container">
-          <img src="{{ img_data_uri }}" alt="BLAST analysis results" />
+          <img src="{{ data.img_data_uri }}" alt="BLAST analysis results" />
+        </div>
+
+        <div class="figure-legend">
+          <h3>Förklaring av figurer</h3>
+          <ul>
+            <li>
+              <strong>Figur 1 och 2:</strong> Cirklar anger identitet per matchad sekvens, romber anger medelvärde per
+              contig.
+            </li>
+            <li><strong>Identitet:</strong> Hur många nukleotider i alignment är identiska.</li>
+            <li><strong>Bit score:</strong> Normaliserad score för att statistiskt redovisa hur bra alignment är.</li>
+          </ul>
+        </div>
+
+        <div class="links-section">
+          <h3>Referensinformation - Enterovirus genotyper per species</h3>
+          <div class="links-grid">
+            <a href="https://www.picornaviridae.com/ensavirinae/enterovirus/ev-a/ev-a.htm" class="link-card">
+              <h4>Enterovirus Species A</h4>
+              <p>Komplett lista över genotyper</p>
+            </a>
+            <a href="https://www.picornaviridae.com/ensavirinae/enterovirus/ev-b/ev-b.htm" class="link-card">
+              <h4>Enterovirus Species B</h4>
+              <p>Komplett lista över genotyper</p>
+            </a>
+            <a href="https://www.picornaviridae.com/ensavirinae/enterovirus/ev-c/ev-c.htm" class="link-card">
+              <h4>Enterovirus Species C</h4>
+              <p>Komplett lista över genotyper</p>
+            </a>
+            <a href="https://www.picornaviridae.com/ensavirinae/enterovirus/ev-d/ev-d.htm" class="link-card">
+              <h4>Enterovirus Species D</h4>
+              <p>Komplett lista över genotyper</p>
+            </a>
+          </div>
+        </div>
+
+        <div class="external-tool">
+          <p>För ytterligare analys kan contigerna analyseras med:</p>
+          <a href="https://mpf.rivm.nl/mpf/typingtool/enterovirus/">RIVM Enterovirus Genotyping Tool</a>
         </div>
 
         <div class="contigs-section">
-          <strong>{{ contig_count }} contig(s) found</strong><br />
-          <div>{{ contigs_summary | safe }}</div>
-          <div>{{ contigs_content | safe }}</div>
+          <h3>Contigs</h3>
+          <div class="contigs-container">
+            <div class="contigs-header">
+              <div>
+                <strong>🧬 Sequence data:</strong>
+                <span style="color: var(--dark-gray); margin-left: 1rem">{{ data.contig_count }} contig(s) found</span>
+              </div>
+              <button class="toggle-btn" id="toggle-btn" onclick="toggleContigs()">
+                <span class="toggle-icon">▼</span> Show Contig Sequences
+              </button>
+            </div>
+            <div class="contigs-summary" id="contigs-summary">{{ data.contigs_summary | safe }}</div>
+            <div class="contigs-full" id="contigs-full">{{ data.contigs_content | safe }}</div>
+          </div>
         </div>
       </div>
 
@@ -50,5 +111,24 @@
         </p>
       </div>
     </div>
+    <script>
+      function toggleContigs() {
+        const summaryDiv = document.getElementById("contigs-summary");
+        const fullDiv = document.getElementById("contigs-full");
+        const toggleBtn = document.getElementById("toggle-btn");
+
+        if (fullDiv.style.display === "none" || fullDiv.style.display === "") {
+          summaryDiv.style.display = "none";
+          fullDiv.style.display = "block";
+          toggleBtn.innerHTML = '<span class="toggle-icon">▲</span> Hide Contig Sequences';
+          toggleBtn.classList.add("expanded");
+        } else {
+          summaryDiv.style.display = "block";
+          fullDiv.style.display = "none";
+          toggleBtn.innerHTML = '<span class="toggle-icon">▼</span> Show Contig Sequences';
+          toggleBtn.classList.remove("expanded");
+        }
+      }
+    </script>
   </body>
 </html>
