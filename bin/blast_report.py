@@ -10,10 +10,7 @@ import datetime
 import os
 import sys
 import argparse
-from jinja2 import Environment, FileSystemLoader
-
-# Path to template folder
-TEMPLATE_DIR = os.path.dirname(os.path.abspath(__file__))
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 def parser_args(args=None):
     Description = "Generate HTML reports from filtered BLAST results."
@@ -38,6 +35,19 @@ def parser_args(args=None):
         help="FASTA file (required)",
     )
     parser.add_argument(
+        "-s",
+        "--sample_name",
+        required=True,
+        type=str,
+        help="Sample name (required)",
+    )
+    parser.add_argument(
+        "-i",
+        "--id",
+        required=False,
+        type=str,
+        help="Run ID to be in the report (optional)",
+    )
     parser.add_argument(
         "-o",
         "--output_html",
@@ -86,13 +96,15 @@ def encode_plot_to_base64(fig, dpi=300):
     buffer.close()
     return f"data:image/png;base64,{img_base64}"
 
-def generate_report_data(blast_file, output_base, suggest_enabled=True,
+def generate_report_data(blast_file, fasta_file, sample_name, id, suggest_enabled=True,
                          suggest_min_rows=20, suggest_min_identity=90.0, suggest_min_bitscore=300, dpi=300):
 
-    df = pd.read_csv(blast_file, header=0)
-    df[['contig','temp1']] = df['qseqid'].str.split('_length_', expand=True)
+    df = pd.read_csv(blast_file, sep="\t", header=0, index_col=0)
+
+    unique_contigs = df['qaccver'].unique()
+    df[['contig','temp1']] = df['qaccver'].str.split('_length_', expand=True)
     df[['length','coverage']] = df['temp1'].str.split('_cov_', expand=True)
-    df = df.drop(['qseqid', 'temp1', 'length'], axis=1)
+    df = df.drop(['qaccver', 'temp1', 'length'], axis=1)
     df['coverage'] = pd.to_numeric(df['coverage'])
     df = df[df['qlen'] > 200]
     df = df[df['coverage'] > 50]
@@ -140,7 +152,8 @@ def generate_report_data(blast_file, output_base, suggest_enabled=True,
         warningtext = "&#9888; OBS! Highest identity < 90%"
 
     return {
-        'seq_name': os.path.basename(blast_file).replace('.blast', ''),
+        'sample_name': sample_name,
+        'id': id,
         'time_stamp': datetime.datetime.now().strftime("%Y-%m-%d"),
         'is_error_report': False,
         'warningtext': warningtext,
