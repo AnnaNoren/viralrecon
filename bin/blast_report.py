@@ -18,7 +18,7 @@ TEMPLATE_DIR = os.path.dirname(os.path.abspath(__file__))
 def parser_args(args=None):
     Description = "Generate HTML reports from filtered BLAST results."
     Epilog = """Example usage:
-    python blast_report.py --output_html <sample>_blast_report.html
+    python blast_report.py --blast_file sample.filter.blastn.txt --fasta_file sample.scaffolds.fa --sample_name sample --id ticket_id --output_html sample_blast_report.html
     """
     parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
 
@@ -30,6 +30,14 @@ def parser_args(args=None):
         type=str,
         help="BLAST results file (required)",
     )
+    parser.add_argument(
+        "-f",
+        "--fasta_file",
+        required=True,
+        type=str,
+        help="FASTA file (required)",
+    )
+    parser.add_argument(
     parser.add_argument(
         "-o",
         "--output_html",
@@ -117,14 +125,13 @@ def generate_report_data(blast_file, output_base, suggest_enabled=True,
     img_data_uri = encode_plot_to_base64(fig, dpi=dpi)
     plt.close(fig)
 
-    # Contigs
-    seq_file = f"{output_base}/ev_contig/{os.path.basename(blast_file).replace('.blast', '_200bp_minCov50.fasta')}"
-    with open(seq_file, 'r') as f:
-        contigs_content = f.read()
-    contig_headers = extract_contig_headers(contigs_content)
-    contig_count = len(contig_headers)
+    # Filter FASTA to only selected contigs
+    filtered_fasta = filter_fasta_by_contigs(fasta_file, unique_contigs)
+
+    contigs_content_html = filtered_fasta.replace('\n', '<br>')
+    contig_headers = extract_contig_headers(filtered_fasta)
     contigs_summary = '<br>'.join(contig_headers)
-    contigs_content_html = contigs_content.replace('\n', '<br>')
+    contig_count = len(contig_headers)
 
     # Warning
     warningtext = ''
@@ -149,6 +156,40 @@ def render_report(template_file, output_file, data):
     html_content = template.render(**data)
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(html_content)
+
+def filter_fasta_by_contigs(fasta_path, contigs_to_keep):
+    """Read a FASTA file and return only sequences whose headers match the contigs_to_keep list."""
+    filtered_seqs = []
+    keep = False
+    header = None
+    seq = []
+
+    with open(fasta_path, "r") as f:
+        for line in f:
+            line = line.rstrip("\n")
+            if line.startswith(">"):
+                # If we were collecting the previous sequence, save it
+                if header and keep:
+                    filtered_seqs.append((header, "".join(seq)))
+
+                header = line
+                seq = []
+
+                # Check if contig name appears in header
+                # Example header: >NODE_1_length_7412_cov_139.22
+                contig_name = header[1:]
+
+                keep = contig_name in contigs_to_keep
+            else:
+                seq.append(line)
+
+        # Save last seq
+        if header and keep:
+            filtered_seqs.append((header, "".join(seq)))
+
+    # Convert into FASTA format
+    filtered_fasta = "\n".join(f"{h}\n{s}" for h, s in filtered_seqs)
+    return filtered_fasta
 
 def main(args=None):
     args = parser_args(args)

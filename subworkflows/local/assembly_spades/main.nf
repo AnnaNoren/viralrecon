@@ -104,7 +104,9 @@ workflow ASSEMBLY_SPADES {
     )
     ch_versions = ch_versions.mix(ASSEMBLY_QC.out.versions)
 
-    BLAST_REPORT (ASSEMBLY_QC.out.blast_filter_txt)
+    BLAST_REPORT (
+        ASSEMBLY_QC.out.blast_filter_txt.join(ch_scaffolds, by: [0])
+    )
     ch_versions = ch_versions.mix(BLAST_REPORT.out.versions)
 
     emit:

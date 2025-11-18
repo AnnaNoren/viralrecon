@@ -1,5 +1,6 @@
 process BLAST_REPORT {
     label 'process_single'
+    tag "$meta.id"
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
@@ -7,7 +8,7 @@ process BLAST_REPORT {
         'community.wave.seqera.io/library/jinja2_matplotlib_pandas_python_seaborn:35dc011346333319' }"
 
     input:
-    tuple val(meta), path(blast)
+    tuple val(meta), path(blast), path(fasta)
 
     output:
     path("*.html")      , emit: blast_report
@@ -24,6 +25,8 @@ process BLAST_REPORT {
     """
     blast_report.py \\
         --blast_file ${blast} \\
+        --fasta_file ${fasta} \\
+        --sample_name ${meta.id} \\
         --output_html ${prefix}_blast_report.html \\
         $args
 
