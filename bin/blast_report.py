@@ -193,8 +193,30 @@ def filter_fasta_by_contigs(fasta_path, contigs_to_keep):
 
 def main(args=None):
     args = parser_args(args)
-    data = generate_report_data(args.blast_file, "./")
-    render_report(args.output_html, os.path.join("./", f"{data['seq_name']}.html"), data)
+
+    # Build paths
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    asset_path = os.path.join(script_dir, "../assets")
+    css_path = os.path.join(asset_path, "blast_report_template.css")
+
+    # --- Load CSS content
+    with open(css_path, "r", encoding="utf-8") as css_file:
+        css_content = css_file.read()
+
+    # --- Load Jinja2 environment from the template's folder
+    template_dir = os.path.abspath(asset_path)
+
+    env = Environment(
+        loader=FileSystemLoader(template_dir),
+        autoescape=select_autoescape(['html', 'xml'])
+    )
+
+    template = env.get_template("blast_report_template.html")
+
+    data = generate_report_data(args.blast_file, args.fasta_file, args.sample_name, args.id)
+
+    render_report(args.output_html, template, data, css_content)
+
     print(f"Report saved to: {args.output_html}")
 
 if __name__ == "__main__":
