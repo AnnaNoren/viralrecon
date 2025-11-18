@@ -70,33 +70,34 @@ def parser_args(args=None):
         help="Output HTML report file (required)",
     )
     parser.add_argument(
-        "-sr"
+        "-sr",
         "--suggest_min_rows",
         type=int,
         default=20,
         help='Minimum number of rows (hits) required to consider auto-suggestion (default: 20)'
     )
     parser.add_argument(
-        "-si"
+        "-si",
         "--suggest_min_identity",
         type=float,
         default=90.0,
         help='Minimum max %% identity required to consider auto-suggestion (default: 90)'
     )
     parser.add_argument(
-        "-sb"
+        "-sb",
         "--suggest_min_bitscore",
         type=float,
         default=300,
         help='Minimum max bitscore required to consider auto-suggestion (default: 300)'
     )
     parser.add_argument(
-        "-ns"
+        "-ns",
         "--no_suggest",
         action='store_true',
         help='Disable automated genotype suggestion'
     )
     parser.add_argument(
+        "-d",
         "--dpi",
         type=int,
         default=300,
