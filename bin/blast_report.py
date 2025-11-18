@@ -106,19 +106,20 @@ def generate_report_data(blast_file, output_base, suggest_enabled=True,
         try:
             max_pident = df.loc[df['pident'].idxmax()]
             max_bitscore = df.loc[df['bitscore'].idxmax()]
-            species_counts = df['scomname'].value_counts()
-            top_species_count = species_counts.get(max_pident['scomname'], 0)
-            if (max_pident['scomname'] == max_bitscore['scomname'] and
+            species_counts = df['sscinames'].value_counts()
+            top_species_count = species_counts.get(max_pident['sscinames'], 0)
+            if (max_pident['sscinames'] == max_bitscore['sscinames'] and
                 top_species_count >= suggest_min_rows and
                 df['pident'].max() >= suggest_min_identity and
                 df['bitscore'].max() >= suggest_min_bitscore):
-                suggestion = str(max_pident['scomname'])
+                suggestion = str(max_pident['sscinames'])
             else:
                 suggestion = "Please do manual assessment."
         except:
             suggestion = "Please do manual assessment."
 
     # Plotting example (identity per genotype)
+
     fig, ax = plt.subplots(figsize=(10,6))
     sns.pointplot(data=df, x="pident", y="scomname", hue="contig", dodge=True, errorbar=None, ax=ax)
     ax.set_title("Identity per genotype")
