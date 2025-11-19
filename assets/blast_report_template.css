@@ -64,10 +64,12 @@ body {
   text-align: center;
   margin-top: 20px;
   font-size: 0.9em;
-  color: white;
-  background: #2c3e50;
-  padding: 10px;
+  color: #2c3e50;
+  background: #ecf0f1;
+  padding: 20px;
   border-radius: 0 0 10px 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Toggle button styles */
@@ -293,4 +295,16 @@ body {
 
 .external-tool a:hover {
   text-decoration: underline;
+}
+
+.description {
+  background: #f8f9fb;
+  border-left: 4px solid var(--secondary-color);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.content {
+  padding: 2rem;
 }

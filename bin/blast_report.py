@@ -87,8 +87,8 @@ def parser_args(args=None):
         "-sb",
         "--suggest_min_bitscore",
         type=float,
-        default=300,
-        help='Minimum max bitscore required to consider auto-suggestion (default: 300)'
+        default=400,
+        help='Minimum max bitscore required to consider auto-suggestion (default: 400)'
     )
     parser.add_argument(
         "-ns",
@@ -121,21 +121,8 @@ def encode_plot_to_base64(fig, dpi=300):
     buffer.close()
     return f"data:image/png;base64,{img_base64}"
 
-def generate_report_data(blast_file, fasta_file, sample_name, id, min_qlen=200, min_coverage=50, suggest_enabled=True,
-                         suggest_min_rows=20, suggest_min_identity=90.0, suggest_min_bitscore=300, plot_dpi=300):
-
-    df = pd.read_csv(blast_file, sep="\t", header=0, index_col=0)
-
-    unique_contigs = df['qaccver'].unique()
-    df[['contig','temp1']] = df['qaccver'].str.split('_length_', expand=True)
-    df[['length','coverage']] = df['temp1'].str.split('_cov_', expand=True)
-    df = df.drop(['qaccver', 'temp1', 'length'], axis=1)
-    df['coverage'] = pd.to_numeric(df['coverage'])
-    df = df[df['qlen'] > min_qlen]
-    df = df[df['coverage'] > min_coverage]
-
-    if df.empty or df['contig'].nunique() == 0:
-        raise ValueError("No contigs meet filtering criteria")
+def generate_report_data(df, fasta_file, sample_name, id, unique_contigs, suggest_enabled=True,
+                         suggest_min_rows=20, suggest_min_identity=90.0, suggest_min_bitscore=400, plot_dpi=300):
 
     # Suggestion logic
     suggestion = "Automatic suggestion disabled."
@@ -313,8 +300,9 @@ def generate_report_data(blast_file, fasta_file, sample_name, id, min_qlen=200, 
     }
 
 
-def generate_error_report_data(blast_file, fasta_file, sample_name, id, plot_dpi=300):
-    file_name = os.path.basename(blast_file)
+def generate_error_report_data(df, fasta_file, sample_name, id, unique_contigs, plot_dpi=300):
+
+    file_name = os.path.basename(fasta_file)
 
     img_data_uri = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
     contigs_content = ""
@@ -322,18 +310,6 @@ def generate_error_report_data(blast_file, fasta_file, sample_name, id, plot_dpi
     contig_count = 0
 
     try:
-        df = pd.read_csv(blast_file, sep="\t", header=0, index_col=0)
-        unique_contigs = df['qaccver'].unique()
-
-        df[['contig','temp1']] = df['qaccver'].str.split('_length_',expand=True)
-        df[['length','coverage']] = df['temp1'].str.split('_cov_',expand=True)
-        df = df.drop(['qaccver', 'temp1', 'length'], axis=1)
-        df["coverage"] = pd.to_numeric(df["coverage"])
-
-        if df.empty or df['contig'].nunique() == 0:
-            print(f"Warning: No valid data found in BLAST file {file_name}")
-            return img_data_uri, contigs_content, contigs_summary, contig_count
-
         n_contigs = df['contig'].nunique()
         u_contigs = df[['contig','coverage','sscinames']].drop_duplicates()
         n_sscinames = df['sscinames'].nunique()
@@ -461,7 +437,7 @@ def generate_error_report_data(blast_file, fasta_file, sample_name, id, plot_dpi
         img_data_uri = f"data:image/png;base64,{img_base64}"
 
     except Exception as e:
-        print(f"Error generating plots for {file_name}: {e}")
+        print(f"Error generating plots for {sample_name}: {e}")
         img_data_uri = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
 
     # Read fasta file (unfiltered original)
@@ -477,8 +453,6 @@ def generate_error_report_data(blast_file, fasta_file, sample_name, id, plot_dpi
     except Exception as e:
         print(f"Error reading FASTA file for {file_name}: {e}")
 
-    return img_data_uri, contigs_content, contigs_summary, contig_count
-
     return {
         'sample_name': sample_name,
         'id': id,
@@ -487,15 +461,16 @@ def generate_error_report_data(blast_file, fasta_file, sample_name, id, plot_dpi
         'img_data_uri': img_data_uri,
         'contigs_content': contigs_content_html,
         'contigs_summary': contigs_summary,
-        'contig_count': contig_count
+        'contig_count': contig_count,
+        'suggestion': "No recomendation due to lack of contigs meeting filtering criteria."
     }
 
-
-def render_report(output_file, template, data, css_content):
+def render_report(output_file, template, data, css_content, logo_b64):
 
     html_content = template.render(
         css_content=css_content,
-        data = data
+        data = data,
+        logo_b64=logo_b64
     )
 
     with open(output_file, 'w', encoding='utf-8') as f:
@@ -514,7 +489,8 @@ def filter_fasta_by_contigs(fasta_path, contigs_to_keep):
             if line.startswith(">"):
                 # If we were collecting the previous sequence, save it
                 if header and keep:
-                    filtered_seqs.append((header, "".join(seq)))
+                    formatted_seq = format_sequence("".join(seq))
+                    filtered_seqs.append((header, formatted_seq))
 
                 header = line
                 seq = []
@@ -529,11 +505,43 @@ def filter_fasta_by_contigs(fasta_path, contigs_to_keep):
 
         # Save last seq
         if header and keep:
-            filtered_seqs.append((header, "".join(seq)))
+            # Format sequence with line breaks every 60 characters
+            formatted_seq = format_sequence("".join(seq))
+            filtered_seqs.append((header, formatted_seq))
 
     # Convert into FASTA format
     filtered_fasta = "\n".join(f"{h}\n{s}" for h, s in filtered_seqs)
     return filtered_fasta
+
+def format_sequence(sequence, line_length=60):
+    """Format a biological sequence with line breaks every specified number of characters."""
+    if not sequence:
+        return ""
+
+    # Split sequence into chunks of line_length characters
+    formatted_lines = []
+    for i in range(0, len(sequence), line_length):
+        formatted_lines.append(sequence[i:i+line_length])
+
+    return "\n".join(formatted_lines)
+
+def check_filters(blast_file, min_qlen=200, min_coverage=50,):
+
+    df = pd.read_csv(blast_file, sep="\t", header=0, index_col=0)
+
+    unique_contigs = df['qaccver'].unique()
+    df[['contig','temp1']] = df['qaccver'].str.split('_length_', expand=True)
+    df[['length','coverage']] = df['temp1'].str.split('_cov_', expand=True)
+    df['coverage'] = pd.to_numeric(df['coverage'])
+    filtered_df = df[df['qlen'] > min_qlen]
+    filtered_df = filtered_df[filtered_df['coverage'] > min_coverage]
+
+
+    if filtered_df.empty or df['contig'].nunique() == 0:
+        return df, True, unique_contigs
+    else:
+        unique_contigs = filtered_df['qaccver'].unique()
+        return filtered_df, False, unique_contigs
 
 def main(args=None, is_error=False):
     args = parser_args(args)
@@ -557,12 +565,21 @@ def main(args=None, is_error=False):
 
     template = env.get_template("blast_report_template.html")
 
-    if is_error:
-        data = generate_error_report_data(args.blast_file, args.fasta_file, args.sample_name, args.id, plot_dpi=args.dpi)
-    else:
-        data = generate_report_data(args.blast_file, args.fasta_file, args.sample_name, args.id, args.min_qlen, args.min_coverage, plot_dpi=args.dpi)
+    logo_path = os.path.join(asset_path, "nf-core-viralrecon_logo_light.png")
 
-    render_report(args.output_html, template, data, css_content)
+    # Load image and encode to base64
+    with open(logo_path, "rb") as f:
+        logo_bytes = f.read()
+        logo_b64 = base64.b64encode(logo_bytes).decode("utf-8")
+
+    blast_results, is_error, unique_contigs = check_filters(args.blast_file, args.min_qlen, args.min_coverage)
+
+    if is_error:
+        data = generate_error_report_data(blast_results, args.fasta_file, args.sample_name, args.id, unique_contigs, plot_dpi=args.dpi)
+    else:
+        data = generate_report_data(blast_results, args.fasta_file, args.sample_name, args.id, unique_contigs, plot_dpi=args.dpi)
+
+    render_report(args.output_html, template, data, css_content, logo_b64)
 
     print(f"📁 Report saved to: {args.output_html}")
 
