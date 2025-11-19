@@ -200,7 +200,7 @@ def generate_report_data(blast_file, fasta_file, sample_name, id, min_qlen=200, 
 
     # Plot 1: identity score
     ax = fig.add_subplot(gs[0 , 0])
-    ax.set_title("Figur 1: Identitet per genotyp")
+    ax.set_title("Figure 1: Identity per genotype")
     sns.pointplot(
         data=df, x="pident", y="sscinames", hue="contig",
         dodge=.8 - .8 / n_contigs, palette="dark", errorbar=None,
@@ -216,11 +216,11 @@ def generate_report_data(blast_file, fasta_file, sample_name, id, min_qlen=200, 
                 ax.axhspan(i - 0.5, i + 0.5, facecolor='gray', alpha=0.2, zorder=-1)
     ax.set_ylim(-0.5, n_sscinames-0.3)
     ax.grid(True, axis="x", linestyle="--")
-    ax.set(xlabel='BLAST identitet (%)', ylabel='Genotyp')
+    ax.set(xlabel='BLAST identitety (%)', ylabel='Genotype')
 
     # Plot 2: bit score
     ax = fig.add_subplot(gs[0 , 1])
-    ax.set_title("Figur 2: Bit score per genotyp")
+    ax.set_title("Figure 2: Bit-score per genotype")
     sns.pointplot(
         data=df, x="bitscore", y="sscinames", hue="contig",
         dodge=.8 - .8 / n_contigs, palette="dark", errorbar=None,
@@ -239,11 +239,11 @@ def generate_report_data(blast_file, fasta_file, sample_name, id, min_qlen=200, 
     if legend_status:
         ax.legend().set_title("Contig")
         sns.move_legend(ax, "upper left", bbox_to_anchor=(1, 1))
-    ax.set(xlabel='BLAST bit score', ylabel=' ')
+    ax.set(xlabel='BLAST Bit-score', ylabel=' ')
 
     # Plot 3: coverage
     ax = fig.add_subplot(gs[1, 0])
-    ax.set_title("Figur 3: Täckning per contig")
+    ax.set_title("Figure 3: Coverage per contig")
     sns.pointplot(
         data=u_contigs, x="coverage", y="contig", hue="contig",
         dodge=.8 - .8 / n_contigs, palette="dark", errorbar=None,
@@ -255,13 +255,13 @@ def generate_report_data(blast_file, fasta_file, sample_name, id, min_qlen=200, 
                 ax.axhspan(i - 0.5, i + 0.5, facecolor='gray', alpha=0.2, zorder=-1)
     ax.set_ylim(-0.5, n_contigs-0.3)
     ax.grid(True, axis="x", linestyle="--")
-    ax.set(xlabel='Täckning (x)', ylabel='Contig')
+    ax.set(xlabel='Coverage (x)', ylabel='Contig')
     ax.set_xscale('log')
     ax.set_xlim(left=50, right=10*df['coverage'].max())
 
     # Plot 4: length
     ax = fig.add_subplot(gs[1, 1])
-    ax.set_title("Figur 4: Längd per contig")
+    ax.set_title("Figure 4: Length per contig")
     sns.pointplot(
         data=l_contigs, x="qlen", y="contig", hue="contig",
         dodge=.8 - .8 / n_contigs, palette="dark", errorbar=None,
@@ -273,7 +273,7 @@ def generate_report_data(blast_file, fasta_file, sample_name, id, min_qlen=200, 
                 ax.axhspan(i - 0.5, i + 0.5, facecolor='gray', alpha=0.2, zorder=-1)
     ax.set_ylim(-0.5, n_contigs-0.3)
     ax.grid(True, axis="x", linestyle="--")
-    ax.set(xlabel='Längd (bp)', ylabel=' ')
+    ax.set(xlabel='Length (bp)', ylabel=' ')
     ax.set_xlim(left=200, right=1.1*df['qlen'].max())
 
     fig.subplots_adjust(hspace=20, wspace=20)
@@ -297,7 +297,7 @@ def generate_report_data(blast_file, fasta_file, sample_name, id, min_qlen=200, 
     # Warning
     warningtext = ''
     if df['pident'].max() < 90:
-        warningtext = "&#9888; OBS! Highest identity < 90%"
+        warningtext = "&#9888; Highest identity < 90%"
 
     return {
         'sample_name': sample_name,
@@ -369,7 +369,7 @@ def generate_error_report_data(blast_file, fasta_file, sample_name, id, plot_dpi
 
         # (plots identical to normal path)
         ax = fig.add_subplot(gs[0 , 0])
-        ax.set_title("Figur 1: Identitet per genotyp")
+        ax.set_title("Figure 1: Identity per genotype")
         sns.pointplot(
             data=df, x="pident", y="sscinames", hue="contig",
             dodge=.8 - .8 / n_contigs, palette="dark", errorbar=None,
@@ -385,10 +385,10 @@ def generate_error_report_data(blast_file, fasta_file, sample_name, id, plot_dpi
                     ax.axhspan(i - 0.5, i + 0.5, facecolor='gray', alpha=0.2, zorder=-1)
         ax.set_ylim(-0.5, n_sscinames-0.3)
         ax.grid(True, axis="x", linestyle="--")
-        ax.set(xlabel='BLAST identitet (%)', ylabel='Genotyp')
+        ax.set(xlabel='BLAST identity (%)', ylabel='Genotype')
 
         ax = fig.add_subplot(gs[0 , 1])
-        ax.set_title("Figur 2: Bit score per genotyp")
+        ax.set_title("Figure 2: Bit-score per genotype")
         sns.pointplot(
             data=df, x="bitscore", y="sscinames", hue="contig",
             dodge=.8 - .8 / n_contigs, palette="dark", errorbar=None,
@@ -407,10 +407,10 @@ def generate_error_report_data(blast_file, fasta_file, sample_name, id, plot_dpi
         if legend_status:
             ax.legend().set_title("Contig")
             sns.move_legend(ax, "upper left", bbox_to_anchor=(1, 1))
-        ax.set(xlabel='BLAST bit score', ylabel=' ')
+        ax.set(xlabel='BLAST Bit-score', ylabel=' ')
 
         ax = fig.add_subplot(gs[1, 0])
-        ax.set_title("Figur 3: Täckning per contig")
+        ax.set_title("Figure 3: Coverage per contig")
         sns.pointplot(
             data=u_contigs, x="coverage", y="contig", hue="contig",
             dodge=.8 - .8 / n_contigs, palette="dark", errorbar=None,
@@ -422,7 +422,7 @@ def generate_error_report_data(blast_file, fasta_file, sample_name, id, plot_dpi
                     ax.axhspan(i - 0.5, i + 0.5, facecolor='gray', alpha=0.2, zorder=-1)
         ax.set_ylim(-0.5, n_contigs-0.3)
         ax.grid(True, axis="x", linestyle="--")
-        ax.set(xlabel='Täckning (x)', ylabel='Contig')
+        ax.set(xlabel='Coverage (x)', ylabel='Contig')
         ax.set_xscale('log')
         max_coverage = df['coverage'].max()
         if max_coverage > 0:
@@ -431,7 +431,7 @@ def generate_error_report_data(blast_file, fasta_file, sample_name, id, plot_dpi
             ax.set_xlim(left=0.1, right=100)
 
         ax = fig.add_subplot(gs[1, 1])
-        ax.set_title("Figur 4: Längd per contig")
+        ax.set_title("Figure 4: Length per contig")
         sns.pointplot(
             data=l_contigs, x="qlen", y="contig", hue="contig",
             dodge=.8 - .8 / n_contigs, palette="dark", errorbar=None,
@@ -443,7 +443,7 @@ def generate_error_report_data(blast_file, fasta_file, sample_name, id, plot_dpi
                     ax.axhspan(i - 0.5, i + 0.5, facecolor='gray', alpha=0.2, zorder=-1)
         ax.set_ylim(-0.5, n_contigs-0.3)
         ax.grid(True, axis="x", linestyle="--")
-        ax.set(xlabel='Längd (bp)', ylabel=' ')
+        ax.set(xlabel='Length (bp)', ylabel=' ')
         max_length = df['qlen'].max()
         if max_length > 0:
             ax.set_xlim(left=max(1, df['qlen'].min()/2), right=1.1*max_length)
