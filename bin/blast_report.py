@@ -525,7 +525,7 @@ def format_sequence(sequence, line_length=60):
 
     return "\n".join(formatted_lines)
 
-def check_filters(blast_file, min_qlen=200, min_coverage=50,):
+def check_filters(blast_file, min_qlen=200, min_coverage=50):
 
     df = pd.read_csv(blast_file, sep="\t", header=0, index_col=0)
 
