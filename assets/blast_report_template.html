@@ -33,9 +33,9 @@
       <div class="content">
         <div class="description">
           {% if is_error_report %}
-          <p><strong>Sammanställning av resultat</strong> för alla contigs (ofiltrerade data).</p>
+          <p><strong>Compilation of results</strong> for all contigs (unfiltered data).</p>
           {% else %}
-          <p><strong>Sammanställning av resultat</strong> för contigs med täckning minst 50x och längd minst 200bp.</p>
+          <p><strong>Compilation of results</strong> for contigs with a coverage of at least 50x and length of at least 200bp.</p>
           {% endif %}
         </div>
 
@@ -44,12 +44,12 @@
 
           {% if suggestion != "Automatic suggestion disabled." %}
           <details style="margin-top: 0.8rem; font-size: 0.9em">
-            <summary>Visa detaljer (kriterier för genotyptolkning)</summary>
+            <summary>Show details (criteria for genotype suggestion)</summary>
             <div class="details-content" style="margin-top: 0.5rem; font-size: 0.9em; line-height: 1.4">
-              <b>En genotyp föreslås om följande kriterier alla är uppfyllda:</b><br />
-              • Genotypen har både det högsta värdet för identitet och bitscore<br />
-              • Genotypen har den högsta medianen för både identitet och bitscore<br />
-              • Genotypen har minst 20 träffar, minst 90% identitet samt minst 400 bitscore
+              <b>A genotype is suggested if all following criteria is met:</b><br />
+              • The genotype has the highest score for both identity and bitscore<br />
+              • The genotype has the highest median for both identity and bitscore<br />
+              • The genotype has at least 20 hits, 90% identity and 400 bitscore
             </div>
           </details>
           {% endif %}
@@ -59,8 +59,7 @@
         <div class="warning">
           <span class="warning-icon">⚠️</span>
           <span class="warning-text"
-            >OBS! Inga contigs uppfyllde kriterierna för standardanalys (minst 200bp längd och 50x täckning). Visar
-            resultat för alla tillgängliga contigs.</span
+            >Note! No contigs met the criteria for standard analysis (at least 200bp length and 50x coverage). Showing results for all available contigs.</span
           >
         </div>
         {% endif %} {% if data.warningtext and not is_error_report %}
@@ -140,7 +139,7 @@
           the
           <a href="https://www.isciii.es/ub/unidad">Bioinformatics Unit of Instituto de Salud Carlos III (BU-ISCIII)</a>
           and both <a href="https://ki.se/">Karolinska Institutet (KI)</a> and
-          <a href="https://www.karolinska.se/lab">Karolinska Universitetslaboratoriet (KUL)</a>.
+          <a href="https://www.karolinska.se/lab">Karolinska University Laboratory (KUL)</a>.
         </p>
       </div>
     </div>
