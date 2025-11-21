@@ -10,12 +10,13 @@ import datetime
 import os
 import sys
 import argparse
+import csv
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 def parser_args(args=None):
     Description = "Generate HTML reports from filtered BLAST results."
     Epilog = """Example usage:
-    python blast_report.py --blast_file sample.filter.blastn.txt --fasta_file sample.scaffolds.fa --sample_name sample --id ticket_id --output_html sample_blast_report.html
+    python blast_report.py --blast_file sample.filter.blastn.txt --fasta_file sample.scaffolds.fa --sample_name sample --id ticket_id --output_html sample_blast_report.html --output_fasta sample_reversed_filtered_contigs.fa
     """
     parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
 
@@ -63,11 +64,18 @@ def parser_args(args=None):
         help="Minimum coverage to consider a BLAST hit (optional)",
     )
     parser.add_argument(
-        "-o",
+        "-oh",
         "--output_html",
         required=True,
         type=str,
         help="Output HTML report file (required)",
+    )
+    parser.add_argument(
+        "-of",
+        "--output_fasta",
+        required=True,
+        type=str,
+        help="Output FASTA file with reversed filtered contigs (required)",
     )
     parser.add_argument(
         "-sr",
@@ -159,7 +167,7 @@ def generate_report_data(df, fasta_file, sample_name, id, unique_contigs, sugges
     l_contigs = df[['contig','qlen','sscinames']].drop_duplicates()
 
     if n_contigs == 0 or n_sscinames == 0:
-        raise ValueError(f"Invalid contig or genotype count for {file_name}")
+        raise ValueError(f"Invalid contig or genotype count for {sample_name}")
 
     pident_medians = df.groupby('sscinames')['pident'].median().sort_values(ascending=True)
     bitscore_medians = df.groupby('sscinames')['bitscore'].median().sort_values(ascending=True)
@@ -497,7 +505,7 @@ def filter_fasta_by_contigs(fasta_path, contigs_to_keep):
 
                 # Check if contig name appears in header
                 # Example header: >NODE_1_length_7412_cov_139.22
-                contig_name = header[1:]
+                contig_name = header.replace('_reverse_complement', '')[1:]
 
                 keep = contig_name in contigs_to_keep
             else:
@@ -543,6 +551,61 @@ def check_filters(blast_file, min_qlen=200, min_coverage=50):
         unique_contigs = filtered_df['qaccver'].unique()
         return filtered_df, False, unique_contigs
 
+def reverse_complement(seq: str) -> str:
+    comp = str.maketrans("ACGTacgtNn", "TGCAtgcaNn")
+    return seq.translate(comp)[::-1]
+
+
+def get_reverse_contigs(blast_file):
+    contigs = set()
+    with open(blast_file, newline="") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        for row in reader:
+            try:
+                sstart = int(row["sstart"])
+                send = int(row["send"])
+            except:
+                continue
+            if sstart > send:
+                contigs.add(row["qaccver"])
+    return contigs
+
+def process_fasta(fasta_in, fasta_out, reverse_set):
+    """Reverse-complement sequences whose ID is in reverse_set and update header."""
+    def write_record(out, header, seq_lines):
+        if not header:
+            return
+        seq = "".join(seq_lines)
+
+        # Extract FASTA ID (everything after ">" up to first space)
+        fasta_id = header.split()[0][1:]
+
+        if fasta_id in reverse_set:
+            seq = reverse_complement(seq)
+            new_header = f">{fasta_id}_reverse_complement"
+        else:
+            new_header = header
+
+        out.write(new_header + "\n")
+        for i in range(0, len(seq), 80):
+            out.write(seq[i:i+80] + "\n")
+
+    with open(fasta_in) as fin, open(fasta_out, "w") as fout:
+        header = None
+        seq_lines = []
+
+        for line in fin:
+            line = line.rstrip("\n")
+            if line.startswith(">"):
+                write_record(fout, header, seq_lines)
+                header = line
+                seq_lines = []
+            else:
+                if line:
+                    seq_lines.append(line.strip())
+
+        write_record(fout, header, seq_lines)
+
 def main(args=None, is_error=False):
     args = parser_args(args)
 
@@ -574,10 +637,21 @@ def main(args=None, is_error=False):
 
     blast_results, is_error, unique_contigs = check_filters(args.blast_file, args.min_qlen, args.min_coverage)
 
-    if is_error:
-        data = generate_error_report_data(blast_results, args.fasta_file, args.sample_name, args.id, unique_contigs, plot_dpi=args.dpi)
+    reverse_set = get_reverse_contigs(args.blast_file)
+
+    if reverse_set:
+        print(f"Reverse-complementing {len(reverse_set)} contig(s): {', '.join(reverse_set)}")
     else:
-        data = generate_report_data(blast_results, args.fasta_file, args.sample_name, args.id, unique_contigs, plot_dpi=args.dpi)
+        print("No reverse-oriented contigs detected.")
+
+    process_fasta(args.fasta_file, args.output_fasta, reverse_set)
+
+    print(f"Output FASTA written to: {args.output_fasta}")
+
+    if is_error:
+        data = generate_error_report_data(blast_results, args.output_fasta, args.sample_name, args.id, unique_contigs, plot_dpi=args.dpi)
+    else:
+        data = generate_report_data(blast_results, args.output_fasta, args.sample_name, args.id, unique_contigs, plot_dpi=args.dpi)
 
     render_report(args.output_html, template, data, css_content, logo_b64)
 
