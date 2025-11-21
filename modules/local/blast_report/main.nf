@@ -11,8 +11,9 @@ process BLAST_REPORT {
     tuple val(meta), path(blast), path(fasta)
 
     output:
-    path("*.html")      , emit: blast_report
-    path "versions.yml" , emit: versions
+    tuple val(meta), path("*.html") , emit: blast_report
+    tuple val(meta), path("*.fa")   , emit: reversed_contigs
+    path "versions.yml"             , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -28,6 +29,7 @@ process BLAST_REPORT {
         --fasta_file ${fasta} \\
         --sample_name ${meta.id} \\
         --output_html ${prefix}_blast_report.html \\
+        --output_fasta ${prefix}_reversed_contigs.fa \\
         $suggestions \\
         $args
 
