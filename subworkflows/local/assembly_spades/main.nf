@@ -124,6 +124,7 @@ workflow ASSEMBLY_SPADES {
     blast_txt          = ASSEMBLY_QC.out.blast_txt          // channel: [ val(meta), [ txt ] ]
     blast_filter_txt   = ASSEMBLY_QC.out.blast_filter_txt   // channel: [ val(meta), [ txt ] ]
     blast_report       = BLAST_REPORT.out.blast_report      // channel: [ val(meta), [ html ] ]
+    reversed_fasta     = BLAST_REPORT.out.reversed_contigs  // channel: [ val(meta), [ fasta ] ]
 
     quast_results      = ASSEMBLY_QC.out.quast_results      // channel: [ val(meta), [ results ] ]
     quast_tsv          = ASSEMBLY_QC.out.quast_tsv          // channel: [ val(meta), [ tsv ] ]
