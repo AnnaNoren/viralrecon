@@ -103,11 +103,12 @@ workflow ASSEMBLY_SPADES {
         ch_taxidlist
     )
     ch_versions = ch_versions.mix(ASSEMBLY_QC.out.versions)
-
+    if (!params.skip_blast && (params.genome == 'NC_002058.3' || params.perform_ev_typing)) {
     BLAST_REPORT (
         ASSEMBLY_QC.out.blast_filter_txt.join(ch_scaffolds, by: [0])
     )
     ch_versions = ch_versions.mix(BLAST_REPORT.out.versions)
+    }
 
     emit:
     scaffolds          = SPADES.out.scaffolds               // channel: [ val(meta), [ scaffolds ] ]
