@@ -22,12 +22,13 @@ Thank you to everyone else that has contributed by reporting bugs, enhancements 
 - [[PR #562](https://github.com/nf-core/viralrecon/pull/562)] - Added pangolin-data database from test-datasets to test config
 - [[PR #541](https://github.com/nf-core/viralrecon/pull/541)] - Implement new blastn module with taxid filtering in pipeline
 - [[PR #572](https://github.com/nf-core/viralrecon/pull/572)] - Template update for nf-core/tools v3.5.1
+- [[PR #574](https://github.com/nf-core/viralrecon/pull/574)] - Added BLAST HTML report
 
 ### Parameters
 
-| Old parameter | New parameter       |
-| ------------- | ------------------- |
-|               | `--taxidlist`       |
+| Old parameter | New parameter         |
+| ------------- | --------------------- |
+|               | `--taxidlist`         |
 |               | `--perform_ev_typing` |
 
 > **NB:** Parameter has been **updated** if both old and new parameter information is present.
