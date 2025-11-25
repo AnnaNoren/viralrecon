@@ -12,6 +12,7 @@ process PREPARE_PRIMER_FASTA {
 
     output:
     path 'adapters.sub.fa', emit: adapters
+    tuple val("${task.process}"), val('sed'), eval('echo \\$(sed --version 2>&1) | sed "s/^.*GNU sed) //; s/ .*//"'), emit: versions_sed, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -21,10 +22,5 @@ process PREPARE_PRIMER_FASTA {
 
     """
     sed -r '/^[ACTGactg]+\$/ s/$args/X/g' $adapters > adapters.sub.fa
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        sed: \$(echo \$(sed --version 2>&1) | sed 's/^.*GNU sed) //; s/ .*\$//')
-    END_VERSIONS
     """
 }

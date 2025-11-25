@@ -21,7 +21,7 @@ workflow ASSEMBLY_UNICYCLER {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Assemble reads with Unicycler
@@ -64,8 +64,8 @@ workflow ASSEMBLY_UNICYCLER {
     //
     // Generate assembly visualisation with Bandage
     //
-    ch_bandage_png = Channel.empty()
-    ch_bandage_svg = Channel.empty()
+    ch_bandage_png = channel.empty()
+    ch_bandage_svg = channel.empty()
     if (!params.skip_bandage) {
         BANDAGE_IMAGE (
             ch_gfa

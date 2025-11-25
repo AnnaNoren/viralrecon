@@ -14,7 +14,7 @@ workflow VARIANTS_LONG_TABLE {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     BCFTOOLS_QUERY (
         vcf.join(tbi, by: [0]),
@@ -29,7 +29,6 @@ workflow VARIANTS_LONG_TABLE {
         snpsift.collect{it[1]}.ifEmpty([]),
         pangolin.collect{it[1]}.ifEmpty([])
     )
-    ch_versions = ch_versions.mix(MAKE_VARIANTS_LONG_TABLE.out.versions)
 
     emit:
     query_table = BCFTOOLS_QUERY.out.output        // channel: [ val(meta), [ txt ] ]

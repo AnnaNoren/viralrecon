@@ -84,8 +84,8 @@
                     "pigz": 2.8
                 },
                 "MAKE_BED_MASK": {
-                    "samtools": 1.14,
-                    "python": "3.9.5"
+                    "python": "3.9.5",
+                    "samtools": 1.14
                 },
                 "MOSDEPTH_GENOME": {
                     "mosdepth": "0.3.11"
@@ -1129,8 +1129,8 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
         },
         "timestamp": "2025-11-12T10:19:35.862558771"
     },
@@ -1225,8 +1225,8 @@
                     "pigz": 2.8
                 },
                 "MAKE_BED_MASK": {
-                    "samtools": 1.14,
-                    "python": "3.9.5"
+                    "python": "3.9.5",
+                    "samtools": 1.14
                 },
                 "MAKE_VARIANTS_LONG_TABLE": {
                     "python": "3.13.2"
@@ -2350,8 +2350,8 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
         },
         "timestamp": "2025-11-12T10:25:37.897937839"
     }

@@ -14,7 +14,7 @@ workflow VCF_TABIX_STATS {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     TABIX_TABIX (
         vcf

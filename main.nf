@@ -78,7 +78,7 @@ workflow NFCORE_VIRALRECON {
     //
     // WORKFLOW: Run pipeline
     //
-    multiqc_report   = Channel.empty()
+    multiqc_report   = channel.empty()
 
         VIRALRECON (
             samplesheet,

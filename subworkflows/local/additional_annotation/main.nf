@@ -21,12 +21,12 @@ workflow ADDITIONAL_ANNOTATION {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Uncompress additional annotation file
     //
-    ch_annot = Channel.empty()
+    ch_annot = channel.empty()
 
     if (params.additional_annotation.endsWith('.gz')) {
         GUNZIP_GFF (
@@ -35,14 +35,14 @@ workflow ADDITIONAL_ANNOTATION {
         ch_annot       = GUNZIP_GFF.out.gunzip.map { it[1] }
         ch_versions = ch_versions.mix(GUNZIP_GFF.out.versions)
     } else {
-        ch_annot = Channel.value(file(params.additional_annotation))
+        ch_annot = channel.value(file(params.additional_annotation))
     }
 
     //
     // Make snpEff database
     //
-    ch_snpeff_db     = Channel.empty()
-    ch_snpeff_config = Channel.empty()
+    ch_snpeff_db     = channel.empty()
+    ch_snpeff_config = channel.empty()
 
     SNPEFF_BUILD (
         fasta,
@@ -50,7 +50,6 @@ workflow ADDITIONAL_ANNOTATION {
     )
     ch_snpeff_db     = SNPEFF_BUILD.out.db
     ch_snpeff_config = SNPEFF_BUILD.out.config
-    ch_versions      = ch_versions.mix(SNPEFF_BUILD.out.versions)
 
     SNPEFF_ANN (
         vcf,
@@ -58,7 +57,6 @@ workflow ADDITIONAL_ANNOTATION {
         ch_snpeff_config,
         fasta
     )
-    ch_versions = ch_versions.mix(SNPEFF_ANN.out.versions.first())
 
     VCF_BGZIP_TABIX_STATS (
         SNPEFF_ANN.out.vcf,
@@ -71,7 +69,6 @@ workflow ADDITIONAL_ANNOTATION {
     SNPSIFT_EXTRACTFIELDS (
         VCF_BGZIP_TABIX_STATS.out.vcf
     )
-    ch_versions = ch_versions.mix(SNPSIFT_EXTRACTFIELDS.out.versions.first())
 
     BCFTOOLS_QUERY (
         vcf.join(tbi, by: [0]),
@@ -86,7 +83,6 @@ workflow ADDITIONAL_ANNOTATION {
         SNPSIFT_EXTRACTFIELDS.out.txt.collect{it[1]}.ifEmpty([]),
         pangolin.collect{it[1]}.ifEmpty([])
     )
-    ch_versions = ch_versions.mix(MAKE_VARIANTS_LONG_TABLE_ADDITIONAL.out.versions)
 
     emit:
     long_table  = MAKE_VARIANTS_LONG_TABLE_ADDITIONAL.out.csv // channel: [ val(meta), [ csv ] ]

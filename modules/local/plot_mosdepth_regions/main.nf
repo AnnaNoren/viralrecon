@@ -14,7 +14,7 @@ process PLOT_MOSDEPTH_REGIONS {
     path '*coverage.tsv', emit: coverage_tsv
     path '*heatmap.pdf' , optional:true, emit: heatmap_pdf
     path '*heatmap.tsv' , optional:true, emit: heatmap_tsv
-    path "versions.yml" , emit: versions
+    tuple val("${task.process}"), val('r-base'), eval('echo \\$(R --version 2>&1) | sed "s/^.*R version //; s/ .*//"'), emit: versions_r_base, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -28,10 +28,5 @@ process PLOT_MOSDEPTH_REGIONS {
         --output_dir ./ \\
         --output_suffix $prefix \\
         $args
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
-    END_VERSIONS
     """
 }

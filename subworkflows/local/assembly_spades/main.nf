@@ -24,7 +24,7 @@ workflow ASSEMBLY_SPADES {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Filter for paired-end samples if running metaSPAdes / metaviralSPAdes / metaplasmidSPAdes
@@ -79,8 +79,8 @@ workflow ASSEMBLY_SPADES {
     //
     // Generate assembly visualisation with Bandage
     //
-    ch_bandage_png = Channel.empty()
-    ch_bandage_svg = Channel.empty()
+    ch_bandage_png = channel.empty()
+    ch_bandage_svg = channel.empty()
     if (!params.skip_bandage) {
         BANDAGE_IMAGE (
             ch_gfa

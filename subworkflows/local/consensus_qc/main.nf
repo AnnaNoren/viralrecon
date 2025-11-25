@@ -18,13 +18,13 @@ workflow CONSENSUS_QC {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Consensus QC report across samples with QUAST
     //
-    ch_quast_results = Channel.empty()
-    ch_quast_tsv     = Channel.empty()
+    ch_quast_results = channel.empty()
+    ch_quast_tsv     = channel.empty()
     if (!params.skip_variants_quast) {
     consensus
         .collect{ it[1] }
@@ -44,8 +44,8 @@ workflow CONSENSUS_QC {
     //
     // Lineage analysis with Pangolin
     //
-    ch_pangolin_report = Channel.empty()
-    ch_pango_database = Channel.empty()
+    ch_pangolin_report = channel.empty()
+    ch_pango_database = channel.empty()
 
     if (!params.skip_pangolin) {
         if (!params.pango_database) {
@@ -60,7 +60,7 @@ workflow CONSENSUS_QC {
                 ch_pango_database = UNTAR_PANGODB.out.untar.map { it[1] }
                 ch_versions       = ch_versions.mix(UNTAR_PANGODB.out.versions)
             } else {
-                ch_pango_database = Channel.value(file(params.pango_database, type: 'dir'))
+                ch_pango_database = channel.value(file(params.pango_database, type: 'dir'))
             }
         }
         PANGOLIN_RUN (
@@ -74,7 +74,7 @@ workflow CONSENSUS_QC {
     //
     // Lineage analysis with Nextclade
     //
-    ch_nextclade_report = Channel.empty()
+    ch_nextclade_report = channel.empty()
     if (!params.skip_nextclade) {
         NEXTCLADE_RUN (
             consensus,
@@ -87,15 +87,14 @@ workflow CONSENSUS_QC {
     //
     // Plot consensus base density
     //
-    ch_bases_tsv = Channel.empty()
-    ch_bases_pdf = Channel.empty()
+    ch_bases_tsv = channel.empty()
+    ch_bases_pdf = channel.empty()
     if (!params.skip_consensus_plots) {
         PLOT_BASE_DENSITY (
             consensus
         )
         ch_bases_tsv = PLOT_BASE_DENSITY.out.tsv
         ch_bases_pdf = PLOT_BASE_DENSITY.out.pdf
-        ch_versions  = ch_versions.mix(PLOT_BASE_DENSITY.out.versions.first())
     }
 
     emit:

@@ -26,10 +26,10 @@ workflow FASTQ_TRIM_FASTP_FASTQC {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
-    fastqc_raw_html = Channel.empty()
-    fastqc_raw_zip  = Channel.empty()
+    fastqc_raw_html = channel.empty()
+    fastqc_raw_zip  = channel.empty()
     if (!params.skip_fastqc) {
         FASTQC_RAW (
             reads
@@ -40,13 +40,13 @@ workflow FASTQ_TRIM_FASTP_FASTQC {
     }
 
     trim_reads        = reads
-    trim_json         = Channel.empty()
-    trim_html         = Channel.empty()
-    trim_log          = Channel.empty()
-    trim_reads_fail   = Channel.empty()
-    trim_reads_merged = Channel.empty()
-    fastqc_trim_html  = Channel.empty()
-    fastqc_trim_zip   = Channel.empty()
+    trim_json         = channel.empty()
+    trim_html         = channel.empty()
+    trim_log          = channel.empty()
+    trim_reads_fail   = channel.empty()
+    trim_reads_merged = channel.empty()
+    fastqc_trim_html  = channel.empty()
+    fastqc_trim_zip   = channel.empty()
     if (!params.skip_fastp) {
         FASTP (
             reads.map { meta, reads -> tuple(meta, reads, adapter_fasta) },

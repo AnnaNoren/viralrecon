@@ -12,7 +12,8 @@ process KRAKEN2_BUILD {
 
     output:
     path 'kraken2_db'  , emit: db
-    path "versions.yml", emit: versions
+    tuple val("${task.process}"), val('kraken2'), eval('echo \\$(kraken2 --version 2>&1) | sed "s/^.*Kraken version //; s/ .*//"'), emit: versions_kraken2_build, topic: versions
+    tuple val("${task.process}"), val('pigz')   , eval('pigz --version 2>&1 | sed "s/pigz //g"')                                  , emit: versions_pigz, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -25,11 +26,5 @@ process KRAKEN2_BUILD {
     kraken2-build --db kraken2_db --threads $task.cpus $args  --download-taxonomy
     kraken2-build --db kraken2_db --threads $task.cpus $args2 --download-library $library
     kraken2-build --db kraken2_db --threads $task.cpus $args3 --build
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        kraken2: \$(echo \$(kraken2 --version 2>&1) | sed 's/^.*Kraken version //; s/ .*\$//')
-        pigz: \$( pigz --version 2>&1 | sed 's/pigz //g' )
-    END_VERSIONS
     """
 }

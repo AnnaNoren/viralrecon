@@ -48,7 +48,7 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 
 if (params.input)                 { ch_input          = file(params.input)                 } else { exit 1, 'Input samplesheet file not specified!' }
 if (params.spades_hmm)            { ch_spades_hmm     = file(params.spades_hmm)            } else { ch_spades_hmm = []                              }
-if (params.additional_annotation) { ch_additional_gtf = file(params.additional_annotation) } else { ch_additional_gtf = Channel.empty()             }
+if (params.additional_annotation) { ch_additional_gtf = file(params.additional_annotation) } else { ch_additional_gtf = channel.empty()             }
 if (params.taxidlist)             { ch_taxidlist      = file(params.taxidlist)             } else { ch_taxidlist = []                               }
 
 def assemblers = params.assemblers ? params.assemblers.split(',').collect{ it.trim().toLowerCase() } : []
@@ -59,7 +59,7 @@ if (!variant_caller) { variant_caller = params.protocol == 'amplicon' ? 'ivar' :
 if (params.sequencing_summary)      { ch_sequencing_summary = file(params.sequencing_summary)      } else { ch_sequencing_summary = [] }
 
 // Need to stage artic model properly depending on whether it is a string or a file
-ch_artic_model_dir = params.artic_minion_model_dir ? Channel.value(file(params.artic_minion_model_dir, type: 'dir')) :  []
+ch_artic_model_dir = params.artic_minion_model_dir ? channel.value(file(params.artic_minion_model_dir, type: 'dir')) :  []
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -172,9 +172,9 @@ workflow VIRALRECON {
     ch_artic_scheme
 
     main:
-    ch_versions      = Channel.empty()
-    ch_multiqc_files = Channel.empty()
-    multiqc_report   = Channel.empty()
+    ch_versions      = channel.empty()
+    ch_multiqc_files = channel.empty()
+    multiqc_report   = channel.empty()
 
     //
     // SUBWORKFLOW: Uncompress and prepare reference genome files
@@ -322,8 +322,8 @@ workflow VIRALRECON {
         //
         // SUBWORKFLOW: Alignment with Bowtie2
         //
-        ch_bam = Channel.empty()
-        ch_bai = Channel.empty()
+        ch_bam = channel.empty()
+        ch_bai = channel.empty()
         if (!params.skip_variants) {
             FASTQ_ALIGN_BOWTIE2 (
                 ch_variants_fastq,
@@ -342,7 +342,7 @@ workflow VIRALRECON {
         //
         // Filter channels to get samples that passed Bowtie2 minimum mapped reads threshold
         //
-        ch_fail_mapping_multiqc = Channel.empty()
+        ch_fail_mapping_multiqc = channel.empty()
         if (!params.skip_variants) {
             FASTQ_ALIGN_BOWTIE2.out.flagstat
                 .map { meta, flagstat -> [ meta ] + getFlagstatMappedReads(flagstat, params) }
@@ -440,7 +440,6 @@ workflow VIRALRECON {
             PLOT_MOSDEPTH_REGIONS_GENOME (
                 MOSDEPTH_GENOME.out.regions_bed.collect { it[1] }
             )
-            ch_versions = ch_versions.mix(PLOT_MOSDEPTH_REGIONS_GENOME.out.versions)
 
             if (params.protocol == 'amplicon') {
                 MOSDEPTH_AMPLICON (
@@ -455,16 +454,15 @@ workflow VIRALRECON {
                     MOSDEPTH_AMPLICON.out.regions_bed.collect { it[1] }
                 )
                 ch_multiqc_files = ch_multiqc_files.mix(PLOT_MOSDEPTH_REGIONS_AMPLICON.out.heatmap_tsv.collect().ifEmpty([]))
-                ch_versions      = ch_versions.mix(PLOT_MOSDEPTH_REGIONS_AMPLICON.out.versions)
             }
         }
 
         //
         // SUBWORKFLOW: Call variants with IVar
         //
-        ch_vcf                    = Channel.empty()
-        ch_tbi                    = Channel.empty()
-        ch_snpsift_txt            = Channel.empty()
+        ch_vcf                    = channel.empty()
+        ch_tbi                    = channel.empty()
+        ch_snpsift_txt            = channel.empty()
         if (!params.skip_variants && variant_caller == 'ivar') {
             VARIANTS_IVAR (
                 ch_bam,
@@ -527,8 +525,8 @@ workflow VIRALRECON {
         //
         // SUBWORKFLOW: Call consensus with iVar and downstream QC
         //
-        ch_nextclade_report = Channel.empty()
-        ch_pangolin_report  = Channel.empty()
+        ch_nextclade_report = channel.empty()
+        ch_pangolin_report  = channel.empty()
 
         if (!params.skip_variants && !params.skip_consensus && params.consensus_caller == 'ivar') {
             CONSENSUS_IVAR (
@@ -567,7 +565,7 @@ workflow VIRALRECON {
         //
         // MODULE: Get Nextclade clade information for MultiQC report
         //
-        ch_nextclade_multiqc = Channel.empty()
+        ch_nextclade_multiqc = channel.empty()
         if (!params.skip_variants && !params.skip_nextclade) {
             ch_nextclade_report
                 .map { meta, csv ->
@@ -705,7 +703,7 @@ workflow VIRALRECON {
         //
         if (params.sequencing_summary && !params.skip_pycoqc) {
             PYCOQC (
-                Channel.of(ch_sequencing_summary).map { [ [:], it ] }
+                channel.of(ch_sequencing_summary).map { [ [:], it ] }
             )
             ch_multiqc_files = ch_multiqc_files.mix(PYCOQC.out.json.collect{it[1]}.ifEmpty([]))
             ch_versions       = ch_versions.mix(PYCOQC.out.versions)
@@ -735,7 +733,7 @@ workflow VIRALRECON {
         barcode_dirs       = file("${params.fastq_dir}/barcode*", type: 'dir' , maxdepth: 1)
         single_barcode_dir = file("${params.fastq_dir}/*.fastq" , type: 'file', maxdepth: 1)
         if (barcode_dirs) {
-            Channel
+            channel
                 .fromPath( barcode_dirs )
                 .filter( ~/.*barcode[0-9]{1,4}$/ )
                 .map { dir ->
@@ -804,7 +802,7 @@ workflow VIRALRECON {
                     .set { ch_fastq_dirs }
             }
         } else if (single_barcode_dir) {
-            Channel
+            channel
                 .fromPath("${params.fastq_dir}", type: 'dir', maxDepth: 1)
                 .map { it -> [ 'SAMPLE_1', 'single_barcode', it, 10000000 ] }
                 .set{ ch_fastq_dirs }
@@ -977,7 +975,7 @@ workflow VIRALRECON {
         //
         // Filter channels to get samples that passed minimum mapped reads threshold
         //
-        ch_fail_mapping_multiqc_nanopore = Channel.empty()
+        ch_fail_mapping_multiqc_nanopore = channel.empty()
         FILTER_BAM_SAMTOOLS.out.flagstat
             .map { meta, flagstat ->
                 def (mapped_reads, pass) = getFlagstatMappedReads(flagstat, params)
@@ -1052,7 +1050,6 @@ workflow VIRALRECON {
             PLOT_MOSDEPTH_REGIONS_GENOME (
                 MOSDEPTH_GENOME.out.regions_bed.collect { it[1] }
             )
-            ch_versions = ch_versions.mix(PLOT_MOSDEPTH_REGIONS_GENOME.out.versions)
 
             MOSDEPTH_AMPLICON (
                 ch_filtered_bam_nanopore
@@ -1067,15 +1064,14 @@ workflow VIRALRECON {
                 MOSDEPTH_AMPLICON.out.regions_bed.collect { it[1] }
             )
             ch_multiqc_files = ch_multiqc_files.mix(PLOT_MOSDEPTH_REGIONS_AMPLICON.out.heatmap_tsv.collect{it[1]}.ifEmpty([]))
-            ch_versions      = ch_versions.mix(PLOT_MOSDEPTH_REGIONS_AMPLICON.out.versions)
         }
 
         //
         // MODULE: Lineage analysis with Pangolin
         //
-        ch_pango_database = Channel.empty()
-        ch_pangolin_report = Channel.empty()
-        ch_pangolin_multiqc = Channel.empty()
+        ch_pango_database = channel.empty()
+        ch_pangolin_report = channel.empty()
+        ch_pangolin_multiqc = channel.empty()
 
         if (!params.skip_pangolin) {
             if (!params.pango_database) {
@@ -1090,7 +1086,7 @@ workflow VIRALRECON {
                     ch_pango_database = UNTAR_PANGODB.out.untar.map { it[1] }
                     ch_versions       = ch_versions.mix(UNTAR_PANGODB.out.versions)
                 } else {
-                    ch_pango_database = Channel.value(file(params.pango_database, type: 'dir'))
+                    ch_pango_database = channel.value(file(params.pango_database, type: 'dir'))
                 }
             }
             PANGOLIN_RUN (
@@ -1173,7 +1169,7 @@ workflow VIRALRECON {
         //
         // SUBWORKFLOW: Annotate variants with snpEff
         //
-        ch_snpsift_txt    = Channel.empty()
+        ch_snpsift_txt    = channel.empty()
         if (ch_genome_gff && !params.skip_snpeff) {
             SNPEFF_SNPSIFT (
                 VCFLIB_VCFUNIQ.out.vcf,
@@ -1218,7 +1214,25 @@ workflow VIRALRECON {
     //
     // MODULE: Pipeline reporting
     //
-    softwareVersionsToYAML(ch_versions)
+    def topic_versions = channel.topic("versions")
+        .distinct()
+        .branch { entry ->
+            versions_file: entry instanceof Path
+            versions_tuple: true
+        }
+
+    def topic_versions_string = topic_versions.versions_tuple
+        .map { process, tool, version ->
+            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
+        }
+        .groupTuple(by:0)
+        .map { process, tool_versions ->
+            tool_versions.unique().sort()
+            "${process}:\n${tool_versions.join('\n')}"
+        }
+
+    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+        .mix(topic_versions_string)
         .collectFile(
             storeDir: "${params.outdir}/pipeline_info",
             name: 'nf_core_'  +  'viralrecon_software_'  + 'mqc_'  + 'versions.yml',
@@ -1231,21 +1245,21 @@ workflow VIRALRECON {
     //
     if (!params.skip_multiqc) {
         if (params.platform == 'illumina') {
-            ch_multiqc_config        = Channel.fromPath("$projectDir/assets/multiqc_config_illumina.yml", checkIfExists: true)
+            ch_multiqc_config        = channel.fromPath("$projectDir/assets/multiqc_config_illumina.yml", checkIfExists: true)
         } else if (params.platform == 'nanopore') {
-            ch_multiqc_config        = Channel.fromPath("$projectDir/assets/multiqc_config_nanopore.yml", checkIfExists: true)
+            ch_multiqc_config        = channel.fromPath("$projectDir/assets/multiqc_config_nanopore.yml", checkIfExists: true)
         }
-        ch_multiqc_custom_config              = params.multiqc_config ? Channel.fromPath(params.multiqc_config, checkIfExists: true) : Channel.empty()
+        ch_multiqc_custom_config              = params.multiqc_config ? channel.fromPath(params.multiqc_config, checkIfExists: true) : channel.empty()
         ch_multiqc_logo                       = params.multiqc_logo ?
-            Channel.fromPath(params.multiqc_logo, checkIfExists: true) :
-            Channel.empty()
+            channel.fromPath(params.multiqc_logo, checkIfExists: true) :
+            channel.empty()
 
         summary_params                        = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
-        ch_workflow_summary                   = Channel.value(paramsSummaryMultiqc(summary_params))
+        ch_workflow_summary                   = channel.value(paramsSummaryMultiqc(summary_params))
         ch_multiqc_custom_methods_description = params.multiqc_methods_description ?
             file(params.multiqc_methods_description, checkIfExists: true) :
             file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
-        ch_methods_description                = Channel.value(
+        ch_methods_description                = channel.value(
             methodsDescriptionText(ch_multiqc_custom_methods_description))
         ch_multiqc_files                      = ch_multiqc_files.mix(
             ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))

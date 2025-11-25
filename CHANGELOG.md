@@ -3,9 +3,9 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-<!-- Release names are chosen by a combination of Dog + Flower in Code Name Generator -->
+## v3.1.0dev - [date]
 
-## [3.1.0dev](https://github.com/nf-core/viralrecon/releases/tag/3.1.0) Dog Flower - yyyy-mm-dd
+<!-- Release names are chosen by a combination of Dog + Flower in Code Name Generator -->
 
 ### Credits
 
@@ -21,6 +21,7 @@ Thank you to everyone else that has contributed by reporting bugs, enhancements 
 - [[PR #546](https://github.com/nf-core/viralrecon/pull/546)] - Bumped dev branch version to development version
 - [[PR #562](https://github.com/nf-core/viralrecon/pull/562)] - Added pangolin-data database from test-datasets to test config
 - [[PR #541](https://github.com/nf-core/viralrecon/pull/541)] - Implement new blastn module with taxid filtering in pipeline
+- [[PR #572](https://github.com/nf-core/viralrecon/pull/572)] - Template update for nf-core/tools v3.5.1
 
 ### Parameters
 

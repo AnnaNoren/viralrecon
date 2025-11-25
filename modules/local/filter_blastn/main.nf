@@ -15,7 +15,7 @@ process FILTER_BLASTN {
     output:
     tuple val(meta), path('*filter.blastn.txt')  , emit: txt
     tuple val(meta), path('*.results.blastn.txt'), emit: blast
-    path "versions.yml"                          , emit: versions
+    tuple val("${task.process}"), val('sed'), eval('echo \\$(sed --version 2>&1) | sed "s/^.*GNU sed) //; s/ .*//"'), emit: versions_sed, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -29,10 +29,5 @@ process FILTER_BLASTN {
     cat $header $hits > ${prefix}.results.blastn.txt
     awk 'BEGIN{OFS=\"\\t\";FS=\"\\t\"}{print \$0,\$7/\$17,\$7/\$16}' $hits | awk 'BEGIN{OFS=\"\\t\";FS=\"\\t\"} \$17 > ${min_contig_length} && \$19 > ${min_perc_contig_aligned} && \$1 !~ /phage/ {print \$0}' > tmp.out
     cat $filtered_header tmp.out > ${prefix}.filter.blastn.txt
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        sed: \$(echo \$(sed --version 2>&1) | sed 's/^.*GNU sed) //; s/ .*\$//')
-    END_VERSIONS
     """
 }

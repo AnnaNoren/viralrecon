@@ -111,7 +111,7 @@
             },
             "mentions": [
                 {
-                    "@id": "#aa14ec51-67de-4940-9f86-bfa891c6f3e8"
+                    "@id": "#b38cb091-4a60-4ab9-9f42-249dd39183d1"
                 }
             ],
             "name": "nf-core/viralrecon"
@@ -150,7 +150,7 @@
                 }
             ],
             "dateCreated": "",
-            "dateModified": "2025-10-28T16:43:33Z",
+            "dateModified": "2025-10-16T13:39:11Z",
             "dct:conformsTo": "https://bioschemas.org/profiles/ComputationalWorkflow/1.0-RELEASE/",
             "image": {
                 "@id": "docs/images/nf-core-viralrecon_metro_map_illumina.png"
@@ -197,13 +197,8 @@
             "sdPublisher": {
                 "@id": "https://nf-co.re/"
             },
-            "url": [
-                "https://github.com/nf-core/viralrecon",
-                "https://nf-co.re/viralrecon/dev/"
-            ],
-            "version": [
-                "3.1.0dev"
-            ]
+            "url": ["https://github.com/nf-core/viralrecon", "https://nf-co.re/viralrecon/dev/"],
+            "version": ["2.7.0dev"]
         },
         {
             "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow",
@@ -218,19 +213,11 @@
             "version": "!>=25.04.0"
         },
         {
-            "@id": "docs/images/nf-core-viralrecon_metro_map_illumina.png",
-            "@type": [
-                "File",
-                "ImageObject"
-            ],
-            "name": "Workflow diagram"
-        },
-        {
-            "@id": "#aa14ec51-67de-4940-9f86-bfa891c6f3e8",
+            "@id": "#b38cb091-4a60-4ab9-9f42-249dd39183d1",
             "@type": "TestSuite",
             "instance": [
                 {
-                    "@id": "#f99c39cc-415b-49cb-a3b7-45293f1c5c3c"
+                    "@id": "#0f38c959-5673-4eee-a122-763e2090f331"
                 }
             ],
             "mainEntity": {
@@ -239,7 +226,7 @@
             "name": "Test suite for nf-core/viralrecon"
         },
         {
-            "@id": "#f99c39cc-415b-49cb-a3b7-45293f1c5c3c",
+            "@id": "#0f38c959-5673-4eee-a122-763e2090f331",
             "@type": "TestInstance",
             "name": "GitHub Actions workflow for testing nf-core/viralrecon",
             "resource": "repos/nf-core/viralrecon/actions/workflows/nf-test.yml",
