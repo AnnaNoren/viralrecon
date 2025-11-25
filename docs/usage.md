@@ -369,21 +369,20 @@ When using `--genome 'NC_002058.3'` or `--perform_ev_typing`, which are activate
 
 | Parameter                      | Default | Description                                                             |
 | :----------------------------- | :------ | ----------------------------------------------------------------------- |
-| `--min_coverage (-mc)`         | 50	     | Minimum coverage required for a BLAST hit to be included.               |
-| `--id (-i)`                    | None	   | Optional run/ticket ID included in the final HTML report.               |
-| `--suggest_min_rows (-sr)`	   | 20      | Minimum number of hits per genotype needed for an automated suggestion. |
-| `--suggest_min_identity (-si)` | 90	     | Minimum identity threshold for automated suggestion.                    |
-| `--suggest_min_bitscore (-sb)` | 400	   | Minimum bitscore threshold for automated suggestion.                    |
-| `--no_suggest (-ns)`	         | Off	   | Disable automated genotype suggestion logic.                            |
-| `--dpi (-d)`	                 | 300	   | DPI used for the generated plots in the HTML report.                    |
+| `--min_coverage (-mc)`         | 50      | Minimum coverage required for a BLAST hit to be included.               |
+| `--id (-i)`                    | None    | Optional run/ticket ID included in the final HTML report.               |
+| `--suggest_min_rows (-sr)`     | 20      | Minimum number of hits per genotype needed for an automated suggestion. |
+| `--suggest_min_identity (-si)` | 90      | Minimum identity threshold for automated suggestion.                    |
+| `--suggest_min_bitscore (-sb)` | 400     | Minimum bitscore threshold for automated suggestion.                    |
+| `--no_suggest (-ns)`           | Off     | Disable automated genotype suggestion logic.                            |
+| `--dpi (-d)`                   | 300     | DPI used for the generated plots in the HTML report.                    |
 
 The user can change this configuration by providing a custom config file with `-c` param. This config file should contain this piece of code with the specific configuration for `BLAST_REPORT`, where parameters can be changed from default through ext.args2.
 
 ```bash
 process {
-    withName: 'BLAST_REPORT' { 
+    withName: 'BLAST_REPORT' {
       ext.args2 = "--suggest_min_bitscore 400"
     }
 }
 ```
-
