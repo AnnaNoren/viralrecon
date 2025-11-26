@@ -103,10 +103,15 @@ workflow ASSEMBLY_SPADES {
         ch_taxidlist
     )
     ch_versions = ch_versions.mix(ASSEMBLY_QC.out.versions)
+
+    ch_blast_report = channel.empty()
+    ch_reversed_fasta = channel.empty()
     if (!params.skip_blast && (params.genome == 'NC_002058.3' || params.perform_ev_typing)) {
         BLAST_REPORT (
             ASSEMBLY_QC.out.blast_filter_txt.join(ch_scaffolds, by: [0])
         )
+        ch_blast_report = BLAST_REPORT.out.blast_report
+        ch_reversed_fasta = BLAST_REPORT.out.reversed_contigs
     }
 
     emit:
@@ -122,8 +127,8 @@ workflow ASSEMBLY_SPADES {
 
     blast_txt          = ASSEMBLY_QC.out.blast_txt          // channel: [ val(meta), [ txt ] ]
     blast_filter_txt   = ASSEMBLY_QC.out.blast_filter_txt   // channel: [ val(meta), [ txt ] ]
-    blast_report       = BLAST_REPORT.out.blast_report      // channel: [ val(meta), [ html ] ]
-    reversed_fasta     = BLAST_REPORT.out.reversed_contigs  // channel: [ val(meta), [ fasta ] ]
+    blast_report       = ch_blast_report                    // channel: [ val(meta), [ html ] ]
+    reversed_fasta     = ch_reversed_fasta                  // channel: [ val(meta), [ fasta ] ]
 
     quast_results      = ASSEMBLY_QC.out.quast_results      // channel: [ val(meta), [ results ] ]
     quast_tsv          = ASSEMBLY_QC.out.quast_tsv          // channel: [ val(meta), [ tsv ] ]
