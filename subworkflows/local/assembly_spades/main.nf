@@ -106,9 +106,12 @@ workflow ASSEMBLY_SPADES {
 
     ch_blast_report = channel.empty()
     ch_reversed_fasta = channel.empty()
+
     if (!params.skip_blast && (params.genome == 'NC_002058.3' || params.perform_ev_typing)) {
+        ch_blast_report_input = ASSEMBLY_QC.out.blast_txt.join(ch_scaffolds, by: [0])
+            .filter{ meta, blast, fasta -> blast.countLines() > 1 }
         BLAST_REPORT (
-            ASSEMBLY_QC.out.blast_filter_txt.join(ch_scaffolds, by: [0])
+            ch_blast_report_input
         )
         ch_blast_report = BLAST_REPORT.out.blast_report
         ch_reversed_fasta = BLAST_REPORT.out.reversed_contigs
