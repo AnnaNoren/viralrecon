@@ -335,7 +335,7 @@ By default, variant calling is deactivated for enterovirus typing because de nov
 #### De novo assembly
 
 De novo assembly is performed using **spades** to generate contigs for BLASTN typing.
-Note that **unicycler** and **minia** is not a default assembler for enterovirus, and not compatible with the generation of the html report.
+Note that **unicycler** and **minia** is not default assemblers for enterovirus, and not compatible with the generation of the html report.
 
 #### BLASTN
 
@@ -364,8 +364,7 @@ Users may provide their **own custom reference genomes** using the parameters:
 ```
 
 #### Blast report
-
-When using `--genome 'NC_002058.3'` or `--perform_ev_typing`, which are activated in the `-profile test_ev`configuration, an HTML report with the enterovirus typing results is generated. In this report, a genotype is suggested based on a number of parameters listed below which are configured with default values:
+When using `--genome 'NC_002058.3'` or `--perform_ev_typing`, which are enabled in the `-profile test_ev` configuration, the pipeline generates an HTML report with the enterovirus typing results, a genotype CSV file, and a FASTA file containing forward and reverse complement contigs, if any reverse-oriented contigs are detected from **spades** assembly. In the HTML report, a genotype is suggested based on a number of parameters listed below which are configured with default values:
 
 | Parameter                      | Default | Description                                                             |
 | :----------------------------- | :------ | ----------------------------------------------------------------------- |
