@@ -11,9 +11,7 @@ process BLAST_REPORT {
     tuple val(meta), path(blast), path(fasta)
 
     output:
-    tuple val(meta), path("*.html") , emit: blast_report
-    tuple val(meta), path("*.fa")   , emit: reversed_contigs
-    tuple val("${task.process}"), val('python'), eval('python --version | sed "s/Python //g"'), emit: versions_python, topic: versions
+    path "versions.yml"                      , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -32,5 +30,10 @@ process BLAST_REPORT {
         --output_fasta ${prefix}_reversed_contigs.fa \\
         $suggestions \\
         $args
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python --version | sed 's/Python //g')
+    END_VERSIONS
     """
 }
