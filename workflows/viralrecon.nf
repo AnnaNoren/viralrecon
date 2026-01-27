@@ -616,14 +616,13 @@ workflow VIRALRECON {
         // MODULE: Primer trimming with Cutadapt
         //
         if (params.protocol == 'amplicon' && !params.skip_assembly && !params.skip_cutadapt) {
-            ch_primers =  PREPARE_GENOME.out.primer_fasta.collect { it[1] }
+            ch_primers =  PREPARE_GENOME.out.primer_fasta
             if (!params.skip_noninternal_primers){
                 PREPARE_PRIMER_FASTA(
-                    PREPARE_GENOME.out.primer_fasta.collect { it[1] }
+                    PREPARE_GENOME.out.primer_fasta
                     )
                 ch_primers = PREPARE_PRIMER_FASTA.out.adapters
             }
-
             CUTADAPT (
                 ch_assembly_fastq,
                 ch_primers
