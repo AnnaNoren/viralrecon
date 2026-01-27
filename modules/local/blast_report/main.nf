@@ -11,6 +11,9 @@ process BLAST_REPORT {
     tuple val(meta), path(blast), path(fasta)
 
     output:
+    tuple val(meta), path("*.html")          , emit: blast_report
+    tuple val(meta), path("*.fa")            , emit: reversed_contigs
+    tuple val(meta), path("*_genotype.csv")  , emit: genotype
     path "versions.yml"                      , emit: versions
 
     when:
@@ -28,7 +31,7 @@ process BLAST_REPORT {
         --sample_name ${meta.id} \\
         --output_html ${prefix}_blast_report.html \\
         --output_fasta ${prefix}_reversed_contigs.fa \\
-        $suggestions \\
+        --output_genotype ${prefix}_genotype.csv \\
         $args
 
     cat <<-END_VERSIONS > versions.yml

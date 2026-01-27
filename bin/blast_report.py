@@ -78,6 +78,13 @@ def parser_args(args=None):
         help="Output FASTA file with reversed filtered contigs (required)",
     )
     parser.add_argument(
+        "-og",
+        "--output_genotype",
+        required=True,
+        type=str,
+        help="CSV file to write predicted genotype summary",
+    )
+    parser.add_argument(
         "-sr",
         "--suggest_min_rows",
         type=int,
@@ -97,12 +104,6 @@ def parser_args(args=None):
         type=float,
         default=400,
         help='Minimum max bitscore required to consider auto-suggestion (default: 400)'
-    )
-    parser.add_argument(
-        "-ns",
-        "--no_suggest",
-        action='store_true',
-        help='Disable automated genotype suggestion'
     )
     parser.add_argument(
         "-d",
@@ -656,6 +657,14 @@ def main(args=None, is_error=False):
     render_report(args.output_html, template, data, css_content, logo_b64)
 
     print(f"📁 Report saved to: {args.output_html}")
+
+    # Optionally write genotype summary CSV (simple f.write style)
+    if args.output_genotype:
+        with open(args.output_genotype, "w") as f:
+            f.write("Identifier,Sample,Genotype\n")
+            f.write(f"{data['id']},{data['sample_name']},{data['suggestion']}\n")
+
+        print(f"The predicted genotype saved to: {args.output_genotype}")
 
 if __name__ == "__main__":
     main()
