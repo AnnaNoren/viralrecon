@@ -46,11 +46,31 @@ workflow ASSEMBLY_SPADES {
     )
     ch_versions = ch_versions.mix(SPADES.out.versions.first())
 
+    SPADES.out.scaffolds
+        .mix(SPADES.out.contigs)
+        .dump(tag:"scaffold_joined_contig")
+        .groupTuple(by: 0)
+        .dump(tag:"grouped_scaffold_contig")
+        .map { meta, files ->
+            // Choose scaffold if it exists and is not empty, otherwise contig
+            def scaffold = files.find { it.name.contains('scaffold') }
+            def contig = files.find { it.name.contains('contig') }
+            
+            def assembly = scaffold ? scaffold : contig
+            
+            if (!assembly) {
+                error "No assembly found for sample ${meta}"
+            }
+
+            [meta, file(assembly)]
+        }
+        .set { ch_assembly }
+    ch_assembly.dump(tag:"ch_assembly")
     //
     // Unzip scaffolds file
     //
     GUNZIP_SCAFFOLDS (
-        SPADES.out.scaffolds
+        ch_assembly
     )
     ch_versions = ch_versions.mix(GUNZIP_SCAFFOLDS.out.versions.first())
 
@@ -67,7 +87,6 @@ workflow ASSEMBLY_SPADES {
     GUNZIP_SCAFFOLDS
         .out
         .gunzip
-        .filter { meta, scaffold -> scaffold.size() > 0 }
         .set { ch_scaffolds }
 
     GUNZIP_GFA

@@ -21,9 +21,9 @@ def wrap_ylabels(ax, width=30):
     ax.set_yticklabels(wrapped)
 
 def parser_args(args=None):
-    Description = "Generate HTML reports from filtered BLAST results."
+    Description = "Generate HTML reports from BLAST results."
     Epilog = """Example usage:
-    python blast_report.py --blast_file sample.filter.blastn.txt --fasta_file sample.scaffolds.fa --sample_name sample --id ticket_id --output_html sample_blast_report.html --output_fasta sample_reversed_filtered_contigs.fa
+    python blast_report.py --blast_file sample.filter.blastn.txt --fasta_file sample.scaffolds.fa --sample_name sample --id ticket_id --output_html sample_blast_report.html --output_fasta sample_reversed_filtered_contigs.fa --output_genotype sample_genotype.csv
     """
     parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
 
