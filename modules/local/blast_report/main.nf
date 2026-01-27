@@ -22,7 +22,6 @@ process BLAST_REPORT {
     script:  // This script is bundled with the pipeline, in nf-core/viralrecon/bin/
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: meta.id
-    def suggestions = task.ext.args2 ?: '--no_suggest'
 
     """
     blast_report.py \\
