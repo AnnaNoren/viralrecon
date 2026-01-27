@@ -11,7 +11,14 @@ import os
 import sys
 import argparse
 import csv
+import textwrap
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+def wrap_ylabels(ax, width=30):
+    """Wrap long y-axis tick labels to avoid figure shrinking."""
+    labels = [l.get_text() for l in ax.get_yticklabels()]
+    wrapped = ["\n".join(textwrap.wrap(t, width)) for t in labels]
+    ax.set_yticklabels(wrapped)
 
 def parser_args(args=None):
     Description = "Generate HTML reports from filtered BLAST results."
@@ -213,6 +220,7 @@ def generate_report_data(df, fasta_file, sample_name, id, unique_contigs, sugges
     ax.set_ylim(-0.5, n_sscinames-0.3)
     ax.grid(True, axis="x", linestyle="--")
     ax.set(xlabel='BLAST identitety (%)', ylabel='Genotype')
+    wrap_ylabels(ax, width=30)
 
     # Plot 2: bit score
     ax = fig.add_subplot(gs[0 , 1])
@@ -236,6 +244,7 @@ def generate_report_data(df, fasta_file, sample_name, id, unique_contigs, sugges
         ax.legend().set_title("Contig")
         sns.move_legend(ax, "upper left", bbox_to_anchor=(1, 1))
     ax.set(xlabel='BLAST Bit-score', ylabel=' ')
+    wrap_ylabels(ax, width=30)
 
     # Plot 3: coverage
     ax = fig.add_subplot(gs[1, 0])

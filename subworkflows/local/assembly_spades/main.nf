@@ -115,6 +115,7 @@ workflow ASSEMBLY_SPADES {
         )
         ch_blast_report = BLAST_REPORT.out.blast_report
         ch_reversed_fasta = BLAST_REPORT.out.reversed_contigs
+        ch_genotype = BLAST_REPORT.out.genotype
     }
 
     emit:
@@ -132,6 +133,7 @@ workflow ASSEMBLY_SPADES {
     blast_filter_txt   = ASSEMBLY_QC.out.blast_filter_txt   // channel: [ val(meta), [ txt ] ]
     blast_report       = ch_blast_report                    // channel: [ val(meta), [ html ] ]
     reversed_fasta     = ch_reversed_fasta                  // channel: [ val(meta), [ fasta ] ]
+    genotype           = ch_genotype                        // channel: [ val(meta), [ csv ] ]
 
     quast_results      = ASSEMBLY_QC.out.quast_results      // channel: [ val(meta), [ results ] ]
     quast_tsv          = ASSEMBLY_QC.out.quast_tsv          // channel: [ val(meta), [ tsv ] ]
