@@ -79,9 +79,6 @@
                 "FREYJA_DEMIX": {
                     "freyja": "2.0.3"
                 },
-                "FREYJA_UPDATE": {
-                    "freyja": "2.0.3"
-                },
                 "FREYJA_VARIANTS": {
                     "freyja": "2.0.3"
                 },
@@ -741,11 +738,6 @@
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.idxstats",
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.stats",
                 "variants/freyja",
-                "variants/freyja/SARS-CoV-2",
-                "variants/freyja/SARS-CoV-2/curated_lineages.json",
-                "variants/freyja/SARS-CoV-2/lineages.yml",
-                "variants/freyja/SARS-CoV-2/pathogen_config.yml",
-                "variants/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "variants/freyja/bootstrap",
                 "variants/freyja/bootstrap/SAMPLE1_PE_lineages.csv",
                 "variants/freyja/bootstrap/SAMPLE1_PE_summarized.csv",
