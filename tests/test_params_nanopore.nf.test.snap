@@ -896,11 +896,11 @@
                 "pycoqc_stats_table.yaml:md5,7e91d1025c519911af28386064444b9a"
             ]
         ],
+        "timestamp": "2025-11-12T10:21:25.483164448",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-12T10:21:25.483164448"
+        }
     },
     "-profile test_nanopore --additional_annotation 'https://github.com/nf-core/test-datasets/raw/refs/heads/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.gtf.gz'": {
         "content": [
@@ -1912,11 +1912,11 @@
                 "snpeff_variant_effects_region.yaml:md5,fd109b7ff62142110d965fd03cb68994"
             ]
         ],
+        "timestamp": "2025-11-12T10:31:24.78093934",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-12T10:31:24.78093934"
+        }
     },
     "-profile test_nanopore --min_guppyplex_reads 10000": {
         "content": [
@@ -1971,6 +1971,7 @@
                 "artic_minion/freyja/SARS-CoV-2",
                 "artic_minion/freyja/SARS-CoV-2/curated_lineages.json",
                 "artic_minion/freyja/SARS-CoV-2/lineages.yml",
+                "artic_minion/freyja/SARS-CoV-2/pathogen_config.yml",
                 "artic_minion/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "kraken2",
                 "kraken2/SAMPLE_01.classified.fastq.gz",
@@ -2174,11 +2175,11 @@
                 "pycoqc_stats_table.yaml:md5,7e91d1025c519911af28386064444b9a"
             ]
         ],
+        "timestamp": "2026-02-20T19:57:55.463623334",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-12T10:02:57.099919971"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "-profile test_nanopore --sequencing_summary false": {
         "content": [
@@ -3167,11 +3168,11 @@
                 "snpeff_variant_effects_region.yaml:md5,fd109b7ff62142110d965fd03cb68994"
             ]
         ],
+        "timestamp": "2025-11-12T10:41:40.123239179",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-12T10:41:40.123239179"
+        }
     },
     "-profile test_nanopore --min_barcode_reads 10000": {
         "content": [
@@ -3216,7 +3217,7 @@
                 "artic_minion/freyja/SARS-CoV-2",
                 "artic_minion/freyja/SARS-CoV-2/curated_lineages.json",
                 "artic_minion/freyja/SARS-CoV-2/lineages.yml",
-                "variants/freyja/SARS-CoV-2/pathogen_config.yml",
+                "artic_minion/freyja/SARS-CoV-2/pathogen_config.yml",
                 "artic_minion/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "multiqc",
                 "multiqc/multiqc_data",
@@ -3258,10 +3259,10 @@
                 "pycoqc_stats_table.yaml:md5,7e91d1025c519911af28386064444b9a"
             ]
         ],
+        "timestamp": "2026-02-20T19:57:09.852251113",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-12T10:01:39.302669673"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

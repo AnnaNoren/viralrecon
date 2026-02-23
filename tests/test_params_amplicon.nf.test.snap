@@ -1757,9 +1757,6 @@
                 "FREYJA_DEMIX": {
                     "freyja": "2.0.3"
                 },
-                "FREYJA_UPDATE": {
-                    "freyja": "2.0.3"
-                },
                 "FREYJA_VARIANTS": {
                     "freyja": "2.0.3"
                 },
@@ -2416,11 +2413,6 @@
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.idxstats",
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.stats",
                 "variants/freyja",
-                "variants/freyja/SARS-CoV-2",
-                "variants/freyja/SARS-CoV-2/curated_lineages.json",
-                "variants/freyja/SARS-CoV-2/lineages.yml",
-                "variants/freyja/SARS-CoV-2/pathogen_config.yml",
-                "variants/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "variants/freyja/bootstrap",
                 "variants/freyja/bootstrap/SAMPLE1_PE_lineages.csv",
                 "variants/freyja/bootstrap/SAMPLE1_PE_summarized.csv",
@@ -2757,10 +2749,10 @@
                 "variants_long_table.csv:md5,4f18039f0146a8fb967769881e6e6635"
             ]
         ],
-        "timestamp": "2025-10-16T19:22:03.719977289",
+        "timestamp": "2026-02-20T19:51:06.370246705",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
         }
     },
     "-profile test --spades_mode metaviral --skip_variants": {
@@ -3360,9 +3352,6 @@
                     "freyja": "2.0.3"
                 },
                 "FREYJA_DEMIX": {
-                    "freyja": "2.0.3"
-                },
-                "FREYJA_UPDATE": {
                     "freyja": "2.0.3"
                 },
                 "FREYJA_VARIANTS": {
@@ -4407,11 +4396,6 @@
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.idxstats",
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.stats",
                 "variants/freyja",
-                "variants/freyja/SARS-CoV-2",
-                "variants/freyja/SARS-CoV-2/curated_lineages.json",
-                "variants/freyja/SARS-CoV-2/lineages.yml",
-                "variants/freyja/SARS-CoV-2/pathogen_config.yml",
-                "variants/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "variants/freyja/bootstrap",
                 "variants/freyja/bootstrap/SAMPLE1_PE_lineages.csv",
                 "variants/freyja/bootstrap/SAMPLE1_PE_summarized.csv",
@@ -4748,10 +4732,10 @@
                 "variants_long_table.csv:md5,4f18039f0146a8fb967769881e6e6635"
             ]
         ],
-        "timestamp": "2025-10-17T15:29:36.343825388",
+        "timestamp": "2026-02-20T19:39:15.941851035",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
         }
     },
     "-profile test --additional_annotation 'https://github.com/nf-core/test-datasets/raw/refs/heads/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.gtf.gz'": {
@@ -4832,9 +4816,6 @@
                     "freyja": "2.0.3"
                 },
                 "FREYJA_DEMIX": {
-                    "freyja": "2.0.3"
-                },
-                "FREYJA_UPDATE": {
                     "freyja": "2.0.3"
                 },
                 "FREYJA_VARIANTS": {
@@ -5499,11 +5480,6 @@
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.idxstats",
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.stats",
                 "variants/freyja",
-                "variants/freyja/SARS-CoV-2",
-                "variants/freyja/SARS-CoV-2/curated_lineages.json",
-                "variants/freyja/SARS-CoV-2/lineages.yml",
-                "variants/freyja/SARS-CoV-2/pathogen_config.yml",
-                "variants/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "variants/freyja/bootstrap",
                 "variants/freyja/bootstrap/SAMPLE1_PE_lineages.csv",
                 "variants/freyja/bootstrap/SAMPLE1_PE_summarized.csv",
@@ -5880,10 +5856,10 @@
                 "variants_long_table.csv:md5,4f18039f0146a8fb967769881e6e6635"
             ]
         ],
-        "timestamp": "2025-11-05T17:17:54.344478476",
+        "timestamp": "2026-02-20T19:43:26.311958439",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
         }
     },
     "-profile test --skip_kraken2": {
@@ -9613,9 +9589,6 @@
                 "FREYJA_DEMIX": {
                     "freyja": "2.0.3"
                 },
-                "FREYJA_UPDATE": {
-                    "freyja": "2.0.3"
-                },
                 "FREYJA_VARIANTS": {
                     "freyja": "2.0.3"
                 },
@@ -9924,11 +9897,6 @@
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.idxstats",
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.stats",
                 "variants/freyja",
-                "variants/freyja/SARS-CoV-2",
-                "variants/freyja/SARS-CoV-2/curated_lineages.json",
-                "variants/freyja/SARS-CoV-2/lineages.yml",
-                "variants/freyja/SARS-CoV-2/pathogen_config.yml",
-                "variants/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "variants/freyja/bootstrap",
                 "variants/freyja/bootstrap/SAMPLE1_PE_lineages.csv",
                 "variants/freyja/bootstrap/SAMPLE1_PE_summarized.csv",
@@ -10255,10 +10223,10 @@
                 "variants_long_table.csv:md5,4f18039f0146a8fb967769881e6e6635"
             ]
         ],
-        "timestamp": "2025-11-12T11:04:54.78755849",
+        "timestamp": "2026-02-20T16:21:16.126123056",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
         }
     },
     "-profile test --spades_mode corona --skip_variants": {
@@ -10889,9 +10857,6 @@
                     "freyja": "2.0.3"
                 },
                 "FREYJA_DEMIX": {
-                    "freyja": "2.0.3"
-                },
-                "FREYJA_UPDATE": {
                     "freyja": "2.0.3"
                 },
                 "FREYJA_VARIANTS": {
@@ -11556,11 +11521,6 @@
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.idxstats",
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.stats",
                 "variants/freyja",
-                "variants/freyja/SARS-CoV-2",
-                "variants/freyja/SARS-CoV-2/curated_lineages.json",
-                "variants/freyja/SARS-CoV-2/lineages.yml",
-                "variants/freyja/SARS-CoV-2/pathogen_config.yml",
-                "variants/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "variants/freyja/bootstrap",
                 "variants/freyja/bootstrap/SAMPLE1_PE_lineages.csv",
                 "variants/freyja/bootstrap/SAMPLE1_PE_summarized.csv",
@@ -11897,10 +11857,10 @@
                 "variants_long_table.csv:md5,4f18039f0146a8fb967769881e6e6635"
             ]
         ],
-        "timestamp": "2025-10-16T19:14:17.642604186",
+        "timestamp": "2026-02-20T19:47:29.617739219",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
         }
     }
 }

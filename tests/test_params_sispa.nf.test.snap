@@ -67,9 +67,6 @@
                 "FREYJA_DEMIX": {
                     "freyja": "2.0.3"
                 },
-                "FREYJA_UPDATE": {
-                    "freyja": "2.0.3"
-                },
                 "FREYJA_VARIANTS": {
                     "freyja": "2.0.3"
                 },
@@ -1001,11 +998,6 @@
                 "variants/bowtie2/samtools_stats/SRR11140750.sorted.bam.idxstats",
                 "variants/bowtie2/samtools_stats/SRR11140750.sorted.bam.stats",
                 "variants/freyja",
-                "variants/freyja/SARS-CoV-2",
-                "variants/freyja/SARS-CoV-2/curated_lineages.json",
-                "variants/freyja/SARS-CoV-2/lineages.yml",
-                "variants/freyja/SARS-CoV-2/pathogen_config.yml",
-                "variants/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "variants/freyja/bootstrap",
                 "variants/freyja/bootstrap/SRR11140744_lineages.csv",
                 "variants/freyja/bootstrap/SRR11140744_summarized.csv",
@@ -1132,11 +1124,11 @@
                 "SRR11140750.sorted.bam.stats:md5,eab777c75c145c530e347adbd5f90ffc"
             ]
         ],
+        "timestamp": "2026-02-20T20:02:48.509826047",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-12T10:19:35.862558771"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "-profile test_sispa --genome 'NC_045512.2'": {
         "content": [
@@ -1207,9 +1199,6 @@
                     "freyja": "2.0.3"
                 },
                 "FREYJA_DEMIX": {
-                    "freyja": "2.0.3"
-                },
-                "FREYJA_UPDATE": {
                     "freyja": "2.0.3"
                 },
                 "FREYJA_VARIANTS": {
@@ -2217,11 +2206,6 @@
                 "variants/bowtie2/samtools_stats/SRR11140750.sorted.bam.idxstats",
                 "variants/bowtie2/samtools_stats/SRR11140750.sorted.bam.stats",
                 "variants/freyja",
-                "variants/freyja/SARS-CoV-2",
-                "variants/freyja/SARS-CoV-2/curated_lineages.json",
-                "variants/freyja/SARS-CoV-2/lineages.yml",
-                "variants/freyja/SARS-CoV-2/pathogen_config.yml",
-                "variants/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "variants/freyja/bootstrap",
                 "variants/freyja/bootstrap/SRR11140744_lineages.csv",
                 "variants/freyja/bootstrap/SRR11140744_summarized.csv",
@@ -2357,10 +2341,10 @@
                 "SRR11140750.sorted.bam.stats:md5,92a92fa43c701d2996fbea516a530b88"
             ]
         ],
+        "timestamp": "2026-02-20T20:05:13.377558186",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-12T10:25:37.897937839"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }
