@@ -74,16 +74,13 @@
                     "sed": 4.9
                 },
                 "FREYJA_BOOT": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_DEMIX": {
-                    "freyja": "2.0.0"
-                },
-                "FREYJA_UPDATE": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_VARIANTS": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "GUNZIP_FASTA": {
                     "gunzip": 1.13
@@ -752,10 +749,6 @@
                 "variants/freyja/demix/SAMPLE1_PE.tsv",
                 "variants/freyja/demix/SAMPLE2_PE.tsv",
                 "variants/freyja/demix/SAMPLE3_SE.tsv",
-                "variants/freyja/freyja_db",
-                "variants/freyja/freyja_db/curated_lineages.json",
-                "variants/freyja/freyja_db/lineages.yml",
-                "variants/freyja/freyja_db/usher_barcodes.feather",
                 "variants/freyja/variants",
                 "variants/freyja/variants/SAMPLE1_PE.depth.tsv",
                 "variants/freyja/variants/SAMPLE1_PE.variants.tsv",

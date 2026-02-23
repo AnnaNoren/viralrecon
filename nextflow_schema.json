@@ -245,9 +245,9 @@
                 },
                 "freyja_db_name": {
                     "type": "string",
-                    "default": "freyja_db",
+                    "default": "SARS-CoV-2",
                     "fa_icon": "fas fa-folder-open",
-                    "description": "Specify the name where to store UShER database (default: 'freyja_db')."
+                    "description": "Specify the name where to store UShER database (default: 'SARS-CoV-2')."
                 },
                 "freyja_depthcutoff": {
                     "type": "integer",
@@ -270,11 +270,17 @@
                     "fa_icon": "fas fa-file",
                     "description": "Lineage defining barcodes, default is most recent from UShER database."
                 },
-                "freyja_lineages": {
+                "freyja_lineages_meta": {
                     "type": "string",
                     "format": "path",
                     "fa_icon": "fas fa-file",
                     "description": "Metadata of lineages that match barcode, default is most recent from UShER database."
+                },
+                "freyja_lineages_topology": {
+                    "type": "string",
+                    "format": "path",
+                    "fa_icon": "fas fa-file",
+                    "description": "Topological information of lineages that match barcode, default is most recent from UShER database."
                 },
                 "max_multiqc_email_size": {
                     "type": "string",

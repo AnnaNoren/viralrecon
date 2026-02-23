@@ -33,13 +33,13 @@ if (params.platform == 'illumina') {
         params.input, params.fasta, params.gff, params.bowtie2_index,
         params.kraken2_db, params.primer_bed, params.primer_fasta,
         params.blast_db, params.spades_hmm, params.multiqc_config,
-        params.freyja_barcodes, params.freyja_lineages, params.additional_annotation
+        params.freyja_barcodes, params.freyja_lineages_meta, params.freyja_lineages_topology, params.additional_annotation
     ]
 } else if (params.platform == 'nanopore') {
     checkPathParamList = [
         params.input, params.fastq_dir,
         params.sequencing_summary, params.gff,
-        params.freyja_barcodes, params.freyja_lineages, params.additional_annotation,
+        params.freyja_barcodes, params.freyja_lineages_meta, params.freyja_lineages_topology, params.additional_annotation,
         params.kraken2_db
     ]
 }
@@ -518,10 +518,10 @@ workflow VIRALRECON {
                 params.freyja_repeats,
                 params.freyja_db_name,
                 params.freyja_barcodes,
-                params.freyja_lineages,
+                params.freyja_lineages_meta,
+                params.freyja_lineages_topology,
             )
-            ch_versions       = ch_versions.mix(BAM_VARIANT_DEMIX_BOOT_FREYJA.out.versions)
-            ch_multiqc_files  = ch_multiqc_files.mix(BAM_VARIANT_DEMIX_BOOT_FREYJA.out.demix.collect{it[1]}.ifEmpty([]))
+            ch_multiqc_files  = ch_multiqc_files.mix(BAM_VARIANT_DEMIX_BOOT_FREYJA.out.demix.collect{it -> it[1]}.ifEmpty([]))
         }
 
         //
@@ -1180,9 +1180,9 @@ workflow VIRALRECON {
                 params.freyja_repeats,
                 params.freyja_db_name,
                 params.freyja_barcodes,
-                params.freyja_lineages,
+                params.freyja_lineages_meta,
+                params.freyja_lineages_topology,
             )
-            ch_versions       = ch_versions.mix(BAM_VARIANT_DEMIX_BOOT_FREYJA.out.versions)
             ch_multiqc_files  = ch_multiqc_files.mix(BAM_VARIANT_DEMIX_BOOT_FREYJA.out.demix.collect{it[1]}.ifEmpty([]))
         }
 

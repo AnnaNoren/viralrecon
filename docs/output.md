@@ -255,7 +255,7 @@ Phylogenetic Assignment of Named Global Outbreak LINeages ([Pangolin](https://gi
 
 - `artic_minion/freyja/demix`
   - `*.tsv`: Analysis results including the lineages present, their corresponding abundances, and summarization by constellation
-- `artic_minion/freyja/freyja_db`
+- `artic_minion/freyja/SARS-CoV-2`
   - `.json`: dataset containing lineage metadata that correspond to barcodes.
   - `.yml`: dataset containing the lineage topology.
   - `.csv`: dataset containing lineage defining barcodes.
@@ -581,7 +581,7 @@ Unless you are using [UMIs](https://emea.illumina.com/science/sequencing-method-
 
 - `variants/freyja/demix`
   - `*.tsv`: Analysis results including the lineages present, their corresponding abundances, and summarization by constellation
-- `variants/freyja/freyja_db`
+- `variants/freyja/SARS-CoV-2`
   - `.json`: dataset containing lineage metadata that correspond to barcodes.
   - `.yml`: dataset containing the lineage topology.
   - `barcodes.feather`: dataset containing lineage defining barcodes.

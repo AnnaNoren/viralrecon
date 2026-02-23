@@ -62,16 +62,13 @@
                     "sed": 4.9
                 },
                 "FREYJA_BOOT": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_DEMIX": {
-                    "freyja": "2.0.0"
-                },
-                "FREYJA_UPDATE": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_VARIANTS": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "GUNZIP_FASTA": {
                     "gunzip": 1.13
@@ -1012,10 +1009,6 @@
                 "variants/freyja/demix/SRR11140744.tsv",
                 "variants/freyja/demix/SRR11140746.tsv",
                 "variants/freyja/demix/SRR11140748.tsv",
-                "variants/freyja/freyja_db",
-                "variants/freyja/freyja_db/curated_lineages.json",
-                "variants/freyja/freyja_db/lineages.yml",
-                "variants/freyja/freyja_db/usher_barcodes.feather",
                 "variants/freyja/variants",
                 "variants/freyja/variants/SRR11140744.depth.tsv",
                 "variants/freyja/variants/SRR11140744.variants.tsv",
@@ -1131,11 +1124,11 @@
                 "SRR11140750.sorted.bam.stats:md5,eab777c75c145c530e347adbd5f90ffc"
             ]
         ],
+        "timestamp": "2026-02-20T20:02:48.509826047",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-12T10:19:35.862558771"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "-profile test_sispa --genome 'NC_045512.2'": {
         "content": [
@@ -1203,16 +1196,13 @@
                     "sed": 4.9
                 },
                 "FREYJA_BOOT": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_DEMIX": {
-                    "freyja": "2.0.0"
-                },
-                "FREYJA_UPDATE": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_VARIANTS": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "GUNZIP_FASTA": {
                     "gunzip": 1.13
@@ -2227,10 +2217,6 @@
                 "variants/freyja/demix/SRR11140744.tsv",
                 "variants/freyja/demix/SRR11140746.tsv",
                 "variants/freyja/demix/SRR11140748.tsv",
-                "variants/freyja/freyja_db",
-                "variants/freyja/freyja_db/curated_lineages.json",
-                "variants/freyja/freyja_db/lineages.yml",
-                "variants/freyja/freyja_db/usher_barcodes.feather",
                 "variants/freyja/variants",
                 "variants/freyja/variants/SRR11140744.depth.tsv",
                 "variants/freyja/variants/SRR11140744.variants.tsv",
@@ -2355,10 +2341,10 @@
                 "SRR11140750.sorted.bam.stats:md5,92a92fa43c701d2996fbea516a530b88"
             ]
         ],
+        "timestamp": "2026-02-20T20:05:13.377558186",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-12T10:25:37.897937839"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

@@ -21,13 +21,13 @@
                     "getchromsizes": "1.22.1"
                 },
                 "FREYJA_DEMIX": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_UPDATE": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_VARIANTS": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "GUNZIP_FASTA": {
                     "gunzip": 1.13
@@ -341,6 +341,11 @@
                 "artic_minion/bcftools_stats/SAMPLE_08.bcftools_stats.txt",
                 "artic_minion/bcftools_stats/SAMPLE_09.bcftools_stats.txt",
                 "artic_minion/freyja",
+                "artic_minion/freyja/SARS-CoV-2",
+                "artic_minion/freyja/SARS-CoV-2/curated_lineages.json",
+                "artic_minion/freyja/SARS-CoV-2/lineages.yml",
+                "artic_minion/freyja/SARS-CoV-2/pathogen_config.yml",
+                "artic_minion/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "artic_minion/freyja/demix",
                 "artic_minion/freyja/demix/SAMPLE_01.tsv",
                 "artic_minion/freyja/demix/SAMPLE_02.tsv",
@@ -350,10 +355,6 @@
                 "artic_minion/freyja/demix/SAMPLE_06.tsv",
                 "artic_minion/freyja/demix/SAMPLE_07.tsv",
                 "artic_minion/freyja/demix/SAMPLE_09.tsv",
-                "artic_minion/freyja/freyja_db",
-                "artic_minion/freyja/freyja_db/curated_lineages.json",
-                "artic_minion/freyja/freyja_db/lineages.yml",
-                "artic_minion/freyja/freyja_db/usher_barcodes.feather",
                 "artic_minion/freyja/variants",
                 "artic_minion/freyja/variants/SAMPLE_01.depth.tsv",
                 "artic_minion/freyja/variants/SAMPLE_01.variants.tsv",

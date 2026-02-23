@@ -40,7 +40,7 @@ fastp/*.fastp.html
 **/freyja/variants/*.variants.tsv
 **/freyja/bootstrap/**
 **/freyja/demix/**
-**/freyja/freyja_db/**
+**/freyja/SARS-CoV-2/**
 **/freyja/variants/*.depth.tsv
 assembly/**/abacas/**
 assembly/**/bandage/*.{png,svg}
