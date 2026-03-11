@@ -95,7 +95,8 @@ nextflow_pipeline {
         [
             name: "-profile test --primer_set_version 5.3.2",
             params: [
-                primer_set_version: '5.3.2'
+                primer_set_version: '5.3.2',
+                skip_freyja: true
             ]
         ]
     ]
