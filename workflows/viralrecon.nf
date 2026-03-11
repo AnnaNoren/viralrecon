@@ -23,6 +23,7 @@ def valid_params = [
     consensus_callers    : ['ivar', 'bcftools'],
     assemblers           : ['spades', 'unicycler', 'minia'],
     spades_modes         : ['rnaviral', 'corona', 'metaviral', 'meta', 'metaplasmid', 'plasmid', 'isolate', 'rna', 'bio'],
+    trim_primers         : ['trimmed', 'untrimmed']
 ]
 
 def checkPathParamList = []
@@ -54,7 +55,7 @@ if (params.taxidlist)             { ch_taxidlist      = file(params.taxidlist)  
 def assemblers = params.assemblers ? params.assemblers.split(',').collect{ it.trim().toLowerCase() } : []
 
 def variant_caller = params.variant_caller
-if (!variant_caller) { variant_caller = params.protocol == 'amplicon' ? 'ivar' : 'bcftools' }
+if (!variant_caller) { variant_caller = params.trim_primers == 'trimmed' ? 'ivar' : 'bcftools' }
 
 if (params.sequencing_summary)      { ch_sequencing_summary = file(params.sequencing_summary)      } else { ch_sequencing_summary = [] }
 
@@ -203,7 +204,7 @@ workflow VIRALRECON {
             .fasta
             .map { WorkflowIllumina.isMultiFasta(it, log) }
 
-        if (params.protocol == 'amplicon' && !params.skip_variants) {
+        if (params.trim_primers == 'trimmed' && !params.skip_variants) {
             // Check primer BED file only contains suffixes provided --primer_left_suffix / --primer_right_suffix
             PREPARE_GENOME
                 .out
@@ -388,7 +389,7 @@ workflow VIRALRECON {
         //
         // SUBWORKFLOW: Trim primer sequences from reads with iVar
         //
-        if (!params.skip_variants && !params.skip_ivar_trim && params.protocol == 'amplicon') {
+        if (!params.skip_variants && !params.skip_ivar_trim && params.trim_primers == 'trimmed') {
             BAM_TRIM_PRIMERS_IVAR (
                 ch_bam.join(ch_bai, by: [0]),
                 PREPARE_GENOME.out.primer_bed,
@@ -443,7 +444,7 @@ workflow VIRALRECON {
                 MOSDEPTH_GENOME.out.regions_bed.collect { it[1] }
             )
 
-            if (params.protocol == 'amplicon') {
+            if (params.trim_primers == 'trimmed') {
                 MOSDEPTH_AMPLICON (
                     ch_bam
                         .join(ch_bai, by: [0])
@@ -469,10 +470,10 @@ workflow VIRALRECON {
             VARIANTS_IVAR (
                 ch_bam,
                 PREPARE_GENOME.out.fasta,
-                (params.protocol == 'amplicon' || !params.skip_markduplicates) ? PREPARE_GENOME.out.fai : [],
-                (params.protocol == 'amplicon' || !params.skip_markduplicates) ? PREPARE_GENOME.out.chrom_sizes : [],
+                (params.trim_primers == 'trimmed' || !params.skip_markduplicates) ? PREPARE_GENOME.out.fai : [],
+                (params.trim_primers == 'trimmed' || !params.skip_markduplicates) ? PREPARE_GENOME.out.chrom_sizes : [],
                 ch_genome_gff ? PREPARE_GENOME.out.gff : [],
-                (params.protocol == 'amplicon' && ch_primer_bed) ? PREPARE_GENOME.out.primer_bed : [],
+                (params.trim_primers == 'trimmed' && ch_primer_bed) ? PREPARE_GENOME.out.primer_bed : [],
                 PREPARE_GENOME.out.snpeff_db,
                 PREPARE_GENOME.out.snpeff_config,
                 ch_ivar_variants_header_mqc
@@ -493,9 +494,9 @@ workflow VIRALRECON {
             VARIANTS_BCFTOOLS (
                 ch_bam,
                 PREPARE_GENOME.out.fasta,
-                (params.protocol == 'amplicon' || !params.skip_markduplicates) ? PREPARE_GENOME.out.chrom_sizes : [],
+                (params.trim_primers == 'trimmed' || !params.skip_markduplicates) ? PREPARE_GENOME.out.chrom_sizes : [],
                 ch_genome_gff ? PREPARE_GENOME.out.gff : [],
-                (params.protocol == 'amplicon' && ch_primer_bed) ? PREPARE_GENOME.out.primer_bed : [],
+                (params.trim_primers == 'trimmed' && ch_primer_bed) ? PREPARE_GENOME.out.primer_bed : [],
                 PREPARE_GENOME.out.snpeff_db,
                 PREPARE_GENOME.out.snpeff_config
             )
@@ -652,7 +653,7 @@ workflow VIRALRECON {
         //
         // MODULE: Primer trimming with Cutadapt
         //
-        if (params.protocol == 'amplicon' && !params.skip_assembly && !params.skip_cutadapt) {
+        if (params.trim_primers == 'trimmed' && !params.skip_assembly && !params.skip_cutadapt) {
             ch_primers =  PREPARE_GENOME.out.primer_fasta.collect { it[1] }
             if (!params.skip_noninternal_primers){
                 PREPARE_PRIMER_FASTA(

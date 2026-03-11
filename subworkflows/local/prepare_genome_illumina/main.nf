@@ -103,7 +103,7 @@ workflow PREPARE_GENOME_ILLUMINA {
     ch_primer_bed           = channel.empty()
     ch_primer_fasta         = channel.empty()
     ch_primer_collapsed_bed = channel.empty()
-    if (params.protocol == 'amplicon') {
+    if (params.trim_primers == 'trimmed') {
         if (primer_bed) {
             if (primer_bed.endsWith('.gz')) {
                 GUNZIP_PRIMER_BED (

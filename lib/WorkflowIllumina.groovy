@@ -11,12 +11,38 @@ class WorkflowIllumina {
     //
     public static void initialise(params, log, valid_params) {
         WorkflowCommons.genomeExistsError(params, log)
+       
+        // Handle deprecated --protocol parameter and map to trim_primers
+        if (params.containsKey('protocol') && !params.containsKey('trim_primers')) {
+            log.warn "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+                "  DEPRECATION WARNING: Parameter '--protocol' is deprecated!\n\n" +
+                "  The --protocol parameter is being phased out. Please use --trim_primers:\n\n" +
+                "    Current usage: --protocol amplicon\n" +
+                "    Update to:     --trim_primers trimmed\n\n" +
+                "    Current usage: --protocol metagenomic\n" +
+                "    Update to:     --trim_primers untrimmed\n\n" +
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
-        // Generic parameter validation
-        if (!valid_params['protocols'].contains(params.protocol)) {
-            Nextflow.error("Invalid option: '${params.protocol}'. Valid options for '--protocol': ${valid_params['protocols'].join(', ')}.")
+            if (params.protocol == 'amplicon') {
+                params.trim_primers = 'trimmed'
+            } else if (params.protocol == 'metagenomic') {
+                params.trim_primers = 'untrimmed'
+            }
         }
 
+        // Set default for trim_primers if neither protocol nor trim_primers is specified
+        if (!params.containsKey('protocol') && !params.containsKey('trim_primers')) {
+            params.trim_primers = 'trimmed'
+        }
+        
+        // Generic parameter validation
+        if (params.containsKey('protocol') && !valid_params['protocols'].contains(params.protocol)) {
+            Nextflow.error("Invalid option: '${params.protocol}'. Valid options for '--protocol': ${valid_params['protocols'].join(', ')}.")
+        }
+        
+        if (!valid_params['trim_primers'].contains(params.trim_primers)) {
+            Nextflow.error("Invalid option: '${params.trim_primers}'. Valid options for '--trim_primers': ${valid_params['trim_primers'].join(', ')}.")
+        }
         if (!params.fasta) {
             Nextflow.error("Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file.")
         }
@@ -41,8 +67,9 @@ class WorkflowIllumina {
             }
         }
 
-        if (params.protocol == 'amplicon' && !params.skip_variants && !params.primer_bed) {
-            Nextflow.error("To perform variant calling in amplicon mode please provide a valid primer BED file e.g. '--primer_bed primers.bed'.")
+        // Check primer bed file for trimmed/amplicon mode
+        if (params.trim_primers == 'trimmed' && !params.skip_variants && !params.primer_bed) {
+            Nextflow.error("To perform variant calling in trimmed/amplicon mode please provide a valid primer BED file e.g. '--primer_bed primers.bed'.")
         }
 
         // Assembly parameter validation

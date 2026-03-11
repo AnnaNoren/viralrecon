@@ -31,9 +31,16 @@
                 },
                 "protocol": {
                     "type": "string",
-                    "description": "Specifies the type of protocol used for sequencing.",
+                    "description": "Specifies the type of protocol used for sequencing. **DEPRECATED: use --trim_primers instead**.",
                     "fa_icon": "fas fa-vials",
-                    "enum": ["metagenomic", "amplicon"]
+                    "enum": ["metagenomic", "amplicon"],
+                    "hidden": true
+                },
+                "trim_primers": {
+                    "type": "string",
+                    "fa_icon": "fas fa-scissors",
+                    "description": "Specify whether to trim amplicon primers from reads. Use 'trimmed' for amplicon data with primers to trim, or 'untrimmed' for metagenomics or pre-trimmed data.",
+                    "enum": ["trimmed", "untrimmed"]
                 },
                 "outdir": {
                     "type": "string",
