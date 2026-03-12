@@ -14,6 +14,7 @@ Special thanks to the following for their code contributions to the release:
 - [Sarai Varona](https://github.com/svarona)
 - [Anna Norén](https://github.com/AnnaNoren)
 - [Joon Klaps](https://github.com/Joon-Klaps)
+- [Sara Monzon](https://github.com/saramonzon)
 
 Thank you to everyone else that has contributed by reporting bugs, enhancements or in any other way, shape or form.
 
@@ -25,6 +26,8 @@ Thank you to everyone else that has contributed by reporting bugs, enhancements 
 - [[PR #572](https://github.com/nf-core/viralrecon/pull/572)] - Template update for nf-core/tools v3.5.1
 - [[PR #559](https://github.com/nf-core/viralrecon/pull/559)] - Added HIV resistance detection subworkflow
 - [[PR #580](https://github.com/nf-core/viralrecon/pull/580)] - Fix bug related to deprecated argument `--meta` in `Freyja` suite
+- [[PR #585](https://github.com/nf-core/viralrecon/pull/585)] - Fix: accept semver primer_set_version values (e.g. 5.3.2)
+- [[PR #587](https://github.com/nf-core/viralrecon/pull/587)] - migrate lib/.groovy to utils_nfcore_viralrecon_pipeline
 
 ### Parameters
 
