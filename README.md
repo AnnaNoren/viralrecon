@@ -227,7 +227,7 @@ Many thanks to others who have helped out and contributed along the way too, inc
 | [Katrin Sameith](https://github.com/ktrns)                | [DRESDEN-concept Genome Center, Germany](https://genomecenter.tu-dresden.de)          |
 | [Kevin Menden](https://github.com/KevinMenden)            | [QBiC, University of Tübingen, Germany](https://portal.qbic.uni-tuebingen.de/portal/) |
 | [Lluc Cabus](https://github.com/lcabus-flomics)           | [Flomics Biotech, Spain](https://www.flomics.com/)                                    |
-| [Magdalena Matito](https://github.com/magdasmat)         | [BU-ISCIII, Spain](https://github.com/BU-ISCIII)                                      |
+| [Magdalena Matito](https://github.com/magdasmat)          | [BU-ISCIII, Spain](https://github.com/BU-ISCIII)                                      |
 | [Marta Pozuelo](https://github.com/mpozuelo-flomics)      | [Flomics Biotech, Spain](https://www.flomics.com/)                                    |
 | [Maxime Garcia](https://github.com/maxulysse)             | [Seqera Labs, Spain](https://seqera.io/)                                              |
 | [Michael Heuer](https://github.com/heuermh)               | [Network.bio, USA](https://network.bio/)                                              |
