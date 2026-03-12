@@ -10,6 +10,9 @@ include { paramsSummaryMultiqc         } from '../subworkflows/nf-core/utils_nfc
 include { softwareVersionsToYAML       } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText       } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 include { getFlagstatMappedReads       } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { multiqcTsvFromList           } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { checkPrimerSuffixes          } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -208,7 +211,7 @@ workflow VIRALRECON {
             PREPARE_GENOME
                 .out
                 .primer_bed
-                .map { WorkflowCommons.checkPrimerSuffixes(it, params.primer_left_suffix, params.primer_right_suffix, log) }
+                .map { checkPrimerSuffixes(it, params.primer_left_suffix, params.primer_right_suffix, log) }
 
             // Check whether the contigs in the primer BED file are present in the reference genome
             PREPARE_GENOME
@@ -290,7 +293,7 @@ workflow VIRALRECON {
                 .map {
                     tsv_data ->
                         def header = ['Sample', 'Reads before trimming']
-                        WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                        multiqcTsvFromList(tsv_data, header)
                 }
                 .collectFile(name: 'fail_mapped_reads_mqc.tsv')
                 .ifEmpty([])
@@ -377,7 +380,7 @@ workflow VIRALRECON {
                 .map {
                     tsv_data ->
                         def header = ['Sample', 'Mapped reads']
-                        WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                        multiqcTsvFromList(tsv_data, header)
                 }
                 .collectFile(name: 'fail_mapped_samples_mqc.tsv')
                 .ifEmpty([])
@@ -581,7 +584,7 @@ workflow VIRALRECON {
                 .map {
                     tsv_data ->
                         def header = ['Sample', 'clade']
-                        WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                        multiqcTsvFromList(tsv_data, header)
                 }
                 .collectFile(name: 'nextclade_clade_mqc.tsv')
                 .ifEmpty([])
@@ -750,7 +753,7 @@ workflow VIRALRECON {
         PREPARE_GENOME
             .out
             .primer_bed
-            .map { WorkflowCommons.checkPrimerSuffixes(it, params.primer_left_suffix, params.primer_right_suffix, log) }
+            .map { checkPrimerSuffixes(it, params.primer_left_suffix, params.primer_right_suffix, log) }
 
         // Check whether the contigs in the primer BED file are present in the reference genome
         PREPARE_GENOME
@@ -803,7 +806,7 @@ workflow VIRALRECON {
                     .map {
                         tsv_data ->
                             def header = ['Barcode', 'Read count']
-                            WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                            multiqcTsvFromList(tsv_data, header)
                     }
                     .collectFile(name: 'fail_barcodes_no_sample_mqc.tsv')
                     .ifEmpty([])
@@ -820,7 +823,7 @@ workflow VIRALRECON {
                     .map {
                         tsv_data ->
                             def header = ['Sample', 'Missing barcode']
-                            WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                            multiqcTsvFromList(tsv_data, header)
                     }
                     .collectFile(name: 'fail_no_barcode_samples_mqc.tsv')
                     .ifEmpty([])
@@ -867,7 +870,7 @@ workflow VIRALRECON {
             .map {
                 tsv_data ->
                     def header = ['Sample', 'Barcode count']
-                    WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                    multiqcTsvFromList(tsv_data, header)
             }
             .collectFile(name: 'fail_barcode_count_samples_mqc.tsv')
             .ifEmpty([])
@@ -937,7 +940,7 @@ workflow VIRALRECON {
             .map {
                 tsv_data ->
                     def header = ['Sample', 'Read count']
-                    WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                    multiqcTsvFromList(tsv_data, header)
             }
             .collectFile(name: 'fail_guppyplex_count_samples_mqc.tsv')
             .ifEmpty([])
@@ -1063,7 +1066,7 @@ workflow VIRALRECON {
             .map {
                 tsv_data ->
                     def header = ['Sample', 'Mapped reads']
-                    WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                    multiqcTsvFromList(tsv_data, header)
             }
             .collectFile(name: 'fail_mapped_samples_nanopore_mqc.tsv')
             .ifEmpty([])
@@ -1160,7 +1163,7 @@ workflow VIRALRECON {
                 .map {
                     tsv_data ->
                         def header = ['Sample', 'clade']
-                        WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                        multiqcTsvFromList(tsv_data, header)
                 }
                 .collectFile(name: 'nextclade_clade_mqc.tsv')
                 .ifEmpty([])
