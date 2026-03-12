@@ -26,14 +26,6 @@ include { getFastpReadsBeforeFiltering } from '../subworkflows/local/utils_nfcor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-def valid_params = [
-    protocols            : ['metagenomic', 'amplicon'],
-    variant_callers      : ['ivar', 'bcftools'],
-    consensus_callers    : ['ivar', 'bcftools'],
-    assemblers           : ['spades', 'unicycler', 'minia'],
-    spades_modes         : ['rnaviral', 'corona', 'metaviral', 'meta', 'metaplasmid', 'plasmid', 'isolate', 'rna', 'bio'],
-]
-
 def checkPathParamList = []
 
 // Check input path parameters to see if they exist
@@ -59,6 +51,25 @@ if (params.input)                 { ch_input          = file(params.input)      
 if (params.spades_hmm)            { ch_spades_hmm     = file(params.spades_hmm)            } else { ch_spades_hmm = []                              }
 if (params.additional_annotation) { ch_additional_gtf = file(params.additional_annotation) } else { ch_additional_gtf = channel.empty()             }
 if (params.taxidlist)             { ch_taxidlist      = file(params.taxidlist)             } else { ch_taxidlist = []                               }
+
+// If protocol amplicon you must provide primer set information
+if (params.protocol == 'amplicon' && !params.skip_variants && !params.primer_bed) {
+    error("To perform variant calling in amplicon mode please provide a valid primer BED file e.g. '--primer_bed primers.bed'.")
+}
+
+if (params.protocol == 'amplicon' && !params.skip_assembly && !params.primer_fasta) {
+    error("To perform assembly in amplicon mode please provide a valid primer fasta file e.g. '--primer_fasta primers.fasta'.")
+}
+
+if (!params.fasta) {
+    error("Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file.")
+}
+
+if (!params.skip_kraken2 && !params.kraken2_db) {
+    if (!params.kraken2_db_name) {
+        error("Please specify a valid name to build Kraken2 database for host e.g. '--kraken2_db_name human'.")
+    }
+}
 
 def assemblers = params.assemblers ? params.assemblers.split(',').collect{ it.trim().toLowerCase() } : []
 
