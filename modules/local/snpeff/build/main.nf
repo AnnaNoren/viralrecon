@@ -14,7 +14,7 @@ process SNPEFF_BUILD {
     output:
     path 'snpeff_db'   , emit: db
     path '*.config'    , emit: config
-    path "versions.yml", emit: versions
+    tuple val("${task.process}"), val('snpeff'), eval('echo \\$(snpEff -version 2>&1) | cut -f 2 -d " "'), emit: versions_snpeff, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -57,10 +57,5 @@ process SNPEFF_BUILD {
         $args \\
         -v \\
         ${basename}
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        snpeff: \$(echo \$(snpEff -version 2>&1) | cut -f 2 -d ' ')
-    END_VERSIONS
     """
 }

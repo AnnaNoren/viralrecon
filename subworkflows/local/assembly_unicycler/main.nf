@@ -17,10 +17,11 @@ workflow ASSEMBLY_UNICYCLER {
     blast_db              // channel: /path/to/blast_db/
     blast_header          // channel: /path/to/blast_header.txt
     blast_filtered_header // channel: /path/to/blast_filtered_header.txt
+    ch_taxidlist          // channel: /path/to/taxidlist.txt
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Assemble reads with Unicycler
@@ -45,6 +46,8 @@ workflow ASSEMBLY_UNICYCLER {
         UNICYCLER.out.gfa
     )
 
+    ch_versions = ch_versions.mix(GUNZIP_GFA.out.versions.first())
+
     //
     // Filter for empty scaffold files
     //
@@ -63,8 +66,8 @@ workflow ASSEMBLY_UNICYCLER {
     //
     // Generate assembly visualisation with Bandage
     //
-    ch_bandage_png = Channel.empty()
-    ch_bandage_svg = Channel.empty()
+    ch_bandage_png = channel.empty()
+    ch_bandage_svg = channel.empty()
     if (!params.skip_bandage) {
         BANDAGE_IMAGE (
             ch_gfa
@@ -83,7 +86,8 @@ workflow ASSEMBLY_UNICYCLER {
         gff,
         blast_db,
         blast_header,
-        blast_filtered_header
+        blast_filtered_header,
+        ch_taxidlist
     )
     ch_versions = ch_versions.mix(ASSEMBLY_QC.out.versions)
 

@@ -18,18 +18,18 @@ workflow VARIANTS_QC {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Annotate variants
     //
-    ch_snpeff_vcf   = Channel.empty()
-    ch_snpeff_tbi   = Channel.empty()
-    ch_snpeff_stats = Channel.empty()
-    ch_snpeff_csv   = Channel.empty()
-    ch_snpeff_txt   = Channel.empty()
-    ch_snpeff_html  = Channel.empty()
-    ch_snpsift_txt  = Channel.empty()
+    ch_snpeff_vcf   = channel.empty()
+    ch_snpeff_tbi   = channel.empty()
+    ch_snpeff_stats = channel.empty()
+    ch_snpeff_csv   = channel.empty()
+    ch_snpeff_txt   = channel.empty()
+    ch_snpeff_html  = channel.empty()
+    ch_snpsift_txt  = channel.empty()
     if (gff && !params.skip_snpeff) {
         SNPEFF_SNPSIFT (
             vcf,

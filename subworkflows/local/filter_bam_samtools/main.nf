@@ -13,7 +13,7 @@ workflow FILTER_BAM_SAMTOOLS {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Filter BAM using Samtools view

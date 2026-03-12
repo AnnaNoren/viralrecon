@@ -12,7 +12,7 @@ process MAKE_VARIANTS_LONG_TABLE {
 
     output:
     path "*.csv"       , emit: csv
-    path "versions.yml", emit: versions
+    tuple val("${task.process}"), val('python'), eval('python --version | sed "s/Python //g"'), emit: versions_python, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -25,10 +25,5 @@ process MAKE_VARIANTS_LONG_TABLE {
         --snpsift_dir ./snpsift \\
         --pangolin_dir ./pangolin \\
         $args
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
 }

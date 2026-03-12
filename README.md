@@ -5,13 +5,13 @@
   </picture>
 </h1>
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new/nf-core/viralrecon)
+[![Open in GitHub Codespaces](https://img.shields.io/badge/Open_In_GitHub_Codespaces-black?labelColor=grey&logo=github)](https://github.com/codespaces/new/nf-core/viralrecon)
 [![GitHub Actions CI Status](https://github.com/nf-core/viralrecon/actions/workflows/nf-test.yml/badge.svg)](https://github.com/nf-core/viralrecon/actions/workflows/nf-test.yml)
 [![GitHub Actions Linting Status](https://github.com/nf-core/viralrecon/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/viralrecon/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/viralrecon/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.3901628-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.3901628)  
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
 
 [![Nextflow](https://img.shields.io/badge/version-%E2%89%A525.04.0-green?style=flat&logo=nextflow&logoColor=white&color=%230DC09D&link=https%3A%2F%2Fnextflow.io)](https://www.nextflow.io/)
-[![nf-core template version](https://img.shields.io/badge/nf--core_template-3.4.1-green?style=flat&logo=nfcore&logoColor=white&color=%2324B064&link=https%3A%2F%2Fnf-co.re)](https://github.com/nf-core/tools/releases/tag/3.4.1)
+[![nf-core template version](https://img.shields.io/badge/nf--core_template-3.5.1-green?style=flat&logo=nfcore&logoColor=white&color=%2324B064&link=https%3A%2F%2Fnf-co.re)](https://github.com/nf-core/tools/releases/tag/3.5.1)
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
@@ -66,6 +66,10 @@ A number of improvements were made to the pipeline recently, mainly with regard 
       - Assembly report ([`PlasmidID`](https://github.com/BU-ISCIII/plasmidID))
       - Assembly assessment report ([`QUAST`](http://quast.sourceforge.net/quast))
 7. Present QC and visualisation for raw read, alignment, assembly and variant calling results ([`MultiQC`](http://multiqc.info/))
+8. _HIV resistance detection_:
+   1. Resistance detection ([sierra-local](https://github.com/PoonLab/sierra-local))
+   2. Custom annotation file generation ([liftoff](https://github.com/agshumate/Liftoff))
+   3. Codon frequency calculation (custom python scripts adapted from [codfreq](https://github.com/hivdb/codfreq))
 
 ### Nanopore
 
@@ -145,8 +149,25 @@ nextflow run nf-core/viralrecon \
    --primer_set_version 3 \
    --fastq_dir fastq_pass/ \
    --sequencing_summary sequencing_summary.txt \
-   -profile -profile <docker/singularity/.../institute>
+   -profile <docker/singularity/.../institute>
 ```
+
+#### HIV analysis:
+
+```bash
+nextflow run nf-core/viralrecon \
+   --input samplesheet.csv \
+   --outdir <OUTDIR> \
+   --platform illumina \
+   --protocol 'amplicon/metagenomic' \
+   --genome 'codfreq' \
+   --primer_bed <path/to/primers/bed> \ # only for amplicon data
+   --nextclade_dataset_tag '<LATEST_HIV_TAG>' \
+   --kraken2_db <path/to/host/database> \
+   -profile hiv,<docker/singularity/.../institute>
+```
+
+If you want to know more about the paramenters and references in profile `hiv`, check the documentation in [usage](./docs/usage.md#hiv-profile-and-recomended-params).
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).

@@ -18,7 +18,7 @@ process SNPEFF_ANN {
     tuple val(meta), path("*.csv")      , emit: csv
     tuple val(meta), path("*.genes.txt"), emit: txt
     tuple val(meta), path("*.html")     , emit: html
-    path "versions.yml"                 , emit: versions
+    tuple val("${task.process}"), val('snpeff'), eval('echo \\$(snpEff -version 2>&1) | cut -f 2 -d " "'), emit: versions_snpeff, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -44,10 +44,5 @@ process SNPEFF_ANN {
         -csvStats ${prefix}.snpeff.csv \\
         > ${prefix}.snpeff.vcf
     mv snpEff_summary.html ${prefix}.snpeff.summary.html
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        snpeff: \$(echo \$(snpEff -version 2>&1) | cut -f 2 -d ' ')
-    END_VERSIONS
     """
 }

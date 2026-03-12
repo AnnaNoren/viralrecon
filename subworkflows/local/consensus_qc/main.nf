@@ -2,11 +2,12 @@
 // Consensus calling QC
 //
 
-include { QUAST               } from '../../../modules/nf-core/quast/main'
-include { PANGOLIN_UPDATEDATA } from '../../../modules/nf-core/pangolin/updatedata/main'
-include { PANGOLIN_RUN        } from '../../../modules/nf-core/pangolin/run/main'
-include { NEXTCLADE_RUN       } from '../../../modules/nf-core/nextclade/run/main'
-include { PLOT_BASE_DENSITY   } from '../../../modules/local/plot_base_density'
+include { QUAST                  } from '../../../modules/nf-core/quast/main'
+include { PANGOLIN_UPDATEDATA    } from '../../../modules/nf-core/pangolin/updatedata/main'
+include { PANGOLIN_RUN           } from '../../../modules/nf-core/pangolin/run/main'
+include { NEXTCLADE_RUN          } from '../../../modules/nf-core/nextclade/run/main'
+include { PLOT_BASE_DENSITY      } from '../../../modules/local/plot_base_density'
+include { UNTAR as UNTAR_PANGODB } from '../../../modules/nf-core/untar/main'
 
 workflow CONSENSUS_QC {
     take:
@@ -17,13 +18,13 @@ workflow CONSENSUS_QC {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Consensus QC report across samples with QUAST
     //
-    ch_quast_results = Channel.empty()
-    ch_quast_tsv     = Channel.empty()
+    ch_quast_results = channel.empty()
+    ch_quast_tsv     = channel.empty()
     if (!params.skip_variants_quast) {
     consensus
         .collect{ it[1] }
@@ -43,21 +44,28 @@ workflow CONSENSUS_QC {
     //
     // Lineage analysis with Pangolin
     //
-    ch_pangolin_report = Channel.empty()
+    ch_pangolin_report = channel.empty()
+    ch_pango_database = channel.empty()
 
-    ch_pangolin_report = Channel.empty()
     if (!params.skip_pangolin) {
         if (!params.pango_database) {
             PANGOLIN_UPDATEDATA('pangolin_db')
-            pango_database = PANGOLIN_UPDATEDATA.out.db
-            ch_versions   = ch_versions.mix(PANGOLIN_UPDATEDATA.out.versions.first())
+            ch_pango_database = PANGOLIN_UPDATEDATA.out.db
+            ch_versions       = ch_versions.mix(PANGOLIN_UPDATEDATA.out.versions.first())
         } else {
-            pango_database = Channel.value(file(params.pango_database, type: 'dir'))
+            if (params.pango_database.endsWith('.tar.gz')) {
+                UNTAR_PANGODB (
+                    [ [:], params.pango_database ]
+                )
+                ch_pango_database = UNTAR_PANGODB.out.untar.map { it[1] }
+                ch_versions       = ch_versions.mix(UNTAR_PANGODB.out.versions)
+            } else {
+                ch_pango_database = channel.value(file(params.pango_database, type: 'dir'))
+            }
         }
-
         PANGOLIN_RUN (
             consensus,
-            pango_database
+            ch_pango_database
         )
         ch_pangolin_report = PANGOLIN_RUN.out.report
         ch_versions        = ch_versions.mix(PANGOLIN_RUN.out.versions.first())
@@ -66,7 +74,7 @@ workflow CONSENSUS_QC {
     //
     // Lineage analysis with Nextclade
     //
-    ch_nextclade_report = Channel.empty()
+    ch_nextclade_report = channel.empty()
     if (!params.skip_nextclade) {
         NEXTCLADE_RUN (
             consensus,
@@ -79,15 +87,14 @@ workflow CONSENSUS_QC {
     //
     // Plot consensus base density
     //
-    ch_bases_tsv = Channel.empty()
-    ch_bases_pdf = Channel.empty()
+    ch_bases_tsv = channel.empty()
+    ch_bases_pdf = channel.empty()
     if (!params.skip_consensus_plots) {
         PLOT_BASE_DENSITY (
             consensus
         )
         ch_bases_tsv = PLOT_BASE_DENSITY.out.tsv
         ch_bases_pdf = PLOT_BASE_DENSITY.out.pdf
-        ch_versions  = ch_versions.mix(PLOT_BASE_DENSITY.out.versions.first())
     }
 
     emit:

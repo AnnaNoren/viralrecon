@@ -13,7 +13,7 @@ workflow BAM_TRIM_PRIMERS_IVAR {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // iVar trim primers

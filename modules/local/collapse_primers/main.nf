@@ -14,7 +14,7 @@ process COLLAPSE_PRIMERS {
 
     output:
     path '*.bed'       , emit: bed
-    path "versions.yml", emit: versions
+    tuple val("${task.process}"), val('python'), eval('python --version | sed "s/Python //g"'), emit: versions_python, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -26,10 +26,5 @@ process COLLAPSE_PRIMERS {
         --right_primer_suffix $right_suffix \\
         $bed \\
         ${bed.baseName}.collapsed.bed
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
 }

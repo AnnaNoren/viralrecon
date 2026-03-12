@@ -22,7 +22,7 @@ workflow CONSENSUS_BCFTOOLS {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Filter variants by allele frequency, zip and index
@@ -45,7 +45,6 @@ workflow CONSENSUS_BCFTOOLS {
         fasta,
         params.save_mpileup
     )
-    ch_versions = ch_versions.mix(MAKE_BED_MASK.out.versions.first())
 
     //
     // Merge intervals with BEDTools
@@ -81,7 +80,6 @@ workflow CONSENSUS_BCFTOOLS {
     RENAME_FASTA_HEADER (
         BCFTOOLS_CONSENSUS.out.fasta
     )
-    ch_versions = ch_versions.mix(RENAME_FASTA_HEADER.out.versions.first())
 
     //
     // Consensus sequence QC

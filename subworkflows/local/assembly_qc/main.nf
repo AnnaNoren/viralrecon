@@ -16,20 +16,24 @@ workflow ASSEMBLY_QC {
     blast_db              // channel: /path/to/blast_db/
     blast_header          // channel: /path/to/blast_header.txt
     blast_filtered_header // channel: /path/to/blast_filtered_header.txt
+    ch_taxidlist          // channel: /path/to/taxidlist.txt
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Run blastn on assembly scaffolds
     //
-    ch_blast_txt        = Channel.empty()
-    ch_blast_filter_txt = Channel.empty()
+    ch_blast_txt        = channel.empty()
+    ch_blast_filter_txt = channel.empty()
     if (!params.skip_blast) {
         BLAST_BLASTN (
             scaffolds,
-            blast_db
+            blast_db,
+            ch_taxidlist,
+            [],
+            []
         )
         ch_versions  = ch_versions.mix(BLAST_BLASTN.out.versions.first())
 
@@ -40,14 +44,13 @@ workflow ASSEMBLY_QC {
         )
         ch_blast_txt = FILTER_BLASTN.out.blast
         ch_blast_filter_txt = FILTER_BLASTN.out.txt
-        ch_versions         = ch_versions.mix(FILTER_BLASTN.out.versions.first())
     }
 
     //
     // Assembly QC across all samples with QUAST
     //
-    ch_quast_results = Channel.empty()
-    ch_quast_tsv     = Channel.empty()
+    ch_quast_results = channel.empty()
+    ch_quast_tsv     = channel.empty()
     if (!params.skip_assembly_quast) {
         scaffolds
             .collect{ it[1] }
@@ -67,7 +70,7 @@ workflow ASSEMBLY_QC {
     //
     // Contiguate assembly with ABACAS
     //
-    ch_abacas_results = Channel.empty()
+    ch_abacas_results = channel.empty()
     if (!params.skip_abacas) {
         ABACAS (
             scaffolds,
@@ -80,14 +83,14 @@ workflow ASSEMBLY_QC {
     //
     // Assembly report with PlasmidID
     //
-    ch_plasmidid_html     = Channel.empty()
-    ch_plasmidid_tab      = Channel.empty()
-    ch_plasmidid_images   = Channel.empty()
-    ch_plasmidid_logs     = Channel.empty()
-    ch_plasmidid_data     = Channel.empty()
-    ch_plasmidid_database = Channel.empty()
-    ch_plasmidid_fasta    = Channel.empty()
-    ch_plasmidid_kmer     = Channel.empty()
+    ch_plasmidid_html     = channel.empty()
+    ch_plasmidid_tab      = channel.empty()
+    ch_plasmidid_images   = channel.empty()
+    ch_plasmidid_logs     = channel.empty()
+    ch_plasmidid_data     = channel.empty()
+    ch_plasmidid_database = channel.empty()
+    ch_plasmidid_fasta    = channel.empty()
+    ch_plasmidid_kmer     = channel.empty()
     if (!params.skip_plasmidid) {
         PLASMIDID (
             scaffolds,

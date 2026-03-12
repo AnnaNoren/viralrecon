@@ -123,9 +123,9 @@
                     "help_text": "Where possible we are trying to collate links and settings for standard primer sets to make it easier to run the pipeline with standard keys. See https://github.com/nf-core/configs/blob/master/conf/pipeline/viralrecon/genomes.config"
                 },
                 "primer_set_version": {
-                    "type": "number",
+                    "type": ["number", "string"],
                     "fa_icon": "fas fa-code-branch",
-                    "description": "Version of the primer set e.g. '--primer_set artic --primer_set_version 3'.",
+                    "description": "Version of the primer set e.g. '--primer_set artic --primer_set_version 3' or '--primer_set_version 5.3.2'.",
                     "help_text": "Where possible we are trying to collate links and settings for standard primer sets to make it easier to run the pipeline with standard keys. See https://github.com/nf-core/configs/blob/master/conf/pipeline/viralrecon/genomes.config"
                 },
                 "primer_left_suffix": {
@@ -245,9 +245,9 @@
                 },
                 "freyja_db_name": {
                     "type": "string",
-                    "default": "freyja_db",
+                    "default": "SARS-CoV-2",
                     "fa_icon": "fas fa-folder-open",
-                    "description": "Specify the name where to store UShER database (default: 'freyja_db')."
+                    "description": "Specify the name where to store UShER database (default: 'SARS-CoV-2')."
                 },
                 "freyja_depthcutoff": {
                     "type": "integer",
@@ -270,11 +270,17 @@
                     "fa_icon": "fas fa-file",
                     "description": "Lineage defining barcodes, default is most recent from UShER database."
                 },
-                "freyja_lineages": {
+                "freyja_lineages_meta": {
                     "type": "string",
                     "format": "path",
                     "fa_icon": "fas fa-file",
                     "description": "Metadata of lineages that match barcode, default is most recent from UShER database."
+                },
+                "freyja_lineages_topology": {
+                    "type": "string",
+                    "format": "path",
+                    "fa_icon": "fas fa-file",
+                    "description": "Topological information of lineages that match barcode, default is most recent from UShER database."
                 },
                 "max_multiqc_email_size": {
                     "type": "string",
@@ -429,9 +435,8 @@
                 },
                 "pango_database": {
                     "type": "string",
-                    "format": "directory-path",
                     "fa_icon": "fas fa-folder-open",
-                    "description": "Path to pangolin datadir."
+                    "description": "Path to pangolin datadir, either a folder or a compressed file with the DB (tar.gz)."
                 },
                 "skip_ivar_trim": {
                     "type": "boolean",
@@ -511,7 +516,13 @@
                     "type": "string",
                     "format": "path",
                     "fa_icon": "fas fa-database",
-                    "description": "Path to directory or tar.gz archive for pre-built BLAST database."
+                    "description": "Path to directory or tar.gz archive for pre-built BLAST database. For usage with -taxidlist in blastn it has to be built with -taxid_map and include the files taxdb.bt[di]."
+                },
+                "taxidlist": {
+                    "type": "string",
+                    "format": "file-path",
+                    "fa-icon": "fas fa-file-alt",
+                    "description": "Path to file containing list of tax ids, one per line, for filtering the blast database. Cannot be used with make_blastdb."
                 },
                 "skip_bandage": {
                     "type": "boolean",
@@ -570,6 +581,73 @@
                 }
             },
             "fa_icon": "fas fa-random"
+        },
+        "hiv_resistance_options": {
+            "title": "HIV resistance options",
+            "type": "object",
+            "description": "Options used during the detection of HIV resistance",
+            "default": "",
+            "properties": {
+                "hivdb_xml": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.xml$",
+                    "fa_icon": "fas fa-file",
+                    "description": "Path to HIVdb ASI2 XML file (default: HIVDB_9.4.xml)",
+                    "help_text": "This file is used by sierra-local software. If not provided, the XML file comming with the software will be used."
+                },
+                "apobec_drm": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.json$",
+                    "fa_icon": "fas fa-file",
+                    "description": "Path to JSON HIVdb APOBEC DRM file",
+                    "help_text": "This file is used by sierra-local software. If not provided, the JSON file comming with the software will be used."
+                },
+                "apobec_csv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "fa_icon": "fas fa-file",
+                    "description": " Path to CSV APOBEC csv file (default: apobecs.csv)",
+                    "help_text": "This file is used by sierra-local software. If not provided, the CSV file comming with the software will be used."
+                },
+                "unusual_csv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "fa_icon": "fas fa-file",
+                    "description": "Path to CSV file to determine if is unusual (default: rx-all_subtype-all.csv)",
+                    "help_text": "This file is used by sierra-local software. If not provided, the CSV file comming with the software will be used."
+                },
+                "sdrms_csv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "fa_icon": "fas fa-file",
+                    "description": "Path to CSV file to determine SDRM mutations (default: sdrms_hiv1.csv)",
+                    "help_text": "This file is used by sierra-local software. If not provided, the CSV file comming with the software will be used."
+                },
+                "mutation_csv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "fa_icon": "fas fa-file",
+                    "description": "Path to CSV file to determine mutation type (default: mutation-type-pairs_hiv1.csv",
+                    "help_text": "This file is used by sierra-local software. If not provided, the CSV file comming with the software will be used."
+                },
+                "perform_hiv_resistance": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-fast-forward",
+                    "description": "Whether to perform sierra local HIV resistance analysis."
+                }
+            }
         },
         "generic_options": {
             "title": "Generic options",
@@ -745,6 +823,9 @@
         },
         {
             "$ref": "#/$defs/illumina_de_novo_assembly_options"
+        },
+        {
+            "$ref": "#/$defs/hiv_resistance_options"
         },
         {
             "$ref": "#/$defs/generic_options"

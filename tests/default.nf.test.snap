@@ -33,7 +33,7 @@
                     "bedtools": "2.31.1"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.16.0+"
+                    "blast": "2.17.0+"
                 },
                 "BLAST_MAKEBLASTDB": {
                     "blast": "2.16.0+"
@@ -74,18 +74,18 @@
                     "sed": 4.9
                 },
                 "FREYJA_BOOT": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_DEMIX": {
-                    "freyja": "2.0.0"
-                },
-                "FREYJA_UPDATE": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_VARIANTS": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "GUNZIP_FASTA": {
+                    "gunzip": 1.13
+                },
+                "GUNZIP_GFA": {
                     "gunzip": 1.13
                 },
                 "GUNZIP_GFF": {
@@ -108,8 +108,8 @@
                     "pigz": 2.8
                 },
                 "MAKE_BED_MASK": {
-                    "samtools": 1.14,
-                    "python": "3.9.5"
+                    "python": "3.9.5",
+                    "samtools": 1.14
                 },
                 "MAKE_VARIANTS_LONG_TABLE": {
                     "python": "3.13.2"
@@ -120,9 +120,6 @@
                 "MOSDEPTH_GENOME": {
                     "mosdepth": "0.3.11"
                 },
-                "PANGOLIN_UPDATEDATA": {
-                    "pangolin": "4.3.1"
-                },
                 "PICARD_COLLECTMULTIPLEMETRICS": {
                     "picard": "3.4.0"
                 },
@@ -131,6 +128,9 @@
                 },
                 "PLOT_MOSDEPTH_REGIONS_GENOME": {
                     "r-base": "4.2.0"
+                },
+                "PREPARE_PRIMER_FASTA": {
+                    "sed": 4.9
                 },
                 "QUAST": {
                     "quast": "5.3.0"
@@ -180,8 +180,11 @@
                 "UNTAR_NEXTCLADE_DB": {
                     "untar": 1.34
                 },
+                "UNTAR_PANGODB": {
+                    "untar": 1.34
+                },
                 "Workflow": {
-                    "nf-core/viralrecon": "v3.0.0"
+                    "nf-core/viralrecon": "v3.1.0dev"
                 }
             },
             [
@@ -746,10 +749,6 @@
                 "variants/freyja/demix/SAMPLE1_PE.tsv",
                 "variants/freyja/demix/SAMPLE2_PE.tsv",
                 "variants/freyja/demix/SAMPLE3_SE.tsv",
-                "variants/freyja/freyja_db",
-                "variants/freyja/freyja_db/curated_lineages.json",
-                "variants/freyja/freyja_db/lineages.yml",
-                "variants/freyja/freyja_db/usher_barcodes.feather",
                 "variants/freyja/variants",
                 "variants/freyja/variants/SAMPLE1_PE.depth.tsv",
                 "variants/freyja/variants/SAMPLE1_PE.variants.tsv",
@@ -806,26 +805,6 @@
                 "variants/ivar/consensus/bcftools/pangolin/SAMPLE1_PE.pangolin.csv",
                 "variants/ivar/consensus/bcftools/pangolin/SAMPLE2_PE.pangolin.csv",
                 "variants/ivar/consensus/bcftools/pangolin/SAMPLE3_SE.pangolin.csv",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/bin",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/bin/pangolin_data",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data-1.35.dist-info",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data-1.35.dist-info/INSTALLER",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data-1.35.dist-info/METADATA",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data-1.35.dist-info/RECORD",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data-1.35.dist-info/REQUESTED",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data-1.35.dist-info/WHEEL",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data-1.35.dist-info/direct_url.json",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data-1.35.dist-info/entry_points.txt",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data-1.35.dist-info/top_level.txt",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data/__init__.py",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data/__pycache__",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data/__pycache__/__init__.cpython-311.pyc",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data/data",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data/data/alias_key.json",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data/data/lineageTree.pb",
-                "variants/ivar/consensus/bcftools/pangolin/pangolin_db/pangolin_data/data/lineages.hash.csv",
                 "variants/ivar/consensus/bcftools/quast.consensus",
                 "variants/ivar/consensus/bcftools/quast.consensus/aligned_stats",
                 "variants/ivar/consensus/bcftools/quast.consensus/aligned_stats/NAx_plot.pdf",
@@ -1015,11 +994,11 @@
                 "multiqc_ivar_variants.yaml:md5,22a1b3904671b16aace3b5f73a907614",
                 "multiqc_kraken.yaml:md5,7b5c5eae926f38e7326941d1e38db40b",
                 "multiqc_nextclade_clade.yaml:md5,15ccc4848ada72c96c9b39606517a9bb",
-                "multiqc_pangolin.yaml:md5,fe230e1f2fdd2c349aca013e40d9f4bc",
+                "multiqc_pangolin.yaml:md5,fc7af8a7b55ba7b484757b0799208301",
                 "multiqc_quast_quast_spades.yaml:md5,cb9b2122a8d6fd4aef51da97bdc5180d",
                 "multiqc_quast_quast_variants.yaml:md5,1465f3600b1643497310946af66d0618",
                 "multiqc_snpeff.yaml:md5,42d92c43058c25ce03620a2add521006",
-                "pangolin_run_table.yaml:md5,b7446933afc651c064e398289ac1adf4",
+                "pangolin_run_table.yaml:md5,16f4616675164243c67439101defe45e",
                 "snpeff_effects.yaml:md5,43533ac29b261ab7132c69c7034648ad",
                 "snpeff_variant_effects_class.yaml:md5,5f31369f0e087d4fe7eddc14d908f11f",
                 "snpeff_variant_effects_impact.yaml:md5,ab3b8b418a47185b61d19a06f2a8e846",
@@ -1085,9 +1064,9 @@
                 "SAMPLE1_PE.csv:md5,2d907beef116676a177200301bca4e7c",
                 "SAMPLE2_PE.csv:md5,610fb1a8df7fe7e18598237ebe9db36a",
                 "SAMPLE3_SE.csv:md5,1f129eab464674e6b2c404c809d0146b",
-                "SAMPLE1_PE.pangolin.csv:md5,fcd286546aca592b5486d41308159611",
-                "SAMPLE2_PE.pangolin.csv:md5,cbe00489710ca19fde9e8b09f64fadb2",
-                "SAMPLE3_SE.pangolin.csv:md5,ea1a562cdaaecc44d1dae1746874c7c4",
+                "SAMPLE1_PE.pangolin.csv:md5,93ad34cfc22d3c7a1bb9fe60c51e166f",
+                "SAMPLE2_PE.pangolin.csv:md5,151e8da109924024f0501e44c1798592",
+                "SAMPLE3_SE.pangolin.csv:md5,677f4e275cfb91cf5948d57a3f717412",
                 "gc.icarus.txt:md5,f18a506ebd4e3630c7bb4cef61d30f21",
                 "SAMPLE1_PE.variant_counts.log:md5,dca67b678c8fb1ff819c6e2549bd526d",
                 "SAMPLE2_PE.variant_counts.log:md5,3e36a199838f298a5db0e86f360d394e",
@@ -1108,9 +1087,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-17T11:54:08.656378233"
+        "timestamp": "2025-11-25T10:25:37.946528686"
     }
 }

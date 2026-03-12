@@ -16,7 +16,7 @@ workflow SNPEFF_SNPSIFT {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     SNPEFF_ANN (
         vcf,
@@ -24,7 +24,6 @@ workflow SNPEFF_SNPSIFT {
         config,
         fasta
     )
-    ch_versions = ch_versions.mix(SNPEFF_ANN.out.versions.first())
 
     VCF_BGZIP_TABIX_STATS (
         SNPEFF_ANN.out.vcf,
@@ -37,7 +36,6 @@ workflow SNPEFF_SNPSIFT {
     SNPSIFT_EXTRACTFIELDS (
         VCF_BGZIP_TABIX_STATS.out.vcf
     )
-    ch_versions = ch_versions.mix(SNPSIFT_EXTRACTFIELDS.out.versions.first())
 
     emit:
     csv         = SNPEFF_ANN.out.csv              // channel: [ val(meta), [ csv ] ]
