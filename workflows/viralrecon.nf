@@ -57,10 +57,6 @@ if (params.protocol == 'amplicon' && !params.skip_variants && !params.primer_bed
     error("To perform variant calling in amplicon mode please provide a valid primer BED file e.g. '--primer_bed primers.bed'.")
 }
 
-if (params.protocol == 'amplicon' && !params.skip_assembly && !params.primer_fasta) {
-    error("To perform assembly in amplicon mode please provide a valid primer fasta file e.g. '--primer_fasta primers.fasta'.")
-}
-
 if (!params.fasta) {
     error("Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file.")
 }
