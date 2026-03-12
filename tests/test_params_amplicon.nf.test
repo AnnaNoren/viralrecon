@@ -91,6 +91,12 @@ nextflow_pipeline {
                 skip_noninternal_primers: true,
                 threeprime_adapters: true
             ]
+        ],
+        [
+            name: "-profile test --primer_set_version 5.3.2",
+            params: [
+                primer_set_version: '5.3.2'
+            ]
         ]
     ]
 
