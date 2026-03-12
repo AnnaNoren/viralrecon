@@ -1,5 +1,5 @@
 {
-    "-profile test_sispa --gff false": {
+    "-profile test_metagenomic --gff false": {
         "content": [
             {
                 "ABACAS": {
@@ -1130,7 +1130,7 @@
             "nextflow": "25.10.4"
         }
     },
-    "-profile test_sispa --genome 'NC_045512.2'": {
+    "-profile test_metagenomic --genome 'NC_045512.2'": {
         "content": [
             {
                 "ABACAS": {

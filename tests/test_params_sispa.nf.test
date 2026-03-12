@@ -3,18 +3,18 @@ nextflow_pipeline {
     name "Test pipeline"
     script "../main.nf"
     tag "pipeline"
-    profile "test_sispa"
+    profile "test_metagenomic"
 
     // Define scenarios
     def test_scenario = [
         [
-            name: "-profile test_sispa --gff false",
+            name: "-profile test_metagenomic --gff false",
             params: [
                 gff: false
             ]
         ],
         [
-            name: "-profile test_sispa --genome 'NC_045512.2'",
+            name: "-profile test_metagenomic --genome 'NC_045512.2'",
             params: [
                 genome: "NC_045512.2"
             ]

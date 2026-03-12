@@ -11,7 +11,7 @@ class WorkflowIllumina {
     //
     public static void initialise(params, log, valid_params) {
         WorkflowCommons.genomeExistsError(params, log)
-       
+
         // Handle deprecated --protocol parameter and map to trim_primers
         if (params.containsKey('protocol') && !params.containsKey('trim_primers')) {
             log.warn "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
@@ -34,12 +34,12 @@ class WorkflowIllumina {
         if (!params.containsKey('protocol') && !params.containsKey('trim_primers')) {
             params.trim_primers = true
         }
-        
+
         // Generic parameter validation
         if (params.containsKey('protocol') && !valid_params['protocols'].contains(params.protocol)) {
             Nextflow.error("Invalid option: '${params.protocol}'. Valid options for '--protocol': ${valid_params['protocols'].join(', ')}.")
         }
-        
+
         if (!params.fasta) {
             Nextflow.error("Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file.")
         }
