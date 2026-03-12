@@ -7,56 +7,6 @@ import groovy.json.JsonSlurper
 class WorkflowIllumina {
 
     //
-    // Check and validate parameters
-    //
-    public static void initialise(params, log, valid_params) {
-        WorkflowCommons.genomeExistsError(params, log)
-
-        // Generic parameter validation
-        if (!valid_params['protocols'].contains(params.protocol)) {
-            Nextflow.error("Invalid option: '${params.protocol}'. Valid options for '--protocol': ${valid_params['protocols'].join(', ')}.")
-        }
-
-        if (!params.fasta) {
-            Nextflow.error("Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file.")
-        }
-
-        if (!params.skip_kraken2 && !params.kraken2_db) {
-            if (!params.kraken2_db_name) {
-                Nextflow.error("Please specify a valid name to build Kraken2 database for host e.g. '--kraken2_db_name human'.")
-            }
-        }
-
-        // Variant calling parameter validation
-        if (params.variant_caller) {
-            if (!valid_params['variant_callers'].contains(params.variant_caller)) {
-                Nextflow.error("Invalid option: ${params.variant_caller}. Valid options for '--variant_caller': ${valid_params['variant_callers'].join(', ')}.")
-            }
-        }
-
-        // Consensus calling parameter validation
-        if (params.consensus_caller) {
-            if (!valid_params['consensus_callers'].contains(params.consensus_caller)) {
-                Nextflow.error("Invalid option: ${params.consensus_caller}. Valid options for '--consensus_caller': ${valid_params['consensus_callers'].join(', ')}.")
-            }
-        }
-
-        if (params.protocol == 'amplicon' && !params.skip_variants && !params.primer_bed) {
-            Nextflow.error("To perform variant calling in amplicon mode please provide a valid primer BED file e.g. '--primer_bed primers.bed'.")
-        }
-
-        // Assembly parameter validation
-        def assemblers = params.assemblers ? params.assemblers.split(',').collect{ it.trim().toLowerCase() } : []
-        if ((valid_params['assemblers'] + assemblers).unique().size() != valid_params['assemblers'].size()) {
-            Nextflow.error("Invalid option: ${params.assemblers}. Valid options for '--assemblers': ${valid_params['assemblers'].join(', ')}.")
-        }
-
-        if (!valid_params['spades_modes'].contains(params.spades_mode)) {
-            Nextflow.error("Invalid option: ${params.spades_mode}. Valid options for '--spades_modes': ${valid_params['spades_modes'].join(', ')}.")
-        }
-    }
-
-    //
     // Print warning if genome fasta has more than one sequence
     //
     public static void isMultiFasta(fasta_file, log) {

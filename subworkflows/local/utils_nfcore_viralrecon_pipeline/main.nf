@@ -391,6 +391,20 @@ def getNextcladeFieldMapFromCsv(nextclade_report) {
 }
 
 //
+// Function to get number of variants reported in BCFTools stats file
+//
+def getNumVariantsFromBCFToolsStats(bcftools_stats) {
+    def num_vars = 0
+    bcftools_stats.eachLine { line ->
+        def matcher = line =~ /SN\s*0\s*number\sof\srecords:\s*([\d]+)/
+        if (matcher) num_vars = matcher[0][1].toInteger()
+    }
+    return num_vars
+}
+
+
+
+//
 // Function that parses and returns the number of mapped reads from flagstat files
 //
 def getFlagstatMappedReads(flagstat_file, params) {
