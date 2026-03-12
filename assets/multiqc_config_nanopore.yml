@@ -176,3 +176,5 @@ extra_fn_clean_exts:
 sp:
   mosdepth/global_dist:
     fn: "*.global.dist.txt"
+  amplicon_heatmap:
+    fn: "*.mosdepth.heatmap.tsv"
