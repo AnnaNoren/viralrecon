@@ -14,6 +14,7 @@ Special thanks to the following for their code contributions to the release:
 - [Sarai Varona](https://github.com/svarona)
 - [Anna Norén](https://github.com/AnnaNoren)
 - [Joon Klaps](https://github.com/Joon-Klaps)
+- [Magdalena Matito](https://github.com/magdasmat)
 
 Thank you to everyone else that has contributed by reporting bugs, enhancements or in any other way, shape or form.
 
@@ -25,21 +26,23 @@ Thank you to everyone else that has contributed by reporting bugs, enhancements 
 - [[PR #572](https://github.com/nf-core/viralrecon/pull/572)] - Template update for nf-core/tools v3.5.1
 - [[PR #559](https://github.com/nf-core/viralrecon/pull/559)] - Added HIV resistance detection subworkflow
 - [[PR #580](https://github.com/nf-core/viralrecon/pull/580)] - Fix bug related to deprecated argument `--meta` in `Freyja` suite
+- [[PR #586](https://github.com/nf-core/viralrecon/pull/586)] - Replace misleading `--protocol` string parameter with `--trim_primers` boolean; rename `test_sispa` profile and test files to `test_metagenomic`
 
 ### Parameters
 
-| Old parameter     | New parameter                |
-| ----------------- | ---------------------------- |
-|                   | `--taxidlist`                |
-|                   | `--perform_hiv_resistance`   |
-|                   | `--hivdb_xml`                |
-|                   | `--apobec_drm`               |
-|                   | `--apobec_csv`               |
-|                   | `--unusual_csv`              |
-|                   | `--sdrms_csv`                |
-|                   | `--mutation_csv`             |
-| --freyja_lineages | `--freyja_lineages_meta`     |
-|                   | `--freyja_lineages_topology` |
+| Old parameter | New parameter                |
+| ------------- | ---------------------------- |
+|               | `--taxidlist`                |
+|               | `--perform_hiv_resistance`   |
+|               | `--hivdb_xml`                |
+|               | `--apobec_drm`               |
+|               | `--apobec_csv`               |
+|               | `--unusual_csv`              |
+|               | `--sdrms_csv`                |
+|               | `--mutation_csv`             |
+| `--freyja_lineages` | `--freyja_lineages_meta` |
+|               | `--freyja_lineages_topology` |
+| `--protocol`  | `--trim_primers`             |
 
 > **NB:** Parameter has been **updated** if both old and new parameter information is present.
 > **NB:** Parameter has been **added** if just the new parameter information is present.
