@@ -323,6 +323,35 @@ def multiqcTsvFromList(tsv_data, header) {
 }
 
 //
+// Function to get column entries from a file
+//
+def getColFromFile(input_file, col=0, uniqify=false, sep='\t') {
+    def vals = []
+    input_file.eachLine { line ->
+        def val = line.split(sep)[col]
+        if (uniqify) {
+            if (!vals.contains(val)) {
+                vals << val
+            }
+        } else {
+            vals << val
+        }
+    }
+    return vals
+}
+
+//
+// Function that returns the number of lines in a file
+//
+def getNumLinesInFile(input_file) {
+    def num_lines = 0
+    input_file.eachLine { line ->
+        num_lines ++
+    }
+    return num_lines
+}
+
+//
 // Function that parses and returns the number of mapped reads from flagstat files
 //
 def getFlagstatMappedReads(flagstat_file, params) {

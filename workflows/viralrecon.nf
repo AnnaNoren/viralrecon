@@ -12,7 +12,8 @@ include { methodsDescriptionText       } from '../subworkflows/local/utils_nfcor
 include { getFlagstatMappedReads       } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 include { multiqcTsvFromList           } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 include { checkPrimerSuffixes          } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
-
+include { getColFromFile               } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { getNumLinesInFile            } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -217,13 +218,13 @@ workflow VIRALRECON {
             PREPARE_GENOME
                 .out
                 .primer_bed
-                .map { [ WorkflowCommons.getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
+                .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
                 .set { ch_bed_contigs }
 
             PREPARE_GENOME
                 .out
                 .fai
-                .map { [ WorkflowCommons.getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
+                .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
                 .concat(ch_bed_contigs)
                 .collect()
                 .map { fai, bed -> WorkflowCommons.checkContigsInBED(fai, bed, log) }
@@ -759,13 +760,13 @@ workflow VIRALRECON {
         PREPARE_GENOME
             .out
             .primer_bed
-            .map { [ WorkflowCommons.getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
+            .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
             .set { ch_bed_contigs }
 
         PREPARE_GENOME
             .out
             .fai
-            .map { [ WorkflowCommons.getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
+            .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
             .concat(ch_bed_contigs)
             .collect()
             .map { fai, bed -> WorkflowCommons.checkContigsInBED(fai, bed, log) }
