@@ -15,6 +15,10 @@ include { checkPrimerSuffixes          } from '../subworkflows/local/utils_nfcor
 include { getColFromFile               } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 include { checkContigsInBED            } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 include { getNextcladeFieldMapFromCsv  } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { isMultiFasta                 } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { checkIfSwiftProtocol         } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { getFastpReadsAfterFiltering  } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { getFastpReadsBeforeFiltering } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -206,7 +210,7 @@ workflow VIRALRECON {
         PREPARE_GENOME
             .out
             .fasta
-            .map { WorkflowIllumina.isMultiFasta(it, log) }
+            .map { isMultiFasta(it, log) }
 
         if (params.protocol == 'amplicon' && !params.skip_variants) {
             // Check primer BED file only contains suffixes provided --primer_left_suffix / --primer_right_suffix
@@ -235,7 +239,7 @@ workflow VIRALRECON {
                 PREPARE_GENOME
                     .out
                     .primer_bed
-                    .map { WorkflowIllumina.checkIfSwiftProtocol(it, 'covid19genome', log) }
+                    .map { checkIfSwiftProtocol(it, 'covid19genome', log) }
             }
         }
 
@@ -273,7 +277,7 @@ workflow VIRALRECON {
                 .join(FASTQ_TRIM_FASTP_FASTQC.out.trim_json)
                 .map {
                     meta, reads, json ->
-                        def pass = WorkflowIllumina.getFastpReadsAfterFiltering(json) > 0
+                        def pass = getFastpReadsAfterFiltering(json) > 0
                         [ meta, reads, json, pass ]
                 }
                 .set { ch_pass_fail_reads }
@@ -287,7 +291,7 @@ workflow VIRALRECON {
                     meta, reads, json, pass ->
                     if (!pass) {
                         fail_mapped_reads[meta.id] = 0
-                        def num_reads = WorkflowIllumina.getFastpReadsBeforeFiltering(json)
+                        def num_reads = getFastpReadsBeforeFiltering(json)
                         return [ "$meta.id\t$num_reads" ]
                     }
                 }
