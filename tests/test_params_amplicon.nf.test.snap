@@ -999,11 +999,11 @@
                 "variants_long_table.csv:md5,e792207c4c51a21989337c775cc630e1"
             ]
         ],
-        "timestamp": "2026-02-20T16:05:41.389719139",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
-        }
+        },
+        "timestamp": "2026-02-20T16:05:41.389719139"
     },
     "-profile test --variant_caller bcftools --consensus_caller ivar --skip_assembly": {
         "content": [
@@ -1671,11 +1671,11 @@
                 "SAMPLE3_SE.sorted.bam.stats:md5,441c95b9f49327ec7e244af8b5ef2a55"
             ]
         ],
-        "timestamp": "2026-02-20T16:01:51.40582403",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
-        }
+        },
+        "timestamp": "2026-02-20T16:01:51.40582403"
     },
     "-profile test --skip_noninternal_primers --threeprime_adapters": {
         "content": [
@@ -2749,11 +2749,11 @@
                 "variants_long_table.csv:md5,4f18039f0146a8fb967769881e6e6635"
             ]
         ],
-        "timestamp": "2026-02-20T19:51:06.370246705",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
-        }
+        },
+        "timestamp": "2026-02-20T19:51:06.370246705"
     },
     "-profile test --spades_mode metaviral --skip_variants": {
         "content": [
@@ -3268,11 +3268,11 @@
                 "multiqc_quast_quast_spades.yaml:md5,643e56cdc671346f027c8e713d9d76fd"
             ]
         ],
-        "timestamp": "2025-11-12T11:17:05.0341355",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
-        }
+        },
+        "timestamp": "2025-11-12T11:17:05.0341355"
     },
     "-profile test --skip_plasmidid false": {
         "content": [
@@ -4732,11 +4732,11 @@
                 "variants_long_table.csv:md5,4f18039f0146a8fb967769881e6e6635"
             ]
         ],
-        "timestamp": "2026-02-20T19:39:15.941851035",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
-        }
+        },
+        "timestamp": "2026-02-20T19:39:15.941851035"
     },
     "-profile test --additional_annotation 'https://github.com/nf-core/test-datasets/raw/refs/heads/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.gtf.gz'": {
         "content": [
@@ -5856,11 +5856,11 @@
                 "variants_long_table.csv:md5,4f18039f0146a8fb967769881e6e6635"
             ]
         ],
-        "timestamp": "2026-02-20T19:43:26.311958439",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
-        }
+        },
+        "timestamp": "2026-02-20T19:43:26.311958439"
     },
     "-profile test --skip_kraken2": {
         "content": [
@@ -6907,11 +6907,11 @@
                 "variants_long_table.csv:md5,4f18039f0146a8fb967769881e6e6635"
             ]
         ],
-        "timestamp": "2026-02-20T16:17:47.188134987",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
-        }
+        },
+        "timestamp": "2026-02-20T16:17:47.188134987"
     },
     "-profile test --skip_cutadapt --skip_snpeff": {
         "content": [
@@ -7893,11 +7893,11 @@
                 "SAMPLE3_SE.variant_counts.log:md5,bff4c9669df21990ba1eb566a9e6682d"
             ]
         ],
-        "timestamp": "2026-02-20T16:13:42.510380513",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
-        }
+        },
+        "timestamp": "2026-02-20T16:13:42.510380513"
     },
     "-profile test --primer_set_version 5.3.2": {
         "content": [
@@ -7972,6 +7972,15 @@
                 },
                 "FILTER_BLASTN": {
                     "sed": 4.9
+                },
+                "FREYJA_BOOT": {
+                    "freyja": "2.0.3"
+                },
+                "FREYJA_DEMIX": {
+                    "freyja": "2.0.3"
+                },
+                "FREYJA_VARIANTS": {
+                    "freyja": "2.0.3"
                 },
                 "GUNZIP_FASTA": {
                     "gunzip": 1.13
@@ -8444,6 +8453,7 @@
                 "kraken2/SAMPLE3_SE.kraken2.report.txt",
                 "multiqc",
                 "multiqc/multiqc_data",
+                "multiqc/multiqc_data/Freyja_plot.yaml",
                 "multiqc/multiqc_data/bcftools-stats-subtypes.yaml",
                 "multiqc/multiqc_data/bcftools_stats_indel-lengths.yaml",
                 "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.yaml",
@@ -8502,6 +8512,7 @@
                 "multiqc/multiqc_data/multiqc_data.json",
                 "multiqc/multiqc_data/multiqc_fastp.yaml",
                 "multiqc/multiqc_data/multiqc_fastqc.yaml",
+                "multiqc/multiqc_data/multiqc_freyja.yaml",
                 "multiqc/multiqc_data/multiqc_ivar_variants.yaml",
                 "multiqc/multiqc_data/multiqc_kraken.yaml",
                 "multiqc/multiqc_data/multiqc_nextclade_clade.yaml",
@@ -8626,6 +8637,25 @@
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.flagstat",
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.idxstats",
                 "variants/bowtie2/samtools_stats/SAMPLE3_SE.sorted.bam.stats",
+                "variants/freyja",
+                "variants/freyja/bootstrap",
+                "variants/freyja/bootstrap/SAMPLE1_PE_lineages.csv",
+                "variants/freyja/bootstrap/SAMPLE1_PE_summarized.csv",
+                "variants/freyja/bootstrap/SAMPLE2_PE_lineages.csv",
+                "variants/freyja/bootstrap/SAMPLE2_PE_summarized.csv",
+                "variants/freyja/bootstrap/SAMPLE3_SE_lineages.csv",
+                "variants/freyja/bootstrap/SAMPLE3_SE_summarized.csv",
+                "variants/freyja/demix",
+                "variants/freyja/demix/SAMPLE1_PE.tsv",
+                "variants/freyja/demix/SAMPLE2_PE.tsv",
+                "variants/freyja/demix/SAMPLE3_SE.tsv",
+                "variants/freyja/variants",
+                "variants/freyja/variants/SAMPLE1_PE.depth.tsv",
+                "variants/freyja/variants/SAMPLE1_PE.variants.tsv",
+                "variants/freyja/variants/SAMPLE2_PE.depth.tsv",
+                "variants/freyja/variants/SAMPLE2_PE.variants.tsv",
+                "variants/freyja/variants/SAMPLE3_SE.depth.tsv",
+                "variants/freyja/variants/SAMPLE3_SE.variants.tsv",
                 "variants/ivar",
                 "variants/ivar/SAMPLE1_PE.tsv",
                 "variants/ivar/SAMPLE1_PE.vcf.gz",
@@ -8857,7 +8887,7 @@
                 "mosdepth_perchrom.yaml:md5,1640bd2272c6177ee0a7e3030fbb2eb1",
                 "multiqc_bcftools_stats.yaml:md5,c7402841eba05c426d0375ee1b0c6740",
                 "multiqc_bowtie2.yaml:md5,5060f240b4210f8cf0cc7718748a6f9b",
-                "multiqc_citations.yaml:md5,2c581d0828edcb9eba71c80e007a8a4a",
+                "multiqc_citations.yaml:md5,6604be3c186cd954ce9a4bdd68c0aa8c",
                 "multiqc_cutadapt.yaml:md5,ef512821d282fc7bb6964fbc91554b17",
                 "multiqc_fastp.yaml:md5,03fe85f0a212166d35a0a7376fec4bf4",
                 "multiqc_fastqc.yaml:md5,7b74e5229b298fac53ec73b7194bb2f0",
@@ -8944,11 +8974,11 @@
                 "variants_long_table.csv:md5,060d37454901610eebb2e96c9c01b65a"
             ]
         ],
-        "timestamp": "2026-03-11T19:02:49.153088",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.4"
-        }
+        },
+        "timestamp": "2026-03-12T08:42:40.478532575"
     },
     "-profile test --skip_variants": {
         "content": [
@@ -9507,11 +9537,11 @@
                 "multiqc_quast_quast_spades.yaml:md5,cb9b2122a8d6fd4aef51da97bdc5180d"
             ]
         ],
-        "timestamp": "2025-11-12T10:39:37.745368894",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
-        }
+        },
+        "timestamp": "2025-11-12T10:39:37.745368894"
     },
     "-profile test --consensus_caller ivar": {
         "content": [
@@ -10578,11 +10608,11 @@
                 "variants_long_table.csv:md5,7cc321d5dae2a36f1cefb064c11e01eb"
             ]
         ],
-        "timestamp": "2026-02-20T15:58:20.284306259",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
-        }
+        },
+        "timestamp": "2026-02-20T15:58:20.284306259"
     },
     "-profile test --skip_assembly": {
         "content": [
@@ -11274,11 +11304,11 @@
                 "variants_long_table.csv:md5,4f18039f0146a8fb967769881e6e6635"
             ]
         ],
-        "timestamp": "2026-02-20T16:21:16.126123056",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
-        }
+        },
+        "timestamp": "2026-02-20T16:21:16.126123056"
     },
     "-profile test --spades_mode corona --skip_variants": {
         "content": [
@@ -11827,11 +11857,11 @@
                 "multiqc_quast_quast_spades.yaml:md5,ec740ef0ff76eeada46968abb1850534"
             ]
         ],
-        "timestamp": "2025-11-12T11:11:15.729704627",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
-        }
+        },
+        "timestamp": "2025-11-12T11:11:15.729704627"
     },
     "-profile test --bowtie2_index 'https://github.com/nf-core/test-datasets/raw/refs/heads/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.bt2.index.tar.gz'": {
         "content": [
@@ -12908,10 +12938,10 @@
                 "variants_long_table.csv:md5,4f18039f0146a8fb967769881e6e6635"
             ]
         ],
-        "timestamp": "2026-02-20T19:47:29.617739219",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
-        }
+        },
+        "timestamp": "2026-02-20T19:47:29.617739219"
     }
 }
