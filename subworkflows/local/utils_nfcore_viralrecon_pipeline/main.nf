@@ -352,6 +352,45 @@ def getNumLinesInFile(input_file) {
 }
 
 //
+// Function to generate an error if contigs in BED file do not match those in reference genome
+//
+def checkContigsInBED(fai_contigs, bed_contigs, log) {
+    def intersect = bed_contigs.intersect(fai_contigs)
+    if (intersect.size() != bed_contigs.size()) {
+        def diff = bed_contigs.minus(intersect).sort()
+        def error_string = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+            "  Contigs in primer BED file do not match those in the reference genome:\n\n" +
+            "  ${diff.join('\n  ')}\n\n" +
+            "  Please check:\n" +
+            "    - Primer BED file supplied with --primer_bed\n" +
+            "    - Genome FASTA file supplied with --fasta\n" +
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        error(error_string)
+    }
+}
+
+//
+// Function to read in all fields into a Groovy Map from Nextclade CSV output file
+//
+// See: https://stackoverflow.com/a/67766919
+def getNextcladeFieldMapFromCsv(nextclade_report) {
+    def headers   = []
+    def field_map = [:]
+    nextclade_report.readLines().eachWithIndex { row, row_index ->
+        def vals = row.split(';')
+        if (row_index == 0) {
+            headers = vals
+        } else {
+            def cells = headers.eachWithIndex { header, header_index ->
+                def val = (header_index <= vals.size()-1) ? vals[header_index] : ''
+                field_map[header] = val ?: 'NA'
+            }
+        }
+    }
+    return field_map
+}
+
+//
 // Function that parses and returns the number of mapped reads from flagstat files
 //
 def getFlagstatMappedReads(flagstat_file, params) {

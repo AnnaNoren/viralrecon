@@ -13,7 +13,8 @@ include { getFlagstatMappedReads       } from '../subworkflows/local/utils_nfcor
 include { multiqcTsvFromList           } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 include { checkPrimerSuffixes          } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 include { getColFromFile               } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
-include { getNumLinesInFile            } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { checkContigsInBED            } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { getNextcladeFieldMapFromCsv  } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -227,7 +228,7 @@ workflow VIRALRECON {
                 .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
                 .concat(ch_bed_contigs)
                 .collect()
-                .map { fai, bed -> WorkflowCommons.checkContigsInBED(fai, bed, log) }
+                .map { fai, bed -> checkContigsInBED(fai, bed, log) }
 
             // Check whether the primer BED file supplied to the pipeline is from the SWIFT/SNAP protocol
             if (!params.ivar_trim_offset) {
@@ -578,7 +579,7 @@ workflow VIRALRECON {
         if (!params.skip_variants && !params.skip_nextclade) {
             ch_nextclade_report
                 .map { meta, csv ->
-                    def clade = WorkflowCommons.getNextcladeFieldMapFromCsv(csv)['clade']
+                    def clade = getNextcladeFieldMapFromCsv(csv)['clade']
                     return [ "$meta.id\t$clade" ]
                 }
                 .collect()
@@ -769,7 +770,7 @@ workflow VIRALRECON {
             .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
             .concat(ch_bed_contigs)
             .collect()
-            .map { fai, bed -> WorkflowCommons.checkContigsInBED(fai, bed, log) }
+            .map { fai, bed -> checkContigsInBED(fai, bed, log) }
 
         barcode_dirs       = file("${params.fastq_dir}/barcode*", type: 'dir' , maxdepth: 1)
         single_barcode_dir = file("${params.fastq_dir}/*.fastq" , type: 'file', maxdepth: 1)
@@ -1157,7 +1158,7 @@ workflow VIRALRECON {
                 .csv
                 .map {
                     meta, csv ->
-                        def clade = WorkflowCommons.getNextcladeFieldMapFromCsv(csv)['clade']
+                        def clade = getNextcladeFieldMapFromCsv(csv)['clade']
                         return [ "$meta.id\t$clade" ]
                 }
                 .collect()
