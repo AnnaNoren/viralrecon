@@ -8,7 +8,7 @@ That leaves **31 errors** and ~75 warnings to fix across local files.
 
 ---
 
-## Phase 1: Trivial Fixes
+## Phase 1: Trivial Fixes (Completed)
 
 ### 1a. Missing config file (1 error)
 
@@ -117,7 +117,7 @@ That leaves **31 errors** and ~75 warnings to fix across local files.
 
 ## Implementation Order
 
-1. Phase 1a-1d (trivial fixes) — 13 errors resolved
+1. ~~Phase 1a-1d (trivial fixes) — 13 errors resolved~~
 2. Phase 2b (conditional includes in viralrecon.nf) — 2 errors resolved
 3. Phase 2a (main.nf restructuring) — 13 errors resolved (7 direct + 6 downstream)
 4. Phase 2c (WorkflowCommons) — 2 errors resolved (+ likely more uncovered)
