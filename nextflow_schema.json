@@ -129,9 +129,9 @@
                     "help_text": "Where possible we are trying to collate links and settings for standard primer sets to make it easier to run the pipeline with standard keys. See https://github.com/nf-core/configs/blob/master/conf/pipeline/viralrecon/genomes.config"
                 },
                 "primer_set_version": {
-                    "type": "number",
+                    "type": ["number", "string"],
                     "fa_icon": "fas fa-code-branch",
-                    "description": "Version of the primer set e.g. '--primer_set artic --primer_set_version 3'.",
+                    "description": "Version of the primer set e.g. '--primer_set artic --primer_set_version 3' or '--primer_set_version 5.3.2'.",
                     "help_text": "Where possible we are trying to collate links and settings for standard primer sets to make it easier to run the pipeline with standard keys. See https://github.com/nf-core/configs/blob/master/conf/pipeline/viralrecon/genomes.config"
                 },
                 "primer_left_suffix": {

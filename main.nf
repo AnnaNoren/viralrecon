@@ -16,7 +16,7 @@
 */
 
 def primer_set         = ''
-def primer_set_version = 0
+def primer_set_version = ''
 
 // Make sure platform is defined
 if( !params.platform ) {
@@ -154,7 +154,7 @@ workflow {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-def getGenomeAttribute(attribute, primer_set='', primer_set_version=0) {
+def getGenomeAttribute(attribute, primer_set='', primer_set_version='') {
         def val = ''
         def support_link =  " The default genome config used by the pipeline can be found here:\n" +
                             "   - https://github.com/nf-core/configs/blob/master/conf/pipeline/viralrecon/genomes.config\n\n" +
