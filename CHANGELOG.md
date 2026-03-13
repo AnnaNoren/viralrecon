@@ -16,11 +16,14 @@ Special thanks to the following for their code contributions to the release:
 - [Joon Klaps](https://github.com/Joon-Klaps)
 - [Sara Monzon](https://github.com/saramonzon)
 - [Magdalena Matito](https://github.com/magdasmat)
+- [Jordan Speizer](https://github.com/speizerj)
 
 Thank you to everyone else that has contributed by reporting bugs, enhancements or in any other way, shape or form.
 
 ### Enhancements & fixes
 
+- [[PR #589](https://github.com/nf-core/viralrecon/pull/589)] - Add strict syntax implementation plan, fix trivial errors
+- [[PR #585](https://github.com/nf-core/viralrecon/pull/585)] - Accept semver primer_set_version values (e.g. 5.3.2)
 - [[PR #546](https://github.com/nf-core/viralrecon/pull/546)] - Bumped dev branch version to development version
 - [[PR #562](https://github.com/nf-core/viralrecon/pull/562)] - Added pangolin-data database from test-datasets to test config
 - [[PR #541](https://github.com/nf-core/viralrecon/pull/541)] - Implement new blastn module with taxid filtering in pipeline
