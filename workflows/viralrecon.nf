@@ -10,6 +10,15 @@ include { paramsSummaryMultiqc         } from '../subworkflows/nf-core/utils_nfc
 include { softwareVersionsToYAML       } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText       } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 include { getFlagstatMappedReads       } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { multiqcTsvFromList           } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { checkPrimerSuffixes          } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { getColFromFile               } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { checkContigsInBED            } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { getNextcladeFieldMapFromCsv  } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { isMultiFasta                 } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { checkIfSwiftProtocol         } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { getFastpReadsAfterFiltering  } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+include { getFastpReadsBeforeFiltering } from '../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -22,7 +31,7 @@ def valid_params = [
     variant_callers      : ['ivar', 'bcftools'],
     consensus_callers    : ['ivar', 'bcftools'],
     assemblers           : ['spades', 'unicycler', 'minia'],
-    spades_modes         : ['rnaviral', 'corona', 'metaviral', 'meta', 'metaplasmid', 'plasmid', 'isolate', 'rna', 'bio']
+    spades_modes         : ['rnaviral', 'corona', 'metaviral', 'meta', 'metaplasmid', 'plasmid', 'isolate', 'rna', 'bio'],
 ]
 
 def checkPathParamList = []
@@ -50,6 +59,21 @@ if (params.input)                 { ch_input          = file(params.input)      
 if (params.spades_hmm)            { ch_spades_hmm     = file(params.spades_hmm)            } else { ch_spades_hmm = []                              }
 if (params.additional_annotation) { ch_additional_gtf = file(params.additional_annotation) } else { ch_additional_gtf = channel.empty()             }
 if (params.taxidlist)             { ch_taxidlist      = file(params.taxidlist)             } else { ch_taxidlist = []                               }
+
+// If protocol amplicon you must provide primer set information
+if (params.protocol == 'amplicon' && !params.skip_variants && !params.primer_bed) {
+    error("To perform variant calling in amplicon mode please provide a valid primer BED file e.g. '--primer_bed primers.bed'.")
+}
+
+if (!params.fasta) {
+    error("Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file.")
+}
+
+if (!params.skip_kraken2 && !params.kraken2_db) {
+    if (!params.kraken2_db_name) {
+        error("Please specify a valid name to build Kraken2 database for host e.g. '--kraken2_db_name human'.")
+    }
+}
 
 def assemblers = params.assemblers ? params.assemblers.split(',').collect{ it.trim().toLowerCase() } : []
 
@@ -201,36 +225,36 @@ workflow VIRALRECON {
         PREPARE_GENOME
             .out
             .fasta
-            .map { WorkflowIllumina.isMultiFasta(it, log) }
+            .map { isMultiFasta(it, log) }
 
         if (params.trim_primers && !params.skip_variants) {
             // Check primer BED file only contains suffixes provided --primer_left_suffix / --primer_right_suffix
             PREPARE_GENOME
                 .out
                 .primer_bed
-                .map { WorkflowCommons.checkPrimerSuffixes(it, params.primer_left_suffix, params.primer_right_suffix, log) }
+                .map { checkPrimerSuffixes(it, params.primer_left_suffix, params.primer_right_suffix, log) }
 
             // Check whether the contigs in the primer BED file are present in the reference genome
             PREPARE_GENOME
                 .out
                 .primer_bed
-                .map { [ WorkflowCommons.getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
+                .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
                 .set { ch_bed_contigs }
 
             PREPARE_GENOME
                 .out
                 .fai
-                .map { [ WorkflowCommons.getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
+                .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
                 .concat(ch_bed_contigs)
                 .collect()
-                .map { fai, bed -> WorkflowCommons.checkContigsInBED(fai, bed, log) }
+                .map { fai, bed -> checkContigsInBED(fai, bed, log) }
 
             // Check whether the primer BED file supplied to the pipeline is from the SWIFT/SNAP protocol
             if (!params.ivar_trim_offset) {
                 PREPARE_GENOME
                     .out
                     .primer_bed
-                    .map { WorkflowIllumina.checkIfSwiftProtocol(it, 'covid19genome', log) }
+                    .map { checkIfSwiftProtocol(it, 'covid19genome', log) }
             }
         }
 
@@ -268,7 +292,7 @@ workflow VIRALRECON {
                 .join(FASTQ_TRIM_FASTP_FASTQC.out.trim_json)
                 .map {
                     meta, reads, json ->
-                        def pass = WorkflowIllumina.getFastpReadsAfterFiltering(json) > 0
+                        def pass = getFastpReadsAfterFiltering(json) > 0
                         [ meta, reads, json, pass ]
                 }
                 .set { ch_pass_fail_reads }
@@ -282,7 +306,7 @@ workflow VIRALRECON {
                     meta, reads, json, pass ->
                     if (!pass) {
                         fail_mapped_reads[meta.id] = 0
-                        def num_reads = WorkflowIllumina.getFastpReadsBeforeFiltering(json)
+                        def num_reads = getFastpReadsBeforeFiltering(json)
                         return [ "$meta.id\t$num_reads" ]
                     }
                 }
@@ -290,7 +314,7 @@ workflow VIRALRECON {
                 .map {
                     tsv_data ->
                         def header = ['Sample', 'Reads before trimming']
-                        WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                        multiqcTsvFromList(tsv_data, header)
                 }
                 .collectFile(name: 'fail_mapped_reads_mqc.tsv')
                 .ifEmpty([])
@@ -377,7 +401,7 @@ workflow VIRALRECON {
                 .map {
                     tsv_data ->
                         def header = ['Sample', 'Mapped reads']
-                        WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                        multiqcTsvFromList(tsv_data, header)
                 }
                 .collectFile(name: 'fail_mapped_samples_mqc.tsv')
                 .ifEmpty([])
@@ -574,14 +598,14 @@ workflow VIRALRECON {
         if (!params.skip_variants && !params.skip_nextclade) {
             ch_nextclade_report
                 .map { meta, csv ->
-                    def clade = WorkflowCommons.getNextcladeFieldMapFromCsv(csv)['clade']
+                    def clade = getNextcladeFieldMapFromCsv(csv)['clade']
                     return [ "$meta.id\t$clade" ]
                 }
                 .collect()
                 .map {
                     tsv_data ->
                         def header = ['Sample', 'clade']
-                        WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                        multiqcTsvFromList(tsv_data, header)
                 }
                 .collectFile(name: 'nextclade_clade_mqc.tsv')
                 .ifEmpty([])
@@ -750,22 +774,22 @@ workflow VIRALRECON {
         PREPARE_GENOME
             .out
             .primer_bed
-            .map { WorkflowCommons.checkPrimerSuffixes(it, params.primer_left_suffix, params.primer_right_suffix, log) }
+            .map { checkPrimerSuffixes(it, params.primer_left_suffix, params.primer_right_suffix, log) }
 
         // Check whether the contigs in the primer BED file are present in the reference genome
         PREPARE_GENOME
             .out
             .primer_bed
-            .map { [ WorkflowCommons.getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
+            .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
             .set { ch_bed_contigs }
 
         PREPARE_GENOME
             .out
             .fai
-            .map { [ WorkflowCommons.getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
+            .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
             .concat(ch_bed_contigs)
             .collect()
-            .map { fai, bed -> WorkflowCommons.checkContigsInBED(fai, bed, log) }
+            .map { fai, bed -> checkContigsInBED(fai, bed, log) }
 
         barcode_dirs       = file("${params.fastq_dir}/barcode*", type: 'dir' , maxdepth: 1)
         single_barcode_dir = file("${params.fastq_dir}/*.fastq" , type: 'file', maxdepth: 1)
@@ -803,7 +827,7 @@ workflow VIRALRECON {
                     .map {
                         tsv_data ->
                             def header = ['Barcode', 'Read count']
-                            WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                            multiqcTsvFromList(tsv_data, header)
                     }
                     .collectFile(name: 'fail_barcodes_no_sample_mqc.tsv')
                     .ifEmpty([])
@@ -820,7 +844,7 @@ workflow VIRALRECON {
                     .map {
                         tsv_data ->
                             def header = ['Sample', 'Missing barcode']
-                            WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                            multiqcTsvFromList(tsv_data, header)
                     }
                     .collectFile(name: 'fail_no_barcode_samples_mqc.tsv')
                     .ifEmpty([])
@@ -867,7 +891,7 @@ workflow VIRALRECON {
             .map {
                 tsv_data ->
                     def header = ['Sample', 'Barcode count']
-                    WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                    multiqcTsvFromList(tsv_data, header)
             }
             .collectFile(name: 'fail_barcode_count_samples_mqc.tsv')
             .ifEmpty([])
@@ -937,7 +961,7 @@ workflow VIRALRECON {
             .map {
                 tsv_data ->
                     def header = ['Sample', 'Read count']
-                    WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                    multiqcTsvFromList(tsv_data, header)
             }
             .collectFile(name: 'fail_guppyplex_count_samples_mqc.tsv')
             .ifEmpty([])
@@ -1063,7 +1087,7 @@ workflow VIRALRECON {
             .map {
                 tsv_data ->
                     def header = ['Sample', 'Mapped reads']
-                    WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                    multiqcTsvFromList(tsv_data, header)
             }
             .collectFile(name: 'fail_mapped_samples_nanopore_mqc.tsv')
             .ifEmpty([])
@@ -1153,14 +1177,14 @@ workflow VIRALRECON {
                 .csv
                 .map {
                     meta, csv ->
-                        def clade = WorkflowCommons.getNextcladeFieldMapFromCsv(csv)['clade']
+                        def clade = getNextcladeFieldMapFromCsv(csv)['clade']
                         return [ "$meta.id\t$clade" ]
                 }
                 .collect()
                 .map {
                     tsv_data ->
                         def header = ['Sample', 'clade']
-                        WorkflowCommons.multiqcTsvFromList(tsv_data, header)
+                        multiqcTsvFromList(tsv_data, header)
                 }
                 .collectFile(name: 'nextclade_clade_mqc.tsv')
                 .ifEmpty([])
