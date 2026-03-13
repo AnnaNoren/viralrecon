@@ -126,7 +126,7 @@ We use a Kraken 2 database in this workflow to filter out reads specific to the 
 
 </details>
 
-The [artic minion](https://artic.readthedocs.io/en/latest/commands/) tool from the [ARTIC field bioinformatics pipeline](https://github.com/artic-network/fieldbioinformatics) is used to align reads, call variants and to generate the consensus sequence. You can provide the appropriate clair3 models via the `--artic_minion_model_dir` parameter, else, defaults to models packaged with conda/singularity/docker installation .
+The [artic minion](https://artic.readthedocs.io/en/latest/commands/) tool from the [ARTIC field bioinformatics pipeline](https://github.com/artic-network/fieldbioinformatics) is used to align reads, call variants and to generate the consensus sequence. You can provide the appropriate clair3 models via the `--clair3_model_dir` parameter, else, defaults to models packaged with conda/singularity/docker installation .
 
 ## Nanopore: Downstream analysis
 
