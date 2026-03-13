@@ -70,7 +70,7 @@ workflow CONSENSUS_BCFTOOLS {
         BCFTOOLS_FILTER.out.vcf
             .join(TABIX_TABIX.out.tbi, by: [0])
             .join(BEDTOOLS_MASKFASTA.out.fasta, by: [0])
-            .map { meta, vcf, tbi, fasta -> tuple(meta, vcf, tbi, fasta, []) }
+            .map { _meta, vcf_file, tbi_file, fasta_file -> tuple(_meta, vcf_file, tbi_file, fasta_file, []) }
     )
     ch_versions = ch_versions.mix(BCFTOOLS_CONSENSUS.out.versions.first())
 

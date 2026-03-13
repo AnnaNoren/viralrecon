@@ -25,23 +25,23 @@ process SIERRALOCAL {
     script:
     def prefix              = task.ext.prefix     ?: "${meta.id}"
     def args                = task.ext.args       ?: ''
-    def hivdb_xml           = params.hivdb_xml    ? "-xml  ${params.hivdb_xml}"            : ''
-    def apobec_drm          = params.apobec_drm   ? "-json ${params.apobec_drm}"           : ''
-    def apobec_csv          = params.apobec_csv   ? "-apobec_csv ${params.apobec_csv}"     : ''
-    def unusual_csv         = params.unusual_csv  ? "-unusual_csv ${params.unusual_csv}"   : ''
-    def sdrms_csv           = params.sdrms_csv    ? "-sdrms_csv ${params.sdrms_csv}"       : ''
-    def mutation_csv        = params.mutation_csv ? "-mutation_csv ${params.mutation_csv}" : ''
+    def hivdb_xml_arg       = params.hivdb_xml    ? "-xml  ${params.hivdb_xml}"            : ''
+    def apobec_drm_arg      = params.apobec_drm   ? "-json ${params.apobec_drm}"           : ''
+    def apobec_csv_arg      = params.apobec_csv   ? "-apobec_csv ${params.apobec_csv}"     : ''
+    def unusual_csv_arg     = params.unusual_csv  ? "-unusual_csv ${params.unusual_csv}"   : ''
+    def sdrms_csv_arg       = params.sdrms_csv    ? "-sdrms_csv ${params.sdrms_csv}"       : ''
+    def mutation_csv_arg    = params.mutation_csv ? "-mutation_csv ${params.mutation_csv}" : ''
     def sierralocal_version = "0.4.3"
 
     """
     sierralocal \\
         $args \\
-        $hivdb_xml \\
-        $apobec_drm \\
-        $apobec_csv \\
-        $unusual_csv \\
-        $sdrms_csv \\
-        $mutation_csv \\
+        $hivdb_xml_arg \\
+        $apobec_drm_arg \\
+        $apobec_csv_arg \\
+        $unusual_csv_arg \\
+        $sdrms_csv_arg \\
+        $mutation_csv_arg \\
         -o ${prefix}_resistance.json \\
         ${fasta}
 
