@@ -7,6 +7,8 @@ include { IVAR_VARIANTS_TO_VCF  } from '../../../modules/local/ivar_variants_to_
 include { BCFTOOLS_SORT         } from '../../../modules/nf-core/bcftools/sort/main'
 include { VCF_TABIX_STATS       } from '../vcf_tabix_stats'
 include { VARIANTS_QC           } from '../variants_qc'
+include { getNumLinesInFile     } from '../../../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+
 
 workflow VARIANTS_IVAR {
     take:
@@ -40,7 +42,7 @@ workflow VARIANTS_IVAR {
     IVAR_VARIANTS
         .out
         .tsv
-        .filter { meta, tsv -> WorkflowCommons.getNumLinesInFile(tsv) > 1 }
+        .filter { meta, tsv -> getNumLinesInFile(tsv) > 1 }
         .set { ch_ivar_tsv }
 
     //

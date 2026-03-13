@@ -2,10 +2,11 @@
 // Variant calling with BCFTools, downstream processing and QC
 //
 
-include { BCFTOOLS_MPILEUP } from '../../../modules/nf-core/bcftools/mpileup/main'
-include { BCFTOOLS_NORM    } from '../../../modules/nf-core/bcftools/norm/main'
-include { VCF_TABIX_STATS  } from '../vcf_tabix_stats'
-include { VARIANTS_QC      } from '../variants_qc'
+include { BCFTOOLS_MPILEUP                 } from '../../../modules/nf-core/bcftools/mpileup/main'
+include { BCFTOOLS_NORM                    } from '../../../modules/nf-core/bcftools/norm/main'
+include { VCF_TABIX_STATS                  } from '../vcf_tabix_stats'
+include { VARIANTS_QC                      } from '../variants_qc'
+include { getNumVariantsFromBCFToolsStats  } from '../../../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 
 workflow VARIANTS_BCFTOOLS {
     take:
@@ -37,7 +38,7 @@ workflow VARIANTS_BCFTOOLS {
         .vcf
         .join(BCFTOOLS_MPILEUP.out.tbi)
         .join(BCFTOOLS_MPILEUP.out.stats)
-        .filter { meta, vcf, tbi, stats -> WorkflowCommons.getNumVariantsFromBCFToolsStats(stats) > 0 }
+        .filter { meta, vcf, tbi, stats -> getNumVariantsFromBCFToolsStats(stats) > 0 }
         .set { ch_vcf_tbi_stats }
 
     ch_vcf_tbi_stats
