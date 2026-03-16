@@ -29,7 +29,7 @@ if( !(params.platform in valid_platforms) ) {
     error "Invalid value for --platform: '${params.platform}'. Allowed values: ${valid_platforms.join(', ')}"
 }
 
-if (params.platform == 'illumina' && params.protocol == 'amplicon') {
+if (params.platform == 'illumina' && params.trim_primers) {
     primer_set         = params.primer_set
     primer_set_version = params.primer_set_version
 } else if (params.platform == 'nanopore') {
