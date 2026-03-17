@@ -173,7 +173,7 @@ def getGenomeAttribute(attribute, primer_set='', primer_set_version='') {
                         if (genome_map.containsKey(primer_set_version)) {
                             genome_map = genome_map[ primer_set_version ]
                         } else {
-                            Nextflow.error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+                            error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
                                 " --primer_set_version '${primer_set_version}' not found!\n\n" +
                                 " Currently, the available primer set version keys are: ${genome_map.keySet().join(", ")}\n\n" +
                                 " Please check:\n" +
@@ -183,7 +183,7 @@ def getGenomeAttribute(attribute, primer_set='', primer_set_version='') {
                                 "   - Any custom config files provided to the pipeline.\n\n" + support_link)
                         }
                     } else {
-                        Nextflow.error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+                        error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
                             " --primer_set '${primer_set}' not found!\n\n" +
                             " Currently, the available primer set keys are: ${genome_map.keySet().join(", ")}\n\n" +
                             " Please check:\n" +
@@ -192,7 +192,7 @@ def getGenomeAttribute(attribute, primer_set='', primer_set_version='') {
                             "   - Any custom config files provided to the pipeline.\n\n" + support_link)
                     }
                 } else {
-                    Nextflow.error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+                    error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
                         " Genome '${params.genome}' does not contain any primer sets!\n\n" +
                         " Please check:\n" +
                         "   - The value provided to --genome (currently '${params.genome}')\n" +
