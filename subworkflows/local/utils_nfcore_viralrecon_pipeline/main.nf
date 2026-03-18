@@ -8,8 +8,6 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-import groovy.json.JsonSlurper
-
 include { UTILS_NFSCHEMA_PLUGIN     } from '../../nf-core/utils_nfschema_plugin'
 include { paramsSummaryMap          } from 'plugin/nf-schema'
 include { samplesheetToList         } from 'plugin/nf-schema'
@@ -296,9 +294,9 @@ def checkPrimerSuffixes(primer_bed_file, primer_left_suffix, primer_right_suffix
         def name = line.split('\t')[3]
         if (name.contains(primer_left_suffix)) {
             left += 1
-        } else if (name.contains(primer_right_suffix)) (
+        } else if (name.contains(primer_right_suffix)) {
             right += 1
-        )
+        }
     }
     if (total != (left + right)) {
         log.warn "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
@@ -348,7 +346,7 @@ def getColFromFile(input_file, col=0, uniqify=false, sep='\t') {
 def getNumLinesInFile(input_file) {
     def num_lines = 0
     input_file.eachLine { line ->
-        num_lines ++
+        num_lines += 1
     }
     return num_lines
 }
@@ -431,19 +429,17 @@ def getFlagstatMappedReads(flagstat_file, params) {
 //
 def isMultiFasta(fasta_file, log) {
     def count = 0
-    def line  = null
-    fasta_file.withReader { reader ->
-        while (line = reader.readLine()) {
-            if (line.contains('>')) {
-                count++
-                if (count > 1) {
-                    log.warn "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
-                        "  This pipeline does not officially support multi-fasta genome files!\n\n" +
-                        "  The parameters and processes are tailored for viral genome analysis.\n" +
-                        "  Please amend the '--fasta' parameter.\n" +
-                        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                    break
-                }
+    fasta_file.eachLine { line ->
+        if (count > 1)
+            return
+        if (line.contains('>')) {
+            count += 1
+            if (count > 1) {
+                log.warn "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+                    "  This pipeline does not officially support multi-fasta genome files!\n\n" +
+                    "  The parameters and processes are tailored for viral genome analysis.\n" +
+                    "  Please amend the '--fasta' parameter.\n" +
+                    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             }
         }
     }
@@ -454,21 +450,19 @@ def isMultiFasta(fasta_file, log) {
 //
 def checkIfSwiftProtocol(primer_bed_file, name_prefix, log) {
     def count = 0
-    def line  = null
-    primer_bed_file.withReader { reader ->
-        while (line = reader.readLine()) {
-            def name = line.split('\t')[3]
-            if (name.contains(name_prefix)) {
-                count++
-                if (count > 1) {
-                    log.warn "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
-                        "  Found '${name_prefix}' in the name field of the primer BED file!\n" +
-                        "  This suggests that you have used the SWIFT/SNAP protocol to prep your samples.\n" +
-                        "  If so, please set '--ivar_trim_offset 5' as suggested in the issue below:\n" +
-                        "  https://github.com/nf-core/viralrecon/issues/170\n" +
-                        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                    break
-                }
+    primer_bed_file.eachLine { line ->
+        if (count > 1)
+            return
+        def name = line.split('\t')[3]
+        if (name.contains(name_prefix)) {
+            count += 1
+            if (count > 1) {
+                log.warn "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+                    "  Found '${name_prefix}' in the name field of the primer BED file!\n" +
+                    "  This suggests that you have used the SWIFT/SNAP protocol to prep your samples.\n" +
+                    "  If so, please set '--ivar_trim_offset 5' as suggested in the issue below:\n" +
+                    "  https://github.com/nf-core/viralrecon/issues/170\n" +
+                    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             }
         }
     }
@@ -478,7 +472,7 @@ def checkIfSwiftProtocol(primer_bed_file, name_prefix, log) {
 // Function that parses fastp json output file to get total number of reads after trimming
 //
 def getFastpReadsAfterFiltering(json_file) {
-    def Map json = (Map) new JsonSlurper().parseText(json_file.text).get('summary')
+    def Map json = new groovy.json.JsonSlurper().parseText(json_file.text).get('summary')
     return json['after_filtering']['total_reads'].toInteger()
 }
 
@@ -486,6 +480,6 @@ def getFastpReadsAfterFiltering(json_file) {
 // Function that parses fastp json output file to get total number of reads before trimming
 //
 def getFastpReadsBeforeFiltering(json_file) {
-    def Map json = (Map) new JsonSlurper().parseText(json_file.text).get('summary')
+    def Map json = new groovy.json.JsonSlurper().parseText(json_file.text).get('summary')
     return json['before_filtering']['total_reads'].toInteger()
 }

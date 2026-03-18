@@ -22,82 +22,6 @@ include { getFastpReadsBeforeFiltering } from '../subworkflows/local/utils_nfcor
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    VALIDATE INPUTS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-def valid_params = [
-    protocols            : ['metagenomic', 'amplicon'],
-    variant_callers      : ['ivar', 'bcftools'],
-    consensus_callers    : ['ivar', 'bcftools'],
-    assemblers           : ['spades', 'unicycler', 'minia'],
-    spades_modes         : ['rnaviral', 'corona', 'metaviral', 'meta', 'metaplasmid', 'plasmid', 'isolate', 'rna', 'bio'],
-]
-
-def checkPathParamList = []
-
-// Check input path parameters to see if they exist
-if (params.platform == 'illumina') {
-    checkPathParamList = [
-        params.input, params.fasta, params.gff, params.bowtie2_index,
-        params.kraken2_db, params.primer_bed, params.primer_fasta,
-        params.blast_db, params.spades_hmm, params.multiqc_config,
-        params.freyja_barcodes, params.freyja_lineages_meta, params.freyja_lineages_topology, params.additional_annotation
-    ]
-} else if (params.platform == 'nanopore') {
-    checkPathParamList = [
-        params.input, params.fastq_dir,
-        params.sequencing_summary, params.gff,
-        params.freyja_barcodes, params.freyja_lineages_meta, params.freyja_lineages_topology, params.additional_annotation,
-        params.kraken2_db
-    ]
-}
-
-for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
-
-if (params.input)                 { ch_input          = file(params.input)                 } else { exit 1, 'Input samplesheet file not specified!' }
-if (params.spades_hmm)            { ch_spades_hmm     = file(params.spades_hmm)            } else { ch_spades_hmm = []                              }
-if (params.additional_annotation) { ch_additional_gtf = file(params.additional_annotation) } else { ch_additional_gtf = channel.empty()             }
-if (params.taxidlist)             { ch_taxidlist      = file(params.taxidlist)             } else { ch_taxidlist = []                               }
-
-// If protocol amplicon you must provide primer set information
-if (params.protocol == 'amplicon' && !params.skip_variants && !params.primer_bed) {
-    error("To perform variant calling in amplicon mode please provide a valid primer BED file e.g. '--primer_bed primers.bed'.")
-}
-
-if (!params.fasta) {
-    error("Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file.")
-}
-
-if (!params.skip_kraken2 && !params.kraken2_db) {
-    if (!params.kraken2_db_name) {
-        error("Please specify a valid name to build Kraken2 database for host e.g. '--kraken2_db_name human'.")
-    }
-}
-
-def assemblers = params.assemblers ? params.assemblers.split(',').collect{ it.trim().toLowerCase() } : []
-
-def variant_caller = params.variant_caller
-if (!variant_caller) { variant_caller = params.trim_primers ? 'ivar' : 'bcftools' }
-
-if (params.sequencing_summary)      { ch_sequencing_summary = file(params.sequencing_summary)      } else { ch_sequencing_summary = [] }
-
-// Need to stage artic model properly depending on whether it is a string or a file
-ch_artic_model_dir = params.artic_minion_model_dir ? channel.value(file(params.artic_minion_model_dir, type: 'dir')) :  []
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    CONFIG FILES
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-// Header files
-ch_blast_outfmt6_header          = file("$projectDir/assets/headers/blast_outfmt6_header.txt", checkIfExists: true)
-ch_blast_filtered_outfmt6_header = file("$projectDir/assets/headers/blast_filtered_outfmt6_header.txt", checkIfExists: true)
-ch_ivar_variants_header_mqc      = file("$projectDir/assets/headers/ivar_variants_header_mqc.txt", checkIfExists: true)
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -112,11 +36,8 @@ include { PREPARE_PRIMER_FASTA                                    } from '../mod
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-if (params.platform == 'illumina') {
-    include { PREPARE_GENOME_ILLUMINA as PREPARE_GENOME } from '../subworkflows/local/prepare_genome_illumina'
-} else if (params.platform == 'nanopore') {
-    include { PREPARE_GENOME_NANOPORE as PREPARE_GENOME } from '../subworkflows/local/prepare_genome_nanopore'
-}
+include { PREPARE_GENOME_ILLUMINA } from '../subworkflows/local/prepare_genome_illumina'
+include { PREPARE_GENOME_NANOPORE } from '../subworkflows/local/prepare_genome_nanopore'
 
 include { VARIANTS_IVAR           } from '../subworkflows/local/variants_ivar'
 include { VARIANTS_BCFTOOLS       } from '../subworkflows/local/variants_bcftools'
@@ -178,12 +99,6 @@ include { BAM_VARIANT_DEMIX_BOOT_FREYJA } from '../subworkflows/nf-core/bam_vari
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-// Info required for completion email and summary
-def pass_mapped_reads  = [:]
-def fail_mapped_reads  = [:]
-def pass_barcode_reads = [:]
-def fail_barcode_reads = [:]
-
 workflow VIRALRECON {
 
     take:
@@ -198,6 +113,90 @@ workflow VIRALRECON {
     ch_artic_scheme
 
     main:
+    /*
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        VALIDATE INPUTS
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    */
+
+    def valid_params = [
+        protocols            : ['metagenomic', 'amplicon'],
+        variant_callers      : ['ivar', 'bcftools'],
+        consensus_callers    : ['ivar', 'bcftools'],
+        assemblers           : ['spades', 'unicycler', 'minia'],
+        spades_modes         : ['rnaviral', 'corona', 'metaviral', 'meta', 'metaplasmid', 'plasmid', 'isolate', 'rna', 'bio'],
+    ]
+
+    def checkPathParamList = []
+
+    // Check input path parameters to see if they exist
+    if (params.platform == 'illumina') {
+        checkPathParamList = [
+            params.input, params.fasta, params.gff, params.bowtie2_index,
+            params.kraken2_db, params.primer_bed, params.primer_fasta,
+            params.blast_db, params.spades_hmm, params.multiqc_config,
+            params.freyja_barcodes, params.freyja_lineages_meta, params.freyja_lineages_topology, params.additional_annotation
+        ]
+    } else if (params.platform == 'nanopore') {
+        checkPathParamList = [
+            params.input, params.fastq_dir,
+            params.sequencing_summary, params.gff,
+            params.freyja_barcodes, params.freyja_lineages_meta, params.freyja_lineages_topology, params.additional_annotation,
+            params.kraken2_db
+        ]
+    }
+
+    checkPathParamList.each { param ->
+        if (param) { file(param, checkIfExists: true) }
+    }
+
+    if (params.input)                 { ch_input          = file(params.input)                 } else { exit 1, 'Input samplesheet file not specified!' }
+    if (params.spades_hmm)            { ch_spades_hmm     = file(params.spades_hmm)            } else { ch_spades_hmm = []                              }
+    if (params.additional_annotation) { ch_additional_gtf = file(params.additional_annotation) } else { ch_additional_gtf = channel.empty()             }
+    if (params.taxidlist)             { ch_taxidlist      = file(params.taxidlist)             } else { ch_taxidlist = []                               }
+
+    // If protocol amplicon you must provide primer set information
+    if (params.protocol == 'amplicon' && !params.skip_variants && !params.primer_bed) {
+        error("To perform variant calling in amplicon mode please provide a valid primer BED file e.g. '--primer_bed primers.bed'.")
+    }
+
+    if (!params.fasta) {
+        error("Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file.")
+    }
+
+    if (!params.skip_kraken2 && !params.kraken2_db) {
+        if (!params.kraken2_db_name) {
+            error("Please specify a valid name to build Kraken2 database for host e.g. '--kraken2_db_name human'.")
+        }
+    }
+
+    def assemblers = params.assemblers ? params.assemblers.split(',').collect{ it.trim().toLowerCase() } : []
+
+    def variant_caller = params.variant_caller
+    if (!variant_caller) { variant_caller = params.trim_primers ? 'ivar' : 'bcftools' }
+
+    if (params.sequencing_summary)      { ch_sequencing_summary = file(params.sequencing_summary)      } else { ch_sequencing_summary = [] }
+
+    // Need to stage artic model properly depending on whether it is a string or a file
+    ch_artic_model_dir = params.artic_minion_model_dir ? channel.value(file(params.artic_minion_model_dir, type: 'dir')) :  []
+
+    /*
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        CONFIG FILES
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    */
+
+    // Header files
+    ch_blast_outfmt6_header          = file("$projectDir/assets/headers/blast_outfmt6_header.txt", checkIfExists: true)
+    ch_blast_filtered_outfmt6_header = file("$projectDir/assets/headers/blast_filtered_outfmt6_header.txt", checkIfExists: true)
+    ch_ivar_variants_header_mqc      = file("$projectDir/assets/headers/ivar_variants_header_mqc.txt", checkIfExists: true)
+
+    // Info required for completion email and summary
+    def pass_mapped_reads  = [:]
+    def fail_mapped_reads  = [:]
+    def pass_barcode_reads = [:]
+    def fail_barcode_reads = [:]
+
     ch_versions      = channel.empty()
     ch_multiqc_files = channel.empty()
     multiqc_report   = channel.empty()
@@ -205,16 +204,28 @@ workflow VIRALRECON {
     //
     // SUBWORKFLOW: Uncompress and prepare reference genome files
     //
-    PREPARE_GENOME (
-        ch_genome_fasta,
-        ch_genome_gff,
-        ch_primer_bed,
-        ch_bowtie2_index,
-        ch_nextclade_dataset,
-        ch_nextclade_dataset_name,
-        ch_nextclade_dataset_tag
-    )
-    ch_versions = ch_versions.mix(PREPARE_GENOME.out.versions)
+    if (params.platform == 'illumina') {
+        genome = PREPARE_GENOME_ILLUMINA (
+            ch_genome_fasta,
+            ch_genome_gff,
+            ch_primer_bed,
+            ch_bowtie2_index,
+            ch_nextclade_dataset,
+            ch_nextclade_dataset_name,
+            ch_nextclade_dataset_tag
+        )
+    } else if (params.platform == 'nanopore') {
+        genome = PREPARE_GENOME_NANOPORE (
+            ch_genome_fasta,
+            ch_genome_gff,
+            ch_primer_bed,
+            ch_bowtie2_index,
+            ch_nextclade_dataset,
+            ch_nextclade_dataset_name,
+            ch_nextclade_dataset_tag
+        )
+    }
+    ch_versions = ch_versions.mix(genome.versions)
 
     if (params.platform == 'illumina') {
         //
@@ -222,37 +233,32 @@ workflow VIRALRECON {
         //
 
         // Check genome fasta only contains a single contig
-        PREPARE_GENOME
-            .out
+        genome
             .fasta
             .map { isMultiFasta(it, log) }
 
         if (params.trim_primers && !params.skip_variants) {
             // Check primer BED file only contains suffixes provided --primer_left_suffix / --primer_right_suffix
-            PREPARE_GENOME
-                .out
+            genome
                 .primer_bed
                 .map { checkPrimerSuffixes(it, params.primer_left_suffix, params.primer_right_suffix, log) }
 
             // Check whether the contigs in the primer BED file are present in the reference genome
-            PREPARE_GENOME
-                .out
+            genome
                 .primer_bed
-                .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
+                .map { [ getColFromFile(it, 0, true) ] }
                 .set { ch_bed_contigs }
 
-            PREPARE_GENOME
-                .out
+            genome
                 .fai
-                .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
+                .map { [ getColFromFile(it, 0, true) ] }
                 .concat(ch_bed_contigs)
                 .collect()
                 .map { fai, bed -> checkContigsInBED(fai, bed, log) }
 
             // Check whether the primer BED file supplied to the pipeline is from the SWIFT/SNAP protocol
             if (!params.ivar_trim_offset) {
-                PREPARE_GENOME
-                    .out
+                genome
                     .primer_bed
                     .map { checkIfSwiftProtocol(it, 'covid19genome', log) }
             }
@@ -329,7 +335,7 @@ workflow VIRALRECON {
         if (!params.skip_kraken2) {
             KRAKEN2_KRAKEN2 (
                 ch_variants_fastq,
-                PREPARE_GENOME.out.kraken2_db,
+                genome.kraken2_db,
                 params.kraken2_variants_host_filter || params.kraken2_assembly_host_filter,
                 params.kraken2_variants_host_filter || params.kraken2_assembly_host_filter
             )
@@ -353,10 +359,10 @@ workflow VIRALRECON {
         if (!params.skip_variants) {
             FASTQ_ALIGN_BOWTIE2 (
                 ch_variants_fastq,
-                PREPARE_GENOME.out.bowtie2_index,
+                genome.bowtie2_index,
                 params.save_unaligned,
                 false,
-                PREPARE_GENOME.out.fasta.map { [ [:], it ] }
+                genome.fasta.map { [ [:], it ] }
             )
         ch_bam           = FASTQ_ALIGN_BOWTIE2.out.bam
         ch_bai           = FASTQ_ALIGN_BOWTIE2.out.bai
@@ -415,8 +421,8 @@ workflow VIRALRECON {
         if (!params.skip_variants && !params.skip_ivar_trim && params.trim_primers) {
             BAM_TRIM_PRIMERS_IVAR (
                 ch_bam.join(ch_bai, by: [0]),
-                PREPARE_GENOME.out.primer_bed,
-                PREPARE_GENOME.out.fasta.map { [ [:], it ] }
+                genome.primer_bed,
+                genome.fasta.map { [ [:], it ] }
             )
             ch_bam           = BAM_TRIM_PRIMERS_IVAR.out.bam
             ch_bai           = BAM_TRIM_PRIMERS_IVAR.out.bai
@@ -430,8 +436,8 @@ workflow VIRALRECON {
         if (!params.skip_variants && !params.skip_markduplicates) {
             BAM_MARKDUPLICATES_PICARD (
                 ch_bam,
-                PREPARE_GENOME.out.fasta.map { [ [:], it ] },
-                PREPARE_GENOME.out.fai
+                genome.fasta.map { [ [:], it ] },
+                genome.fai
             )
             ch_bam           = BAM_MARKDUPLICATES_PICARD.out.bam
             ch_bai           = BAM_MARKDUPLICATES_PICARD.out.bai
@@ -445,7 +451,7 @@ workflow VIRALRECON {
         if (!params.skip_variants && !params.skip_picard_metrics) {
             PICARD_COLLECTMULTIPLEMETRICS (
                 ch_bam.join(ch_bai, by: [0]),
-                PREPARE_GENOME.out.fasta.map { [ [:], it ] },
+                genome.fasta.map { [ [:], it ] },
                 [ [:], [] ]
             )
             ch_versions = ch_versions.mix(PICARD_COLLECTMULTIPLEMETRICS.out.versions.first())
@@ -471,7 +477,7 @@ workflow VIRALRECON {
                 MOSDEPTH_AMPLICON (
                     ch_bam
                         .join(ch_bai, by: [0])
-                        .combine(PREPARE_GENOME.out.primer_collapsed_bed),
+                        .combine(genome.primer_collapsed_bed),
                     [ [:], [] ],
                 )
                 ch_versions = ch_versions.mix(MOSDEPTH_AMPLICON.out.versions.first())
@@ -492,13 +498,13 @@ workflow VIRALRECON {
         if (!params.skip_variants && variant_caller == 'ivar') {
             VARIANTS_IVAR (
                 ch_bam,
-                PREPARE_GENOME.out.fasta,
-                (params.trim_primers || !params.skip_markduplicates) ? PREPARE_GENOME.out.fai : [],
-                (params.trim_primers || !params.skip_markduplicates) ? PREPARE_GENOME.out.chrom_sizes : [],
-                ch_genome_gff ? PREPARE_GENOME.out.gff : [],
-                (params.trim_primers && ch_primer_bed) ? PREPARE_GENOME.out.primer_bed : [],
-                PREPARE_GENOME.out.snpeff_db,
-                PREPARE_GENOME.out.snpeff_config,
+                genome.fasta,
+                (params.trim_primers || !params.skip_markduplicates) ? genome.fai : [],
+                (params.trim_primers || !params.skip_markduplicates) ? genome.chrom_sizes : [],
+                ch_genome_gff ? genome.gff : [],
+                (params.trim_primers && ch_primer_bed) ? genome.primer_bed : [],
+                genome.snpeff_db,
+                genome.snpeff_config,
                 ch_ivar_variants_header_mqc
             )
             ch_vcf           = VARIANTS_IVAR.out.vcf
@@ -516,12 +522,12 @@ workflow VIRALRECON {
         if (!params.skip_variants && variant_caller == 'bcftools') {
             VARIANTS_BCFTOOLS (
                 ch_bam,
-                PREPARE_GENOME.out.fasta,
-                (params.trim_primers || !params.skip_markduplicates) ? PREPARE_GENOME.out.chrom_sizes : [],
-                ch_genome_gff ? PREPARE_GENOME.out.gff : [],
-                (params.trim_primers && ch_primer_bed) ? PREPARE_GENOME.out.primer_bed : [],
-                PREPARE_GENOME.out.snpeff_db,
-                PREPARE_GENOME.out.snpeff_config
+                genome.fasta,
+                (params.trim_primers || !params.skip_markduplicates) ? genome.chrom_sizes : [],
+                ch_genome_gff ? genome.gff : [],
+                (params.trim_primers && ch_primer_bed) ? genome.primer_bed : [],
+                genome.snpeff_db,
+                genome.snpeff_config
             )
             ch_vcf           = VARIANTS_BCFTOOLS.out.vcf
             ch_tbi           = VARIANTS_BCFTOOLS.out.tbi
@@ -537,7 +543,7 @@ workflow VIRALRECON {
         if (!params.skip_variants && !params.skip_freyja) {
             BAM_VARIANT_DEMIX_BOOT_FREYJA(
                 ch_bam,
-                PREPARE_GENOME.out.fasta,
+                genome.fasta,
                 params.skip_freyja_boot,
                 params.freyja_repeats,
                 params.freyja_db_name,
@@ -558,9 +564,9 @@ workflow VIRALRECON {
         if (!params.skip_variants && !params.skip_consensus && params.consensus_caller == 'ivar') {
             CONSENSUS_IVAR (
                 ch_bam,
-                PREPARE_GENOME.out.fasta,
-                ch_genome_gff ? PREPARE_GENOME.out.gff.map { [ [:], it ] } : [ [:], [] ],
-                PREPARE_GENOME.out.nextclade_db
+                genome.fasta,
+                ch_genome_gff ? genome.gff.map { [ [:], it ] } : [ [:], [] ],
+                genome.nextclade_db
             )
             ch_nextclade_report = CONSENSUS_IVAR.out.nextclade_report
             ch_pangolin_report  = CONSENSUS_IVAR.out.pangolin_report
@@ -578,9 +584,9 @@ workflow VIRALRECON {
                 ch_bam,
                 ch_vcf,
                 ch_tbi,
-                PREPARE_GENOME.out.fasta,
-                ch_genome_gff ? PREPARE_GENOME.out.gff.map { [ [:], it ] } : [ [:], [] ],
-                PREPARE_GENOME.out.nextclade_db
+                genome.fasta,
+                ch_genome_gff ? genome.gff.map { [ [:], it ] } : [ [:], [] ],
+                genome.nextclade_db
             )
 
             ch_nextclade_report = CONSENSUS_BCFTOOLS.out.nextclade_report
@@ -647,7 +653,7 @@ workflow VIRALRECON {
             ADDITIONAL_ANNOTATION (
                 ch_vcf,
                 ch_tbi,
-                PREPARE_GENOME.out.fasta,
+                genome.fasta,
                 ch_annot,
                 ch_pangolin_report
 
@@ -663,8 +669,8 @@ workflow VIRALRECON {
             HIV_RESISTANCE (
                 ch_consensus_genome,
                 ch_bam.join(ch_bai, by: [0]),
-                PREPARE_GENOME.out.fasta,
-                PREPARE_GENOME.out.gff,
+                genome.fasta,
+                genome.gff,
                 ch_vcf,
                 ch_tbi,
                 ch_pangolin_report,
@@ -677,10 +683,10 @@ workflow VIRALRECON {
         // MODULE: Primer trimming with Cutadapt
         //
         if (params.trim_primers && !params.skip_assembly && !params.skip_cutadapt) {
-            ch_primers =  PREPARE_GENOME.out.primer_fasta.collect { it[1] }
+            ch_primers =  genome.primer_fasta.collect { it[1] }
             if (!params.skip_noninternal_primers){
                 PREPARE_PRIMER_FASTA(
-                    PREPARE_GENOME.out.primer_fasta.collect { it[1] }
+                    genome.primer_fasta.collect { it[1] }
                     )
                 ch_primers = PREPARE_PRIMER_FASTA.out.adapters
             }
@@ -709,9 +715,9 @@ workflow VIRALRECON {
                 ch_assembly_fastq.map { meta, fastq -> [ meta, fastq, [], [] ] },
                 params.spades_mode,
                 ch_spades_hmm,
-                PREPARE_GENOME.out.fasta,
-                ch_genome_gff ? PREPARE_GENOME.out.gff.map { [ [:], it ] } : [ [:], [] ],
-                PREPARE_GENOME.out.blast_db,
+                genome.fasta,
+                ch_genome_gff ? genome.gff.map { [ [:], it ] } : [ [:], [] ],
+                genome.blast_db,
                 ch_blast_outfmt6_header,
                 ch_blast_filtered_outfmt6_header,
                 ch_taxidlist
@@ -726,9 +732,9 @@ workflow VIRALRECON {
         if (!params.skip_assembly && 'unicycler' in assemblers) {
             ASSEMBLY_UNICYCLER (
                 ch_assembly_fastq.map { meta, fastq -> [ meta, fastq, [] ] },
-                PREPARE_GENOME.out.fasta,
-                ch_genome_gff ? PREPARE_GENOME.out.gff.map { [ [:], it ] } : [ [:], [] ],
-                PREPARE_GENOME.out.blast_db,
+                genome.fasta,
+                ch_genome_gff ? genome.gff.map { [ [:], it ] } : [ [:], [] ],
+                genome.blast_db,
                 ch_blast_outfmt6_header,
                 ch_blast_filtered_outfmt6_header,
                 ch_taxidlist
@@ -743,9 +749,9 @@ workflow VIRALRECON {
         if (!params.skip_assembly && 'minia' in assemblers) {
             ASSEMBLY_MINIA (
                 ch_assembly_fastq,
-                PREPARE_GENOME.out.fasta,
-                ch_genome_gff ? PREPARE_GENOME.out.gff.map { [ [:], it ] } : [ [:], [] ],
-                PREPARE_GENOME.out.blast_db,
+                genome.fasta,
+                ch_genome_gff ? genome.gff.map { [ [:], it ] } : [ [:], [] ],
+                genome.blast_db,
                 ch_blast_outfmt6_header,
                 ch_blast_filtered_outfmt6_header,
                 ch_taxidlist
@@ -771,22 +777,19 @@ workflow VIRALRECON {
         }
 
         // Check primer BED file only contains suffixes provided --primer_left_suffix / --primer_right_suffix
-        PREPARE_GENOME
-            .out
+        genome
             .primer_bed
             .map { checkPrimerSuffixes(it, params.primer_left_suffix, params.primer_right_suffix, log) }
 
         // Check whether the contigs in the primer BED file are present in the reference genome
-        PREPARE_GENOME
-            .out
+        genome
             .primer_bed
-            .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
+            .map { [ getColFromFile(it, 0, true) ] }
             .set { ch_bed_contigs }
 
-        PREPARE_GENOME
-            .out
+        genome
             .fai
-            .map { [ getColFromFile(it, col=0, uniqify=true, sep='\t') ] }
+            .map { [ getColFromFile(it, 0, true) ] }
             .concat(ch_bed_contigs)
             .collect()
             .map { fai, bed -> checkContigsInBED(fai, bed, log) }
@@ -799,7 +802,7 @@ workflow VIRALRECON {
                 .filter( ~/.*barcode[0-9]{1,4}$/ )
                 .map { dir ->
                     def count = 0
-                    for (x in dir.listFiles()) {
+                    dir.listFiles().each { x ->
                         if (x.isFile() && x.toString().contains('.fastq')) {
                             count += x.countFastq()
                         }
@@ -924,7 +927,7 @@ workflow VIRALRECON {
         if (!params.skip_kraken2) {
             KRAKEN2_KRAKEN2 (
                 ch_variants_fastq,
-                PREPARE_GENOME.out.kraken2_db,
+                genome.kraken2_db,
                 params.kraken2_variants_host_filter || params.kraken2_assembly_host_filter,
                 params.kraken2_variants_host_filter || params.kraken2_assembly_host_filter
             )
@@ -987,8 +990,8 @@ workflow VIRALRECON {
             ARTIC_GUPPYPLEX.out.fastq.filter { it[-1].countFastq() > params.min_guppyplex_reads },
             ch_artic_model_dir,
             params.artic_minion_model,
-            PREPARE_GENOME.out.fasta,
-            PREPARE_GENOME.out.primer_bed
+            genome.fasta,
+            genome.primer_bed
         )
         ch_multiqc_files = ch_multiqc_files.mix(ARTIC_MINION.out.json.collect{it[1]}.ifEmpty([]))
         ch_versions      = ch_versions.mix(ARTIC_MINION.out.versions.first())
@@ -1115,7 +1118,7 @@ workflow VIRALRECON {
             MOSDEPTH_AMPLICON (
                 ch_filtered_bam_nanopore
                     .join(ch_filtered_bai_nanopore, by: [0])
-                    .combine(PREPARE_GENOME.out.primer_collapsed_bed),
+                    .combine(genome.primer_collapsed_bed),
                 [ [:], [] ]
            )
 
@@ -1165,7 +1168,7 @@ workflow VIRALRECON {
         if (!params.skip_nextclade) {
             NEXTCLADE_RUN (
                 ARTIC_MINION.out.fasta,
-                PREPARE_GENOME.out.nextclade_db.collect()
+                genome.nextclade_db.collect()
             )
             ch_versions = ch_versions.mix(NEXTCLADE_RUN.out.versions.first())
 
@@ -1199,7 +1202,7 @@ workflow VIRALRECON {
         if (!params.skip_freyja) {
             BAM_VARIANT_DEMIX_BOOT_FREYJA(
                 ch_filtered_bam_nanopore,
-                PREPARE_GENOME.out.fasta,
+                genome.fasta,
                 params.skip_freyja_boot,
                 params.freyja_repeats,
                 params.freyja_db_name,
@@ -1220,8 +1223,8 @@ workflow VIRALRECON {
                 .set { ch_to_quast }
             QUAST (
                 ch_to_quast,
-                PREPARE_GENOME.out.fasta.collect().map { [ [:], it ] },
-                ch_genome_gff ? PREPARE_GENOME.out.gff.map { [ [:], it ] } : [ [:], [] ],
+                genome.fasta.collect().map { [ [:], it ] },
+                ch_genome_gff ? genome.gff.map { [ [:], it ] } : [ [:], [] ],
             )
             ch_multiqc_files = ch_multiqc_files.mix(QUAST.out.results.collect{it[1]}.ifEmpty([]))
             ch_versions      = ch_versions.mix(QUAST.out.versions)
@@ -1234,9 +1237,9 @@ workflow VIRALRECON {
         if (ch_genome_gff && !params.skip_snpeff) {
             SNPEFF_SNPSIFT (
                 VCFLIB_VCFUNIQ.out.vcf,
-                PREPARE_GENOME.out.snpeff_db.collect(),
-                PREPARE_GENOME.out.snpeff_config.collect(),
-                PREPARE_GENOME.out.fasta.collect()
+                genome.snpeff_db.collect(),
+                genome.snpeff_config.collect(),
+                genome.fasta.collect()
             )
             ch_multiqc_files  = ch_multiqc_files.mix(SNPEFF_SNPSIFT.out.csv.collect{it[1]}.ifEmpty([]))
             ch_snpsift_txt    = SNPEFF_SNPSIFT.out.snpsift_txt
@@ -1277,7 +1280,7 @@ workflow VIRALRECON {
             ADDITIONAL_ANNOTATION (
                 VCFLIB_VCFUNIQ.out.vcf,
                 TABIX_TABIX.out.tbi,
-                PREPARE_GENOME.out.fasta,
+                genome.fasta,
                 ch_annot,
                 ch_pangolin_multiqc
 

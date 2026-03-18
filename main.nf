@@ -15,35 +15,9 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-def primer_set         = ''
-def primer_set_version = ''
-
-// Make sure platform is defined
-if( !params.platform ) {
-    error "Parameter --platform is required (illumina / nanopore). Please specify."
-}
-
-// Check that platform value is valid
-def valid_platforms = ["illumina","nanopore"]
-if( !(params.platform in valid_platforms) ) {
-    error "Invalid value for --platform: '${params.platform}'. Allowed values: ${valid_platforms.join(', ')}"
-}
-
-if (params.platform == 'illumina' && params.trim_primers) {
-    primer_set         = params.primer_set
-    primer_set_version = params.primer_set_version
-} else if (params.platform == 'nanopore') {
-    primer_set          = params.primer_set
-    primer_set_version  = params.primer_set_version
-    params.artic_scheme = getGenomeAttribute('scheme', primer_set, primer_set_version)
-}
-
-def artic_scheme = params.platform == 'nanopore' ? params.artic_scheme : null
-
 params.fasta         = getGenomeAttribute('fasta')
 params.gff           = getGenomeAttribute('gff')
 params.bowtie2_index = getGenomeAttribute('bowtie2')
-params.primer_bed    = getGenomeAttribute('primer_bed', primer_set, primer_set_version)
 
 params.nextclade_dataset           = getGenomeAttribute('nextclade_dataset_v3pl')
 params.nextclade_dataset_name      = getGenomeAttribute('nextclade_dataset_name')
@@ -75,6 +49,31 @@ workflow NFCORE_VIRALRECON {
 
     main:
 
+    def primer_set         = ''
+    def primer_set_version = ''
+
+    // Make sure platform is defined
+    if( !params.platform ) {
+        error "Parameter --platform is required (illumina / nanopore). Please specify."
+    }
+
+    // Check that platform value is valid
+    def valid_platforms = ["illumina","nanopore"]
+    if( !(params.platform in valid_platforms) ) {
+        error "Invalid value for --platform: '${params.platform}'. Allowed values: ${valid_platforms.join(', ')}"
+    }
+
+    if (params.platform == 'illumina' && params.trim_primers) {
+        primer_set         = params.primer_set
+        primer_set_version = params.primer_set_version
+    } else if (params.platform == 'nanopore') {
+        primer_set          = params.primer_set
+        primer_set_version  = params.primer_set_version
+    }
+
+    def primer_bed   = getGenomeAttribute('primer_bed', primer_set, primer_set_version)
+    def artic_scheme = params.platform == 'nanopore' ? getGenomeAttribute('scheme', primer_set, primer_set_version) : null
+
     //
     // WORKFLOW: Run pipeline
     //
@@ -84,7 +83,7 @@ workflow NFCORE_VIRALRECON {
             samplesheet,
             params.fasta,
             params.gff,
-            params.primer_bed,
+            primer_bed,
             params.bowtie2_index,
             params.nextclade_dataset,
             params.nextclade_dataset_name,
