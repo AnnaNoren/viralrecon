@@ -9,10 +9,8 @@ include { FASTP                 } from '../../../modules/nf-core/fastp/main'
 //
 // Function that parses fastp json output file to get total number of reads after trimming
 //
-import groovy.json.JsonSlurper
-
 def getFastpReadsAfterFiltering(json_file) {
-    def Map json = (Map) new JsonSlurper().parseText(json_file.text).get('summary')
+    def Map json = new groovy.json.JsonSlurper().parseText(json_file.text).get('summary')
     return json['after_filtering']['total_reads'].toInteger()
 }
 
@@ -49,7 +47,7 @@ workflow FASTQ_TRIM_FASTP_FASTQC {
     fastqc_trim_zip   = channel.empty()
     if (!params.skip_fastp) {
         FASTP (
-            reads.map { meta, reads -> tuple(meta, reads, adapter_fasta) },
+            reads.map { meta, reads_ -> tuple(meta, reads_, adapter_fasta) },
             discard_trimmed_pass,
             save_trimmed_fail,
             save_merged
@@ -68,9 +66,9 @@ workflow FASTQ_TRIM_FASTP_FASTQC {
         trim_reads
             .join(trim_json)
             .map {
-                meta, reads, json ->
+                meta, reads_, json ->
                     if (getFastpReadsAfterFiltering(json) > 0) {
-                        [ meta, reads ]
+                        [ meta, reads_ ]
                     }
             }
             .set { trim_reads }
