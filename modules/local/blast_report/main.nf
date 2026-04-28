@@ -14,8 +14,8 @@ process BLAST_REPORT {
     tuple val(meta), path("*.html")          , emit: blast_report
     tuple val(meta), path("*.fa")            , emit: reversed_contigs
     tuple val(meta), path("*_genotype.csv")  , emit: genotype
-    path "versions.yml"                      , emit: versions
-
+    tuple val("${task.process}"), val("python"), eval("python --version 2>&1 | sed 's/Python //g'"), topic: versions, emit: versions_python
+    
     when:
     task.ext.when == null || task.ext.when
 
@@ -32,10 +32,5 @@ process BLAST_REPORT {
         --output_fasta ${prefix}_reversed_contigs.fa \\
         --output_genotype ${prefix}_genotype.csv \\
         $args
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
 }
