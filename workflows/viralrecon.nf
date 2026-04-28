@@ -981,26 +981,42 @@ workflow VIRALRECON {
         }
 
         //
-        // MODULE: Run Artic minion
+        // MODULE: Run Nanopore mapping, variant calling and consensus generation
         //
+        ch_bam       = channel.empty()
+        ch_bai       = channel.empty()
+        ch_vcf       = channel.empty()
+        ch_tbi       = channel.empty()
+        ch_consensus = channel.empty()
 
-        ARTIC_MINION (
-            ARTIC_GUPPYPLEX.out.fastq.filter { it[-1].countFastq() > params.min_guppyplex_reads },
-            ch_artic_model_dir,
-            params.artic_minion_model,
-            genome.fasta,
-            genome.primer_bed
-        )
-        ch_multiqc_files = ch_multiqc_files.mix(ARTIC_MINION.out.json.collect{it[1]}.ifEmpty([]))
-        ch_versions      = ch_versions.mix(ARTIC_MINION.out.versions.first())
+        if (params.mapper_nanopore == 'artic') {
+
+            ARTIC_MINION_PROTOCOL (
+                ARTIC_GUPPYPLEX.out.fastq.filter { it[-1].countFastq() > params.min_guppyplex_reads },
+                ch_artic_model_dir,
+                params.artic_minion_model,
+                genome.fasta,
+                genome.primer_bed
+            )
+
+            ch_bam  = ARTIC_MINION_PROTOCOL.out.bam
+            ch_bai  = ARTIC_MINION_PROTOCOL.out.bai
+
+            ch_vcf  = ARTIC_MINION_PROTOCOL.out.vcf
+            ch_tbi  = ARTIC_MINION_PROTOCOL.out.tbi
+
+            ch_consensus = ARTIC_MINION_PROTOCOL.out.consensus
+
+            ch_multiqc_files = ch_multiqc_files.mix(ARTIC_MINION_PROTOCOL.out.artic_minion_report.collect{it[1]}.ifEmpty([]))
+            ch_versions      = ch_versions.mix(ARTIC_MINION_PROTOCOL.out.versions)
 
         } else if (params.mapper_nanopore == 'minimap2') {
 
             MINIMAP2_MAPPING(
                 ARTIC_GUPPYPLEX.out.fastq.filter { it[-1].countFastq() > params.min_guppyplex_reads },
-                PREPARE_GENOME.out.fasta,
-                PREPARE_GENOME.out.fai,
-                PREPARE_GENOME.out.primer_bed
+                genome.fasta,
+                genome.fai,
+                genome.primer_bed
             )
 
             ch_bam  = MINIMAP2_MAPPING.out.bam
@@ -1174,7 +1190,7 @@ workflow VIRALRECON {
         //
         if (!params.skip_nextclade) {
             NEXTCLADE_RUN (
-                ARTIC_MINION.out.fasta,
+                ch_consensus,
                 genome.nextclade_db.collect()
             )
             ch_versions = ch_versions.mix(NEXTCLADE_RUN.out.versions.first())
@@ -1243,7 +1259,7 @@ workflow VIRALRECON {
         ch_snpsift_txt    = channel.empty()
         if (ch_genome_gff && !params.skip_snpeff) {
             SNPEFF_SNPSIFT (
-                VCFLIB_VCFUNIQ.out.vcf,
+                ch_vcf,
                 genome.snpeff_db.collect(),
                 genome.snpeff_config.collect(),
                 genome.fasta.collect()
@@ -1285,8 +1301,8 @@ workflow VIRALRECON {
             }
 
             ADDITIONAL_ANNOTATION (
-                VCFLIB_VCFUNIQ.out.vcf,
-                TABIX_TABIX.out.tbi,
+                ch_vcf,
+                ch_tbi,
                 genome.fasta,
                 ch_annot,
                 ch_pangolin_multiqc
