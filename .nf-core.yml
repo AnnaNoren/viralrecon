@@ -2,7 +2,9 @@ lint:
   files_unchanged:
     - assets/email_template.html
     - assets/email_template.txt
-nf_core_version: 3.5.1
+  template_strings:
+    - assets/hiv_template_report.html
+nf_core_version: 4.0.0
 repository_type: pipeline
 template:
   author: Patel H, Varona S and Monzon S
