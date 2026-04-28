@@ -3,14 +3,14 @@
 //
 include { MINIMAP2_INDEX                               } from '../../../modules/nf-core/minimap2/index/main'
 include { MINIMAP2_ALIGN                               } from '../../../modules/nf-core/minimap2/align/main'
-include { ARTIC_ALIGNTRIM                              } from '../../../modules/nf-core/artic/aligntrim/main'  
-include { CLAIR3                                       } from '../../../modules/nf-core/clair3/main'  
+include { ARTIC_ALIGNTRIM                              } from '../../../modules/nf-core/artic/aligntrim/main'
+include { CLAIR3                                       } from '../../../modules/nf-core/clair3/main'
 include { BCFTOOLS_FILTER                              } from '../../../modules/nf-core/bcftools/filter/main'
 include { BCFTOOLS_NORM                                } from '../../../modules/nf-core/bcftools/norm/main'
-include { BCFTOOLS_INDEX                               } from '../../../modules/nf-core/bcftools/index/main'                                                                                                                      
+include { BCFTOOLS_INDEX                               } from '../../../modules/nf-core/bcftools/index/main'
 include { BAM_SORT_STATS_SAMTOOLS                      } from '../../nf-core/bam_sort_stats_samtools/main'
 include { BCFTOOLS_FILTER as BCFTOOLS_CONSENSUS_FILTER } from '../../../modules/nf-core/bcftools/filter/main'
-include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_FILTER      } from '../../../modules/nf-core/bcftools/index/main'                                                                                                                      
+include { BCFTOOLS_INDEX as BCFTOOLS_INDEX_FILTER      } from '../../../modules/nf-core/bcftools/index/main'
 include { BEDTOOLS_MERGE                               } from '../../../modules/nf-core/bedtools/merge/main'
 include { BEDTOOLS_MASKFASTA                           } from '../../../modules/nf-core/bedtools/maskfasta/main'
 include { BCFTOOLS_CONSENSUS                           } from '../../../modules/nf-core/bcftools/consensus/main'
@@ -128,7 +128,7 @@ workflow MINIMAP2_MAPPING {
     //
     BCFTOOLS_NORM (
         BCFTOOLS_FILTER.out.vcf.join(BCFTOOLS_INDEX.out.tbi, by: [0]),
-        fasta.map { [ [:], fasta ] },
+        fasta.map { fa -> tuple([:], fa) },
     )
     ch_versions = ch_versions.mix(BCFTOOLS_NORM.out.versions.first())
 
@@ -139,7 +139,7 @@ workflow MINIMAP2_MAPPING {
     BCFTOOLS_CONSENSUS_FILTER (
         BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_NORM.out.tbi, by: [0])
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_FILTER.out.versions.first())
+    ch_versions = ch_versions.mix(BCFTOOLS_CONSENSUS_FILTER.out.versions.first())
 
     BCFTOOLS_INDEX_FILTER (
         BCFTOOLS_CONSENSUS_FILTER.out.vcf
@@ -149,7 +149,7 @@ workflow MINIMAP2_MAPPING {
     // Create BED file with consensus regions to mask
     //
     MAKE_BED_MASK (
-        BAM_SORT_STATS_SAMTOOLS.out.bam.join(BCFTOOLS_FILTER.out.vcf, by: [0]),
+        BAM_SORT_STATS_SAMTOOLS.out.bam.join(BCFTOOLS_CONSENSUS_FILTER.out.vcf, by: [0]),
         fasta,
         params.save_mpileup
     )

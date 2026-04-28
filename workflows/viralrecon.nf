@@ -1013,7 +1013,7 @@ workflow VIRALRECON {
 
             ch_multiqc_files = ch_multiqc_files.mix(MINIMAP2_MAPPING.out.multiqc_files.collect{it[1]}.ifEmpty([]))
 
-            ch_versions      = ch_versions.mix(MINIMAP2_MAPPING.out.versions.first())
+            ch_versions      = ch_versions.mix(MINIMAP2_MAPPING.out.versions)
 
         }
 
