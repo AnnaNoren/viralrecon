@@ -30,25 +30,26 @@ Thank you to everyone else that has contributed by reporting bugs, enhancements 
 - [[PR #572](https://github.com/nf-core/viralrecon/pull/572)] - Template update for nf-core/tools v3.5.1
 - [[PR #559](https://github.com/nf-core/viralrecon/pull/559)] - Added HIV resistance detection subworkflow
 - [[PR #580](https://github.com/nf-core/viralrecon/pull/580)] - Fix bug related to deprecated argument `--meta` in `Freyja` suite
+- [[PR #594](https://github.com/nf-core/viralrecon/pull/594)] - Added mapping/variant calling/consensus steps for nanpore data appart from ARTIC protocol
 
 ### Parameters
 
-| Old parameter                | New parameter                |
-| ---------------------------- | ---------------------------- |
-|                              | `--taxidlist`                |
-|                              | `--perform_hiv_resistance`   |
-|                              | `--hivdb_xml`                |
-|                              | `--apobec_drm`               |
-|                              | `--apobec_csv`               |
-|                              | `--unusual_csv`              |
-|                              | `--sdrms_csv`                |
-|                              | `--mutation_csv`             |
-| `--freyja_lineages`          | `--freyja_lineages_meta`     |
-|                              | `--freyja_lineages_topology` |
-| `--protocol`                 | `--trim_primers`             |
-| `--artic_minion_model_dir`   | `--clair3_model_dir`         |
-| `--artic_minion_model`       | `--clair3_model`             |
-|                              | `--mapper_nanopore`          |
+| Old parameter              | New parameter                |
+| -------------------------- | ---------------------------- |
+|                            | `--taxidlist`                |
+|                            | `--perform_hiv_resistance`   |
+|                            | `--hivdb_xml`                |
+|                            | `--apobec_drm`               |
+|                            | `--apobec_csv`               |
+|                            | `--unusual_csv`              |
+|                            | `--sdrms_csv`                |
+|                            | `--mutation_csv`             |
+| `--freyja_lineages`        | `--freyja_lineages_meta`     |
+|                            | `--freyja_lineages_topology` |
+| `--protocol`               | `--trim_primers`             |
+| `--artic_minion_model_dir` | `--clair3_model_dir`         |
+| `--artic_minion_model`     | `--clair3_model`             |
+|                            | `--mapper_nanopore`          |
 
 > **NB:** Parameter has been **updated** if both old and new parameter information is present.
 > **NB:** Parameter has been **added** if just the new parameter information is present.
