@@ -30,6 +30,7 @@ Thank you to everyone else that has contributed by reporting bugs, enhancements 
 - [[PR #572](https://github.com/nf-core/viralrecon/pull/572)] - Template update for nf-core/tools v3.5.1
 - [[PR #559](https://github.com/nf-core/viralrecon/pull/559)] - Added HIV resistance detection subworkflow
 - [[PR #580](https://github.com/nf-core/viralrecon/pull/580)] - Fix bug related to deprecated argument `--meta` in `Freyja` suite
+- [[PR #581](https://github.com/nf-core/viralrecon/pull/581)] - nf-core template, modules and subworkflows update
 
 ### Parameters
 
@@ -55,13 +56,21 @@ Thank you to everyone else that has contributed by reporting bugs, enhancements 
 
 Note, since the pipeline is now using Nextflow DSL2, each process will be run with its own [Biocontainer](https://biocontainers.pro/#/registry). This means that on occasion it is entirely possible for the pipeline to be using different versions of the same tool. However, the overall software dependency changes compared to the last release have been listed below for reference.
 
-| Dependency     | Old version | New version |
-| -------------- | ----------- | ----------- |
-| `blast`        | 2.16.0      | 2.17.0      |
-| `Freyja`       | 2.0.1       | 2.0.3       |
-| `sierra-local` |             | 0.4.3       |
-| `liftoff`      |             | 1.6.3       |
-| `pysam`        |             | 0.23.3      |
+| Dependency     | Old version | New version      |
+| -------------- | ----------- | ---------------- |
+| `blast`        | 2.16.0      | 2.17.0           |
+| `Freyja`       | 2.0.1       | 2.0.3            |
+| `sierra-local` |             | 0.4.3            |
+| `liftoff`      |             | 1.6.3            |
+| `pysam`        |             | 0.23.3           |
+| `bcftools`     | 1.22        | 1.23.1           |
+| `htslib`       | 1.22        | 1.23.1           |
+| `cutadapt`     | 5.0         | 5.2              |
+| `fastp`        | 1.0.1       | 1.1.0            |
+| `minia`        | 3.2.6       | 3.2.6=h22625ea_6 |
+| `mosdepth`     | 0.3.11      | 0.3.14           |
+| `samtools`     | 1.22.1      | 1.23.1           |
+
 
 > **NB:** Dependency has been **updated** if both old and new version information is present.
 > **NB:** Dependency has been **added** if just the new version information is present.
