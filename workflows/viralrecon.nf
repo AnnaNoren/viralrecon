@@ -203,7 +203,7 @@ workflow VIRALRECON {
     def pass_mapped_reads  = [:]
     def fail_mapped_reads  = [:]
     def pass_barcode_reads = [:]
-    def fail_barcode_reads = [:]    
+    def fail_barcode_reads = [:]
 
     //
     // SUBWORKFLOW: Uncompress and prepare reference genome files
