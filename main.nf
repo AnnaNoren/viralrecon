@@ -71,8 +71,8 @@ workflow NFCORE_VIRALRECON {
         primer_set_version  = params.primer_set_version
     }
 
-    def primer_bed   = getGenomeAttribute('primer_bed', primer_set, primer_set_version)
-    def artic_scheme = params.platform == 'nanopore' ? getGenomeAttribute('scheme', primer_set, primer_set_version) : null
+    def primer_bed   = params.primer_bed ?: getGenomeAttribute('primer_bed', primer_set, primer_set_version)
+    def artic_scheme = params.artic_scheme ?: (params.platform == 'nanopore' ? getGenomeAttribute('scheme', primer_set, primer_set_version) : null)
 
     //
     // WORKFLOW: Run pipeline

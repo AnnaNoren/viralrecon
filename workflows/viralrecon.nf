@@ -440,8 +440,7 @@ workflow VIRALRECON {
         if (!params.skip_variants && !params.skip_markduplicates) {
             BAM_MARKDUPLICATES_PICARD (
                 ch_bam,
-                genome.fasta.map { [ [:], it ] },
-                genome.fai
+                genome.fasta.map { [ [:], it, file(genome.fai) ] }
             )
             ch_bam           = BAM_MARKDUPLICATES_PICARD.out.bam
             ch_bai           = BAM_MARKDUPLICATES_PICARD.out.bai
@@ -470,6 +469,7 @@ workflow VIRALRECON {
                     .join(ch_bai, by: [0])
                     .map { meta, bam, bai -> [ meta, bam, bai, [] ] },
                 [ [:], [] ],
+                []
             )
             ch_multiqc_files = ch_multiqc_files.mix(MOSDEPTH_GENOME.out.global_txt.collect{it[1]}.ifEmpty([]))
             ch_versions      = ch_versions.mix(MOSDEPTH_GENOME.out.versions.first())
@@ -483,6 +483,7 @@ workflow VIRALRECON {
                         .join(ch_bai, by: [0])
                         .combine(genome.primer_collapsed_bed),
                     [ [:], [] ],
+                    []
                 )
                 ch_versions = ch_versions.mix(MOSDEPTH_AMPLICON.out.versions.first())
 
@@ -696,8 +697,7 @@ workflow VIRALRECON {
             }
 
             CUTADAPT (
-                ch_assembly_fastq,
-                ch_primers
+                ch_assembly_fastq.combine(ch_primers)
             )
             ch_assembly_fastq   = CUTADAPT.out.reads
             ch_multiqc_files    = ch_multiqc_files.mix(CUTADAPT.out.log.collect{it[1]}.ifEmpty([]))
@@ -992,10 +992,9 @@ workflow VIRALRECON {
 
         ARTIC_MINION (
             ARTIC_GUPPYPLEX.out.fastq.filter { it[-1].countFastq() > params.min_guppyplex_reads },
-            ch_artic_model_dir,
-            params.artic_minion_model,
-            genome.fasta,
-            genome.primer_bed
+            [ [:], ch_artic_model_dir, params.artic_minion_model ],
+            [ [:], genome.fasta, genome.primer_bed ],
+            []
         )
         ch_multiqc_files = ch_multiqc_files.mix(ARTIC_MINION.out.json.collect{it[1]}.ifEmpty([]))
         ch_versions      = ch_versions.mix(ARTIC_MINION.out.versions.first())
@@ -1110,7 +1109,8 @@ workflow VIRALRECON {
                 ch_filtered_bam_nanopore
                     .join(ch_filtered_bai_nanopore, by: [0])
                     .map { meta, bam, bai -> [ meta, bam, bai, [] ] },
-                [ [:], [] ]
+                [ [:], [] ],
+                []
             )
             ch_multiqc_files  = ch_multiqc_files.mix(MOSDEPTH_GENOME.out.global_txt.collect{it[1]}.ifEmpty([]))
             ch_versions       = ch_versions.mix(MOSDEPTH_GENOME.out.versions.first())
@@ -1123,7 +1123,8 @@ workflow VIRALRECON {
                 ch_filtered_bam_nanopore
                     .join(ch_filtered_bai_nanopore, by: [0])
                     .combine(genome.primer_collapsed_bed),
-                [ [:], [] ]
+                [ [:], [] ],
+                []
            )
 
             ch_versions = ch_versions.mix(MOSDEPTH_AMPLICON.out.versions.first())
@@ -1320,8 +1321,7 @@ workflow VIRALRECON {
             name: 'nf_core_'  +  'viralrecon_software_'  + 'mqc_'  + 'versions.yml',
             sort: true,
             newLine: true
-        ).set { ch_collated_versions }
-
+        )
 
     //
     // MODULE: MultiQC
@@ -1339,7 +1339,7 @@ workflow VIRALRECON {
         channel.empty()
 
     def ch_summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
-    ch_workflow_summary = channel.value(paramsSummaryMultiqc(summary_params))
+    ch_workflow_summary = channel.value(paramsSummaryMultiqc(ch_summary_params))
     ch_multiqc_files = ch_multiqc_files.mix(
         ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_custom_methods_description = params.multiqc_methods_description ?
@@ -1347,22 +1347,16 @@ workflow VIRALRECON {
         file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
     ch_methods_description                = channel.value(
         methodsDescriptionText(ch_multiqc_custom_methods_description))
-
-    ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
     ch_multiqc_files = ch_multiqc_files.mix(
         ch_methods_description.collectFile(
             name: 'methods_description_mqc.yaml',
             sort: true
         )
     )
+    ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
 
     MULTIQC (
-        ch_multiqc_files.collect(),
-        ch_multiqc_config.toList(),
-        ch_multiqc_logo.toList(),
-        [],
-        [],
-        ch_multiqc_custom_config.toList()
+        [ [:], ch_multiqc_files.collect(), ch_multiqc_config.toList(), ch_multiqc_logo.toList(), [], [], ch_multiqc_custom_config.toList() ]
     )
 
     emit:multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html

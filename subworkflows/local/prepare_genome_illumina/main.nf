@@ -216,7 +216,8 @@ workflow PREPARE_GENOME_ILLUMINA {
                 }
             } else {
                 BLAST_MAKEBLASTDB (
-                    ch_fasta.map { [ [:], it ] }
+                    ch_fasta.map { [ [:], it ] },
+                    'nucl'
                 )
                 ch_blast_db = BLAST_MAKEBLASTDB.out.db
                 ch_versions = ch_versions.mix(BLAST_MAKEBLASTDB.out.versions)
