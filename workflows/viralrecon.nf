@@ -1294,16 +1294,12 @@ workflow VIRALRECON {
     // MODULE: MultiQC
     //
     if (params.platform == 'illumina') {
-        ch_multiqc_config        = channel.fromPath("$projectDir/assets/multiqc_config_illumina.yml", checkIfExists: true)
+        ch_multiqc_config        = [ file("$projectDir/assets/multiqc_config_illumina.yml", checkIfExists: true) ]
     } else if (params.platform == 'nanopore') {
-        ch_multiqc_config        = channel.fromPath("$projectDir/assets/multiqc_config_nanopore.yml", checkIfExists: true)
+        ch_multiqc_config        = [ file("$projectDir/assets/multiqc_config_nanopore.yml", checkIfExists: true) ]
     }
-    ch_multiqc_custom_config = params.multiqc_config ?
-        channel.fromPath(params.multiqc_config, checkIfExists: true) :
-        channel.empty()
-    ch_multiqc_logo          = params.multiqc_logo ?
-        channel.fromPath(params.multiqc_logo, checkIfExists: true) :
-        channel.empty()
+    ch_multiqc_custom_config = params.multiqc_config ? [ file(params.multiqc_config, checkIfExists: true) ] : []
+    ch_multiqc_logo          = params.multiqc_logo ? [ file(params.multiqc_logo, checkIfExists: true) ] : []
 
     def ch_summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
     ch_workflow_summary = channel.value(paramsSummaryMultiqc(ch_summary_params))
@@ -1322,10 +1318,18 @@ workflow VIRALRECON {
     )
     ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
 
+    ch_multiqc_input = ch_multiqc_files
+        .collect()
+        .map { multiqc_files ->
+            [ [:], multiqc_files, ch_multiqc_config, ch_multiqc_logo, [], [], ch_multiqc_custom_config ]
+        }
+
     MULTIQC (
-        [ [:], ch_multiqc_files.collect(), ch_multiqc_config.toList(), ch_multiqc_logo.toList(), [], [], ch_multiqc_custom_config.toList() ]
+        ch_multiqc_input
     )
-    emit:multiqc_report = MULTIQC.out.report.map { _meta, report -> [report] }.toList() // channel: /path/to/multiqc_report.html
+
+    emit:
+    multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
 }
 
 /*
