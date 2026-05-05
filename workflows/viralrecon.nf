@@ -676,7 +676,8 @@ workflow VIRALRECON {
             }
 
             CUTADAPT (
-                ch_assembly_fastq.combine(ch_primers)
+                ch_assembly_fastq
+                ch_primers
             )
             ch_assembly_fastq   = CUTADAPT.out.reads
             ch_multiqc_files    = ch_multiqc_files.mix(CUTADAPT.out.log.collect{it[1]}.ifEmpty([]))

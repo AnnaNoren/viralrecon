@@ -3,18 +3,15 @@ Changes in component 'nf-core/cutadapt'
 Changes in 'cutadapt/main.nf':
 --- modules/nf-core/cutadapt/main.nf
 +++ modules/nf-core/cutadapt/main.nf
-@@ -7,8 +7,9 @@
-         'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/17/1758869538eb8e658077cc14cd7a4e76fd9b6d73d3a68f85a70bf292e39e27c5/data' :
-         'community.wave.seqera.io/library/cutadapt:5.0--991bbd2e184b7014' }"
+@@ -9,6 +9,7 @@
  
--    input:
-+input:
+     input:
      tuple val(meta), path(reads)
 +    path adapters
  
      output:
      tuple val(meta), path('*.trim.fastq.gz'), emit: reads
-@@ -22,11 +23,25 @@
+@@ -22,10 +23,24 @@
      def args = task.ext.args ?: ''
      def prefix = task.ext.prefix ?: "${meta.id}"
      def trimmed  = meta.single_end ? "-o ${prefix}.trim.fastq.gz" : "-o ${prefix}_1.trim.fastq.gz -p ${prefix}_2.trim.fastq.gz"
@@ -33,7 +30,6 @@ Changes in 'cutadapt/main.nf':
 +
      """
      cutadapt \\
-         -Z \\
          --cores $task.cpus \\
          $args \\
 +        $primers \\
@@ -41,23 +37,7 @@ Changes in 'cutadapt/main.nf':
          $reads \\
          > ${prefix}.cutadapt.log
 
-Changes in 'cutadapt/meta.yml':
---- modules/nf-core/cutadapt/meta.yml
-+++ modules/nf-core/cutadapt/meta.yml
-@@ -25,6 +25,12 @@
-           List of input FastQ files of size 1 and 2 for single-end and paired-end data,
-           respectively.
-         ontologies: []
-+  - adapters:
-+      type: file
-+      description: |
-+        Adapters to be remove in fasta format.
-+      ontologies: []
-+
- output:
-   reads:
-     - - meta:
-
+'modules/nf-core/cutadapt/meta.yml' is unchanged
 'modules/nf-core/cutadapt/tests/main.nf.test' is unchanged
 'modules/nf-core/cutadapt/tests/main.nf.test.snap' is unchanged
 'modules/nf-core/cutadapt/tests/nextflow.config' is unchanged
