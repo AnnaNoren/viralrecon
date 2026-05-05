@@ -30,7 +30,7 @@ workflow CONSENSUS_BCFTOOLS {
     )
 
     TABIX_TABIX (
-        BCFTOOLS_FILTER.out.vcf
+        BCFTOOLS_FILTER.out.vcf.map { meta, vcf_file -> [ meta, vcf_file, [], [] ] }
     )
 
     //

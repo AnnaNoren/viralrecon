@@ -184,7 +184,9 @@ workflow VIRALRECON {
     if (params.sequencing_summary)      { ch_sequencing_summary = file(params.sequencing_summary)      } else { ch_sequencing_summary = [] }
 
     // Need to stage artic model properly depending on whether it is a string or a file
-    ch_artic_model_dir = params.artic_minion_model_dir ? channel.value(file(params.artic_minion_model_dir, type: 'dir')) :  []
+    ch_artic_model = params.artic_minion_model_dir ?
+        channel.value([ [:], file(params.artic_minion_model_dir, type: 'dir'), params.artic_minion_model ]) :
+        channel.value([ [:], [], params.artic_minion_model ])
 
     /*
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -359,7 +361,9 @@ workflow VIRALRECON {
                 genome.bowtie2_index,
                 params.save_unaligned,
                 false,
-                genome.fasta.map { [ [:], it ] }
+                genome.fasta
+                    .combine(genome.fai)
+                    .map { fasta_file, fai_file -> [ [:], fasta_file, fai_file ] }
             )
         ch_bam           = FASTQ_ALIGN_BOWTIE2.out.bam
         ch_bai           = FASTQ_ALIGN_BOWTIE2.out.index
@@ -418,7 +422,9 @@ workflow VIRALRECON {
             BAM_TRIM_PRIMERS_IVAR (
                 ch_bam.join(ch_bai, by: [0]),
                 genome.primer_bed,
-                genome.fasta.map { [ [:], it ] }
+                genome.fasta
+                    .combine(genome.fai)
+                    .map { fasta_file, fai_file -> [ [:], fasta_file, fai_file ] }
             )
             ch_bam           = BAM_TRIM_PRIMERS_IVAR.out.bam
             ch_bai           = BAM_TRIM_PRIMERS_IVAR.out.bai
@@ -431,7 +437,9 @@ workflow VIRALRECON {
         if (!params.skip_variants && !params.skip_markduplicates) {
             BAM_MARKDUPLICATES_PICARD (
                 ch_bam,
-                genome.fasta.map { [ [:], it, file(genome.fai) ] }
+                genome.fasta
+                    .combine(genome.fai)
+                    .map { fasta_file, fai_file -> [ [:], fasta_file, fai_file ] }
             )
             ch_bam           = BAM_MARKDUPLICATES_PICARD.out.bam
             ch_bai           = BAM_MARKDUPLICATES_PICARD.out.index
@@ -445,7 +453,7 @@ workflow VIRALRECON {
             PICARD_COLLECTMULTIPLEMETRICS (
                 ch_bam.join(ch_bai, by: [0]),
                 genome.fasta.map { [ [:], it ] },
-                [ [:], [] ]
+                genome.fai.map { [ [:], it ] }
             )
         }
 
@@ -671,12 +679,12 @@ workflow VIRALRECON {
             if (!params.skip_noninternal_primers){
                 PREPARE_PRIMER_FASTA(
                     genome.primer_fasta.collect { it[1] }
-                    )
+                )
                 ch_primers = PREPARE_PRIMER_FASTA.out.adapters
             }
 
             CUTADAPT (
-                ch_assembly_fastq
+                ch_assembly_fastq,
                 ch_primers
             )
             ch_assembly_fastq   = CUTADAPT.out.reads
@@ -963,8 +971,10 @@ workflow VIRALRECON {
 
         ARTIC_MINION (
             ARTIC_GUPPYPLEX.out.fastq.filter { it[-1].countFastq() > params.min_guppyplex_reads },
-            [ [:], ch_artic_model_dir, params.artic_minion_model ],
-            [ [:], genome.fasta, genome.primer_bed ],
+            ch_artic_model,
+            genome.fasta
+                .combine(genome.primer_bed)
+                .map { fasta_file, primer_bed -> [ [:], fasta_file, primer_bed ] },
             []
         )
         ch_multiqc_files = ch_multiqc_files.mix(ARTIC_MINION.out.json.collect{it[1]}.ifEmpty([]))
@@ -980,7 +990,7 @@ workflow VIRALRECON {
         // MODULE: Index VCF file
         //
         TABIX_TABIX (
-            VCFLIB_VCFUNIQ.out.vcf
+            VCFLIB_VCFUNIQ.out.vcf.map { meta, vcf_file -> [ meta, vcf_file, [], [] ] }
         )
 
         //
@@ -1001,7 +1011,9 @@ workflow VIRALRECON {
         //
         FILTER_BAM_SAMTOOLS (
             ARTIC_MINION.out.bam.join(ARTIC_MINION.out.bai, by: [0]),
-            [ [:], [] ]
+            genome.fasta
+                .combine(genome.fai)
+                .map { fasta_file, fai_file -> [ [:], fasta_file, fai_file ] }
         )
         ch_multiqc_files = ch_multiqc_files.mix(FILTER_BAM_SAMTOOLS.out.flagstat.collect{it[1]}.ifEmpty([]))
 

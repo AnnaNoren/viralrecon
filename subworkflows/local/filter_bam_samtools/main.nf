@@ -9,7 +9,7 @@ include { BAM_STATS_SAMTOOLS } from '../../nf-core/bam_stats_samtools/main'
 workflow FILTER_BAM_SAMTOOLS {
     take:
     bam_bai // channel: [ val(meta), [ bam ], [ bai ] ]
-    fasta   // path   : fasta
+    fasta   // channel: [ val(meta), path(fasta), path(fai) ]
 
     main:
 
@@ -18,10 +18,10 @@ workflow FILTER_BAM_SAMTOOLS {
     //
     SAMTOOLS_VIEW (
         bam_bai,
-        fasta.map { [ [:], it, file(it + '.fai') ] },
+        fasta,
         [ [:], [] ],
         [ [:], [] ],
-        'bam'
+        []
     )
 
     //

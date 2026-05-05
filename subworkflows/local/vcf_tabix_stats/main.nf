@@ -14,8 +14,10 @@ workflow VCF_TABIX_STATS {
 
     main:
 
+    ch_vcf_for_tabix = vcf.map { meta, vcf_file -> [ meta, vcf_file, [], [] ] }
+
     TABIX_TABIX (
-        vcf
+        ch_vcf_for_tabix
     )
 
     BCFTOOLS_STATS (

@@ -155,7 +155,9 @@ workflow PREPARE_GENOME_ILLUMINA {
             }
         } else {
             BOWTIE2_BUILD (
-                ch_fasta.map { [ [:], it ] }
+                ch_fasta
+                    .combine(ch_fai)
+                    .map { fasta_file, fai_file -> [ [:], fasta_file, fai_file ] }
             )
             ch_bowtie2_index = BOWTIE2_BUILD.out.index
         }
@@ -204,7 +206,7 @@ workflow PREPARE_GENOME_ILLUMINA {
             } else {
                 BLAST_MAKEBLASTDB (
                     ch_fasta.map { [ [:], it ] },
-                    'nucl'
+                    []
                 )
                 ch_blast_db = BLAST_MAKEBLASTDB.out.db
             }
