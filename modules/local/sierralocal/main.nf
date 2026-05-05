@@ -15,9 +15,10 @@ process SIERRALOCAL {
     path unusual_csv
     path sdrms_csv
     path mutation_csv
+
     output:
     tuple val(meta), path("*_resistance.json") , emit: json
-    path "versions.yml"                        , emit: versions
+    tuple val("${task.process}"), val('sierra-local'), val('0.4.3'), emit: versions_sierralocal, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -31,7 +32,6 @@ process SIERRALOCAL {
     def unusual_csv_arg     = params.unusual_csv  ? "-unusual_csv ${params.unusual_csv}"   : ''
     def sdrms_csv_arg       = params.sdrms_csv    ? "-sdrms_csv ${params.sdrms_csv}"       : ''
     def mutation_csv_arg    = params.mutation_csv ? "-mutation_csv ${params.mutation_csv}" : ''
-    def sierralocal_version = "0.4.3"
 
     """
     sierralocal \\
@@ -44,10 +44,5 @@ process SIERRALOCAL {
         $mutation_csv_arg \\
         -o ${prefix}_resistance.json \\
         ${fasta}
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        sierra-local: \$(echo "${sierralocal_version}")
-    END_VERSIONS
     """
 }

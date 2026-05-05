@@ -20,8 +20,6 @@ workflow ASSEMBLY_QC {
 
     main:
 
-    ch_versions = channel.empty()
-
     //
     // Run blastn on assembly scaffolds
     //
@@ -35,7 +33,6 @@ workflow ASSEMBLY_QC {
             [],
             []
         )
-        ch_versions  = ch_versions.mix(BLAST_BLASTN.out.versions.first())
 
         FILTER_BLASTN (
             BLAST_BLASTN.out.txt,
@@ -64,7 +61,6 @@ workflow ASSEMBLY_QC {
         )
         ch_quast_results = QUAST.out.results
         ch_quast_tsv     = QUAST.out.tsv
-        ch_versions      = ch_versions.mix(QUAST.out.versions)
     }
 
     //
@@ -77,7 +73,6 @@ workflow ASSEMBLY_QC {
             fasta.map { [ [:], it ] }
         )
         ch_abacas_results = ABACAS.out.results
-        ch_versions       = ch_versions.mix(ABACAS.out.versions.first())
     }
 
     //
@@ -104,7 +99,6 @@ workflow ASSEMBLY_QC {
         ch_plasmidid_database = PLASMIDID.out.database
         ch_plasmidid_fasta    = PLASMIDID.out.fasta_files
         ch_plasmidid_kmer     = PLASMIDID.out.kmer
-        ch_versions           = ch_versions.mix(PLASMIDID.out.versions.first())
     }
 
     emit:
@@ -124,6 +118,4 @@ workflow ASSEMBLY_QC {
     plasmidid_database = ch_plasmidid_database // channel: [ val(meta), [ database/ ] ]
     plasmidid_fasta    = ch_plasmidid_fasta    // channel: [ val(meta), [ fasta_files/ ] ]
     plasmidid_kmer     = ch_plasmidid_kmer     // channel: [ val(meta), [ kmer/ ] ]
-
-    versions           = ch_versions           // channel: [ versions.yml ]
 }

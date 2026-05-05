@@ -26,8 +26,6 @@ workflow PREPARE_GENOME_NANOPORE {
 
     main:
 
-    ch_versions = channel.empty()
-
     //
     // Uncompress genome fasta file if required
     //
@@ -36,7 +34,6 @@ workflow PREPARE_GENOME_NANOPORE {
             [ [:], fasta ]
         )
         ch_fasta    = GUNZIP_FASTA.out.gunzip.map { it[1] }
-        ch_versions = ch_versions.mix(GUNZIP_FASTA.out.versions)
     } else {
         ch_fasta = channel.value(file(fasta))
     }
@@ -51,7 +48,6 @@ workflow PREPARE_GENOME_NANOPORE {
                 [ [:], gff ]
             )
             ch_gff      = GUNZIP_GFF.out.gunzip.map { it[1] }
-            ch_versions = ch_versions.mix(GUNZIP_GFF.out.versions)
         } else {
             ch_gff = channel.value(file(gff))
         }
@@ -65,7 +61,6 @@ workflow PREPARE_GENOME_NANOPORE {
     )
     ch_fai         = CUSTOM_GETCHROMSIZES.out.fai.map { it[1] }
     ch_chrom_sizes = CUSTOM_GETCHROMSIZES.out.sizes.map { it[1] }
-    ch_versions    = ch_versions.mix(CUSTOM_GETCHROMSIZES.out.versions)
 
     //
     // Prepare reference files required for variant calling
@@ -78,7 +73,6 @@ workflow PREPARE_GENOME_NANOPORE {
                     [ [:], params.kraken2_db ]
                 )
                 ch_kraken2_db = UNTAR_KRAKEN2_DB.out.untar.map { it[1] }
-                ch_versions   = ch_versions.mix(UNTAR_KRAKEN2_DB.out.versions)
             } else {
                 ch_kraken2_db = channel.value(file(params.kraken2_db))
             }
@@ -100,7 +94,6 @@ workflow PREPARE_GENOME_NANOPORE {
                 [ [:], primer_bed ]
             )
             ch_primer_bed = GUNZIP_PRIMER_BED.out.gunzip.map { it[1] }
-            ch_versions   = ch_versions.mix(GUNZIP_PRIMER_BED.out.versions)
         } else {
             ch_primer_bed = channel.value(file(primer_bed))
         }
@@ -130,7 +123,6 @@ workflow PREPARE_GENOME_NANOPORE {
                     [ [:], nextclade_dataset ]
                 )
                 ch_nextclade_db = UNTAR.out.untar.map { it[1] }
-                ch_versions     = ch_versions.mix(UNTAR.out.versions)
             } else {
                 ch_nextclade_db = channel.value(file(nextclade_dataset))
             }
@@ -140,7 +132,6 @@ workflow PREPARE_GENOME_NANOPORE {
                 nextclade_dataset_tag
             )
             ch_nextclade_db = NEXTCLADE_DATASETGET.out.dataset
-            ch_versions     = ch_versions.mix(NEXTCLADE_DATASETGET.out.versions)
         }
     }
 
@@ -169,6 +160,4 @@ workflow PREPARE_GENOME_NANOPORE {
     kraken2_db           = ch_kraken2_db           // path: kraken2_db/
     snpeff_db            = ch_snpeff_db            // path: snpeff_db
     snpeff_config        = ch_snpeff_config        // path: snpeff.config
-
-    versions             = ch_versions             // channel: [ versions.yml ]
 }

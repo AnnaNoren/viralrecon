@@ -22,20 +22,16 @@ workflow CONSENSUS_BCFTOOLS {
 
     main:
 
-    ch_versions = channel.empty()
-
     //
     // Filter variants by allele frequency, zip and index
     //
     BCFTOOLS_FILTER (
         vcf.join(tbi, by: [0])
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_FILTER.out.versions.first())
 
     TABIX_TABIX (
         BCFTOOLS_FILTER.out.vcf
     )
-    ch_versions = ch_versions.mix(TABIX_TABIX.out.versions.first())
 
     //
     // Create BED file with consensus regions to mask
@@ -52,7 +48,6 @@ workflow CONSENSUS_BCFTOOLS {
     BEDTOOLS_MERGE (
         MAKE_BED_MASK.out.bed
     )
-    ch_versions = ch_versions.mix(BEDTOOLS_MERGE.out.versions.first())
 
     //
     // Mask regions in consensus with BEDTools
@@ -61,18 +56,16 @@ workflow CONSENSUS_BCFTOOLS {
         BEDTOOLS_MERGE.out.bed,
         fasta
     )
-    ch_versions = ch_versions.mix(BEDTOOLS_MASKFASTA.out.versions.first())
 
     //
     // Call consensus sequence with BCFTools
     //
     BCFTOOLS_CONSENSUS (
         BCFTOOLS_FILTER.out.vcf
-            .join(TABIX_TABIX.out.tbi, by: [0])
+            .join(TABIX_TABIX.out.index, by: [0])
             .join(BEDTOOLS_MASKFASTA.out.fasta, by: [0])
             .map { _meta, vcf_file, tbi_file, fasta_file -> tuple(_meta, vcf_file, tbi_file, fasta_file, []) }
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_CONSENSUS.out.versions.first())
 
     //
     // Rename consensus header adding sample name
@@ -90,7 +83,6 @@ workflow CONSENSUS_BCFTOOLS {
         gff,
         nextclade_db
     )
-    ch_versions = ch_versions.mix(CONSENSUS_QC.out.versions.first())
 
     emit:
     consensus        = RENAME_FASTA_HEADER.out.fasta     // channel: [ val(meta), [ fasta ] ]
@@ -104,6 +96,4 @@ workflow CONSENSUS_BCFTOOLS {
 
     bases_tsv        = CONSENSUS_QC.out.bases_tsv        // channel: [ val(meta), [ tsv ] ]
     bases_pdf        = CONSENSUS_QC.out.bases_pdf        // channel: [ val(meta), [ pdf ] ]
-
-    versions         = ch_versions                       // channel: [ versions.yml ]
 }

@@ -23,7 +23,6 @@ workflow HIV_RESISTANCE {
     nextclade_report // channel: [ val(meta), [ csv ] ]
 
     main:
-    ch_versions = channel.empty()
 
     //
     // HIV resistance detection
@@ -39,8 +38,6 @@ workflow HIV_RESISTANCE {
         params.mutation_csv ? file(params.mutation_csv, checkIfExists: true) : []
     )
 
-    ch_versions = ch_versions.mix(SIERRALOCAL.out.versions)
-
     codfreq_sequence   = file("$projectDir/assets/codfreq.fasta", checkIfExists: true)
     codfreq_annotation = file("$projectDir/assets/codfreq.gff", checkIfExists: true)
 
@@ -54,7 +51,6 @@ workflow HIV_RESISTANCE {
             codfreq_annotation,
             []
         )
-        ch_versions = ch_versions.mix(LIFTOFF.out.versions)
 
         GFF2JSON (
             fasta,
@@ -68,7 +64,6 @@ workflow HIV_RESISTANCE {
             LIFTOFF.out.gff3.map { it[1] },
             pangolin
         )
-        ch_versions = ch_versions.mix(HIV_RESISTANCE_ANNOTATION.out.versions)
 
     } else {
         GFF2JSON (
@@ -88,7 +83,6 @@ workflow HIV_RESISTANCE {
         codfreq_annotation,
         []
     )
-    ch_versions = ch_versions.mix(CONSENSUS_LIFTOFF.out.versions)
 
     RESISTANCE_TABLES(
         SIERRALOCAL.out.json.join(BAM2CODFREQ.out.codfreq, by: [0])
@@ -109,6 +103,4 @@ workflow HIV_RESISTANCE {
     mutation_table       = RESISTANCE_TABLES.out.mutation_csv        // channel: [ val(meta), [ mutation_csv ] ]
     mutation_table_short = RESISTANCE_TABLES.out.mutation_short_csv  // channel: [ val(meta), [ mutation_csv ] ]
     resistance_table     = RESISTANCE_TABLES.out.resistance_csv      // channel: [ val(meta), [ resistance_csv ] ]
-
-    versions              = ch_versions                               // channel: [ versions.yml ]
 }

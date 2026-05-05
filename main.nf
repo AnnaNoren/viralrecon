@@ -77,25 +77,24 @@ workflow NFCORE_VIRALRECON {
     //
     // WORKFLOW: Run pipeline
     //
-        VIRALRECON (
-            samplesheet,
-            params.multiqc_config,
-            params.multiqc_logo,
-            params.multiqc_methods_description,
-            params.outdir,
-            params.fasta,
-            params.gff,
-            primer_bed,
-            params.bowtie2_index,
-            params.nextclade_dataset,
-            params.nextclade_dataset_name,
-            params.nextclade_dataset_tag,
-            artic_scheme
-        )
+    VIRALRECON (
+        samplesheet,
+        params.multiqc_config,
+        params.multiqc_logo,
+        params.multiqc_methods_description,
+        params.outdir,
+        params.fasta,
+        params.gff,
+        primer_bed,
+        params.bowtie2_index,
+        params.nextclade_dataset,
+        params.nextclade_dataset_name,
+        params.nextclade_dataset_tag,
+        artic_scheme
+    )
 
     emit:
     multiqc_report = VIRALRECON.out.multiqc_report // channel: /path/to/multiqc_report.html
-
 }
 
 /*

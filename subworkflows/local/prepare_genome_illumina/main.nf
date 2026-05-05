@@ -33,8 +33,6 @@ workflow PREPARE_GENOME_ILLUMINA {
 
     main:
 
-    ch_versions = channel.empty()
-
     //
     // Uncompress genome fasta file if required
     //
@@ -43,7 +41,6 @@ workflow PREPARE_GENOME_ILLUMINA {
             [ [:], fasta ]
         )
         ch_fasta    = GUNZIP_FASTA.out.gunzip.map { it[1] }
-        ch_versions = ch_versions.mix(GUNZIP_FASTA.out.versions)
     } else {
         ch_fasta = channel.value(file(fasta))
     }
@@ -58,7 +55,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                 [ [:], gff ]
             )
             ch_gff      = GUNZIP_GFF.out.gunzip.map { it[1] }
-            ch_versions = ch_versions.mix(GUNZIP_GFF.out.versions)
         } else {
             ch_gff = channel.value(file(gff))
         }
@@ -72,7 +68,6 @@ workflow PREPARE_GENOME_ILLUMINA {
     )
     ch_fai         = CUSTOM_GETCHROMSIZES.out.fai.map { it[1] }
     ch_chrom_sizes = CUSTOM_GETCHROMSIZES.out.sizes.map { it[1] }
-    ch_versions    = ch_versions.mix(CUSTOM_GETCHROMSIZES.out.versions)
 
     //
     // Prepare reference files required for variant calling
@@ -85,7 +80,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                     [ [:], params.kraken2_db ]
                 )
                 ch_kraken2_db = UNTAR_KRAKEN2_DB.out.untar.map { it[1] }
-                ch_versions   = ch_versions.mix(UNTAR_KRAKEN2_DB.out.versions)
             } else {
                 ch_kraken2_db = channel.value(file(params.kraken2_db))
             }
@@ -110,7 +104,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                     [ [:], primer_bed ]
                 )
                 ch_primer_bed = GUNZIP_PRIMER_BED.out.gunzip.map { it[1] }
-                ch_versions   = ch_versions.mix(GUNZIP_PRIMER_BED.out.versions)
             } else {
                 ch_primer_bed = channel.value(file(primer_bed))
             }
@@ -132,7 +125,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                         [ [:], params.primer_fasta ]
                     )
                     ch_primer_fasta = GUNZIP_PRIMER_FASTA.out.gunzip.map { it[1] }
-                    ch_versions     = ch_versions.mix(GUNZIP_PRIMER_FASTA.out.versions)
                 } else {
                     ch_primer_fasta = channel.value(file(params.primer_fasta))
                 }
@@ -142,7 +134,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                     ch_fasta
                 )
                 ch_primer_fasta = BEDTOOLS_GETFASTA.out.fasta
-                ch_versions     = ch_versions.mix(BEDTOOLS_GETFASTA.out.versions)
             }
         }
     }
@@ -158,7 +149,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                     [ [:], file(bowtie2_index) ]
                 )
                 ch_bowtie2_index = UNTAR_BOWTIE2_INDEX.out.untar
-                ch_versions      = ch_versions.mix(UNTAR_BOWTIE2_INDEX.out.versions)
             } else {
                 ch_bowtie2_index = [ [:], file(bowtie2_index) ]
             }
@@ -167,7 +157,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                 ch_fasta.map { [ [:], it ] }
             )
             ch_bowtie2_index = BOWTIE2_BUILD.out.index
-            ch_versions      = ch_versions.mix(BOWTIE2_BUILD.out.versions)
         }
     }
 
@@ -182,7 +171,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                     [ [:], nextclade_dataset ]
                 )
                 ch_nextclade_db = UNTAR_NEXTCLADE_DB.out.untar.map { it[1] }
-                ch_versions     = ch_versions.mix(UNTAR_NEXTCLADE_DB.out.versions)
             } else {
                 ch_nextclade_db = channel.value(file(nextclade_dataset))
             }
@@ -192,7 +180,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                 nextclade_dataset_tag
             )
             ch_nextclade_db = NEXTCLADE_DATASETGET.out.dataset
-            ch_versions     = ch_versions.mix(NEXTCLADE_DATASETGET.out.versions)
         }
     }
 
@@ -208,7 +195,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                         [ [:], params.blast_db ]
                     )
                     ch_blast_db = UNTAR_BLAST_DB.out.untar
-                    ch_versions = ch_versions.mix(UNTAR_BLAST_DB.out.versions)
                 } else {
                     ch_blast_db = channel.value(
                         [[id:'custom_blastdb'], file(params.blast_db)]
@@ -220,7 +206,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                     'nucl'
                 )
                 ch_blast_db = BLAST_MAKEBLASTDB.out.db
-                ch_versions = ch_versions.mix(BLAST_MAKEBLASTDB.out.versions)
             }
         }
     }
@@ -253,6 +238,4 @@ workflow PREPARE_GENOME_ILLUMINA {
     kraken2_db           = ch_kraken2_db           // path: kraken2_db/
     snpeff_db            = ch_snpeff_db            // path: snpeff_db
     snpeff_config        = ch_snpeff_config        // path: snpeff.config
-
-    versions             = ch_versions             // channel: [ versions.yml ]
 }
