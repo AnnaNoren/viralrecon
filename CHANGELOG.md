@@ -71,7 +71,6 @@ Note, since the pipeline is now using Nextflow DSL2, each process will be run wi
 | `mosdepth`     | 0.3.11      | 0.3.14           |
 | `samtools`     | 1.22.1      | 1.23.1           |
 
-
 > **NB:** Dependency has been **updated** if both old and new version information is present.
 > **NB:** Dependency has been **added** if just the new version information is present.
 > **NB:** Dependency has been **removed** if new version information isn't present.
