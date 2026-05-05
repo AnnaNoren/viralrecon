@@ -13,7 +13,7 @@ include { UNTAR as UNTAR_BLAST_DB       } from '../../../modules/nf-core/untar/m
 include { BOWTIE2_BUILD                 } from '../../../modules/nf-core/bowtie2/build/main'
 include { BLAST_MAKEBLASTDB             } from '../../../modules/nf-core/blast/makeblastdb/main'
 include { BEDTOOLS_GETFASTA             } from '../../../modules/nf-core/bedtools/getfasta/main'
-include { CUSTOM_GETCHROMSIZES          } from '../../../modules/nf-core/custom/getchromsizes/main'
+include { SAMTOOLS_FAIDX                } from '../../../modules/nf-core/samtools/faidx/main'
 include { NEXTCLADE_DATASETGET          } from '../../../modules/nf-core/nextclade/datasetget/main'
 include { COLLAPSE_PRIMERS              } from '../../../modules/local/collapse_primers'
 include { KRAKEN2_BUILD                 } from '../../../modules/local/kraken2/build'
@@ -63,11 +63,12 @@ workflow PREPARE_GENOME_ILLUMINA {
     //
     // Create chromosome sizes file
     //
-    CUSTOM_GETCHROMSIZES (
-        ch_fasta.map { [ [:], it ] }
+    SAMTOOLS_FAIDX (
+        ch_fasta.map { [ [:], it, [] ] },
+        true
     )
-    ch_fai         = CUSTOM_GETCHROMSIZES.out.fai.map { it[1] }
-    ch_chrom_sizes = CUSTOM_GETCHROMSIZES.out.sizes.map { it[1] }
+    ch_fai         = SAMTOOLS_FAIDX.out.fai.map { it[1] }
+    ch_chrom_sizes = SAMTOOLS_FAIDX.out.sizes.map { it[1] }
 
     //
     // Prepare reference files required for variant calling
