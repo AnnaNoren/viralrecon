@@ -24,6 +24,8 @@ workflow VARIANTS_IVAR {
 
     main:
 
+    ch_versions = channel.empty()
+
     //
     // Call variants
     //
@@ -34,6 +36,7 @@ workflow VARIANTS_IVAR {
         gff,
         params.save_mpileup
     )
+    ch_versions = ch_versions.mix(IVAR_VARIANTS.out.versions)
 
     // Filter out samples with 0 variants
     IVAR_VARIANTS
@@ -95,4 +98,5 @@ workflow VARIANTS_IVAR {
     snpeff_txt      = VARIANTS_QC.out.snpeff_txt      // channel: [ val(meta), [ txt ] ]
     snpeff_html     = VARIANTS_QC.out.snpeff_html     // channel: [ val(meta), [ html ] ]
     snpsift_txt     = VARIANTS_QC.out.snpsift_txt     // channel: [ val(meta), [ txt ] ]
+    versions        = ch_versions                     // channel: versions.yml
 }

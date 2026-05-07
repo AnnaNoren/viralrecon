@@ -9,19 +9,19 @@
                     "bandage": "0.9.0"
                 },
                 "BCFTOOLS_CONSENSUS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_FILTER": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDTOOLS_GETFASTA": {
                     "bedtools": "2.31.1"
@@ -33,15 +33,15 @@
                     "bedtools": "2.31.1"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "BLAST_MAKEBLASTDB": {
-                    "blast": "2.16.0+"
+                    "makeblastdb": "2.17.0+"
                 },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
-                    "samtools": 1.21,
-                    "pigz": 2.8
+                    "pigz": 2.8,
+                    "samtools": 1.21
                 },
                 "BOWTIE2_BUILD": {
                     "bowtie2": "2.5.4"
@@ -52,11 +52,8 @@
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "CUTADAPT": {
-                    "cutadapt": 5.0
+                    "cutadapt": 5.2
                 },
                 "FASTQC": {
                     "fastqc": "0.12.1"
@@ -109,10 +106,12 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "PICARD_COLLECTMULTIPLEMETRICS": {
                     "picard": "3.4.0"
@@ -132,20 +131,23 @@
                 "RENAME_FASTA_HEADER": {
                     "sed": 4.9
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_SORT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -1002,10 +1004,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2026-02-20T16:05:41.389719139"
+        "timestamp": "2026-05-06T13:45:57.513967941"
     },
     "-profile test --variant_caller bcftools --consensus_caller ivar --skip_assembly": {
         "content": [
@@ -1691,19 +1693,19 @@
                     "bandage": "0.9.0"
                 },
                 "BCFTOOLS_CONSENSUS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_FILTER": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDTOOLS_GETFASTA": {
                     "bedtools": "2.31.1"
@@ -1715,15 +1717,15 @@
                     "bedtools": "2.31.1"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "BLAST_MAKEBLASTDB": {
-                    "blast": "2.16.0+"
+                    "makeblastdb": "2.17.0+"
                 },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
-                    "samtools": 1.21,
-                    "pigz": 2.8
+                    "pigz": 2.8,
+                    "samtools": 1.21
                 },
                 "BOWTIE2_BUILD": {
                     "bowtie2": "2.5.4"
@@ -1734,14 +1736,11 @@
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "CUTADAPT": {
-                    "cutadapt": 5.0
+                    "cutadapt": 5.2
                 },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC": {
                     "fastqc": "0.12.1"
@@ -1797,10 +1796,15 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
+                },
+                "PANGOLIN_RUN": {
+                    "pangolin": "4.3.1"
                 },
                 "PICARD_COLLECTMULTIPLEMETRICS": {
                     "picard": "3.4.0"
@@ -1817,20 +1821,23 @@
                 "RENAME_FASTA_HEADER": {
                     "sed": 4.9
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_SORT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -2756,10 +2763,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2026-02-20T19:51:06.370246705"
+        "timestamp": "2026-05-06T12:29:42.169330446"
     },
     "-profile test --spades_mode metaviral --skip_variants": {
         "content": [
@@ -2774,22 +2781,19 @@
                     "bedtools": "2.31.1"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "BLAST_MAKEBLASTDB": {
-                    "blast": "2.16.0+"
+                    "makeblastdb": "2.17.0+"
                 },
                 "CAT_FASTQ": {
                     "cat": 9.5
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "CUTADAPT": {
-                    "cutadapt": 5.0
+                    "cutadapt": 5.2
                 },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC": {
                     "fastqc": "0.12.1"
@@ -2824,6 +2828,9 @@
                 },
                 "QUAST": {
                     "quast": "5.3.0"
+                },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
                 },
                 "SPADES": {
                     "spades": "4.1.0"
@@ -3276,9 +3283,9 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2025-11-12T11:17:05.0341355"
+        "timestamp": "2026-05-06T11:54:56.094304681"
     },
     "-profile test --skip_plasmidid false": {
         "content": [
@@ -3290,19 +3297,19 @@
                     "bandage": "0.9.0"
                 },
                 "BCFTOOLS_CONSENSUS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_FILTER": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDTOOLS_GETFASTA": {
                     "bedtools": "2.31.1"
@@ -3314,15 +3321,15 @@
                     "bedtools": "2.31.1"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "BLAST_MAKEBLASTDB": {
-                    "blast": "2.16.0+"
+                    "makeblastdb": "2.17.0+"
                 },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
-                    "samtools": 1.21,
-                    "pigz": 2.8
+                    "pigz": 2.8,
+                    "samtools": 1.21
                 },
                 "BOWTIE2_BUILD": {
                     "bowtie2": "2.5.4"
@@ -3333,14 +3340,11 @@
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "CUTADAPT": {
-                    "cutadapt": 5.0
+                    "cutadapt": 5.2
                 },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC": {
                     "fastqc": "0.12.1"
@@ -3396,10 +3400,15 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
+                },
+                "PANGOLIN_RUN": {
+                    "pangolin": "4.3.1"
                 },
                 "PICARD_COLLECTMULTIPLEMETRICS": {
                     "picard": "3.4.0"
@@ -3422,20 +3431,23 @@
                 "RENAME_FASTA_HEADER": {
                     "sed": 4.9
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_SORT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -4741,10 +4753,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2026-02-20T19:39:15.941851035"
+        "timestamp": "2026-05-06T12:04:56.608571462"
     },
     "-profile test --additional_annotation 'https://github.com/nf-core/test-datasets/raw/refs/heads/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.gtf.gz'": {
         "content": [
@@ -4756,19 +4768,19 @@
                     "bandage": "0.9.0"
                 },
                 "BCFTOOLS_CONSENSUS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_FILTER": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDTOOLS_GETFASTA": {
                     "bedtools": "2.31.1"
@@ -4780,15 +4792,15 @@
                     "bedtools": "2.31.1"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "BLAST_MAKEBLASTDB": {
-                    "blast": "2.16.0+"
+                    "makeblastdb": "2.17.0+"
                 },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
-                    "samtools": 1.21,
-                    "pigz": 2.8
+                    "pigz": 2.8,
+                    "samtools": 1.21
                 },
                 "BOWTIE2_BUILD": {
                     "bowtie2": "2.5.4"
@@ -4799,14 +4811,11 @@
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "CUTADAPT": {
-                    "cutadapt": 5.0
+                    "cutadapt": 5.2
                 },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC": {
                     "fastqc": "0.12.1"
@@ -4865,10 +4874,15 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
+                },
+                "PANGOLIN_RUN": {
+                    "pangolin": "4.3.1"
                 },
                 "PICARD_COLLECTMULTIPLEMETRICS": {
                     "picard": "3.4.0"
@@ -4888,20 +4902,23 @@
                 "RENAME_FASTA_HEADER": {
                     "sed": 4.9
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_SORT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -5867,10 +5884,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2026-02-20T19:43:26.311958439"
+        "timestamp": "2026-05-06T12:13:48.494951862"
     },
     "-profile test --skip_kraken2": {
         "content": [
@@ -5882,19 +5899,19 @@
                     "bandage": "0.9.0"
                 },
                 "BCFTOOLS_CONSENSUS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_FILTER": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDTOOLS_GETFASTA": {
                     "bedtools": "2.31.1"
@@ -5906,15 +5923,15 @@
                     "bedtools": "2.31.1"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "BLAST_MAKEBLASTDB": {
-                    "blast": "2.16.0+"
+                    "makeblastdb": "2.17.0+"
                 },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
-                    "samtools": 1.21,
-                    "pigz": 2.8
+                    "pigz": 2.8,
+                    "samtools": 1.21
                 },
                 "BOWTIE2_BUILD": {
                     "bowtie2": "2.5.4"
@@ -5925,14 +5942,11 @@
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "CUTADAPT": {
-                    "cutadapt": 5.0
+                    "cutadapt": 5.2
                 },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC": {
                     "fastqc": "0.12.1"
@@ -5984,10 +5998,15 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
+                },
+                "PANGOLIN_RUN": {
+                    "pangolin": "4.3.1"
                 },
                 "PICARD_COLLECTMULTIPLEMETRICS": {
                     "picard": "3.4.0"
@@ -6007,20 +6026,23 @@
                 "RENAME_FASTA_HEADER": {
                     "sed": 4.9
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_SORT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -6920,10 +6942,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2026-02-20T16:17:47.188134987"
+        "timestamp": "2026-05-06T14:08:03.021397634"
     },
     "-profile test --skip_cutadapt --skip_snpeff": {
         "content": [
@@ -6935,16 +6957,16 @@
                     "bandage": "0.9.0"
                 },
                 "BCFTOOLS_CONSENSUS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_FILTER": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDTOOLS_MASKFASTA": {
                     "bedtools": "2.31.1"
@@ -6953,15 +6975,15 @@
                     "bedtools": "2.31.1"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "BLAST_MAKEBLASTDB": {
-                    "blast": "2.16.0+"
+                    "makeblastdb": "2.17.0+"
                 },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
-                    "samtools": 1.21,
-                    "pigz": 2.8
+                    "pigz": 2.8,
+                    "samtools": 1.21
                 },
                 "BOWTIE2_BUILD": {
                     "bowtie2": "2.5.4"
@@ -6972,11 +6994,8 @@
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC_RAW": {
                     "fastqc": "0.12.1"
@@ -7026,10 +7045,15 @@
                     "samtools": 1.14
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
+                },
+                "PANGOLIN_RUN": {
+                    "pangolin": "4.3.1"
                 },
                 "PICARD_COLLECTMULTIPLEMETRICS": {
                     "picard": "3.4.0"
@@ -7046,20 +7070,23 @@
                 "RENAME_FASTA_HEADER": {
                     "sed": 4.9
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_SORT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SPADES": {
                     "spades": "4.1.0"
@@ -7908,10 +7935,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2026-02-20T16:13:42.510380513"
+        "timestamp": "2026-05-06T13:59:20.622241357"
     },
     "-profile test --primer_set_version 5.3.2": {
         "content": [
@@ -7923,19 +7950,19 @@
                     "bandage": "0.9.0"
                 },
                 "BCFTOOLS_CONSENSUS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_FILTER": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDTOOLS_GETFASTA": {
                     "bedtools": "2.31.1"
@@ -7947,15 +7974,15 @@
                     "bedtools": "2.31.1"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "BLAST_MAKEBLASTDB": {
-                    "blast": "2.16.0+"
+                    "makeblastdb": "2.17.0+"
                 },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
-                    "samtools": 1.21,
-                    "pigz": 2.8
+                    "pigz": 2.8,
+                    "samtools": 1.21
                 },
                 "BOWTIE2_BUILD": {
                     "bowtie2": "2.5.4"
@@ -7966,14 +7993,11 @@
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "CUTADAPT": {
-                    "cutadapt": 5.0
+                    "cutadapt": 5.2
                 },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC": {
                     "fastqc": "0.12.1"
@@ -8029,10 +8053,15 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
+                },
+                "PANGOLIN_RUN": {
+                    "pangolin": "4.3.1"
                 },
                 "PICARD_COLLECTMULTIPLEMETRICS": {
                     "picard": "3.4.0"
@@ -8052,20 +8081,23 @@
                 "RENAME_FASTA_HEADER": {
                     "sed": 4.9
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_SORT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -8992,9 +9024,9 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2026-03-12T08:42:40.478532575"
+        "timestamp": "2026-05-06T12:38:39.210124634"
     },
     "-profile test --skip_variants": {
         "content": [
@@ -9009,22 +9041,19 @@
                     "bedtools": "2.31.1"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "BLAST_MAKEBLASTDB": {
-                    "blast": "2.16.0+"
+                    "makeblastdb": "2.17.0+"
                 },
                 "CAT_FASTQ": {
                     "cat": 9.5
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "CUTADAPT": {
-                    "cutadapt": 5.0
+                    "cutadapt": 5.2
                 },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC": {
                     "fastqc": "0.12.1"
@@ -9059,6 +9088,9 @@
                 },
                 "QUAST": {
                     "quast": "5.3.0"
+                },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
                 },
                 "SPADES": {
                     "spades": "4.1.0"
@@ -9555,9 +9587,9 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2025-11-12T10:39:37.745368894"
+        "timestamp": "2026-05-06T13:50:19.546320331"
     },
     "-profile test --consensus_caller ivar": {
         "content": [
@@ -9569,27 +9601,27 @@
                     "bandage": "0.9.0"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDTOOLS_GETFASTA": {
                     "bedtools": "2.31.1"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "BLAST_MAKEBLASTDB": {
-                    "blast": "2.16.0+"
+                    "makeblastdb": "2.17.0+"
                 },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
-                    "samtools": 1.21,
-                    "pigz": 2.8
+                    "pigz": 2.8,
+                    "samtools": 1.21
                 },
                 "BOWTIE2_BUILD": {
                     "bowtie2": "2.5.4"
@@ -9600,14 +9632,11 @@
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "CUTADAPT": {
-                    "cutadapt": 5.0
+                    "cutadapt": 5.2
                 },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC": {
                     "fastqc": "0.12.1"
@@ -9662,10 +9691,15 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
+                },
+                "PANGOLIN_RUN": {
+                    "pangolin": "4.3.1"
                 },
                 "PICARD_COLLECTMULTIPLEMETRICS": {
                     "picard": "3.4.0"
@@ -9682,20 +9716,23 @@
                 "QUAST": {
                     "quast": "5.3.0"
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_SORT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -10627,28 +10664,28 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2026-02-20T15:58:20.284306259"
+        "timestamp": "2026-05-06T11:08:53.247140018"
     },
     "-profile test --skip_assembly": {
         "content": [
             {
                 "BCFTOOLS_CONSENSUS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_FILTER": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDTOOLS_MASKFASTA": {
                     "bedtools": "2.31.1"
@@ -10658,8 +10695,8 @@
                 },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
-                    "samtools": 1.21,
-                    "pigz": 2.8
+                    "pigz": 2.8,
+                    "samtools": 1.21
                 },
                 "BOWTIE2_BUILD": {
                     "bowtie2": "2.5.4"
@@ -10670,11 +10707,8 @@
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC_RAW": {
                     "fastqc": "0.12.1"
@@ -10718,10 +10752,15 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
+                },
+                "PANGOLIN_RUN": {
+                    "pangolin": "4.3.1"
                 },
                 "PICARD_COLLECTMULTIPLEMETRICS": {
                     "picard": "3.4.0"
@@ -10732,23 +10771,29 @@
                 "PLOT_MOSDEPTH_REGIONS_GENOME": {
                     "r-base": "4.2.0"
                 },
+                "QUAST": {
+                    "quast": "5.3.0"
+                },
                 "RENAME_FASTA_HEADER": {
                     "sed": 4.9
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_SORT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -11325,10 +11370,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2026-02-20T16:21:16.126123056"
+        "timestamp": "2026-05-06T14:14:06.343590106"
     },
     "-profile test --spades_mode corona --skip_variants": {
         "content": [
@@ -11343,22 +11388,19 @@
                     "bedtools": "2.31.1"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "BLAST_MAKEBLASTDB": {
-                    "blast": "2.16.0+"
+                    "makeblastdb": "2.17.0+"
                 },
                 "CAT_FASTQ": {
                     "cat": 9.5
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "CUTADAPT": {
-                    "cutadapt": 5.0
+                    "cutadapt": 5.2
                 },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC": {
                     "fastqc": "0.12.1"
@@ -11393,6 +11435,9 @@
                 },
                 "QUAST": {
                     "quast": "5.3.0"
+                },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
                 },
                 "SPADES": {
                     "spades": "4.1.0"
@@ -11879,9 +11924,9 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2025-11-12T11:11:15.729704627"
+        "timestamp": "2026-05-06T11:50:39.38436259"
     },
     "-profile test --bowtie2_index 'https://github.com/nf-core/test-datasets/raw/refs/heads/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.bt2.index.tar.gz'": {
         "content": [
@@ -11893,19 +11938,19 @@
                     "bandage": "0.9.0"
                 },
                 "BCFTOOLS_CONSENSUS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_FILTER": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDTOOLS_GETFASTA": {
                     "bedtools": "2.31.1"
@@ -11917,15 +11962,15 @@
                     "bedtools": "2.31.1"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "BLAST_MAKEBLASTDB": {
-                    "blast": "2.16.0+"
+                    "makeblastdb": "2.17.0+"
                 },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
-                    "samtools": 1.21,
-                    "pigz": 2.8
+                    "pigz": 2.8,
+                    "samtools": 1.21
                 },
                 "CAT_FASTQ": {
                     "cat": 9.5
@@ -11933,14 +11978,11 @@
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "CUTADAPT": {
-                    "cutadapt": 5.0
+                    "cutadapt": 5.2
                 },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC": {
                     "fastqc": "0.12.1"
@@ -11996,10 +12038,15 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
+                },
+                "PANGOLIN_RUN": {
+                    "pangolin": "4.3.1"
                 },
                 "PICARD_COLLECTMULTIPLEMETRICS": {
                     "picard": "3.4.0"
@@ -12019,20 +12066,23 @@
                 "RENAME_FASTA_HEADER": {
                     "sed": 4.9
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_SORT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -12961,9 +13011,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2026-02-20T19:47:29.617739219"
+        "timestamp": "2026-05-06T12:22:20.811241157"
     }
 }

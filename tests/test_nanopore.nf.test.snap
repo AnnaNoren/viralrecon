@@ -9,16 +9,13 @@
                     "artic": "1.6.2"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
-                },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
                 },
                 "FREYJA_DEMIX": {
                     "freyja": "2.0.3"
@@ -43,10 +40,12 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "NANOPLOT": {
                     "nanoplot": "1.46.1"
@@ -66,20 +65,23 @@
                 "QUAST": {
                     "quast": "5.3.0"
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_VIEW": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -1007,8 +1009,8 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2025-11-12T09:52:22.047949477"
+        "timestamp": "2026-05-06T13:27:53.644750955"
     }
 }

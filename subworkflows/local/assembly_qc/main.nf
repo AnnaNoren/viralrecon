@@ -20,6 +20,8 @@ workflow ASSEMBLY_QC {
 
     main:
 
+    ch_versions = channel.empty()
+
     //
     // Run blastn on assembly scaffolds
     //
@@ -86,6 +88,7 @@ workflow ASSEMBLY_QC {
     ch_plasmidid_database = channel.empty()
     ch_plasmidid_fasta    = channel.empty()
     ch_plasmidid_kmer     = channel.empty()
+    ch_versions           = channel.empty()
     if (!params.skip_plasmidid) {
         PLASMIDID (
             scaffolds,
@@ -99,6 +102,7 @@ workflow ASSEMBLY_QC {
         ch_plasmidid_database = PLASMIDID.out.database
         ch_plasmidid_fasta    = PLASMIDID.out.fasta_files
         ch_plasmidid_kmer     = PLASMIDID.out.kmer
+        ch_versions           = PLASMIDID.out.versions
     }
 
     emit:
@@ -118,4 +122,6 @@ workflow ASSEMBLY_QC {
     plasmidid_database = ch_plasmidid_database // channel: [ val(meta), [ database/ ] ]
     plasmidid_fasta    = ch_plasmidid_fasta    // channel: [ val(meta), [ fasta_files/ ] ]
     plasmidid_kmer     = ch_plasmidid_kmer     // channel: [ val(meta), [ kmer/ ] ]
+
+    versions           = ch_versions           // channel: versions.yml
 }

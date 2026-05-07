@@ -22,6 +22,8 @@ workflow CONSENSUS_BCFTOOLS {
 
     main:
 
+    ch_versions = channel.empty()
+
     //
     // Filter variants by allele frequency, zip and index
     //
@@ -83,6 +85,7 @@ workflow CONSENSUS_BCFTOOLS {
         gff,
         nextclade_db
     )
+    ch_versions = ch_versions.mix(CONSENSUS_QC.out.versions)
 
     emit:
     consensus        = RENAME_FASTA_HEADER.out.fasta     // channel: [ val(meta), [ fasta ] ]
@@ -96,4 +99,6 @@ workflow CONSENSUS_BCFTOOLS {
 
     bases_tsv        = CONSENSUS_QC.out.bases_tsv        // channel: [ val(meta), [ tsv ] ]
     bases_pdf        = CONSENSUS_QC.out.bases_pdf        // channel: [ val(meta), [ pdf ] ]
+
+    versions         = ch_versions                       // channel: versions.yml
 }

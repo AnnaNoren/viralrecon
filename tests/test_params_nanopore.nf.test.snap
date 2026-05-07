@@ -9,13 +9,10 @@
                     "artic": "1.6.2"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
-                },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
                 },
                 "FREYJA_DEMIX": {
                     "freyja": "2.0.3"
@@ -34,10 +31,12 @@
                     "pigz": 2.8
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "NANOPLOT": {
                     "nanoplot": "1.46.1"
@@ -57,20 +56,23 @@
                 "QUAST": {
                     "quast": "5.3.0"
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_VIEW": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "TABIX_TABIX": {
                     "tabix": 1.21
@@ -896,11 +898,11 @@
                 "pycoqc_stats_table.yaml:md5,7e91d1025c519911af28386064444b9a"
             ]
         ],
-        "timestamp": "2025-11-12T10:21:25.483164448",
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        }
+            "nextflow": "26.04.0"
+        },
+        "timestamp": "2026-05-06T12:48:34.244516088"
     },
     "-profile test_nanopore --additional_annotation 'https://github.com/nf-core/test-datasets/raw/refs/heads/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.gtf.gz'": {
         "content": [
@@ -912,16 +914,13 @@
                     "artic": "1.6.2"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
-                },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
                 },
                 "FREYJA_DEMIX": {
                     "freyja": "2.0.3"
@@ -949,10 +948,12 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "NANOPLOT": {
                     "nanoplot": "1.46.1"
@@ -972,20 +973,23 @@
                 "QUAST": {
                     "quast": "5.3.0"
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_VIEW": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -1915,8 +1919,9 @@
         "timestamp": "2025-11-12T10:31:24.78093934",
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        }
+            "nextflow": "26.04.0"
+        },
+        "timestamp": "2026-05-06T12:55:53.210491011"
     },
     "-profile test_nanopore --min_guppyplex_reads 10000": {
         "content": [
@@ -1926,9 +1931,6 @@
                 },
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
-                },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
                 },
                 "FREYJA_UPDATE": {
                     "freyja": "2.0.3"
@@ -1948,6 +1950,9 @@
                 },
                 "PYCOQC": {
                     "pycoqc": "2.5.2"
+                },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_BUILD": {
                     "snpeff": "5.0e"
@@ -2175,11 +2180,11 @@
                 "pycoqc_stats_table.yaml:md5,7e91d1025c519911af28386064444b9a"
             ]
         ],
-        "timestamp": "2026-02-20T19:57:55.463623334",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
-        }
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.0"
+        },
+        "timestamp": "2026-05-06T12:58:03.776860777"
     },
     "-profile test_nanopore --sequencing_summary false": {
         "content": [
@@ -2191,16 +2196,13 @@
                     "artic": "1.6.2"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
-                },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
                 },
                 "FREYJA_DEMIX": {
                     "freyja": "2.0.3"
@@ -2225,10 +2227,12 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "NANOPLOT": {
                     "nanoplot": "1.46.1"
@@ -2245,20 +2249,23 @@
                 "QUAST": {
                     "quast": "5.3.0"
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_VIEW": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -3168,20 +3175,17 @@
                 "snpeff_variant_effects_region.yaml:md5,fd109b7ff62142110d965fd03cb68994"
             ]
         ],
-        "timestamp": "2025-11-12T10:41:40.123239179",
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        }
+            "nextflow": "26.04.0"
+        },
+        "timestamp": "2026-05-06T13:04:44.155034393"
     },
     "-profile test_nanopore --min_barcode_reads 10000": {
         "content": [
             {
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
-                },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
                 },
                 "FREYJA_UPDATE": {
                     "freyja": "2.0.3"
@@ -3194,6 +3198,9 @@
                 },
                 "PYCOQC": {
                     "pycoqc": "2.5.2"
+                },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_BUILD": {
                     "snpeff": "5.0e"
@@ -3259,10 +3266,10 @@
                 "pycoqc_stats_table.yaml:md5,7e91d1025c519911af28386064444b9a"
             ]
         ],
-        "timestamp": "2026-02-20T19:57:09.852251113",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
-        }
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.0"
+        },
+        "timestamp": "2026-05-05T13:40:15.19073506"
     }
 }

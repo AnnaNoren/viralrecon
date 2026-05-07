@@ -9,16 +9,13 @@
                     "bandage": "0.9.0"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "CAT_FASTQ": {
                     "cat": 9.5
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC_RAW": {
                     "fastqc": "0.12.1"
@@ -47,6 +44,9 @@
                 },
                 "QUAST": {
                     "quast": "5.3.0"
+                },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
                 },
                 "SPADES": {
                     "spades": "4.1.0"
@@ -291,8 +291,8 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2025-11-11T13:49:39.597905006"
+        "timestamp": "2026-05-06T13:15:36.357602835"
     }
 }

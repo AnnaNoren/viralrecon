@@ -18,6 +18,8 @@ workflow CONSENSUS_QC {
 
     main:
 
+    ch_versions = channel.empty()
+
     //
     // Consensus QC report across samples with QUAST
     //
@@ -43,11 +45,13 @@ workflow CONSENSUS_QC {
     //
     ch_pangolin_report = channel.empty()
     ch_pango_database = channel.empty()
+    ch_versions = channel.empty()
 
     if (!params.skip_pangolin) {
         if (!params.pango_database) {
             PANGOLIN_UPDATEDATA('pangolin_db')
             ch_pango_database = PANGOLIN_UPDATEDATA.out.db
+            ch_versions       = ch_versions.mix(PANGOLIN_UPDATEDATA.out.versions)
         } else {
             if (params.pango_database.endsWith('.tar.gz')) {
                 UNTAR_PANGODB (
@@ -63,6 +67,7 @@ workflow CONSENSUS_QC {
             ch_pango_database
         )
         ch_pangolin_report = PANGOLIN_RUN.out.report
+        ch_versions        = ch_versions.mix(PANGOLIN_RUN.out.versions)
     }
 
     //
@@ -75,6 +80,7 @@ workflow CONSENSUS_QC {
             nextclade_db
         )
         ch_nextclade_report = NEXTCLADE_RUN.out.csv
+        ch_versions         = ch_versions.mix(NEXTCLADE_RUN.out.versions)
     }
 
     //
@@ -100,4 +106,6 @@ workflow CONSENSUS_QC {
 
     bases_tsv        = ch_bases_tsv        // channel: [ val(meta), [ tsv ] ]
     bases_pdf        = ch_bases_pdf        // channel: [ val(meta), [ pdf ] ]
+
+    versions         = ch_versions         // channel: versions.yml
 }
