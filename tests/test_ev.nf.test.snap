@@ -87,6 +87,7 @@
                 "assembly/spades/rnaviral/blastn/SRR13266665.filter.blastn.txt",
                 "assembly/spades/rnaviral/blastn/SRR13266665.results.blastn.txt",
                 "assembly/spades/rnaviral/blastn/SRR13266665_blast_report.html",
+                "assembly/spades/rnaviral/blastn/SRR13266665_genotype.csv",
                 "assembly/spades/rnaviral/blastn/SRR13266665_reversed_contigs.fa",
                 "assembly/spades/rnaviral/log",
                 "assembly/spades/rnaviral/log/SRR13266665.spades.log",
@@ -239,6 +240,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-21T13:37:54.57343712"
+        "timestamp": "2026-05-07T10:27:39.064978404"
     }
 }
