@@ -73,6 +73,7 @@ workflow NFCORE_VIRALRECON {
 
     def primer_bed   = params.primer_bed ?: getGenomeAttribute('primer_bed', primer_set, primer_set_version)
     def artic_scheme = params.artic_scheme ?: (params.platform == 'nanopore' ? getGenomeAttribute('scheme', primer_set, primer_set_version) : null)
+    def genome_gff   = (params.gff == false || params.gff == 'false') ? null : params.gff
 
     //
     // WORKFLOW: Run pipeline
@@ -84,7 +85,7 @@ workflow NFCORE_VIRALRECON {
         params.multiqc_methods_description,
         params.outdir,
         params.fasta,
-        params.gff,
+        genome_gff,
         primer_bed,
         params.bowtie2_index,
         params.nextclade_dataset,
@@ -152,7 +153,7 @@ workflow {
 */
 
 def getGenomeAttribute(attribute, primer_set='', primer_set_version='') {
-        def val = ''
+        def val = null
         def support_link =  " The default genome config used by the pipeline can be found here:\n" +
                             "   - https://github.com/nf-core/configs/blob/master/conf/pipeline/viralrecon/genomes.config\n\n" +
                             " If you would still like to blame us please come and find us on nf-core Slack:\n" +

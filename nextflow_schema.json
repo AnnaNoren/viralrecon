@@ -83,10 +83,18 @@
                     "help_text": "If you have no genome reference available, the pipeline can build one using a FASTA file. This requires additional time and resources, so it's better to use a pre-build index if possible."
                 },
                 "gff": {
-                    "type": "string",
-                    "format": "file-path",
-                    "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.gff(\\.gz)?$",
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "file-path",
+                            "mimetype": "text/plain",
+                            "pattern": "^\\S+\\.gff(\\.gz)?$"
+                        },
+                        {
+                            "type": "boolean",
+                            "const": false
+                        }
+                    ],
                     "description": "Full path to GFF annotation file.",
                     "fa_icon": "fas fa-file-invoice"
                 },
@@ -168,10 +176,18 @@
                     "fa_icon": "fas fa-folder-open"
                 },
                 "sequencing_summary": {
-                    "type": "string",
-                    "format": "file-path",
-                    "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.txt$",
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "file-path",
+                            "mimetype": "text/plain",
+                            "pattern": "^\\S+\\.txt$"
+                        },
+                        {
+                            "type": "boolean",
+                            "const": false
+                        }
+                    ],
                     "description": "Sequencing summary file generated after Nanopore run completion.",
                     "help_text": " e.g. '--sequencing_summary ./20191023_1522_MC-110615_0_FAO93606_12bf9b4f/sequencing_summary.txt'.",
                     "fa_icon": "fas fa-file"

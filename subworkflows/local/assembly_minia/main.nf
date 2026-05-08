@@ -2,7 +2,8 @@
 // Assembly and downstream processing for minia scaffolds
 //
 
-include { MINIA       } from '../../../modules/nf-core/minia/main'
+include { MINIA                    } from '../../../modules/nf-core/minia/main'
+include { GUNZIP as GUNZIP_CONTIGS } from '../../../modules/nf-core/gunzip/main'
 
 include { ASSEMBLY_QC } from '../assembly_qc'
 
@@ -28,11 +29,18 @@ workflow ASSEMBLY_MINIA {
     )
 
     //
+    // Unzip contigs file
+    //
+    GUNZIP_CONTIGS (
+        MINIA.out.contigs
+    )
+
+    //
     // Filter for empty contig files
     //
-    MINIA
+    GUNZIP_CONTIGS
         .out
-        .contigs
+        .gunzip
         .filter { meta, contig -> contig.size() > 0 }
         .set { ch_contigs }
 

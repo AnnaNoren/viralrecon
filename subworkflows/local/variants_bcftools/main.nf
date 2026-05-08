@@ -11,7 +11,7 @@ include { getNumVariantsFromBCFToolsStats  } from '../../../subworkflows/local/u
 workflow VARIANTS_BCFTOOLS {
     take:
     bam           // channel: [ val(meta), [ bam ] ]
-    fasta         // channel: /path/to/genome.fasta
+    fasta_fai     // channel: [ val(meta), fasta, fai ]
     sizes         // channel: /path/to/genome.sizes
     gff           // channel: /path/to/genome.gff
     bed           // channel: /path/to/primers.bed
@@ -23,9 +23,11 @@ workflow VARIANTS_BCFTOOLS {
     //
     // Call variants
     //
+    ch_fasta = fasta_fai.map { meta, fasta_file, fai_file -> fasta_file }
+
     BCFTOOLS_MPILEUP (
-        bam.map{ meta, bam_file -> [ meta, bam_file, [] ] },
-        fasta.map { [ [:], it ] },
+        bam.map{ meta, bam_file -> [ meta, bam_file, [], [] ] },
+        fasta_fai,
         params.save_mpileup
     )
 
@@ -55,7 +57,7 @@ workflow VARIANTS_BCFTOOLS {
     //
     BCFTOOLS_NORM (
         ch_vcf.join(ch_tbi, by: [0]),
-        fasta.map { [ [:], it ] }
+        ch_fasta.map { [ [:], it ] }
     )
 
     VCF_TABIX_STATS (
@@ -72,7 +74,7 @@ workflow VARIANTS_BCFTOOLS {
         bam,
         BCFTOOLS_NORM.out.vcf,
         VCF_TABIX_STATS.out.stats,
-        fasta,
+        ch_fasta,
         sizes,
         gff,
         bed,

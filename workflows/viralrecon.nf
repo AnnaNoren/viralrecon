@@ -136,11 +136,12 @@ workflow VIRALRECON {
     ]
 
     def checkPathParamList = []
+    def sequencing_summary = (params.sequencing_summary == false || params.sequencing_summary == 'false') ? null : params.sequencing_summary
 
     // Check input path parameters to see if they exist
     if (params.platform == 'illumina') {
         checkPathParamList = [
-            params.input, params.fasta, params.gff, params.bowtie2_index,
+            params.input, params.fasta, ch_genome_gff, params.bowtie2_index,
             params.kraken2_db, params.primer_bed, params.primer_fasta,
             params.blast_db, params.spades_hmm, params.multiqc_config,
             params.freyja_barcodes, params.freyja_lineages_meta, params.freyja_lineages_topology, params.additional_annotation
@@ -148,7 +149,7 @@ workflow VIRALRECON {
     } else if (params.platform == 'nanopore') {
         checkPathParamList = [
             params.input, params.fastq_dir,
-            params.sequencing_summary, params.gff,
+            sequencing_summary, ch_genome_gff,
             params.freyja_barcodes, params.freyja_lineages_meta, params.freyja_lineages_topology, params.additional_annotation,
             params.kraken2_db
         ]
@@ -183,7 +184,7 @@ workflow VIRALRECON {
     def variant_caller = params.variant_caller
     if (!variant_caller) { variant_caller = params.trim_primers ? 'ivar' : 'bcftools' }
 
-    if (params.sequencing_summary)      { ch_sequencing_summary = file(params.sequencing_summary)      } else { ch_sequencing_summary = [] }
+    if (sequencing_summary)             { ch_sequencing_summary = file(sequencing_summary)             } else { ch_sequencing_summary = [] }
 
     // Need to stage artic model properly depending on whether it is a string or a file
     ch_artic_model = params.artic_minion_model_dir ?
@@ -526,7 +527,7 @@ workflow VIRALRECON {
         if (!params.skip_variants && variant_caller == 'bcftools') {
             VARIANTS_BCFTOOLS (
                 ch_bam,
-                genome.fasta,
+                ch_reference_fasta_fai,
                 (params.trim_primers || !params.skip_markduplicates) ? genome.chrom_sizes : [],
                 ch_genome_gff ? genome.gff : [],
                 (params.trim_primers && ch_primer_bed) ? genome.primer_bed : [],
@@ -682,10 +683,10 @@ workflow VIRALRECON {
         // MODULE: Primer trimming with Cutadapt
         //
         if (params.trim_primers && !params.skip_assembly && !params.skip_cutadapt) {
-            ch_primers =  genome.primer_fasta.collect { it[1] }
+            ch_primers =  genome.primer_fasta
             if (!params.skip_noninternal_primers){
                 PREPARE_PRIMER_FASTA(
-                    genome.primer_fasta.collect { it[1] }
+                    genome.primer_fasta
                 )
                 ch_primers = PREPARE_PRIMER_FASTA.out.adapters
             }
@@ -765,7 +766,7 @@ workflow VIRALRECON {
         //
         // MODULE: PycoQC on sequencing summary file
         //
-        if (params.sequencing_summary && !params.skip_pycoqc) {
+        if (sequencing_summary && !params.skip_pycoqc) {
             PYCOQC (
                 channel.of(ch_sequencing_summary).map { [ [:], it ] }
             )
@@ -820,7 +821,7 @@ workflow VIRALRECON {
                 //
                 ch_fastq_dirs
                     .filter { it[1] == null }
-                    .filter { it[-1] >= params.min_barcode_reads }
+                    .filter { it[-1] >= min_barcode_reads }
                     .map { it -> [ "${it[0]}\t${it[-1]}" ] }
                     .collect()
                     .map {
@@ -875,10 +876,10 @@ workflow VIRALRECON {
         //
         ch_fastq_dirs
             .branch { barcode, sample, dir, count  ->
-                pass: count > params.min_barcode_reads
+                pass: count > min_barcode_reads
                     pass_barcode_reads[sample] = count
                     return [ "$sample\t$count" ]
-                fail: count < params.min_barcode_reads
+                fail: count < min_barcode_reads
                     fail_barcode_reads[sample] = count
                     return [ "$sample\t$count" ]
             }
@@ -900,7 +901,7 @@ workflow VIRALRECON {
 
         // Re-arrange channels to have meta map of information for sample
         ch_fastq_dirs
-            .filter { it[-1] > params.min_barcode_reads }
+            .filter { it[-1] > min_barcode_reads }
             .map { barcode, sample, dir, count -> [ [ id: sample, barcode:barcode ], dir ] }
             .set { ch_fastq_dirs }
 
@@ -945,9 +946,9 @@ workflow VIRALRECON {
             .fastq
             .branch { meta, fastq  ->
                 def count = fastq.countFastq()
-                pass: count > params.min_guppyplex_reads
+                pass: count > min_guppyplex_reads
                     return [ "$meta.id\t$count" ]
-                fail: count < params.min_guppyplex_reads
+                fail: count < min_guppyplex_reads
                     return [ "$meta.id\t$count" ]
             }
             .set { ch_pass_fail_guppyplex_count }
@@ -981,7 +982,7 @@ workflow VIRALRECON {
         //
 
         ARTIC_MINION (
-            ARTIC_GUPPYPLEX.out.fastq.filter { it[-1].countFastq() > params.min_guppyplex_reads },
+            ARTIC_GUPPYPLEX.out.fastq.filter { it[-1].countFastq() > min_guppyplex_reads },
             ch_artic_model,
             genome.fasta
                 .combine(genome.primer_bed)
