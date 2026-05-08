@@ -231,19 +231,36 @@ workflow PREPARE_GENOME_ILLUMINA {
         ch_snpeff_config = SNPEFF_BUILD.out.config
     }
 
+    //
+    // Materialize reference channels so they can be reused by multiple consumers
+    //
+    def ch_reference_fasta                = ch_fasta.collect(flat: false).map { files -> files[0] }
+    def ch_reference_fai                  = ch_fai.collect(flat: false).map { files -> files[0] }
+    def ch_reference_chrom_sizes          = ch_chrom_sizes.collect(flat: false).map { files -> files[0] }
+    def ch_reference_bowtie2_index        = !params.skip_variants ? ch_bowtie2_index.collect(flat: false).map { indexes -> indexes[0] } : []
+    def ch_reference_gff                  = gff ? ch_gff.collect(flat: false).map { files -> files[0] } : []
+    def ch_reference_primer_bed           = (params.trim_primers && primer_bed) ? ch_primer_bed.collect(flat: false).map { files -> files[0] } : []
+    def ch_reference_primer_fasta         = (params.trim_primers && !params.skip_assembly && !params.skip_cutadapt) ? ch_primer_fasta.collect(flat: false).map { files -> files[0] instanceof List ? files[0][1] : files[0] } : []
+    def ch_reference_primer_collapsed_bed = (params.trim_primers && !params.skip_mosdepth) ? ch_primer_collapsed_bed.collect(flat: false).map { files -> files[0] } : []
+    def ch_reference_nextclade_db         = (!params.skip_consensus && !params.skip_nextclade) ? ch_nextclade_db.collect(flat: false).map { dirs -> dirs[0] } : []
+    def ch_reference_blast_db             = (!params.skip_blast && !params.skip_assembly) ? ch_blast_db.collect(flat: false).map { dirs -> dirs[0] } : []
+    def ch_reference_kraken2_db           = (!params.skip_kraken2) ? ch_kraken2_db.collect(flat: false).map { dirs -> dirs[0] } : []
+    def ch_reference_snpeff_db            = (!params.skip_variants && gff && !params.skip_snpeff) ? ch_snpeff_db.collect(flat: false).map { dirs -> dirs[0] } : []
+    def ch_reference_snpeff_config        = (!params.skip_variants && gff && !params.skip_snpeff) ? ch_snpeff_config.collect(flat: false).map { files -> files[0] } : []
+
     emit:
-    fasta                = ch_fasta                // path: genome.fasta
-    gff                  = ch_gff                  // path: genome.gff
-    fai                  = ch_fai                  // path: genome.fai
-    chrom_sizes          = ch_chrom_sizes          // path: genome.sizes
-    bowtie2_index        = ch_bowtie2_index        // channel: [ [:], bowtie2/index/ ]
-    primer_bed           = ch_primer_bed           // path: primer.bed
-    primer_collapsed_bed = ch_primer_collapsed_bed // path: primer.collapsed.bed
-    primer_fasta         = ch_primer_fasta         // path: primer.fasta
-    nextclade_db         = ch_nextclade_db         // path: nextclade_db
-    blast_db             = ch_blast_db             // path: blast_db/
-    kraken2_db           = ch_kraken2_db           // path: kraken2_db/
-    snpeff_db            = ch_snpeff_db            // path: snpeff_db
-    snpeff_config        = ch_snpeff_config        // path: snpeff.config
+    fasta                = ch_reference_fasta                // path: genome.fasta
+    gff                  = ch_reference_gff                  // path: genome.gff
+    fai                  = ch_reference_fai                  // path: genome.fai
+    chrom_sizes          = ch_reference_chrom_sizes          // path: genome.sizes
+    bowtie2_index        = ch_reference_bowtie2_index        // channel: [ [:], bowtie2/index/ ]
+    primer_bed           = ch_reference_primer_bed           // path: primer.bed
+    primer_collapsed_bed = ch_reference_primer_collapsed_bed // path: primer.collapsed.bed
+    primer_fasta         = ch_reference_primer_fasta         // path: primer.fasta
+    nextclade_db         = ch_reference_nextclade_db         // path: nextclade_db
+    blast_db             = ch_reference_blast_db             // path: blast_db/
+    kraken2_db           = ch_reference_kraken2_db           // path: kraken2_db/
+    snpeff_db            = ch_reference_snpeff_db            // path: snpeff_db
+    snpeff_config        = ch_reference_snpeff_config        // path: snpeff.config
     versions             = ch_versions                       // channel: versions.yml
 }

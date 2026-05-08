@@ -239,6 +239,12 @@ workflow VIRALRECON {
         // ILLUMINA WORKFLOW
         //
 
+        def ch_reference_fasta_fai = genome.fasta
+            .combine(genome.fai)
+            .map { fasta_file, fai_file -> [ [:], fasta_file, fai_file ] }
+            .collect(flat: false)
+            .map { fasta_fai -> fasta_fai[0] }
+
         // Check genome fasta only contains a single contig
         genome
             .fasta
@@ -365,9 +371,7 @@ workflow VIRALRECON {
                 genome.bowtie2_index,
                 params.save_unaligned,
                 false,
-                genome.fasta
-                    .combine(genome.fai)
-                    .map { fasta_file, fai_file -> [ [:], fasta_file, fai_file ] }
+                ch_reference_fasta_fai
             )
         ch_bam           = FASTQ_ALIGN_BOWTIE2.out.bam
         ch_bai           = FASTQ_ALIGN_BOWTIE2.out.index
@@ -426,9 +430,7 @@ workflow VIRALRECON {
             BAM_TRIM_PRIMERS_IVAR (
                 ch_bam.join(ch_bai, by: [0]),
                 genome.primer_bed,
-                genome.fasta
-                    .combine(genome.fai)
-                    .map { fasta_file, fai_file -> [ [:], fasta_file, fai_file ] }
+                ch_reference_fasta_fai
             )
             ch_bam           = BAM_TRIM_PRIMERS_IVAR.out.bam
             ch_bai           = BAM_TRIM_PRIMERS_IVAR.out.bai
@@ -442,9 +444,7 @@ workflow VIRALRECON {
         if (!params.skip_variants && !params.skip_markduplicates) {
             BAM_MARKDUPLICATES_PICARD (
                 ch_bam,
-                genome.fasta
-                    .combine(genome.fai)
-                    .map { fasta_file, fai_file -> [ [:], fasta_file, fai_file ] }
+                ch_reference_fasta_fai
             )
             ch_bam           = BAM_MARKDUPLICATES_PICARD.out.bam
             ch_bai           = BAM_MARKDUPLICATES_PICARD.out.index
@@ -762,6 +762,19 @@ workflow VIRALRECON {
         //
         // NANOPORE WORKFLOW
         //
+        def ch_fasta_fai_nanopore = genome.fasta
+            .combine(genome.fai)
+            .map { fasta_file, fai_file -> [ [:], fasta_file, fai_file ] }
+            .collect(flat: false)
+            .map { fasta_fai -> fasta_fai[0] }
+        def ch_fasta_primer_bed_nanopore = genome.fasta
+            .combine(genome.primer_bed)
+            .map { fasta_file, primer_bed -> [ [:], fasta_file, primer_bed ] }
+            .collect(flat: false)
+            .map { fasta_primer_bed -> fasta_primer_bed[0] }
+        def ch_gff_tuple_nanopore = ch_genome_gff ? genome.gff.map { gff_file -> [ [:], gff_file ] } : [ [:], [] ]
+        def min_barcode_reads = params.min_barcode_reads as Integer
+        def min_guppyplex_reads = params.min_guppyplex_reads as Integer
 
         //
         // MODULE: PycoQC on sequencing summary file
@@ -984,9 +997,7 @@ workflow VIRALRECON {
         ARTIC_MINION (
             ARTIC_GUPPYPLEX.out.fastq.filter { it[-1].countFastq() > min_guppyplex_reads },
             ch_artic_model,
-            genome.fasta
-                .combine(genome.primer_bed)
-                .map { fasta_file, primer_bed -> [ [:], fasta_file, primer_bed ] },
+            ch_fasta_primer_bed_nanopore,
             []
         )
         ch_multiqc_files = ch_multiqc_files.mix(ARTIC_MINION.out.json.collect{it[1]}.ifEmpty([]))
@@ -1023,9 +1034,7 @@ workflow VIRALRECON {
         //
         FILTER_BAM_SAMTOOLS (
             ARTIC_MINION.out.bam.join(ARTIC_MINION.out.bai, by: [0]),
-            genome.fasta
-                .combine(genome.fai)
-                .map { fasta_file, fai_file -> [ [:], fasta_file, fai_file ] }
+            ch_fasta_fai_nanopore
         )
         ch_multiqc_files = ch_multiqc_files.mix(FILTER_BAM_SAMTOOLS.out.flagstat.collect{it[1]}.ifEmpty([]))
 
@@ -1145,9 +1154,11 @@ workflow VIRALRECON {
                     ch_pango_database = channel.value(file(params.pango_database, type: 'dir'))
                 }
             }
+            def ch_pango_database_for_run = ch_pango_database.collect(flat: false).map { dirs -> dirs[0] }
+
             PANGOLIN_RUN (
                 ARTIC_MINION.out.fasta,
-                ch_pango_database
+                ch_pango_database_for_run
             )
             ch_pangolin_multiqc = PANGOLIN_RUN.out.report
             ch_multiqc_files    = ch_multiqc_files.mix(ch_pangolin_multiqc.collect{it[1]}.ifEmpty([]))
@@ -1160,7 +1171,7 @@ workflow VIRALRECON {
         if (!params.skip_nextclade) {
             NEXTCLADE_RUN (
                 ARTIC_MINION.out.fasta,
-                genome.nextclade_db.collect()
+                genome.nextclade_db
             )
             ch_versions = ch_versions.mix(NEXTCLADE_RUN.out.versions)
 
@@ -1215,8 +1226,8 @@ workflow VIRALRECON {
                 .set { ch_to_quast }
             QUAST (
                 ch_to_quast,
-                genome.fasta.collect().map { [ [:], it ] },
-                ch_genome_gff ? genome.gff.map { [ [:], it ] } : [ [:], [] ],
+                genome.fasta.map { fasta_file -> [ [:], fasta_file ] },
+                ch_gff_tuple_nanopore,
             )
             ch_multiqc_files = ch_multiqc_files.mix(QUAST.out.results.collect{it[1]}.ifEmpty([]))
         }
@@ -1228,9 +1239,9 @@ workflow VIRALRECON {
         if (ch_genome_gff && !params.skip_snpeff) {
             SNPEFF_SNPSIFT (
                 VCFLIB_VCFUNIQ.out.vcf,
-                genome.snpeff_db.collect(),
-                genome.snpeff_config.collect(),
-                genome.fasta.collect()
+                genome.snpeff_db,
+                genome.snpeff_config,
+                genome.fasta
             )
             ch_multiqc_files  = ch_multiqc_files.mix(SNPEFF_SNPSIFT.out.csv.collect{it[1]}.ifEmpty([]))
             ch_snpsift_txt    = SNPEFF_SNPSIFT.out.snpsift_txt
