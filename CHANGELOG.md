@@ -47,6 +47,7 @@ Thank you to everyone else that has contributed by reporting bugs, enhancements 
 | `--freyja_lineages` | `--freyja_lineages_meta`     |
 |                     | `--freyja_lineages_topology` |
 | `--protocol`        | `--trim_primers`             |
+| `--skip_multiqc`    |                              |
 
 > **NB:** Parameter has been **updated** if both old and new parameter information is present.
 > **NB:** Parameter has been **added** if just the new parameter information is present.
