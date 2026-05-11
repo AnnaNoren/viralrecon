@@ -30,7 +30,7 @@ Thank you to everyone else that has contributed by reporting bugs, enhancements 
 - [[PR #572](https://github.com/nf-core/viralrecon/pull/572)] - Template update for nf-core/tools v3.5.1
 - [[PR #559](https://github.com/nf-core/viralrecon/pull/559)] - Added HIV resistance detection subworkflow
 - [[PR #580](https://github.com/nf-core/viralrecon/pull/580)] - Fix bug related to deprecated argument `--meta` in `Freyja` suite
-- [[PR #581](https://github.com/nf-core/viralrecon/pull/581)] - nf-core template, modules and subworkflows update
+- [[PR #596](https://github.com/nf-core/viralrecon/pull/596)] - Template update for nf-core/tools v4.0.2
 
 ### Parameters
 
