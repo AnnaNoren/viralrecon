@@ -13,7 +13,7 @@ include { UNTAR as UNTAR_BLAST_DB       } from '../../../modules/nf-core/untar/m
 include { BOWTIE2_BUILD                 } from '../../../modules/nf-core/bowtie2/build/main'
 include { BLAST_MAKEBLASTDB             } from '../../../modules/nf-core/blast/makeblastdb/main'
 include { BEDTOOLS_GETFASTA             } from '../../../modules/nf-core/bedtools/getfasta/main'
-include { CUSTOM_GETCHROMSIZES          } from '../../../modules/nf-core/custom/getchromsizes/main'
+include { SAMTOOLS_FAIDX                } from '../../../modules/nf-core/samtools/faidx/main'
 include { NEXTCLADE_DATASETGET          } from '../../../modules/nf-core/nextclade/datasetget/main'
 include { COLLAPSE_PRIMERS              } from '../../../modules/local/collapse_primers'
 include { KRAKEN2_BUILD                 } from '../../../modules/local/kraken2/build'
@@ -43,7 +43,6 @@ workflow PREPARE_GENOME_ILLUMINA {
             [ [:], fasta ]
         )
         ch_fasta    = GUNZIP_FASTA.out.gunzip.map { it[1] }
-        ch_versions = ch_versions.mix(GUNZIP_FASTA.out.versions)
     } else {
         ch_fasta = channel.value(file(fasta))
     }
@@ -58,7 +57,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                 [ [:], gff ]
             )
             ch_gff      = GUNZIP_GFF.out.gunzip.map { it[1] }
-            ch_versions = ch_versions.mix(GUNZIP_GFF.out.versions)
         } else {
             ch_gff = channel.value(file(gff))
         }
@@ -67,12 +65,12 @@ workflow PREPARE_GENOME_ILLUMINA {
     //
     // Create chromosome sizes file
     //
-    CUSTOM_GETCHROMSIZES (
-        ch_fasta.map { [ [:], it ] }
+    SAMTOOLS_FAIDX (
+        ch_fasta.map { [ [:], it, [] ] },
+        true
     )
-    ch_fai         = CUSTOM_GETCHROMSIZES.out.fai.map { it[1] }
-    ch_chrom_sizes = CUSTOM_GETCHROMSIZES.out.sizes.map { it[1] }
-    ch_versions    = ch_versions.mix(CUSTOM_GETCHROMSIZES.out.versions)
+    ch_fai         = SAMTOOLS_FAIDX.out.fai.map { it[1] }
+    ch_chrom_sizes = SAMTOOLS_FAIDX.out.sizes.map { it[1] }
 
     //
     // Prepare reference files required for variant calling
@@ -85,7 +83,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                     [ [:], params.kraken2_db ]
                 )
                 ch_kraken2_db = UNTAR_KRAKEN2_DB.out.untar.map { it[1] }
-                ch_versions   = ch_versions.mix(UNTAR_KRAKEN2_DB.out.versions)
             } else {
                 ch_kraken2_db = channel.value(file(params.kraken2_db))
             }
@@ -110,7 +107,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                     [ [:], primer_bed ]
                 )
                 ch_primer_bed = GUNZIP_PRIMER_BED.out.gunzip.map { it[1] }
-                ch_versions   = ch_versions.mix(GUNZIP_PRIMER_BED.out.versions)
             } else {
                 ch_primer_bed = channel.value(file(primer_bed))
             }
@@ -132,7 +128,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                         [ [:], params.primer_fasta ]
                     )
                     ch_primer_fasta = GUNZIP_PRIMER_FASTA.out.gunzip.map { it[1] }
-                    ch_versions     = ch_versions.mix(GUNZIP_PRIMER_FASTA.out.versions)
                 } else {
                     ch_primer_fasta = channel.value(file(params.primer_fasta))
                 }
@@ -142,7 +137,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                     ch_fasta
                 )
                 ch_primer_fasta = BEDTOOLS_GETFASTA.out.fasta
-                ch_versions     = ch_versions.mix(BEDTOOLS_GETFASTA.out.versions)
             }
         }
     }
@@ -158,16 +152,16 @@ workflow PREPARE_GENOME_ILLUMINA {
                     [ [:], file(bowtie2_index) ]
                 )
                 ch_bowtie2_index = UNTAR_BOWTIE2_INDEX.out.untar
-                ch_versions      = ch_versions.mix(UNTAR_BOWTIE2_INDEX.out.versions)
             } else {
                 ch_bowtie2_index = [ [:], file(bowtie2_index) ]
             }
         } else {
             BOWTIE2_BUILD (
-                ch_fasta.map { [ [:], it ] }
+                ch_fasta
+                    .combine(ch_fai)
+                    .map { fasta_file, fai_file -> [ [:], fasta_file, fai_file ] }
             )
             ch_bowtie2_index = BOWTIE2_BUILD.out.index
-            ch_versions      = ch_versions.mix(BOWTIE2_BUILD.out.versions)
         }
     }
 
@@ -175,6 +169,7 @@ workflow PREPARE_GENOME_ILLUMINA {
     // Prepare Nextclade dataset
     //
     ch_nextclade_db = channel.empty()
+    ch_versions = channel.empty()
     if (!params.skip_consensus && !params.skip_nextclade) {
         if (nextclade_dataset) {
             if (nextclade_dataset.endsWith('.tar.gz')) {
@@ -182,7 +177,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                     [ [:], nextclade_dataset ]
                 )
                 ch_nextclade_db = UNTAR_NEXTCLADE_DB.out.untar.map { it[1] }
-                ch_versions     = ch_versions.mix(UNTAR_NEXTCLADE_DB.out.versions)
             } else {
                 ch_nextclade_db = channel.value(file(nextclade_dataset))
             }
@@ -192,7 +186,7 @@ workflow PREPARE_GENOME_ILLUMINA {
                 nextclade_dataset_tag
             )
             ch_nextclade_db = NEXTCLADE_DATASETGET.out.dataset
-            ch_versions     = ch_versions.mix(NEXTCLADE_DATASETGET.out.versions)
+            ch_versions = ch_versions.mix(NEXTCLADE_DATASETGET.out.versions)
         }
     }
 
@@ -208,7 +202,6 @@ workflow PREPARE_GENOME_ILLUMINA {
                         [ [:], params.blast_db ]
                     )
                     ch_blast_db = UNTAR_BLAST_DB.out.untar
-                    ch_versions = ch_versions.mix(UNTAR_BLAST_DB.out.versions)
                 } else {
                     ch_blast_db = channel.value(
                         [[id:'custom_blastdb'], file(params.blast_db)]
@@ -216,10 +209,10 @@ workflow PREPARE_GENOME_ILLUMINA {
                 }
             } else {
                 BLAST_MAKEBLASTDB (
-                    ch_fasta.map { [ [:], it ] }
+                    ch_fasta.map { [ [:], it ] },
+                    []
                 )
                 ch_blast_db = BLAST_MAKEBLASTDB.out.db
-                ch_versions = ch_versions.mix(BLAST_MAKEBLASTDB.out.versions)
             }
         }
     }
@@ -238,20 +231,36 @@ workflow PREPARE_GENOME_ILLUMINA {
         ch_snpeff_config = SNPEFF_BUILD.out.config
     }
 
-    emit:
-    fasta                = ch_fasta                // path: genome.fasta
-    gff                  = ch_gff                  // path: genome.gff
-    fai                  = ch_fai                  // path: genome.fai
-    chrom_sizes          = ch_chrom_sizes          // path: genome.sizes
-    bowtie2_index        = ch_bowtie2_index        // channel: [ [:], bowtie2/index/ ]
-    primer_bed           = ch_primer_bed           // path: primer.bed
-    primer_collapsed_bed = ch_primer_collapsed_bed // path: primer.collapsed.bed
-    primer_fasta         = ch_primer_fasta         // path: primer.fasta
-    nextclade_db         = ch_nextclade_db         // path: nextclade_db
-    blast_db             = ch_blast_db             // path: blast_db/
-    kraken2_db           = ch_kraken2_db           // path: kraken2_db/
-    snpeff_db            = ch_snpeff_db            // path: snpeff_db
-    snpeff_config        = ch_snpeff_config        // path: snpeff.config
+    //
+    // Materialize reference channels so they can be reused by multiple consumers
+    //
+    def ch_reference_fasta                = ch_fasta.collect(flat: false).map { files -> files[0] }
+    def ch_reference_fai                  = ch_fai.collect(flat: false).map { files -> files[0] }
+    def ch_reference_chrom_sizes          = ch_chrom_sizes.collect(flat: false).map { files -> files[0] }
+    def ch_reference_bowtie2_index        = !params.skip_variants ? ch_bowtie2_index.collect(flat: false).map { indexes -> indexes[0] } : []
+    def ch_reference_gff                  = gff ? ch_gff.collect(flat: false).map { files -> files[0] } : []
+    def ch_reference_primer_bed           = (params.trim_primers && primer_bed) ? ch_primer_bed.collect(flat: false).map { files -> files[0] } : []
+    def ch_reference_primer_fasta         = (params.trim_primers && !params.skip_assembly && !params.skip_cutadapt) ? ch_primer_fasta.collect(flat: false).map { files -> files[0] instanceof List ? files[0][1] : files[0] } : []
+    def ch_reference_primer_collapsed_bed = (params.trim_primers && !params.skip_mosdepth) ? ch_primer_collapsed_bed.collect(flat: false).map { files -> files[0] } : []
+    def ch_reference_nextclade_db         = (!params.skip_consensus && !params.skip_nextclade) ? ch_nextclade_db.collect(flat: false).map { dirs -> dirs[0] } : []
+    def ch_reference_blast_db             = (!params.skip_blast && !params.skip_assembly) ? ch_blast_db.collect(flat: false).map { dirs -> dirs[0] } : []
+    def ch_reference_kraken2_db           = (!params.skip_kraken2) ? ch_kraken2_db.collect(flat: false).map { dirs -> dirs[0] } : []
+    def ch_reference_snpeff_db            = (!params.skip_variants && gff && !params.skip_snpeff) ? ch_snpeff_db.collect(flat: false).map { dirs -> dirs[0] } : []
+    def ch_reference_snpeff_config        = (!params.skip_variants && gff && !params.skip_snpeff) ? ch_snpeff_config.collect(flat: false).map { files -> files[0] } : []
 
-    versions             = ch_versions             // channel: [ versions.yml ]
+    emit:
+    fasta                = ch_reference_fasta                // path: genome.fasta
+    gff                  = ch_reference_gff                  // path: genome.gff
+    fai                  = ch_reference_fai                  // path: genome.fai
+    chrom_sizes          = ch_reference_chrom_sizes          // path: genome.sizes
+    bowtie2_index        = ch_reference_bowtie2_index        // channel: [ [:], bowtie2/index/ ]
+    primer_bed           = ch_reference_primer_bed           // path: primer.bed
+    primer_collapsed_bed = ch_reference_primer_collapsed_bed // path: primer.collapsed.bed
+    primer_fasta         = ch_reference_primer_fasta         // path: primer.fasta
+    nextclade_db         = ch_reference_nextclade_db         // path: nextclade_db
+    blast_db             = ch_reference_blast_db             // path: blast_db/
+    kraken2_db           = ch_reference_kraken2_db           // path: kraken2_db/
+    snpeff_db            = ch_reference_snpeff_db            // path: snpeff_db
+    snpeff_config        = ch_reference_snpeff_config        // path: snpeff.config
+    versions             = ch_versions                       // channel: versions.yml
 }

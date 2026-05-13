@@ -11,7 +11,7 @@ components:
   - bowtie2/build
   - blast/makeblastdb
   - bedtools/getfasta
-  - custom/getchromsizes
+  - samtools/faidx
   - nextclade/datasetget
   - collapse/primers
   - kraken2/build

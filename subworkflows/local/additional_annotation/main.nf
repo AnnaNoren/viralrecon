@@ -20,8 +20,6 @@ workflow ADDITIONAL_ANNOTATION {
 
     main:
 
-    ch_versions = channel.empty()
-
     //
     // Make snpEff database
     //
@@ -48,7 +46,6 @@ workflow ADDITIONAL_ANNOTATION {
         [ [:], [] ],
         [ [:], [] ]
     )
-    ch_versions = ch_versions.mix(VCF_BGZIP_TABIX_STATS.out.versions)
 
     SNPSIFT_EXTRACTFIELDS (
         VCF_BGZIP_TABIX_STATS.out.vcf
@@ -60,7 +57,6 @@ workflow ADDITIONAL_ANNOTATION {
         [],
         []
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
 
     MAKE_VARIANTS_LONG_TABLE_ADDITIONAL (
         BCFTOOLS_QUERY.out.output.collect{it[1]},
@@ -70,6 +66,4 @@ workflow ADDITIONAL_ANNOTATION {
 
     emit:
     long_table  = MAKE_VARIANTS_LONG_TABLE_ADDITIONAL.out.csv // channel: [ val(meta), [ csv ] ]
-
-    versions    = ch_versions    // channel: [ versions.yml ]
 }
