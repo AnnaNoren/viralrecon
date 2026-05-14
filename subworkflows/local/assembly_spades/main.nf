@@ -43,7 +43,6 @@ workflow ASSEMBLY_SPADES {
         [],
         hmm
     )
-    ch_versions = ch_versions.mix(SPADES.out.versions.first())
 
     //
     // Unzip scaffolds file
@@ -51,7 +50,6 @@ workflow ASSEMBLY_SPADES {
     GUNZIP_SCAFFOLDS (
         SPADES.out.scaffolds
     )
-    ch_versions = ch_versions.mix(GUNZIP_SCAFFOLDS.out.versions.first())
 
     //
     // Unzip gfa file
@@ -60,7 +58,6 @@ workflow ASSEMBLY_SPADES {
         SPADES.out.gfa
     )
 
-    ch_versions = ch_versions.mix(GUNZIP_GFA.out.versions.first())
 
     //
     // Filter for empty scaffold files
@@ -88,7 +85,6 @@ workflow ASSEMBLY_SPADES {
         )
         ch_bandage_png = BANDAGE_IMAGE.out.png
         ch_bandage_svg = BANDAGE_IMAGE.out.svg
-        ch_versions    = ch_versions.mix(BANDAGE_IMAGE.out.versions.first())
     }
 
     //
@@ -133,5 +129,5 @@ workflow ASSEMBLY_SPADES {
     plasmidid_fasta    = ASSEMBLY_QC.out.plasmidid_fasta    // channel: [ val(meta), [ fasta_files/ ] ]
     plasmidid_kmer     = ASSEMBLY_QC.out.plasmidid_kmer     // channel: [ val(meta), [ kmer/ ] ]
 
-    versions           = ch_versions                        // channel: [ versions.yml ]
+    versions           = ch_versions                       // channel: versions.yml
 }

@@ -6,18 +6,18 @@
                     "python": "3.9.23"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
-                    "samtools": 1.21,
-                    "pigz": 2.8
+                    "pigz": 2.8,
+                    "samtools": 1.21
                 },
                 "BOWTIE2_BUILD": {
                     "bowtie2": "2.5.4"
@@ -26,13 +26,10 @@
                     "cat": 9.5
                 },
                 "CONSENSUS_LIFTOFF": {
-                    "liftoff": "v1.6.3"
-                },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
+                    "liftoff": "1.6.3"
                 },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC_RAW": {
                     "fastqc": "0.12.1"
@@ -57,7 +54,7 @@
                     "pigz": 2.8
                 },
                 "LIFTOFF": {
-                    "liftoff": "v1.6.3"
+                    "liftoff": "1.6.3"
                 },
                 "MAKE_VARIANTS_LONG_TABLE": {
                     "python": "3.13.2"
@@ -66,10 +63,12 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "NEXTCLADE_DATASETGET": {
-                    "nextclade": "3.11.0"
+                    "nextclade": "3.11.0",
+                    "nextclade-tag": "2025-09-09--12-13-13Z"
                 },
                 "PICARD_COLLECTMULTIPLEMETRICS": {
                     "picard": "3.4.0"
@@ -77,26 +76,32 @@
                 "PLOT_MOSDEPTH_REGIONS_GENOME": {
                     "r-base": "4.2.0"
                 },
+                "QUAST": {
+                    "quast": "5.3.0"
+                },
                 "RESISTANCE_REPORT": {
                     "python": "3.13.2"
                 },
                 "RESISTANCE_TABLES": {
                     "python": "3.13.2"
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_SORT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SIERRALOCAL": {
                     "sierra-local": "0.4.3"
@@ -493,44 +498,44 @@
                 "variants/ivar/variants_long_table.csv"
             ],
             [
-                "DRR030302.fastp.json:md5,4576bd73d7142a695b54910db8b5c5a5",
-                "SRR4071760.fastp.json:md5,e7772216f049c4d182337b0e588fe90a",
-                "SRR6937100.fastp.json:md5,027afdc4c7c9d9f24f404bf381ab8647",
+                "DRR030302.fastp.json:md5,3a7c674a43a9e7f13d980b588d5cd15c",
+                "SRR4071760.fastp.json:md5,770bd2ad5d7329b9c7af34f6ba0152d6",
+                "SRR6937100.fastp.json:md5,cfe934875f19031cd661db3dc7c00b21",
                 "DRR030302.kraken2.report.txt:md5,5ab2ed70334d4061fb82f8d91475c761",
                 "SRR4071760.kraken2.report.txt:md5,c26f91bfafe58ba451f7d05f0b9b5611",
                 "SRR6937100.kraken2.report.txt:md5,6f5c455f6efd9fa807fefdbba83ba960",
                 "bcftools-stats-subtypes.yaml:md5,79f9e4f80dd744abd28087c4759bbf26",
-                "bcftools_stats_indel-lengths.yaml:md5,c528a6081613ceea5db2478286e5c738",
-                "bcftools_stats_vqc_Count_Indels.yaml:md5,4c75d03897a8554eb33df776f87fc0b8",
-                "bcftools_stats_vqc_Count_SNP.yaml:md5,6448fdfac49e0a95b465e5100dced0d6",
-                "bcftools_stats_vqc_Count_Transitions.yaml:md5,0bc1c7afa6586919376c44ee9cbdaa75",
-                "bcftools_stats_vqc_Count_Transversions.yaml:md5,79217cdb1335610f980ec88f793da513",
+                "bcftools_stats_indel-lengths.yaml:md5,bcb66908dcaaf68d3cd890c5490266ab",
+                "bcftools_stats_vqc_Count_Indels.yaml:md5,1db6f45d46ad963feb034a711f732d16",
+                "bcftools_stats_vqc_Count_SNP.yaml:md5,79ed3f6c6e1de155171a8dff2faf2c46",
+                "bcftools_stats_vqc_Count_Transitions.yaml:md5,d66c48c598160aa373354e640280d665",
+                "bcftools_stats_vqc_Count_Transversions.yaml:md5,ed8015cccd1080a84346f754a3ce8bd2",
                 "bowtie2_pe_plot.yaml:md5,1b002829da6f647a8f4efc33e96da568",
-                "fastp-insert-size-plot.yaml:md5,bb33b37d204b611cdb0caa4c21fe6ca8",
-                "fastp-seq-content-gc-plot_Read_1_After_filtering.yaml:md5,578bc1611186c73e2456bbf1f5ae2966",
-                "fastp-seq-content-gc-plot_Read_1_Before_filtering.yaml:md5,243c0fd1831cd7023935e39750fa509c",
-                "fastp-seq-content-gc-plot_Read_2_After_filtering.yaml:md5,5b793240e640df9aeb2cc82235844f84",
-                "fastp-seq-content-gc-plot_Read_2_Before_filtering.yaml:md5,fe11fce85c936ee38a3dce38c3456a9e",
-                "fastp-seq-content-n-plot_Read_1_After_filtering.yaml:md5,d9e103d7206ec7ee39dd023ac2c53edf",
-                "fastp-seq-content-n-plot_Read_1_Before_filtering.yaml:md5,d9e103d7206ec7ee39dd023ac2c53edf",
-                "fastp-seq-content-n-plot_Read_2_After_filtering.yaml:md5,d9e103d7206ec7ee39dd023ac2c53edf",
-                "fastp-seq-content-n-plot_Read_2_Before_filtering.yaml:md5,d9e103d7206ec7ee39dd023ac2c53edf",
-                "fastp-seq-quality-plot_Read_1_After_filtering.yaml:md5,5bfc4c99689fb374ba75ba9e671a6354",
-                "fastp-seq-quality-plot_Read_1_Before_filtering.yaml:md5,fa90a7f66985852702247b9fb163ff44",
-                "fastp-seq-quality-plot_Read_2_After_filtering.yaml:md5,4836bff271741349452fb5fde9d6d801",
-                "fastp-seq-quality-plot_Read_2_Before_filtering.yaml:md5,7d415ea66ffe7dcfd9cb6f8f4ee2a4fe",
+                "fastp-insert-size-plot.yaml:md5,de26ba49b8a6cb43a6e9fc9c58c13708",
+                "fastp-seq-content-gc-plot_Read_1_After_filtering.yaml:md5,6c4222897b9db16fcdf2ef82209a4c09",
+                "fastp-seq-content-gc-plot_Read_1_Before_filtering.yaml:md5,60a4eefbe7c07a67553b5458b3ce1402",
+                "fastp-seq-content-gc-plot_Read_2_After_filtering.yaml:md5,69dc43d2d4cead054e7e184607f2dff7",
+                "fastp-seq-content-gc-plot_Read_2_Before_filtering.yaml:md5,dcf18674271dc415f8ce145fb36775f6",
+                "fastp-seq-content-n-plot_Read_1_After_filtering.yaml:md5,0d3bb7a21591b7a267a312452e811b86",
+                "fastp-seq-content-n-plot_Read_1_Before_filtering.yaml:md5,0d3bb7a21591b7a267a312452e811b86",
+                "fastp-seq-content-n-plot_Read_2_After_filtering.yaml:md5,0d3bb7a21591b7a267a312452e811b86",
+                "fastp-seq-content-n-plot_Read_2_Before_filtering.yaml:md5,0d3bb7a21591b7a267a312452e811b86",
+                "fastp-seq-quality-plot_Read_1_After_filtering.yaml:md5,870758c291698af908cec0acb0a08036",
+                "fastp-seq-quality-plot_Read_1_Before_filtering.yaml:md5,dd5b62334755a8b0373050c5cbddf552",
+                "fastp-seq-quality-plot_Read_2_After_filtering.yaml:md5,7d0d05c8d398cd0587dd57ac268d874a",
+                "fastp-seq-quality-plot_Read_2_Before_filtering.yaml:md5,ea043d1815f5ed1b80a7bb775abbc5c3",
                 "fastp_filtered_reads_plot.yaml:md5,94235b4ad306d22ef24cf218167e72b2",
                 "fastqc-status-check-heatmap.yaml:md5,2c08f0a35e3873e813c1c4e170d1396b",
-                "fastqc_adapter_content_plot.yaml:md5,f4eb1b6711fadcd5d19830702bf00bd8",
+                "fastqc_adapter_content_plot.yaml:md5,a4552316a37ebbf4dd3701129bf4a34a",
                 "fastqc_overrepresented_sequences_plot.yaml:md5,d6b471696abf3b0dd4b8cd53175f1e64",
-                "fastqc_per_base_n_content_plot.yaml:md5,ff9b7849c5b0629d146c49ef596c9965",
-                "fastqc_per_base_sequence_quality_plot.yaml:md5,6e675477e15940c09cbe7fc9f39ce745",
-                "fastqc_per_sequence_gc_content_plot_Counts.yaml:md5,1d12411e8c974224993c7b8a21eb1162",
-                "fastqc_per_sequence_gc_content_plot_Percentages.yaml:md5,db7a9219d74c6a14e3777c42d63b6e7e",
-                "fastqc_per_sequence_quality_scores_plot.yaml:md5,fbc73ff08bd18103aba60ff150be28a0",
+                "fastqc_per_base_n_content_plot.yaml:md5,8628eb45b7f1337e55119b390109f373",
+                "fastqc_per_base_sequence_quality_plot.yaml:md5,a84c6e3c4b89e5327b244f915d46468f",
+                "fastqc_per_sequence_gc_content_plot_Counts.yaml:md5,70072e0276358009bd152044dc56ecb3",
+                "fastqc_per_sequence_gc_content_plot_Percentages.yaml:md5,9aa0ae1847e8faaf97628699bc181468",
+                "fastqc_per_sequence_quality_scores_plot.yaml:md5,b4c1fd1174bc162d535d7c072d256ef1",
                 "fastqc_sequence_counts_plot.yaml:md5,7979d2b445f6840815230e20c0145cc2",
-                "fastqc_sequence_duplication_levels_plot.yaml:md5,391ee51cc333b6779a6d2ac5d82582be",
-                "fastqc_sequence_length_distribution_plot.yaml:md5,ae8ef86f2f9fa7d90d4256bd99f54279",
+                "fastqc_sequence_duplication_levels_plot.yaml:md5,e04cedc1daae9e55400c1da159226198",
+                "fastqc_sequence_length_distribution_plot.yaml:md5,0f51208590a7fab0e91167c8dc199b7d",
                 "fastqc_top_overrepresented_sequences_table.yaml:md5,b0acea45ac4dbda2f2f42fb0bbad43b4",
                 "kraken-top-n-plot_Class.yaml:md5,7c0469a3822f971d340dcc58cf063eaf",
                 "kraken-top-n-plot_Domain.yaml:md5,7c0469a3822f971d340dcc58cf063eaf",
@@ -540,14 +545,14 @@
                 "kraken-top-n-plot_Phylum.yaml:md5,7c0469a3822f971d340dcc58cf063eaf",
                 "kraken-top-n-plot_Unclassified.yaml:md5,7c0469a3822f971d340dcc58cf063eaf",
                 "mosdepth-coverage-per-contig-single.yaml:md5,13f38ba885d7949ce11729246083ba53",
-                "mosdepth-cumcoverage-dist-id.yaml:md5,06ed8afbeb2517cdd7701ccd0ef1fc93",
+                "mosdepth-cumcoverage-dist-id.yaml:md5,09f06469b0a55f6d6d898b68e631ddf5",
                 "mosdepth_cov_dist.yaml:md5,88dfc1e34bda196b9cddcce55c140004",
                 "mosdepth_cumcov_dist.yaml:md5,88dfc1e34bda196b9cddcce55c140004",
                 "mosdepth_perchrom.yaml:md5,dc619160915e16a684903a46651b6d26",
                 "multiqc_bcftools_stats.yaml:md5,24a88a270740d3a4efd1332749d6d121",
                 "multiqc_bowtie2.yaml:md5,4daf8885acd63fc61f20e24cfe2102c4",
                 "multiqc_citations.yaml:md5,f564e5526b36c9a583e0af5ca7a34b64",
-                "multiqc_fastp.yaml:md5,710d94f687bba12657a5700489cdd6ac",
+                "multiqc_fastp.yaml:md5,9b021036c696d436ddf900bd81c9de5d",
                 "multiqc_fastqc.yaml:md5,444824ecaca1d11e9920430e6b06ddd3",
                 "multiqc_ivar_variants.yaml:md5,c0eb1e73e4ec11c252b2476108d4a560",
                 "multiqc_kraken.yaml:md5,bbacecf8e782bb601be23351c164dd6b",
@@ -576,13 +581,13 @@
                 "SRR6937100.mosdepth.summary.txt:md5,654bbc44b5946cfc199a75c223ebda9b",
                 "DRR030302.sorted.bam.flagstat:md5,b929bff546cbd88b865f2fb02dc9a3e1",
                 "DRR030302.sorted.bam.idxstats:md5,e2d55694ce41df30abab7c6e28e0b368",
-                "DRR030302.sorted.bam.stats:md5,0db310ec782ef4b582cb5af5b0a32cb5",
+                "DRR030302.sorted.bam.stats:md5,cd2ef8250052132abb59d447a534798c",
                 "SRR4071760.sorted.bam.flagstat:md5,ba1f3c5310ef514b6326ac611444da0e",
                 "SRR4071760.sorted.bam.idxstats:md5,292e1509673ce1f3aedfffdf4c339b64",
-                "SRR4071760.sorted.bam.stats:md5,807fc18116a60cdb2e65571ba6f7cd7d",
+                "SRR4071760.sorted.bam.stats:md5,710d3e0d6738af9f776e852c7666af45",
                 "SRR6937100.sorted.bam.flagstat:md5,b88b08adf1023728068d0d7b7a10facf",
                 "SRR6937100.sorted.bam.idxstats:md5,622095b9a86cb608aac5da2d268c4d55",
-                "SRR6937100.sorted.bam.stats:md5,3d9b6f367bd560a4c7da8fbb1e2e2185",
+                "SRR6937100.sorted.bam.stats:md5,1894b5f527cb8889b3f011950323c42e",
                 "DRR030302.tsv:md5,3b89bf1591279da145149d0fa06c53a8",
                 "DRR030302.vcf.gz:md5,206bad41b9473b742d2cbae7d77ed6aa",
                 "DRR030302.vcf.gz.tbi:md5,ad624dbc79f44aec2e091383054a57e0",
@@ -592,9 +597,9 @@
                 "SRR6937100.tsv:md5,f7523ee0da63e9babae2f4e4cc4299f6",
                 "SRR6937100.vcf.gz:md5,21a542080da642ed5018434dcda31f5b",
                 "SRR6937100.vcf.gz.tbi:md5,48a3a7e518c8442178fd5851d95923bb",
-                "DRR030302.bcftools_stats.txt:md5,3d4dddf4d9a13856b3c0e273e5b7e218",
-                "SRR4071760.bcftools_stats.txt:md5,09aee0ae7dc39230a7365b6050f4c2ed",
-                "SRR6937100.bcftools_stats.txt:md5,a76b0a4bc08627ac907c13a581cd50d4",
+                "DRR030302.bcftools_stats.txt:md5,6518944903313be197a5b009006932dd",
+                "SRR4071760.bcftools_stats.txt:md5,56c1e08cfe81e4a6e4e6bff4b5dbc9b2",
+                "SRR6937100.bcftools_stats.txt:md5,6a07bfe20cb40e81b2177cc24a060fc5",
                 "DRR030302.consensus.fa:md5,9f628ab2c1f2347aa8a176429d10c112",
                 "SRR4071760.consensus.fa:md5,776a2d42ce259e818397a47eae1a66b3",
                 "SRR6937100.consensus.fa:md5,62daddd34a35e441deac3be654fd47c8",
@@ -635,17 +640,17 @@
                 "SRR6937100.snpeff.vcf.gz:md5,315e5e8bec0d3b4d06c387a7d17c0ec8",
                 "SRR6937100.snpeff.vcf.gz.tbi:md5,2bec8fdcaef9b39b70502c2153b30744",
                 "SRR6937100.snpsift.txt:md5,311b89da27e027bc123a89add4d23271",
-                "DRR030302.snpeff.bcftools_stats.txt:md5,57730a99bee50298f1ab3b6da9e3f36d",
-                "SRR4071760.snpeff.bcftools_stats.txt:md5,1c8b9897c0b212f1ef44d8a482f93bcc",
-                "SRR6937100.snpeff.bcftools_stats.txt:md5,cdfc58e828e169b6b646140dc7ba1017",
+                "DRR030302.snpeff.bcftools_stats.txt:md5,44503aab15900268a657d064c38d2d27",
+                "SRR4071760.snpeff.bcftools_stats.txt:md5,f92e3d7183e3db36dc926119ffbd7ca4",
+                "SRR6937100.snpeff.bcftools_stats.txt:md5,1bda3e5aa2df383a000d7962f8fe96b0",
                 "variants_long_table.csv:md5,595b79b0466b0a91a73f88701b73c8d5"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2025-11-25T16:36:14.442643606"
+        "timestamp": "2026-05-06T13:19:17.261137077"
     },
     "-profile test_hiv": {
         "content": [
@@ -654,18 +659,18 @@
                     "python": "3.9.23"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
-                    "samtools": 1.21,
-                    "pigz": 2.8
+                    "pigz": 2.8,
+                    "samtools": 1.21
                 },
                 "BOWTIE2_BUILD": {
                     "bowtie2": "2.5.4"
@@ -674,13 +679,10 @@
                     "cat": 9.5
                 },
                 "CONSENSUS_LIFTOFF": {
-                    "liftoff": "v1.6.3"
-                },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
+                    "liftoff": "1.6.3"
                 },
                 "FASTP": {
-                    "fastp": "1.0.1"
+                    "fastp": "1.1.0"
                 },
                 "FASTQC_RAW": {
                     "fastqc": "0.12.1"
@@ -708,10 +710,12 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "NEXTCLADE_DATASETGET": {
-                    "nextclade": "3.11.0"
+                    "nextclade": "3.11.0",
+                    "nextclade-tag": "2025-09-09--12-13-13Z"
                 },
                 "PICARD_COLLECTMULTIPLEMETRICS": {
                     "picard": "3.4.0"
@@ -719,26 +723,32 @@
                 "PLOT_MOSDEPTH_REGIONS_GENOME": {
                     "r-base": "4.2.0"
                 },
+                "QUAST": {
+                    "quast": "5.3.0"
+                },
                 "RESISTANCE_REPORT": {
                     "python": "3.13.2"
                 },
                 "RESISTANCE_TABLES": {
                     "python": "3.13.2"
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_SORT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SIERRALOCAL": {
                     "sierra-local": "0.4.3"
@@ -1131,44 +1141,44 @@
                 "variants/ivar/variants_long_table.csv"
             ],
             [
-                "DRR030302.fastp.json:md5,4576bd73d7142a695b54910db8b5c5a5",
-                "SRR4071760.fastp.json:md5,e7772216f049c4d182337b0e588fe90a",
-                "SRR6937100.fastp.json:md5,027afdc4c7c9d9f24f404bf381ab8647",
+                "DRR030302.fastp.json:md5,3a7c674a43a9e7f13d980b588d5cd15c",
+                "SRR4071760.fastp.json:md5,770bd2ad5d7329b9c7af34f6ba0152d6",
+                "SRR6937100.fastp.json:md5,cfe934875f19031cd661db3dc7c00b21",
                 "DRR030302.kraken2.report.txt:md5,5ab2ed70334d4061fb82f8d91475c761",
                 "SRR4071760.kraken2.report.txt:md5,c26f91bfafe58ba451f7d05f0b9b5611",
                 "SRR6937100.kraken2.report.txt:md5,6f5c455f6efd9fa807fefdbba83ba960",
                 "bcftools-stats-subtypes.yaml:md5,39823030b199b74b5c484d1ecfc31402",
-                "bcftools_stats_indel-lengths.yaml:md5,57bd3c23e18e9e9600b581fce07274c5",
-                "bcftools_stats_vqc_Count_Indels.yaml:md5,85ff3d36fb75ca3a0d67e67b9d45baea",
-                "bcftools_stats_vqc_Count_SNP.yaml:md5,12d3f0a9eafba8845569a938271d2955",
-                "bcftools_stats_vqc_Count_Transitions.yaml:md5,d2c6ff2f7963a3aa6b7a66a0877da333",
-                "bcftools_stats_vqc_Count_Transversions.yaml:md5,ef464a782ecaf97c4025b5c0ebc721f0",
+                "bcftools_stats_indel-lengths.yaml:md5,b97ee0b5c0225812a2edea3dcb4f3211",
+                "bcftools_stats_vqc_Count_Indels.yaml:md5,336c51fc0b2902c0d65cca3327d136fb",
+                "bcftools_stats_vqc_Count_SNP.yaml:md5,14e6b945dd99e9f124206a5e3074227c",
+                "bcftools_stats_vqc_Count_Transitions.yaml:md5,dc4e1856617f414a65ea2cec0ede7971",
+                "bcftools_stats_vqc_Count_Transversions.yaml:md5,f9e0533d48d495637e9c12c0f29d79e7",
                 "bowtie2_pe_plot.yaml:md5,e0f7a3f55b45307ecfd9a005f9e4bf43",
-                "fastp-insert-size-plot.yaml:md5,bb33b37d204b611cdb0caa4c21fe6ca8",
-                "fastp-seq-content-gc-plot_Read_1_After_filtering.yaml:md5,578bc1611186c73e2456bbf1f5ae2966",
-                "fastp-seq-content-gc-plot_Read_1_Before_filtering.yaml:md5,243c0fd1831cd7023935e39750fa509c",
-                "fastp-seq-content-gc-plot_Read_2_After_filtering.yaml:md5,5b793240e640df9aeb2cc82235844f84",
-                "fastp-seq-content-gc-plot_Read_2_Before_filtering.yaml:md5,fe11fce85c936ee38a3dce38c3456a9e",
-                "fastp-seq-content-n-plot_Read_1_After_filtering.yaml:md5,d9e103d7206ec7ee39dd023ac2c53edf",
-                "fastp-seq-content-n-plot_Read_1_Before_filtering.yaml:md5,d9e103d7206ec7ee39dd023ac2c53edf",
-                "fastp-seq-content-n-plot_Read_2_After_filtering.yaml:md5,d9e103d7206ec7ee39dd023ac2c53edf",
-                "fastp-seq-content-n-plot_Read_2_Before_filtering.yaml:md5,d9e103d7206ec7ee39dd023ac2c53edf",
-                "fastp-seq-quality-plot_Read_1_After_filtering.yaml:md5,5bfc4c99689fb374ba75ba9e671a6354",
-                "fastp-seq-quality-plot_Read_1_Before_filtering.yaml:md5,fa90a7f66985852702247b9fb163ff44",
-                "fastp-seq-quality-plot_Read_2_After_filtering.yaml:md5,4836bff271741349452fb5fde9d6d801",
-                "fastp-seq-quality-plot_Read_2_Before_filtering.yaml:md5,7d415ea66ffe7dcfd9cb6f8f4ee2a4fe",
+                "fastp-insert-size-plot.yaml:md5,de26ba49b8a6cb43a6e9fc9c58c13708",
+                "fastp-seq-content-gc-plot_Read_1_After_filtering.yaml:md5,6c4222897b9db16fcdf2ef82209a4c09",
+                "fastp-seq-content-gc-plot_Read_1_Before_filtering.yaml:md5,60a4eefbe7c07a67553b5458b3ce1402",
+                "fastp-seq-content-gc-plot_Read_2_After_filtering.yaml:md5,69dc43d2d4cead054e7e184607f2dff7",
+                "fastp-seq-content-gc-plot_Read_2_Before_filtering.yaml:md5,dcf18674271dc415f8ce145fb36775f6",
+                "fastp-seq-content-n-plot_Read_1_After_filtering.yaml:md5,0d3bb7a21591b7a267a312452e811b86",
+                "fastp-seq-content-n-plot_Read_1_Before_filtering.yaml:md5,0d3bb7a21591b7a267a312452e811b86",
+                "fastp-seq-content-n-plot_Read_2_After_filtering.yaml:md5,0d3bb7a21591b7a267a312452e811b86",
+                "fastp-seq-content-n-plot_Read_2_Before_filtering.yaml:md5,0d3bb7a21591b7a267a312452e811b86",
+                "fastp-seq-quality-plot_Read_1_After_filtering.yaml:md5,870758c291698af908cec0acb0a08036",
+                "fastp-seq-quality-plot_Read_1_Before_filtering.yaml:md5,dd5b62334755a8b0373050c5cbddf552",
+                "fastp-seq-quality-plot_Read_2_After_filtering.yaml:md5,7d0d05c8d398cd0587dd57ac268d874a",
+                "fastp-seq-quality-plot_Read_2_Before_filtering.yaml:md5,ea043d1815f5ed1b80a7bb775abbc5c3",
                 "fastp_filtered_reads_plot.yaml:md5,94235b4ad306d22ef24cf218167e72b2",
                 "fastqc-status-check-heatmap.yaml:md5,2c08f0a35e3873e813c1c4e170d1396b",
-                "fastqc_adapter_content_plot.yaml:md5,f4eb1b6711fadcd5d19830702bf00bd8",
+                "fastqc_adapter_content_plot.yaml:md5,a4552316a37ebbf4dd3701129bf4a34a",
                 "fastqc_overrepresented_sequences_plot.yaml:md5,d6b471696abf3b0dd4b8cd53175f1e64",
-                "fastqc_per_base_n_content_plot.yaml:md5,ff9b7849c5b0629d146c49ef596c9965",
-                "fastqc_per_base_sequence_quality_plot.yaml:md5,6e675477e15940c09cbe7fc9f39ce745",
-                "fastqc_per_sequence_gc_content_plot_Counts.yaml:md5,1d12411e8c974224993c7b8a21eb1162",
-                "fastqc_per_sequence_gc_content_plot_Percentages.yaml:md5,db7a9219d74c6a14e3777c42d63b6e7e",
-                "fastqc_per_sequence_quality_scores_plot.yaml:md5,fbc73ff08bd18103aba60ff150be28a0",
+                "fastqc_per_base_n_content_plot.yaml:md5,8628eb45b7f1337e55119b390109f373",
+                "fastqc_per_base_sequence_quality_plot.yaml:md5,a84c6e3c4b89e5327b244f915d46468f",
+                "fastqc_per_sequence_gc_content_plot_Counts.yaml:md5,70072e0276358009bd152044dc56ecb3",
+                "fastqc_per_sequence_gc_content_plot_Percentages.yaml:md5,9aa0ae1847e8faaf97628699bc181468",
+                "fastqc_per_sequence_quality_scores_plot.yaml:md5,b4c1fd1174bc162d535d7c072d256ef1",
                 "fastqc_sequence_counts_plot.yaml:md5,7979d2b445f6840815230e20c0145cc2",
-                "fastqc_sequence_duplication_levels_plot.yaml:md5,391ee51cc333b6779a6d2ac5d82582be",
-                "fastqc_sequence_length_distribution_plot.yaml:md5,ae8ef86f2f9fa7d90d4256bd99f54279",
+                "fastqc_sequence_duplication_levels_plot.yaml:md5,e04cedc1daae9e55400c1da159226198",
+                "fastqc_sequence_length_distribution_plot.yaml:md5,0f51208590a7fab0e91167c8dc199b7d",
                 "fastqc_top_overrepresented_sequences_table.yaml:md5,b0acea45ac4dbda2f2f42fb0bbad43b4",
                 "kraken-top-n-plot_Class.yaml:md5,7c0469a3822f971d340dcc58cf063eaf",
                 "kraken-top-n-plot_Domain.yaml:md5,7c0469a3822f971d340dcc58cf063eaf",
@@ -1178,14 +1188,14 @@
                 "kraken-top-n-plot_Phylum.yaml:md5,7c0469a3822f971d340dcc58cf063eaf",
                 "kraken-top-n-plot_Unclassified.yaml:md5,7c0469a3822f971d340dcc58cf063eaf",
                 "mosdepth-coverage-per-contig-single.yaml:md5,2c92507750d8cb480c983ce4bb2cd44f",
-                "mosdepth-cumcoverage-dist-id.yaml:md5,dffc1976f3235f5f6d01c9885424b81d",
+                "mosdepth-cumcoverage-dist-id.yaml:md5,0f45ab2b438f73f13ae6ccb2f478bc49",
                 "mosdepth_cov_dist.yaml:md5,eda47c603a9c2c464825707829c728c5",
                 "mosdepth_cumcov_dist.yaml:md5,eda47c603a9c2c464825707829c728c5",
                 "mosdepth_perchrom.yaml:md5,481a2ec6903dadadb8f9610f37a01724",
                 "multiqc_bcftools_stats.yaml:md5,675d4e41cc92af9381006d9dafcc5503",
                 "multiqc_bowtie2.yaml:md5,bb7fe62e1ee3c986e3afc4c6480ac9cf",
                 "multiqc_citations.yaml:md5,f564e5526b36c9a583e0af5ca7a34b64",
-                "multiqc_fastp.yaml:md5,710d94f687bba12657a5700489cdd6ac",
+                "multiqc_fastp.yaml:md5,9b021036c696d436ddf900bd81c9de5d",
                 "multiqc_fastqc.yaml:md5,444824ecaca1d11e9920430e6b06ddd3",
                 "multiqc_ivar_variants.yaml:md5,92e053dd68158082d67218932751c0b8",
                 "multiqc_kraken.yaml:md5,bbacecf8e782bb601be23351c164dd6b",
@@ -1214,13 +1224,13 @@
                 "SRR6937100.mosdepth.summary.txt:md5,a66e374b8e2b73fb1bdc891107b05ade",
                 "DRR030302.sorted.bam.flagstat:md5,18da52dab55ff5a7188f3ad4ce94e0b0",
                 "DRR030302.sorted.bam.idxstats:md5,98f598f60dc0e29dda191c3a6732279e",
-                "DRR030302.sorted.bam.stats:md5,00a16d7333045b227db1f1fbe91e1442",
+                "DRR030302.sorted.bam.stats:md5,3a4adaeae717a2718a93ea9a61d844fd",
                 "SRR4071760.sorted.bam.flagstat:md5,e8dd8d26adb2fd985da16242771960af",
                 "SRR4071760.sorted.bam.idxstats:md5,21d5a8100902fd96ade6abba61e37886",
-                "SRR4071760.sorted.bam.stats:md5,caead5de1868a07b29e5474c7e17451e",
+                "SRR4071760.sorted.bam.stats:md5,df9ab5d3b445b133e928574784673bac",
                 "SRR6937100.sorted.bam.flagstat:md5,884eda3ffcbee5c84a59a71ae138e6b2",
                 "SRR6937100.sorted.bam.idxstats:md5,e224704bd96b929c0a93d60c871ffaee",
-                "SRR6937100.sorted.bam.stats:md5,4ffd0020d173794e3dcf3145fd6c1c09",
+                "SRR6937100.sorted.bam.stats:md5,e7c1a052272143530529f1d018059acb",
                 "DRR030302.tsv:md5,69a122f2bc41e0e3ca9807d913b46bca",
                 "DRR030302.vcf.gz:md5,e463c3c9ca5a6ca2f43c64bc63fa7ef1",
                 "DRR030302.vcf.gz.tbi:md5,84eb742a97d690b78e5b36a396b3d0c5",
@@ -1230,9 +1240,9 @@
                 "SRR6937100.tsv:md5,bd43fc4c2b2842b339d15f1efe01194e",
                 "SRR6937100.vcf.gz:md5,55b3a0c8e137b05d2cbfc9fe33a41694",
                 "SRR6937100.vcf.gz.tbi:md5,1732de4c6198c589f649026fb8f1d95b",
-                "DRR030302.bcftools_stats.txt:md5,e5461f7b6f5e0f00d9e19668542f6cd4",
-                "SRR4071760.bcftools_stats.txt:md5,79293406b0726870b6b8cb2428c21009",
-                "SRR6937100.bcftools_stats.txt:md5,ba3c0773146055dd90054825eb80ab6b",
+                "DRR030302.bcftools_stats.txt:md5,99b5cf822427df2657b2e1009bcd3f28",
+                "SRR4071760.bcftools_stats.txt:md5,043c77012f8107e9da9d9dad232ed1f3",
+                "SRR6937100.bcftools_stats.txt:md5,7e339cd492aa69984060bee7d07d1b79",
                 "DRR030302.consensus.fa:md5,f4a41360a6aef9eb450a0387b77a742d",
                 "SRR4071760.consensus.fa:md5,12ed4b25ae57de9c577a79cd88169cc2",
                 "SRR6937100.consensus.fa:md5,4871c6fc43180b64b6935bcbd31c25ab",
@@ -1270,16 +1280,16 @@
                 "SRR6937100.snpeff.vcf.gz:md5,56699e8726389acd77a29628eae1156c",
                 "SRR6937100.snpeff.vcf.gz.tbi:md5,94486a86bcac9ba3438f87cf75d7d6ad",
                 "SRR6937100.snpsift.txt:md5,25431b3217d364719b2c925788808516",
-                "DRR030302.snpeff.bcftools_stats.txt:md5,4dd6c9ff1df4958102831920ed760981",
-                "SRR4071760.snpeff.bcftools_stats.txt:md5,0423f63a65c7817bcbd4ebead104a193",
-                "SRR6937100.snpeff.bcftools_stats.txt:md5,f1555ef2f177e0731f36a651b4daaf45",
+                "DRR030302.snpeff.bcftools_stats.txt:md5,7313aafba216715ebbbf1612f087324d",
+                "SRR4071760.snpeff.bcftools_stats.txt:md5,6f5cb9efcbcacb68ce976d22285cfce3",
+                "SRR6937100.snpeff.bcftools_stats.txt:md5,a242a628ced53f56bcdfa63d46084451",
                 "variants_long_table.csv:md5,4b9f03d230178f217b6d5e00b76406e2"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2025-11-25T16:34:34.548874773"
+        "timestamp": "2026-05-06T13:17:24.293016822"
     }
 }

@@ -11,7 +11,7 @@ Changes in 'liftoff/main.nf':
 +    tuple val(meta), path("${prefix}.gff")      , emit: gff3
      tuple val(meta), path("*.polished.gff3")    , emit: polished_gff3, optional: true
      tuple val(meta), path("*.unmapped.txt")     , emit: unmapped_txt
-     path "versions.yml"                         , emit: versions
+     tuple val("${task.process}"), val('liftoff'), eval('liftoff --version | sed "s/v//"'), emit: versions_liftoff, topic: versions
 @@ -48,7 +48,7 @@
          $arg_g \\
          $arg_db \\

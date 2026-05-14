@@ -2,7 +2,8 @@
 // Assembly and downstream processing for minia scaffolds
 //
 
-include { MINIA       } from '../../../modules/nf-core/minia/main'
+include { MINIA                    } from '../../../modules/nf-core/minia/main'
+include { GUNZIP as GUNZIP_CONTIGS } from '../../../modules/nf-core/gunzip/main'
 
 include { ASSEMBLY_QC } from '../assembly_qc'
 
@@ -26,14 +27,20 @@ workflow ASSEMBLY_MINIA {
     MINIA (
         reads
     )
-    ch_versions = ch_versions.mix(MINIA.out.versions.first())
+
+    //
+    // Unzip contigs file
+    //
+    GUNZIP_CONTIGS (
+        MINIA.out.contigs
+    )
 
     //
     // Filter for empty contig files
     //
-    MINIA
+    GUNZIP_CONTIGS
         .out
-        .contigs
+        .gunzip
         .filter { meta, contig -> contig.size() > 0 }
         .set { ch_contigs }
 
@@ -73,5 +80,5 @@ workflow ASSEMBLY_MINIA {
     plasmidid_fasta    = ASSEMBLY_QC.out.plasmidid_fasta    // channel: [ val(meta), [ fasta_files/ ] ]
     plasmidid_kmer     = ASSEMBLY_QC.out.plasmidid_kmer     // channel: [ val(meta), [ kmer/ ] ]
 
-    versions           = ch_versions                        // channel: [ versions.yml ]
+    versions           = ch_versions                       // channel: versions.yml
 }

@@ -22,7 +22,7 @@ workflow BAM_TRIM_PRIMERS_IVAR {
         bam,
         bed
     )
-    ch_versions = ch_versions.mix(IVAR_TRIM.out.versions.first())
+    ch_versions = ch_versions.mix(IVAR_TRIM.out.versions)
 
     //
     // Sort, index BAM file and run samtools stats, flagstat and idxstats
@@ -31,18 +31,16 @@ workflow BAM_TRIM_PRIMERS_IVAR {
         IVAR_TRIM.out.bam,
         fasta
     )
-    ch_versions = ch_versions.mix(BAM_SORT_STATS_SAMTOOLS.out.versions)
 
     emit:
     bam_orig = IVAR_TRIM.out.bam                    // channel: [ val(meta), bam   ]
     log_out  = IVAR_TRIM.out.log                    // channel: [ val(meta), log   ]
 
     bam      = BAM_SORT_STATS_SAMTOOLS.out.bam      // channel: [ val(meta), [ bam ] ]
-    bai      = BAM_SORT_STATS_SAMTOOLS.out.bai      // channel: [ val(meta), [ bai ] ]
-    csi      = BAM_SORT_STATS_SAMTOOLS.out.csi      // channel: [ val(meta), [ csi ] ]
+    bai      = BAM_SORT_STATS_SAMTOOLS.out.index    // channel: [ val(meta), [ bai ] ]
     stats    = BAM_SORT_STATS_SAMTOOLS.out.stats    // channel: [ val(meta), [ stats ] ]
     flagstat = BAM_SORT_STATS_SAMTOOLS.out.flagstat // channel: [ val(meta), [ flagstat ] ]
     idxstats = BAM_SORT_STATS_SAMTOOLS.out.idxstats // channel: [ val(meta), [ idxstats ] ]
 
-    versions = ch_versions                          // channel: [ versions.yml ]
+    versions = ch_versions                          // channel: versions.yml
 }
