@@ -185,9 +185,9 @@ workflow VIRALRECON {
     if (sequencing_summary)             { ch_sequencing_summary = file(sequencing_summary)             } else { ch_sequencing_summary = [] }
 
     // Need to stage artic model properly depending on whether it is a string or a file
-    ch_artic_model = params.artic_minion_model_dir ?
-        channel.value([ [:], file(params.artic_minion_model_dir, type: 'dir'), params.artic_minion_model ]) :
-        channel.value([ [:], [], params.artic_minion_model ])
+    ch_clair3_model = params.clair3_model_dir ?
+        channel.value([ [:], file(params.clair3_model_dir, type: 'dir'), params.clair3_model ]) :
+        channel.value([ [:], [], params.clair3_model ])
 
     /*
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1001,9 +1001,7 @@ workflow VIRALRECON {
 
             ARTIC_MINION_PROTOCOL (
                 ARTIC_GUPPYPLEX.out.fastq.filter { it[-1].countFastq() > min_guppyplex_reads },
-                ch_artic_model_dir,
-                params.artic_minion_model,
-                genome.fasta,
+                ch_clair3_model,
                 ch_fasta_primer_bed_nanopore
             )
 
@@ -1043,14 +1041,6 @@ workflow VIRALRECON {
 
         ch_bam_bai = ch_bam.join(ch_bai, by: [0])
         ch_vcf_tbi = ch_vcf.join(ch_tbi, by: [0])
-
-        //
-        // MODULE: Remove duplicate variants
-        //
-        VCFLIB_VCFUNIQ (
-            ARTIC_MINION.out.vcf.join(ARTIC_MINION.out.tbi, by: [0]),
-        )
-        ch_versions = ch_versions.mix(VCFLIB_VCFUNIQ.out.versions.first())
 
         //
         // MODULE: VCF stats with bcftools stats

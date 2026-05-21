@@ -9,10 +9,8 @@ include { TABIX_TABIX                   } from '../../../modules/nf-core/tabix/t
 workflow ARTIC_MINION_PROTOCOL {
     take:
     reads      // channel: [ val(meta), [ fastq ] ]
-    model_dir  // path   : model_dir
-    model      // val :  model
-    fasta      // path   : genome.fasta
-    bed        // path   : bed
+    model      // channel: [ val(meta), model_dir, model ]
+    fasta_bed  // channel: [ val(meta), fasta, bed ]
 
     main:
 
@@ -20,10 +18,9 @@ workflow ARTIC_MINION_PROTOCOL {
 
     ARTIC_MINION (
         reads,
-        model_dir,
         model,
-        fasta,
-        bed
+        fasta_bed,
+        []
     )
 
     //
@@ -31,25 +28,22 @@ workflow ARTIC_MINION_PROTOCOL {
     //
 
     VCFLIB_VCFUNIQ (
-        ARTIC_MINION.out.vcf.join(ARTIC_MINION.out.tbi, by: [0]),
+        ARTIC_MINION.out.vcf.join(ARTIC_MINION.out.tbi, by: [0])
     )
-
-    ch_versions = ch_versions.mix(VCFLIB_VCFUNIQ.out.versions.first())
 
     //
     // MODULE: Index VCF file
     //
     TABIX_TABIX (
-        VCFLIB_VCFUNIQ.out.vcf
+        VCFLIB_VCFUNIQ.out.vcf.map { meta, vcf -> [ meta, vcf, [], [] ] }
     )
-    ch_versions = ch_versions.mix(TABIX_TABIX.out.versions.first())
 
     emit:
     bam       = ARTIC_MINION.out.bam_primertrimmed
     bai       = ARTIC_MINION.out.bai_primertrimmed
 
     vcf       = VCFLIB_VCFUNIQ.out.vcf
-    tbi       = TABIX_TABIX.out.tbi
+    tbi       = TABIX_TABIX.out.index
 
     consensus = ARTIC_MINION.out.fasta
 

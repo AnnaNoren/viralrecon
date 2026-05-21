@@ -29,6 +29,10 @@ workflow MINIMAP2_MAPPING {
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
+    ch_fasta_fai = fasta
+        .combine(fai)
+        .map { fasta_file, fai_file -> tuple([:], fasta_file, fai_file) }
+
     MINIMAP2_INDEX(
         fasta.map { fa -> tuple([:], fa) }
     )
@@ -72,14 +76,13 @@ workflow MINIMAP2_MAPPING {
 
     BAM_SORT_STATS_SAMTOOLS (
         ch_minimap_bam,
-        fasta.map { fa -> tuple([:], fa) }
+        ch_fasta_fai
     )
 
     ch_multiqc_files = ch_multiqc_files.mix(BAM_SORT_STATS_SAMTOOLS.out.flagstat)
-    ch_versions = ch_versions.mix(BAM_SORT_STATS_SAMTOOLS.out.versions)
 
     if (params.clair3_model_dir){
-        ch_input_bam_clair3 = BAM_SORT_STATS_SAMTOOLS.out.bam.join(BAM_SORT_STATS_SAMTOOLS.out.bai, by: [0]).map { meta, bam, bai ->
+        ch_input_bam_clair3 = BAM_SORT_STATS_SAMTOOLS.out.bam.join(BAM_SORT_STATS_SAMTOOLS.out.index, by: [0]).map { meta, bam, bai ->
             tuple(
                 meta,
                 bam,
@@ -90,7 +93,7 @@ workflow MINIMAP2_MAPPING {
             )
         }
     } else {
-        ch_input_bam_clair3 = BAM_SORT_STATS_SAMTOOLS.out.bam.join(BAM_SORT_STATS_SAMTOOLS.out.bai, by: [0]).map { meta, bam, bai ->
+        ch_input_bam_clair3 = BAM_SORT_STATS_SAMTOOLS.out.bam.join(BAM_SORT_STATS_SAMTOOLS.out.index, by: [0]).map { meta, bam, bai ->
             tuple(
                 meta,
                 bam,
@@ -117,7 +120,6 @@ workflow MINIMAP2_MAPPING {
     BCFTOOLS_FILTER (
         CLAIR3.out.vcf.join(CLAIR3.out.tbi, by: [0])
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_FILTER.out.versions.first())
 
     BCFTOOLS_INDEX (
         BCFTOOLS_FILTER.out.vcf
@@ -130,7 +132,6 @@ workflow MINIMAP2_MAPPING {
         BCFTOOLS_FILTER.out.vcf.join(BCFTOOLS_INDEX.out.tbi, by: [0]),
         fasta.map { fa -> tuple([:], fa) },
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_NORM.out.versions.first())
 
     //
     // Filter variants by allele frequency, zip and index
@@ -139,7 +140,6 @@ workflow MINIMAP2_MAPPING {
     BCFTOOLS_CONSENSUS_FILTER (
         BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_NORM.out.tbi, by: [0])
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_CONSENSUS_FILTER.out.versions.first())
 
     BCFTOOLS_INDEX_FILTER (
         BCFTOOLS_CONSENSUS_FILTER.out.vcf
@@ -160,7 +160,6 @@ workflow MINIMAP2_MAPPING {
     BEDTOOLS_MERGE (
         MAKE_BED_MASK.out.bed
     )
-    ch_versions = ch_versions.mix(BEDTOOLS_MERGE.out.versions.first())
 
     //
     // Mask regions in consensus with BEDTools
@@ -169,7 +168,6 @@ workflow MINIMAP2_MAPPING {
         BEDTOOLS_MERGE.out.bed,
         fasta
     )
-    ch_versions = ch_versions.mix(BEDTOOLS_MASKFASTA.out.versions.first())
 
     //
     // Call consensus sequence with BCFTools
@@ -180,7 +178,6 @@ workflow MINIMAP2_MAPPING {
             .join(BEDTOOLS_MASKFASTA.out.fasta, by: [0])
             .map { meta, vcf, tbi, mask_fasta -> tuple(meta, vcf, tbi, mask_fasta, []) }
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_CONSENSUS.out.versions.first())
 
     //
     // Rename consensus header adding sample name
@@ -191,7 +188,7 @@ workflow MINIMAP2_MAPPING {
 
     emit:
     bam          = BAM_SORT_STATS_SAMTOOLS.out.bam
-    bai          = BAM_SORT_STATS_SAMTOOLS.out.bai
+    bai          = BAM_SORT_STATS_SAMTOOLS.out.index
 
     vcf           = BCFTOOLS_NORM.out.vcf
     tbi           = BCFTOOLS_NORM.out.tbi
