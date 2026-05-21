@@ -1,7 +1,7 @@
 <h1>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-viralrecon_logo_dark.png">
-    <img alt="nf-core/viralrecon" src="docs/images/nf-core-viralrecon_logo_light.png">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-viralrecon-dark.png">
+    <img alt="nf-core/viralrecon" src="docs/images/nf-core-viralrecon-light.png">
   </picture>
 </h1>
 
