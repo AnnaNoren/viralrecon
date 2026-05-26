@@ -29,9 +29,11 @@ workflow MINIMAP2_MAPPING {
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
-    ch_fasta_fai = fasta
+    def ch_fasta_fai = fasta
         .combine(fai)
         .map { fasta_file, fai_file -> tuple([:], fasta_file, fai_file) }
+        .collect(flat: false)
+        .map { fasta_fai -> fasta_fai[0] }
 
     MINIMAP2_INDEX(
         fasta.map { fa -> tuple([:], fa) }
@@ -39,7 +41,7 @@ workflow MINIMAP2_MAPPING {
 
     MINIMAP2_ALIGN(
         reads,
-        MINIMAP2_INDEX.out.index,
+        MINIMAP2_INDEX.out.index.collect(flat: false).map { indexes -> indexes[0] },
         true,
         'bai',
         false,
