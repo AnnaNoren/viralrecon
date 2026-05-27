@@ -59,10 +59,11 @@ nanoplot/*/NanoPlot*.log
 nanoplot/*/*.html
 nanoplot/*/*.png
 nanoplot/*/NanoStats.txt
-artic_minion/*.{bam,bam.bai}
-artic_minion/bcftools_stats/*.bcftools_stats.txt
-artic_minion/samtools_stats/*.bam.stats
-artic_minion/*.{vcf,vcf.gz,vcf.gz.tbi,csv}
-artic_minion/**/*.{vcf,vcf.gz,vcf.gz.tbi,csv,txt}
+artic/*.{bam,bam.bai}
+artic/**/*.{bam,bam.bai}
+artic/bcftools_stats/*.bcftools_stats.txt
+artic/samtools_stats/*.bam.stats
+artic/*.{vcf,vcf.gz,vcf.gz.tbi,csv}
+artic/**/*.{vcf,vcf.gz,vcf.gz.tbi,csv,txt}
 pycoqc/pycoqc.html
 pycoqc/pycoqc.json
