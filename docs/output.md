@@ -153,8 +153,8 @@ The final consensus sequence is generated with [BCFtools](https://github.com/sam
 
 - `minimap2/`
   - `minimap2/align/`
-    - `*.sort.bam`: Coordinate sorted BAM file from Minimap2.
-    - `*.sort.bam.bai`: Index file for coordinate sorted Minimap2 BAM file.
+    - `*.sort.bam`: Coordinate sorted BAM file generated after minimap2 alignment. This is the primary alignment BAM used by the minimap2/Clair3 variant calling workflow.
+    - `*.sort.bam.bai`: Index file for the coordinate sorted minimap2 BAM file.
   - `minimap2/clair3/`
     - `*.filtered.vcf.gz`: Clair3 variants after filtering.
     - `*.filtered.vcf.gz.tbi`: Index file for filtered Clair3 variants.
@@ -175,8 +175,8 @@ The final consensus sequence is generated with [BCFtools](https://github.com/sam
 <summary>Output files</summary>
 
 - `<MAPPER>/align/`
-  - `*.mapped.sorted.bam`: Coordinate sorted BAM file containing read alignment information.
-  - `*.mapped.sorted.bam.bai`: Index file for coordinate sorted BAM file.
+  - `*.mapped.sorted.bam`: Coordinate sorted BAM file after removing unmapped reads from the primary alignment BAM generated either with artic or minimap2.
+  - `*.mapped.sorted.bam.bai`: Index file for the mapped-read-only BAM file.
 - `<MAPPER>/samtools_stats/`
   - SAMtools `*.mapped.sorted.bam.flagstat`, `*.mapped.sorted.bam.idxstats` and `*.mapped.sorted.bam.stats` files generated from the alignment files.
 
