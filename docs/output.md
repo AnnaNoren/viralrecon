@@ -184,7 +184,7 @@ BAM files containing the original alignments from either Minimap2 or BWA are fur
 
 </details>
 
-[BCFtools](http://samtools.github.io/bcftools/bcftools.html) is a set of utilities that manipulate variant calls in [VCF](https://vcftools.github.io/specs.html) and its binary counterpart BCF format. It can also used be used to generate statistics and counts obtained from VCF files as used here.
+[BCFtools](http://samtools.github.io/bcftools/bcftools.html) is a set of utilities that manipulate variant calls in [VCF](https://vcftools.github.io/specs.html) and its binary counterpart BCF format. It can also be used to generate statistics and counts obtained from VCF files as used here.
 
 ![MultiQC - BCFTools variant counts](images/mqc_bcftools_stats_plot.png)
 
@@ -255,7 +255,7 @@ Phylogenetic Assignment of Named Global Outbreak LINeages ([Pangolin](https://gi
 
 - `artic_minion/freyja/demix`
   - `*.tsv`: Analysis results including the lineages present, their corresponding abundances, and summarization by constellation
-- `artic_minion/freyja/freyja_db`
+- `artic_minion/freyja/SARS-CoV-2`
   - `.json`: dataset containing lineage metadata that correspond to barcodes.
   - `.yml`: dataset containing the lineage topology.
   - `.csv`: dataset containing lineage defining barcodes.
@@ -373,6 +373,11 @@ An example MultiQC report generated from a full-sized dataset can be viewed on t
     - [ABACAS](#abacas)
     - [PlasmidID](#plasmidid)
     - [Assembly QUAST](#assembly-quast)
+  - [Illumina: HIV resistance detection](#illumina-hiv-resistance-detection)
+    - [sierra-local](#sierra-local)
+    - [Liftoff](#Liftoff)
+    - [CodFreq](#CodFreq)
+    - [Custom HIV Resistance Reports](#custom-hiv-resistance-reports)
   - [Illumina: Workflow reporting and genomes](#illumina-workflow-reporting-and-genomes)
     - [MultiQC](#multiqc)
     - [Reference genome files](#reference-genome-files)
@@ -576,7 +581,7 @@ Unless you are using [UMIs](https://emea.illumina.com/science/sequencing-method-
 
 - `variants/freyja/demix`
   - `*.tsv`: Analysis results including the lineages present, their corresponding abundances, and summarization by constellation
-- `variants/freyja/freyja_db`
+- `variants/freyja/SARS-CoV-2`
   - `.json`: dataset containing lineage metadata that correspond to barcodes.
   - `.yml`: dataset containing the lineage topology.
   - `barcodes.feather`: dataset containing lineage defining barcodes.
@@ -628,7 +633,7 @@ iVar outputs a tsv format which is not compatible with downstream analysis such 
 
 </details>
 
-[BCFtools](http://samtools.github.io/bcftools/bcftools.html) can be used to call variants directly from BAM alignment files. It is a set of utilities that manipulate variant calls in [VCF](https://vcftools.github.io/specs.html) and its binary counterpart BCF format. BCFTools is used in the variant calling and _de novo_ assembly steps of this pipeline to obtain basic statistics from the VCF output.
+[BCFtools](http://samtools.github.io/bcftools/bcftools.html) can be used to call variants directly from BAM alignment files. It is a set of utilities that manipulate variant calls in [VCF](https://vcftools.github.io/specs.html) and its binary counterpart BCF format. BCFTools is used in the variant calling and consensus genome generation steps of this pipeline and also to obtain basic statistics from the VCF output.
 
 ![MultiQC - BCFTools variant counts](images/mqc_bcftools_stats_plot.png)
 
@@ -698,7 +703,7 @@ As described in the [iVar variants](#ivar-variants) section, iVar can be used in
 
 </details>
 
-[BCFTools](http://samtools.github.io/bcftools/bcftools.html) is used in the variant calling and _de novo_ assembly steps of this pipeline to obtain basic statistics from the VCF output. It can also used be used to generate a consensus sequence by integrating variant calls into the reference genome. In this pipeline, we use `samtools mpileup` to create a mask using low coverage positions, and `bedtools maskfasta` to mask the genome sequences based on these intervals. Finally, `bcftools consensus` is used to generate the consensus by projecting the high allele frequency variants onto the masked genome reference sequence.
+[BCFTools](http://samtools.github.io/bcftools/bcftools.html) is used in the variant calling and _de novo_ assembly steps of this pipeline to obtain basic statistics from the VCF output. It can also be used to generate a consensus sequence by integrating variant calls into the reference genome. In this pipeline, we use `samtools mpileup` to create a mask using low coverage positions, and `bedtools maskfasta` to mask the genome sequences based on these intervals. Finally, `bcftools consensus` is used to generate the consensus by projecting the high allele frequency variants onto the masked genome reference sequence.
 
 ### QUAST
 
@@ -753,7 +758,7 @@ Phylogenetic Assignment of Named Global Outbreak LINeages ([Pangolin](https://gi
 
 - `variants/<VARIANT_CALLER>/`
   - `variants_long_table.csv`: Long format table collating per-sample information for individual variants, functional effect prediction and lineage analysis.
-  - `additional_variants_long_table.csv`: Long format table similar to `variants_long_table.csv` for additional annotation file with overlapping annotation features.
+  - `additional_annotation/additional_variants_long_table.csv`: Long format table similar to `variants_long_table.csv` for additional annotation file with overlapping annotation features.
 
 **NB:** The value of `<VARIANT_CALLER>` in the output directory name above is determined by the `--variant_caller` parameter (Default: 'ivar' for '--protocol amplicon' and 'bcftools' for '--protocol metagenomic').
 
@@ -972,6 +977,132 @@ In the variant calling branch of the pipeline we are using [iVar trim](#ivar-tri
 [QUAST](http://bioinf.spbau.ru/quast) is used to generate a single report with which to evaluate the quality of the _de novo_ assemblies across all of the samples provided to the pipeline. The HTML results can be opened within any browser (we recommend using Google Chrome). Please see the [QUAST output docs](http://quast.sourceforge.net/docs/manual.html#sec3) for more detailed information regarding the output files.
 
 ![MultiQC - QUAST contig counts](images/mqc_quast_plot.png)
+
+## Illumina: HIV resistance detection
+
+This output is only generated if `--perform_hiv_resistance` param is activated.
+
+### sierra-local
+
+[**sierra-local**](https://github.com/PoonLab/sierra-local/) is a Python3 implementation of the [Stanford University HIV Drug Resistance Database](https://hivdb.stanford.edu/) (HIVdb) [Sierra web service](https://hivdb.stanford.edu/page/webservice/).
+
+It allows to generate **HIV-1 drug resistance predictions locally**, without the need to transmit patient data over a network. This provides full control over data provenance, security and regulatory compliance.
+
+> _Sierra-local computes drug resistance predictions directly from consensus HIV-1 sequences, producing JSON-formatted output that includes key resistance-associated mutations and drug susceptibility scores._
+> Within the HIV module of `nf-core/viralrecon`, sierra-local is executed using the consensus FASTA file generated for each sample.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `variants/<CALLER>/consensus/<CONSENSUS_CALLER>/sierra-local`
+  - `*_resistance.json`: sierra-local resistance output JSON file. This JSON file summarizes the HIV drug resistance interpretation from a consensus sequence of the PR, RT and IN genes of HIV. It includes sequence metadata (`inputSequence`) (FASTA header and SHA-512 checksum), quality control messages (`validationResults`), detected mutations (`alignedGeneSequences`), and inferred drug resistance levels (`drugResistance`). This output contains information similar to that provided by the HIVdb's HTML output, and a complete document of this HTML output can be found in HIVdb's website [here](https://hivdb.stanford.edu/page/xml-2009-spec/).
+
+**NB:** The value of `<CALLER>` and `<CONSENSUS_CALLER>` in the output directory name above is determined by the `--variant_caller` and `--consensus_caller` parameters (Default: 'ivar' for both params when '--profile test_hiv').
+
+</details>
+
+### Liftoff
+
+Only performed when the `--genome` is not `codfreq`. **[Liftoff](https://github.com/agshumate/Liftoff)** is a tool that accurately maps annotations in GFF or GTF between assemblies of the same, or closely-related species. Unlike current coordinate lift-over tools which require a pre-generated “chain” file as input, Liftoff is a standalone tool that takes two genome assemblies and a reference annotation as input and outputs an annotation of the target genome. Using the provided reference genome and the `.fasta` and `.gff`, annotation files are processed with to transfer the HIV gene annotations to the user’s specific reference genome.
+
+Once the new `.gff` file is produced by Liftoff, an additional annotation step is performed. The variant caller outputs (based on **nucleotide-level variants**) are re-annotated using this updated `.gff`, generating a **secondary annotation layer**.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `variants/<CALLER>/consensus/<CONSENSUS_CALLER>/`
+  - `liftoff/`
+    - `<reference_basename>.gff`: Annotation GFF with the HIV genes specific annotations needed for the analysis.
+    - `<reference_basename>.unmapped.txt`: Liftoff file containing unmapped features.
+  - `liftoff_variants_long_table.csv`: Long format table similar to `variants_long_table.csv` for the `<reference_basename>.gff` annotation file needed for HIV resistance detection analysis.
+
+**NB:** The value of `<CALLER>` and `<CONSENSUS_CALLER>` in the output directory name above is determined by the `--variant_caller` and `--consensus_caller` parameters (Default: 'ivar' for both callers when using '--profile test_hiv').
+
+</details>
+
+### CodFreq
+
+To obtain codon frequency information, `nf-core/viralrecon` integrates a modified version of [**codfreq**](https://github.com/hivdb/codfreq/) tool that can be found within [nf-core/viralrecon scripts](../bin/bam2codfreq.py).
+
+- `variants/<CALLER>/consensus/<CONSENSUS_CALLER>/codfreq`
+  - `*.codfreq`: CSV codfreq table with codon frequencies stimations. Contains seven columns:
+  - `<reference_basename>.json`: Profile JSON file generated after the `<reference_basename>.gff` file by a [custom script](../bin/gff2json.py). Needed by codfreq to run.
+
+| Column                | Description                                                         |
+| :-------------------- | :------------------------------------------------------------------ |
+| `gene`                | HIV gene (PR, RT, or IN)                                            |
+| `position`            | Codon position at protein level                                     |
+| `total`               | Total reads covering that position (tiplet)                         |
+| `codon`               | Nucleotide triplet or INDELS                                        |
+| `count`               | Total reads supporting that codon                                   |
+| `total_quality_score` | Qualituy score of that codon assigned by codfreq                    |
+| `aa_codon`            | If the codon is multiple of 3, the corresponding aminoacid sequence |
+
+### Custom HIV Resistance Reports
+
+Using both **sierra-local**'s `*_resistance.json` and **custom codfreq**'s `*.codfreq` files, an [in-house script](../bin/resistance_tables.py) is used to generate HIV resistance reports needed for clinical purposes.
+
+- `variants/<CALLER>/consensus/<CONSENSUS_CALLER>/resistance_reports`
+  - `*_mutation_table.csv`: CSV table with the mutations found by sierra-local with codon coverage and mutation frequencies integrated. It contains the following sexteen columns:
+    - `Sample_name`: Name of the sample given by the samplesshet file.
+    - `Gene_name`: Name of the gene containing the mutation. Only detects PR, RT and IN.
+    - `Mutations`: Detected aminoacid mutation in this format `I72V` as `<reference_aminoacid><codon_position><alternative_aminoacid>`.
+    - `Mutations_type`: Mutation's primary type. Can be `Major Mutation`, `Accesory Mutation` or `Other`.
+    - `Mutations_comments`: Resistance comments from sierra-local software for that mutation. Can be empty if no comments where detected. Only major mutations contain comments.
+    - `isInsertion`: If the mutation is an insertion `True`. Else `False`.
+    - `isDeletion`: If the mutation is a deletion `True`. Else `False`.
+    - `isApobecMutation`: If the mutation is an Apobec mutation found in `apobecs.csv` file `True`. Else `False`.
+    - `isApobecDRM`: If the mutation is an Apobec DRM mutation found in `apobec_drms.json` file `True`. Else `False`.
+    - `isUnusual`: If the mutation is an unusual mutation found in `rx-all_subtype-all.csv` file `True`. Else `False`.
+    - `isSDRM`:If the mutation is a SDRM mutation found in `sdrms_hiv1.csv` file `True`. Else `False`.
+    - `hasStop`: If the mutation has a Stop codon `True`. Else `False`.
+    - `Mutation_AF`: Aminoacid mutation allele frequency. Calculated: (alternative_aminoacid total coverage) / (codon total coverage)
+    - `Coverage`: Codon total coverage. Used to calculate `Mutation_AF`.
+    - `INDEL>5%`: If INDELs represent >=5% of the codon reads/coverage `True`. Else `False`. Can be used to detect posible artifacts in a position if `isInsertion` and `isDeletion` are `False`.
+    - `Notes`: Quality control messages from `validationResults` in sierra-local report.
+  - `*_mutation_table_short.csv`: Subset of the `*_mutation_table.csv` table with only `Sample_name`, `Gene_name`, `Mutations`, `Mutations_type`, `Mutations_comments` columns, needed for wetlab puprposes.
+  - `*_resistance_table.csv`: CSV table with the drug resistance found by sierra-local. It contains the following five columns:
+    - `Sample_name`: Name of the sample given by the samplesshet file.
+    - `Drug_class`: Call of the drug. It can be:
+      - `PI`: Protease Inhibitors (PR gene asociated)
+      - `NRTI`: Nucleoside Reverse Transcriptase Inhibitors (RT gene asociated)
+      - `NNRTI`: Non-nucleoside Reverse Transcriptase Inhibitors (RT gene asociated)
+      - `INSTI`: Integrase Strand Transfer Inhibitors (IN gene asociated)
+    - `Drugs`: Name of the drug for which the suscteptibility is being evaluated. Can be:
+      - PR gene related (Protease Inhibitors):
+        - `ATV/r`: atazanavir/r
+        - `DRV/r`: darunavir/r
+        - `LPV/r`: lopinavir/r
+        - `FPV/r`: fosamprenavir/r
+        - `IDV/r`: indinavir/r
+        - `NFV`: nelfinavir
+        - `SQV/r`: saquinavir/r
+        - `TPV/r`: tipranavir/r
+      - RT gene related:
+        - Nucleoside Reverse Transcriptase Inhibitors (NRTI)
+          - `ABC`: abacavir
+          - `AZT`: zidovudine
+          - `FTC`: emtricitabine
+          - `3TC`: lamivudine
+          - `TDF`: tenofovir
+          - `D4T`: stavudine
+          - `DDI`: didanosine
+        - Non-nucleoside Reverse Transcriptase Inhibitors (NNRTI)
+          - `DOR`: doravirine
+          - `EFV`: efavirenz
+          - `ETR`: etravirine
+          - `NVP`: nevirapine
+          - `RPV`: rilpivirine
+          - `DPV`: dapivirine
+      - IN gene related (Integrase Strand Transfer Inhibitors):
+        - `BIC`: bictegravir
+        - `CAB`: cabotegravir
+        - `DTG`: dolutegravir
+        - `EVG`: elvitegravir
+        - `RAL`: raltegravir
+    - `Total_score`: Quality score assigned by the software.
+    - `Res_status`: Resistance estatus. Can be: `High-Level Resistance`, `Intermediate`, `Low-level resistance`, `Susceptible`, `Potential Low-Level Resistance`.
+  - `resistance.html`: HTML report with resistance and mutation results. It was meant to be as similar as possible as the ones generated by [HIVdb](https://hivdb.stanford.edu/hivdb/by-reads).
 
 ## Illumina: Workflow reporting and genomes
 

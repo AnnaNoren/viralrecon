@@ -9,22 +9,19 @@
                     "artic": "1.6.2"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "FREYJA_DEMIX": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_UPDATE": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_VARIANTS": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "GUNZIP_FASTA": {
                     "gunzip": 1.13
@@ -34,10 +31,12 @@
                     "pigz": 2.8
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "NANOPLOT": {
                     "nanoplot": "1.46.1"
@@ -57,20 +56,23 @@
                 "QUAST": {
                     "quast": "5.3.0"
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_VIEW": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "TABIX_TABIX": {
                     "tabix": 1.21
@@ -320,6 +322,11 @@
                 "artic_minion/bcftools_stats/SAMPLE_08.bcftools_stats.txt",
                 "artic_minion/bcftools_stats/SAMPLE_09.bcftools_stats.txt",
                 "artic_minion/freyja",
+                "artic_minion/freyja/SARS-CoV-2",
+                "artic_minion/freyja/SARS-CoV-2/curated_lineages.json",
+                "artic_minion/freyja/SARS-CoV-2/lineages.yml",
+                "artic_minion/freyja/SARS-CoV-2/pathogen_config.yml",
+                "artic_minion/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "artic_minion/freyja/demix",
                 "artic_minion/freyja/demix/SAMPLE_01.tsv",
                 "artic_minion/freyja/demix/SAMPLE_02.tsv",
@@ -329,10 +336,6 @@
                 "artic_minion/freyja/demix/SAMPLE_06.tsv",
                 "artic_minion/freyja/demix/SAMPLE_07.tsv",
                 "artic_minion/freyja/demix/SAMPLE_09.tsv",
-                "artic_minion/freyja/freyja_db",
-                "artic_minion/freyja/freyja_db/curated_lineages.json",
-                "artic_minion/freyja/freyja_db/lineages.yml",
-                "artic_minion/freyja/freyja_db/usher_barcodes.feather",
                 "artic_minion/freyja/variants",
                 "artic_minion/freyja/variants/SAMPLE_01.depth.tsv",
                 "artic_minion/freyja/variants/SAMPLE_01.variants.tsv",
@@ -829,31 +832,22 @@
                 "SAMPLE_09.mosdepth.coverage.tsv:md5,d8e643e89d2e003a00a3f53af5d76023",
                 "SAMPLE_01.mapped.sorted.bam.flagstat:md5,9573b991e1cdbe9611629b7b0b8421f8",
                 "SAMPLE_01.mapped.sorted.bam.idxstats:md5,98b56a8efa1ce26c56e8151d7ee8c409",
-                "SAMPLE_01.mapped.sorted.bam.stats:md5,a26234010f8dafd635b1bef0ff5ce3a8",
                 "SAMPLE_02.mapped.sorted.bam.flagstat:md5,e13e7cf047869e7fa3947d09824d5679",
                 "SAMPLE_02.mapped.sorted.bam.idxstats:md5,facf4995ba14ae521edecb3a34423eb1",
-                "SAMPLE_02.mapped.sorted.bam.stats:md5,20ddfa492af46e9d602d4c8481df16f1",
                 "SAMPLE_03.mapped.sorted.bam.flagstat:md5,0a1fd66c6f4d333a3db38a83a656bf0b",
                 "SAMPLE_03.mapped.sorted.bam.idxstats:md5,a71bc353b634ef7e98004beb949ef9b4",
-                "SAMPLE_03.mapped.sorted.bam.stats:md5,4c2c5abf4ba7ecc5fba98b6719b6c937",
                 "SAMPLE_04.mapped.sorted.bam.flagstat:md5,40e8ab032fa5866ee7863a571d50d6b8",
                 "SAMPLE_04.mapped.sorted.bam.idxstats:md5,df01d54f22e47d2ff5af4fd733daf672",
-                "SAMPLE_04.mapped.sorted.bam.stats:md5,7aace8d33eb4d953f1adc4c5a6b85d6d",
                 "SAMPLE_05.mapped.sorted.bam.flagstat:md5,0ae9a8a6deae8e378c7559d6cd90db7f",
                 "SAMPLE_05.mapped.sorted.bam.idxstats:md5,33eff4424cada7f250704f3627194d65",
-                "SAMPLE_05.mapped.sorted.bam.stats:md5,3bf645bb9de9cea9c5fe2c4833f773fd",
                 "SAMPLE_06.mapped.sorted.bam.flagstat:md5,97b44059a2ba8e3ed9da6fbee747a1f2",
                 "SAMPLE_06.mapped.sorted.bam.idxstats:md5,2849c083adcd0867b05e99e1af6b54aa",
-                "SAMPLE_06.mapped.sorted.bam.stats:md5,178cdb6efa81bec5ad5a90d20acf24ed",
                 "SAMPLE_07.mapped.sorted.bam.flagstat:md5,034a82f1d6f78cc7cd5ef957c5363585",
                 "SAMPLE_07.mapped.sorted.bam.idxstats:md5,fe6867b6e2df3a1cf374838fa1936e3a",
-                "SAMPLE_07.mapped.sorted.bam.stats:md5,5cf1fa56dc1ca923c311861f6c55af0b",
                 "SAMPLE_08.mapped.sorted.bam.flagstat:md5,318c174f2e51b2cda25c1ff2baa17b2d",
                 "SAMPLE_08.mapped.sorted.bam.idxstats:md5,1f6640accb07f184d74a17567677d4bf",
-                "SAMPLE_08.mapped.sorted.bam.stats:md5,da5b2cbb418535d271df91709f647242",
                 "SAMPLE_09.mapped.sorted.bam.flagstat:md5,747467968f020d74d4d126ba5ff6468e",
                 "SAMPLE_09.mapped.sorted.bam.idxstats:md5,1297500e3064a15d55ccf1f1d74aeab4",
-                "SAMPLE_09.mapped.sorted.bam.stats:md5,4952bce5a035198d8b3aa59eea97b292",
                 "SAMPLE_01.classified.fastq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "SAMPLE_01.kraken2.report.txt:md5,ec1112bfa4599c30c8cfc1e2e711f002",
                 "SAMPLE_02.classified.fastq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -873,7 +867,7 @@
                 "SAMPLE_09.classified.fastq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "SAMPLE_09.kraken2.report.txt:md5,5d7c578112c660554dec778e47f22f7d",
                 "bcftools-stats-subtypes.yaml:md5,61ddae749794ff1f92491553976651ae",
-                "bcftools_stats_indel-lengths.yaml:md5,21579f6cb03aed1fab08c05fb049c09d",
+                "bcftools_stats_indel-lengths.yaml:md5,e85b2eb59d738c65a054e19065b71fa4",
                 "kraken-top-n-plot_Class.yaml:md5,80f44bb0bb39fa53956588ffb2c35191",
                 "kraken-top-n-plot_Domain.yaml:md5,04514da42a3f34470e6233671fa3673b",
                 "kraken-top-n-plot_Family.yaml:md5,0f416340ecf5065a9b42655e025feb3e",
@@ -882,7 +876,7 @@
                 "kraken-top-n-plot_Phylum.yaml:md5,b7b87f32a6b9bcb7cf69d10d95a4fce8",
                 "kraken-top-n-plot_Unclassified.yaml:md5,d1ddc2f66a086568bd0eb986291759a2",
                 "mosdepth-coverage-per-contig-single.yaml:md5,fa1f288dcee81d9f55b93b4305cc42e6",
-                "mosdepth-cumcoverage-dist-id.yaml:md5,688d5175be9a073867f88f1b95818106",
+                "mosdepth-cumcoverage-dist-id.yaml:md5,fe63c83dab2517bba64b500382050c67",
                 "mosdepth_cov_dist.yaml:md5,46279b5163854b9bc9a9a18ed2ff7881",
                 "mosdepth_cumcov_dist.yaml:md5,46279b5163854b9bc9a9a18ed2ff7881",
                 "mosdepth_perchrom.yaml:md5,9a1cb66bd6de6da0f360bd2842050eb2",
@@ -899,16 +893,16 @@
                 "pangolin_run_table.yaml:md5,e07aefacfa3008ed32e03817feaea0e0",
                 "pycoqc_count_plot_Bases.yaml:md5,7d2db959e6f191000642d17d29326b1e",
                 "pycoqc_count_plot_Reads.yaml:md5,647ee3cee55375c44fffb6887e8a38a1",
-                "pycoqc_read_qual_plot_All_Reads.yaml:md5,d92652d2904064e6835488fe87bc0922",
-                "pycoqc_read_qual_plot_Passing_Reads.yaml:md5,eae65614a7ec2df719b2f4d51574829f",
+                "pycoqc_read_qual_plot_All_Reads.yaml:md5,ca731aa52ca76ea80002fc8cf2c55030",
+                "pycoqc_read_qual_plot_Passing_Reads.yaml:md5,5097786e1462e40ea98740b5be038136",
                 "pycoqc_stats_table.yaml:md5,7e91d1025c519911af28386064444b9a"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2025-11-12T10:21:25.483164448"
+        "timestamp": "2026-05-06T12:48:34.244516088"
     },
     "-profile test_nanopore --additional_annotation 'https://github.com/nf-core/test-datasets/raw/refs/heads/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.gtf.gz'": {
         "content": [
@@ -920,25 +914,22 @@
                     "artic": "1.6.2"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "FREYJA_DEMIX": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_UPDATE": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_VARIANTS": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "GUNZIP_FASTA": {
                     "gunzip": 1.13
@@ -957,10 +948,12 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "NANOPLOT": {
                     "nanoplot": "1.46.1"
@@ -980,20 +973,23 @@
                 "QUAST": {
                     "quast": "5.3.0"
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_VIEW": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -1256,6 +1252,11 @@
                 "artic_minion/bcftools_stats/SAMPLE_08.bcftools_stats.txt",
                 "artic_minion/bcftools_stats/SAMPLE_09.bcftools_stats.txt",
                 "artic_minion/freyja",
+                "artic_minion/freyja/SARS-CoV-2",
+                "artic_minion/freyja/SARS-CoV-2/curated_lineages.json",
+                "artic_minion/freyja/SARS-CoV-2/lineages.yml",
+                "artic_minion/freyja/SARS-CoV-2/pathogen_config.yml",
+                "artic_minion/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "artic_minion/freyja/demix",
                 "artic_minion/freyja/demix/SAMPLE_01.tsv",
                 "artic_minion/freyja/demix/SAMPLE_02.tsv",
@@ -1265,10 +1266,6 @@
                 "artic_minion/freyja/demix/SAMPLE_06.tsv",
                 "artic_minion/freyja/demix/SAMPLE_07.tsv",
                 "artic_minion/freyja/demix/SAMPLE_09.tsv",
-                "artic_minion/freyja/freyja_db",
-                "artic_minion/freyja/freyja_db/curated_lineages.json",
-                "artic_minion/freyja/freyja_db/lineages.yml",
-                "artic_minion/freyja/freyja_db/usher_barcodes.feather",
                 "artic_minion/freyja/variants",
                 "artic_minion/freyja/variants/SAMPLE_01.depth.tsv",
                 "artic_minion/freyja/variants/SAMPLE_01.variants.tsv",
@@ -1848,31 +1845,22 @@
                 "SAMPLE_09.mosdepth.coverage.tsv:md5,d8e643e89d2e003a00a3f53af5d76023",
                 "SAMPLE_01.mapped.sorted.bam.flagstat:md5,9573b991e1cdbe9611629b7b0b8421f8",
                 "SAMPLE_01.mapped.sorted.bam.idxstats:md5,98b56a8efa1ce26c56e8151d7ee8c409",
-                "SAMPLE_01.mapped.sorted.bam.stats:md5,a26234010f8dafd635b1bef0ff5ce3a8",
                 "SAMPLE_02.mapped.sorted.bam.flagstat:md5,e13e7cf047869e7fa3947d09824d5679",
                 "SAMPLE_02.mapped.sorted.bam.idxstats:md5,facf4995ba14ae521edecb3a34423eb1",
-                "SAMPLE_02.mapped.sorted.bam.stats:md5,20ddfa492af46e9d602d4c8481df16f1",
                 "SAMPLE_03.mapped.sorted.bam.flagstat:md5,0a1fd66c6f4d333a3db38a83a656bf0b",
                 "SAMPLE_03.mapped.sorted.bam.idxstats:md5,a71bc353b634ef7e98004beb949ef9b4",
-                "SAMPLE_03.mapped.sorted.bam.stats:md5,4c2c5abf4ba7ecc5fba98b6719b6c937",
                 "SAMPLE_04.mapped.sorted.bam.flagstat:md5,40e8ab032fa5866ee7863a571d50d6b8",
                 "SAMPLE_04.mapped.sorted.bam.idxstats:md5,df01d54f22e47d2ff5af4fd733daf672",
-                "SAMPLE_04.mapped.sorted.bam.stats:md5,7aace8d33eb4d953f1adc4c5a6b85d6d",
                 "SAMPLE_05.mapped.sorted.bam.flagstat:md5,0ae9a8a6deae8e378c7559d6cd90db7f",
                 "SAMPLE_05.mapped.sorted.bam.idxstats:md5,33eff4424cada7f250704f3627194d65",
-                "SAMPLE_05.mapped.sorted.bam.stats:md5,3bf645bb9de9cea9c5fe2c4833f773fd",
                 "SAMPLE_06.mapped.sorted.bam.flagstat:md5,97b44059a2ba8e3ed9da6fbee747a1f2",
                 "SAMPLE_06.mapped.sorted.bam.idxstats:md5,2849c083adcd0867b05e99e1af6b54aa",
-                "SAMPLE_06.mapped.sorted.bam.stats:md5,178cdb6efa81bec5ad5a90d20acf24ed",
                 "SAMPLE_07.mapped.sorted.bam.flagstat:md5,034a82f1d6f78cc7cd5ef957c5363585",
                 "SAMPLE_07.mapped.sorted.bam.idxstats:md5,fe6867b6e2df3a1cf374838fa1936e3a",
-                "SAMPLE_07.mapped.sorted.bam.stats:md5,5cf1fa56dc1ca923c311861f6c55af0b",
                 "SAMPLE_08.mapped.sorted.bam.flagstat:md5,318c174f2e51b2cda25c1ff2baa17b2d",
                 "SAMPLE_08.mapped.sorted.bam.idxstats:md5,1f6640accb07f184d74a17567677d4bf",
-                "SAMPLE_08.mapped.sorted.bam.stats:md5,da5b2cbb418535d271df91709f647242",
                 "SAMPLE_09.mapped.sorted.bam.flagstat:md5,747467968f020d74d4d126ba5ff6468e",
                 "SAMPLE_09.mapped.sorted.bam.idxstats:md5,1297500e3064a15d55ccf1f1d74aeab4",
-                "SAMPLE_09.mapped.sorted.bam.stats:md5,4952bce5a035198d8b3aa59eea97b292",
                 "SAMPLE_01.classified.fastq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "SAMPLE_01.kraken2.report.txt:md5,ec1112bfa4599c30c8cfc1e2e711f002",
                 "SAMPLE_02.classified.fastq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -1892,7 +1880,7 @@
                 "SAMPLE_09.classified.fastq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "SAMPLE_09.kraken2.report.txt:md5,5d7c578112c660554dec778e47f22f7d",
                 "bcftools-stats-subtypes.yaml:md5,61ddae749794ff1f92491553976651ae",
-                "bcftools_stats_indel-lengths.yaml:md5,21579f6cb03aed1fab08c05fb049c09d",
+                "bcftools_stats_indel-lengths.yaml:md5,e85b2eb59d738c65a054e19065b71fa4",
                 "kraken-top-n-plot_Class.yaml:md5,80f44bb0bb39fa53956588ffb2c35191",
                 "kraken-top-n-plot_Domain.yaml:md5,04514da42a3f34470e6233671fa3673b",
                 "kraken-top-n-plot_Family.yaml:md5,0f416340ecf5065a9b42655e025feb3e",
@@ -1901,7 +1889,7 @@
                 "kraken-top-n-plot_Phylum.yaml:md5,b7b87f32a6b9bcb7cf69d10d95a4fce8",
                 "kraken-top-n-plot_Unclassified.yaml:md5,d1ddc2f66a086568bd0eb986291759a2",
                 "mosdepth-coverage-per-contig-single.yaml:md5,fa1f288dcee81d9f55b93b4305cc42e6",
-                "mosdepth-cumcoverage-dist-id.yaml:md5,688d5175be9a073867f88f1b95818106",
+                "mosdepth-cumcoverage-dist-id.yaml:md5,fe63c83dab2517bba64b500382050c67",
                 "mosdepth_cov_dist.yaml:md5,46279b5163854b9bc9a9a18ed2ff7881",
                 "mosdepth_cumcov_dist.yaml:md5,46279b5163854b9bc9a9a18ed2ff7881",
                 "mosdepth_perchrom.yaml:md5,9a1cb66bd6de6da0f360bd2842050eb2",
@@ -1919,8 +1907,8 @@
                 "pangolin_run_table.yaml:md5,e07aefacfa3008ed32e03817feaea0e0",
                 "pycoqc_count_plot_Bases.yaml:md5,7d2db959e6f191000642d17d29326b1e",
                 "pycoqc_count_plot_Reads.yaml:md5,647ee3cee55375c44fffb6887e8a38a1",
-                "pycoqc_read_qual_plot_All_Reads.yaml:md5,d92652d2904064e6835488fe87bc0922",
-                "pycoqc_read_qual_plot_Passing_Reads.yaml:md5,eae65614a7ec2df719b2f4d51574829f",
+                "pycoqc_read_qual_plot_All_Reads.yaml:md5,ca731aa52ca76ea80002fc8cf2c55030",
+                "pycoqc_read_qual_plot_Passing_Reads.yaml:md5,5097786e1462e40ea98740b5be038136",
                 "pycoqc_stats_table.yaml:md5,7e91d1025c519911af28386064444b9a",
                 "snpeff_effects.yaml:md5,135d0b168f65999667a6e9070a3e9f1f",
                 "snpeff_variant_effects_class.yaml:md5,5c98ec61448c7a97545bddd6bd346ca7",
@@ -1930,9 +1918,9 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2025-11-12T10:31:24.78093934"
+        "timestamp": "2026-05-06T12:55:53.210491011"
     },
     "-profile test_nanopore --min_guppyplex_reads 10000": {
         "content": [
@@ -1943,11 +1931,8 @@
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "FREYJA_UPDATE": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "GUNZIP_FASTA": {
                     "gunzip": 1.13
@@ -1964,6 +1949,9 @@
                 },
                 "PYCOQC": {
                     "pycoqc": "2.5.2"
+                },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_BUILD": {
                     "snpeff": "5.0e"
@@ -1984,10 +1972,11 @@
             [
                 "artic_minion",
                 "artic_minion/freyja",
-                "artic_minion/freyja/freyja_db",
-                "artic_minion/freyja/freyja_db/curated_lineages.json",
-                "artic_minion/freyja/freyja_db/lineages.yml",
-                "artic_minion/freyja/freyja_db/usher_barcodes.feather",
+                "artic_minion/freyja/SARS-CoV-2",
+                "artic_minion/freyja/SARS-CoV-2/curated_lineages.json",
+                "artic_minion/freyja/SARS-CoV-2/lineages.yml",
+                "artic_minion/freyja/SARS-CoV-2/pathogen_config.yml",
+                "artic_minion/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "kraken2",
                 "kraken2/SAMPLE_01.classified.fastq.gz",
                 "kraken2/SAMPLE_01.kraken2.classifiedreads.txt",
@@ -2185,16 +2174,16 @@
                 "multiqc_summary_variants_metrics_plot_table.yaml:md5,5d4a93a38f7e96c6f5bf3ed220eb5352",
                 "pycoqc_count_plot_Bases.yaml:md5,7d2db959e6f191000642d17d29326b1e",
                 "pycoqc_count_plot_Reads.yaml:md5,647ee3cee55375c44fffb6887e8a38a1",
-                "pycoqc_read_qual_plot_All_Reads.yaml:md5,d92652d2904064e6835488fe87bc0922",
-                "pycoqc_read_qual_plot_Passing_Reads.yaml:md5,eae65614a7ec2df719b2f4d51574829f",
+                "pycoqc_read_qual_plot_All_Reads.yaml:md5,ca731aa52ca76ea80002fc8cf2c55030",
+                "pycoqc_read_qual_plot_Passing_Reads.yaml:md5,5097786e1462e40ea98740b5be038136",
                 "pycoqc_stats_table.yaml:md5,7e91d1025c519911af28386064444b9a"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2025-11-12T10:02:57.099919971"
+        "timestamp": "2026-05-06T12:58:03.776860777"
     },
     "-profile test_nanopore --sequencing_summary false": {
         "content": [
@@ -2206,25 +2195,22 @@
                     "artic": "1.6.2"
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "FREYJA_DEMIX": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_UPDATE": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "FREYJA_VARIANTS": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "GUNZIP_FASTA": {
                     "gunzip": 1.13
@@ -2240,10 +2226,12 @@
                     "python": "3.13.2"
                 },
                 "MOSDEPTH_AMPLICON": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "MOSDEPTH_GENOME": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "NANOPLOT": {
                     "nanoplot": "1.46.1"
@@ -2260,20 +2248,23 @@
                 "QUAST": {
                     "quast": "5.3.0"
                 },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
+                },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_VIEW": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_ANN": {
                     "snpeff": "5.0e"
@@ -2535,6 +2526,11 @@
                 "artic_minion/bcftools_stats/SAMPLE_08.bcftools_stats.txt",
                 "artic_minion/bcftools_stats/SAMPLE_09.bcftools_stats.txt",
                 "artic_minion/freyja",
+                "artic_minion/freyja/SARS-CoV-2",
+                "artic_minion/freyja/SARS-CoV-2/curated_lineages.json",
+                "artic_minion/freyja/SARS-CoV-2/lineages.yml",
+                "artic_minion/freyja/SARS-CoV-2/pathogen_config.yml",
+                "artic_minion/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "artic_minion/freyja/demix",
                 "artic_minion/freyja/demix/SAMPLE_01.tsv",
                 "artic_minion/freyja/demix/SAMPLE_02.tsv",
@@ -2544,10 +2540,6 @@
                 "artic_minion/freyja/demix/SAMPLE_06.tsv",
                 "artic_minion/freyja/demix/SAMPLE_07.tsv",
                 "artic_minion/freyja/demix/SAMPLE_09.tsv",
-                "artic_minion/freyja/freyja_db",
-                "artic_minion/freyja/freyja_db/curated_lineages.json",
-                "artic_minion/freyja/freyja_db/lineages.yml",
-                "artic_minion/freyja/freyja_db/usher_barcodes.feather",
                 "artic_minion/freyja/variants",
                 "artic_minion/freyja/variants/SAMPLE_01.depth.tsv",
                 "artic_minion/freyja/variants/SAMPLE_01.variants.tsv",
@@ -3116,31 +3108,22 @@
                 "SAMPLE_09.mosdepth.coverage.tsv:md5,d8e643e89d2e003a00a3f53af5d76023",
                 "SAMPLE_01.mapped.sorted.bam.flagstat:md5,9573b991e1cdbe9611629b7b0b8421f8",
                 "SAMPLE_01.mapped.sorted.bam.idxstats:md5,98b56a8efa1ce26c56e8151d7ee8c409",
-                "SAMPLE_01.mapped.sorted.bam.stats:md5,a26234010f8dafd635b1bef0ff5ce3a8",
                 "SAMPLE_02.mapped.sorted.bam.flagstat:md5,e13e7cf047869e7fa3947d09824d5679",
                 "SAMPLE_02.mapped.sorted.bam.idxstats:md5,facf4995ba14ae521edecb3a34423eb1",
-                "SAMPLE_02.mapped.sorted.bam.stats:md5,20ddfa492af46e9d602d4c8481df16f1",
                 "SAMPLE_03.mapped.sorted.bam.flagstat:md5,0a1fd66c6f4d333a3db38a83a656bf0b",
                 "SAMPLE_03.mapped.sorted.bam.idxstats:md5,a71bc353b634ef7e98004beb949ef9b4",
-                "SAMPLE_03.mapped.sorted.bam.stats:md5,4c2c5abf4ba7ecc5fba98b6719b6c937",
                 "SAMPLE_04.mapped.sorted.bam.flagstat:md5,40e8ab032fa5866ee7863a571d50d6b8",
                 "SAMPLE_04.mapped.sorted.bam.idxstats:md5,df01d54f22e47d2ff5af4fd733daf672",
-                "SAMPLE_04.mapped.sorted.bam.stats:md5,7aace8d33eb4d953f1adc4c5a6b85d6d",
                 "SAMPLE_05.mapped.sorted.bam.flagstat:md5,0ae9a8a6deae8e378c7559d6cd90db7f",
                 "SAMPLE_05.mapped.sorted.bam.idxstats:md5,33eff4424cada7f250704f3627194d65",
-                "SAMPLE_05.mapped.sorted.bam.stats:md5,3bf645bb9de9cea9c5fe2c4833f773fd",
                 "SAMPLE_06.mapped.sorted.bam.flagstat:md5,97b44059a2ba8e3ed9da6fbee747a1f2",
                 "SAMPLE_06.mapped.sorted.bam.idxstats:md5,2849c083adcd0867b05e99e1af6b54aa",
-                "SAMPLE_06.mapped.sorted.bam.stats:md5,178cdb6efa81bec5ad5a90d20acf24ed",
                 "SAMPLE_07.mapped.sorted.bam.flagstat:md5,034a82f1d6f78cc7cd5ef957c5363585",
                 "SAMPLE_07.mapped.sorted.bam.idxstats:md5,fe6867b6e2df3a1cf374838fa1936e3a",
-                "SAMPLE_07.mapped.sorted.bam.stats:md5,5cf1fa56dc1ca923c311861f6c55af0b",
                 "SAMPLE_08.mapped.sorted.bam.flagstat:md5,318c174f2e51b2cda25c1ff2baa17b2d",
                 "SAMPLE_08.mapped.sorted.bam.idxstats:md5,1f6640accb07f184d74a17567677d4bf",
-                "SAMPLE_08.mapped.sorted.bam.stats:md5,da5b2cbb418535d271df91709f647242",
                 "SAMPLE_09.mapped.sorted.bam.flagstat:md5,747467968f020d74d4d126ba5ff6468e",
                 "SAMPLE_09.mapped.sorted.bam.idxstats:md5,1297500e3064a15d55ccf1f1d74aeab4",
-                "SAMPLE_09.mapped.sorted.bam.stats:md5,4952bce5a035198d8b3aa59eea97b292",
                 "SAMPLE_01.classified.fastq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "SAMPLE_01.kraken2.report.txt:md5,ec1112bfa4599c30c8cfc1e2e711f002",
                 "SAMPLE_02.classified.fastq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -3160,7 +3143,7 @@
                 "SAMPLE_09.classified.fastq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "SAMPLE_09.kraken2.report.txt:md5,5d7c578112c660554dec778e47f22f7d",
                 "bcftools-stats-subtypes.yaml:md5,61ddae749794ff1f92491553976651ae",
-                "bcftools_stats_indel-lengths.yaml:md5,21579f6cb03aed1fab08c05fb049c09d",
+                "bcftools_stats_indel-lengths.yaml:md5,e85b2eb59d738c65a054e19065b71fa4",
                 "kraken-top-n-plot_Class.yaml:md5,80f44bb0bb39fa53956588ffb2c35191",
                 "kraken-top-n-plot_Domain.yaml:md5,04514da42a3f34470e6233671fa3673b",
                 "kraken-top-n-plot_Family.yaml:md5,0f416340ecf5065a9b42655e025feb3e",
@@ -3169,7 +3152,7 @@
                 "kraken-top-n-plot_Phylum.yaml:md5,b7b87f32a6b9bcb7cf69d10d95a4fce8",
                 "kraken-top-n-plot_Unclassified.yaml:md5,d1ddc2f66a086568bd0eb986291759a2",
                 "mosdepth-coverage-per-contig-single.yaml:md5,fa1f288dcee81d9f55b93b4305cc42e6",
-                "mosdepth-cumcoverage-dist-id.yaml:md5,688d5175be9a073867f88f1b95818106",
+                "mosdepth-cumcoverage-dist-id.yaml:md5,fe63c83dab2517bba64b500382050c67",
                 "mosdepth_cov_dist.yaml:md5,46279b5163854b9bc9a9a18ed2ff7881",
                 "mosdepth_cumcov_dist.yaml:md5,46279b5163854b9bc9a9a18ed2ff7881",
                 "mosdepth_perchrom.yaml:md5,9a1cb66bd6de6da0f360bd2842050eb2",
@@ -3193,9 +3176,9 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2025-11-12T10:41:40.123239179"
+        "timestamp": "2026-05-06T13:04:44.155034393"
     },
     "-profile test_nanopore --min_barcode_reads 10000": {
         "content": [
@@ -3203,11 +3186,8 @@
                 "COLLAPSE_PRIMERS": {
                     "python": "3.13.2"
                 },
-                "CUSTOM_GETCHROMSIZES": {
-                    "getchromsizes": "1.22.1"
-                },
                 "FREYJA_UPDATE": {
-                    "freyja": "2.0.0"
+                    "freyja": "2.0.3"
                 },
                 "GUNZIP_FASTA": {
                     "gunzip": 1.13
@@ -3217,6 +3197,9 @@
                 },
                 "PYCOQC": {
                     "pycoqc": "2.5.2"
+                },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.23.1"
                 },
                 "SNPEFF_BUILD": {
                     "snpeff": "5.0e"
@@ -3237,10 +3220,11 @@
             [
                 "artic_minion",
                 "artic_minion/freyja",
-                "artic_minion/freyja/freyja_db",
-                "artic_minion/freyja/freyja_db/curated_lineages.json",
-                "artic_minion/freyja/freyja_db/lineages.yml",
-                "artic_minion/freyja/freyja_db/usher_barcodes.feather",
+                "artic_minion/freyja/SARS-CoV-2",
+                "artic_minion/freyja/SARS-CoV-2/curated_lineages.json",
+                "artic_minion/freyja/SARS-CoV-2/lineages.yml",
+                "artic_minion/freyja/SARS-CoV-2/pathogen_config.yml",
+                "artic_minion/freyja/SARS-CoV-2/usher_barcodes.feather",
                 "multiqc",
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_data/llms-full.txt",
@@ -3276,15 +3260,15 @@
                 "multiqc_summary_variants_metrics_plot_table.yaml:md5,035f6d245ef72317728efecc7fd40d69",
                 "pycoqc_count_plot_Bases.yaml:md5,7d2db959e6f191000642d17d29326b1e",
                 "pycoqc_count_plot_Reads.yaml:md5,647ee3cee55375c44fffb6887e8a38a1",
-                "pycoqc_read_qual_plot_All_Reads.yaml:md5,d92652d2904064e6835488fe87bc0922",
-                "pycoqc_read_qual_plot_Passing_Reads.yaml:md5,eae65614a7ec2df719b2f4d51574829f",
+                "pycoqc_read_qual_plot_All_Reads.yaml:md5,ca731aa52ca76ea80002fc8cf2c55030",
+                "pycoqc_read_qual_plot_Passing_Reads.yaml:md5,5097786e1462e40ea98740b5be038136",
                 "pycoqc_stats_table.yaml:md5,7e91d1025c519911af28386064444b9a"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "26.04.0"
         },
-        "timestamp": "2025-11-12T10:01:39.302669673"
+        "timestamp": "2026-05-05T13:40:15.19073506"
     }
 }

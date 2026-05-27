@@ -4,7 +4,8 @@ lint:
     - assets/email_template.txt
   template_strings:
     - assets/blast_report_template.html
-nf_core_version: 3.5.1
+    - assets/hiv_template_report.html
+nf_core_version: 4.0.2
 repository_type: pipeline
 template:
   author: Patel H, Varona S and Monzon S

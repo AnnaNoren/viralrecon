@@ -7,6 +7,8 @@ include { IVAR_VARIANTS_TO_VCF  } from '../../../modules/local/ivar_variants_to_
 include { BCFTOOLS_SORT         } from '../../../modules/nf-core/bcftools/sort/main'
 include { VCF_TABIX_STATS       } from '../vcf_tabix_stats'
 include { VARIANTS_QC           } from '../variants_qc'
+include { getNumLinesInFile     } from '../../../subworkflows/local/utils_nfcore_viralrecon_pipeline'
+
 
 workflow VARIANTS_IVAR {
     take:
@@ -34,13 +36,13 @@ workflow VARIANTS_IVAR {
         gff,
         params.save_mpileup
     )
-    ch_versions = ch_versions.mix(IVAR_VARIANTS.out.versions.first())
+    ch_versions = ch_versions.mix(IVAR_VARIANTS.out.versions)
 
     // Filter out samples with 0 variants
     IVAR_VARIANTS
         .out
         .tsv
-        .filter { meta, tsv -> WorkflowCommons.getNumLinesInFile(tsv) > 1 }
+        .filter { meta, tsv -> getNumLinesInFile(tsv) > 1 }
         .set { ch_ivar_tsv }
 
     //
@@ -55,7 +57,6 @@ workflow VARIANTS_IVAR {
     BCFTOOLS_SORT (
         IVAR_VARIANTS_TO_VCF.out.vcf
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_SORT.out.versions.first())
 
     VCF_TABIX_STATS (
         BCFTOOLS_SORT.out.vcf,
@@ -63,7 +64,6 @@ workflow VARIANTS_IVAR {
         [ [:], [] ],
         [ [:], [] ]
     )
-    ch_versions = ch_versions.mix(VCF_TABIX_STATS.out.versions)
 
     //
     // Run downstream tools for variants QC
@@ -79,7 +79,6 @@ workflow VARIANTS_IVAR {
         snpeff_db,
         snpeff_config
     )
-    ch_versions = ch_versions.mix(VARIANTS_QC.out.versions)
 
     emit:
     tsv             = ch_ivar_tsv                     // channel: [ val(meta), [ tsv ] ]
@@ -90,7 +89,6 @@ workflow VARIANTS_IVAR {
 
     vcf             = BCFTOOLS_SORT.out.vcf           // channel: [ val(meta), [ vcf ] ]
     tbi             = VCF_TABIX_STATS.out.tbi         // channel: [ val(meta), [ tbi ] ]
-    csi             = VCF_TABIX_STATS.out.csi         // channel: [ val(meta), [ csi ] ]
     stats           = VCF_TABIX_STATS.out.stats       // channel: [ val(meta), [ txt ] ]
 
     snpeff_vcf      = VARIANTS_QC.out.snpeff_vcf      // channel: [ val(meta), [ vcf.gz ] ]
@@ -100,6 +98,5 @@ workflow VARIANTS_IVAR {
     snpeff_txt      = VARIANTS_QC.out.snpeff_txt      // channel: [ val(meta), [ txt ] ]
     snpeff_html     = VARIANTS_QC.out.snpeff_html     // channel: [ val(meta), [ html ] ]
     snpsift_txt     = VARIANTS_QC.out.snpsift_txt     // channel: [ val(meta), [ txt ] ]
-
-    versions        = ch_versions                     // channel: [ versions.yml ]
+    versions        = ch_versions                     // channel: versions.yml
 }

@@ -2,15 +2,16 @@
 // Variant calling with BCFTools, downstream processing and QC
 //
 
-include { BCFTOOLS_MPILEUP } from '../../../modules/nf-core/bcftools/mpileup/main'
-include { BCFTOOLS_NORM    } from '../../../modules/nf-core/bcftools/norm/main'
-include { VCF_TABIX_STATS  } from '../vcf_tabix_stats'
-include { VARIANTS_QC      } from '../variants_qc'
+include { BCFTOOLS_MPILEUP                 } from '../../../modules/nf-core/bcftools/mpileup/main'
+include { BCFTOOLS_NORM                    } from '../../../modules/nf-core/bcftools/norm/main'
+include { VCF_TABIX_STATS                  } from '../vcf_tabix_stats'
+include { VARIANTS_QC                      } from '../variants_qc'
+include { getNumVariantsFromBCFToolsStats  } from '../../../subworkflows/local/utils_nfcore_viralrecon_pipeline'
 
 workflow VARIANTS_BCFTOOLS {
     take:
     bam           // channel: [ val(meta), [ bam ] ]
-    fasta         // channel: /path/to/genome.fasta
+    fasta_fai     // channel: [ val(meta), fasta, fai ]
     sizes         // channel: /path/to/genome.sizes
     gff           // channel: /path/to/genome.gff
     bed           // channel: /path/to/primers.bed
@@ -19,17 +20,16 @@ workflow VARIANTS_BCFTOOLS {
 
     main:
 
-    ch_versions = channel.empty()
-
     //
     // Call variants
     //
+    ch_fasta = fasta_fai.map { meta, fasta_file, fai_file -> fasta_file }
+
     BCFTOOLS_MPILEUP (
-        bam.map{ meta, bam_file -> [ meta, bam_file, [] ] },
-        fasta.map { [ [:], it ] },
+        bam.map{ meta, bam_file -> [ meta, bam_file, [], [] ] },
+        fasta_fai,
         params.save_mpileup
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_MPILEUP.out.versions.first())
 
     // Filter out samples with 0 variants
     BCFTOOLS_MPILEUP
@@ -37,7 +37,7 @@ workflow VARIANTS_BCFTOOLS {
         .vcf
         .join(BCFTOOLS_MPILEUP.out.tbi)
         .join(BCFTOOLS_MPILEUP.out.stats)
-        .filter { meta, vcf, tbi, stats -> WorkflowCommons.getNumVariantsFromBCFToolsStats(stats) > 0 }
+        .filter { meta, vcf, tbi, stats -> getNumVariantsFromBCFToolsStats(stats) > 0 }
         .set { ch_vcf_tbi_stats }
 
     ch_vcf_tbi_stats
@@ -57,9 +57,8 @@ workflow VARIANTS_BCFTOOLS {
     //
     BCFTOOLS_NORM (
         ch_vcf.join(ch_tbi, by: [0]),
-        fasta.map { [ [:], it ] }
+        ch_fasta.map { [ [:], it ] }
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_NORM.out.versions.first())
 
     VCF_TABIX_STATS (
         BCFTOOLS_NORM.out.vcf,
@@ -67,7 +66,6 @@ workflow VARIANTS_BCFTOOLS {
         [ [:], [] ],
         [ [:], [] ]
     )
-    ch_versions = ch_versions.mix(VCF_TABIX_STATS.out.versions)
 
     //
     // Run downstream tools for variants QC
@@ -76,14 +74,13 @@ workflow VARIANTS_BCFTOOLS {
         bam,
         BCFTOOLS_NORM.out.vcf,
         VCF_TABIX_STATS.out.stats,
-        fasta,
+        ch_fasta,
         sizes,
         gff,
         bed,
         snpeff_db,
         snpeff_config
     )
-    ch_versions = ch_versions.mix(VARIANTS_QC.out.versions)
 
     emit:
     vcf_orig        = ch_vcf                          // channel: [ val(meta), [ vcf ] ]
@@ -92,7 +89,6 @@ workflow VARIANTS_BCFTOOLS {
 
     vcf             = BCFTOOLS_NORM.out.vcf           // channel: [ val(meta), [ vcf ] ]
     tbi             = VCF_TABIX_STATS.out.tbi         // channel: [ val(meta), [ tbi ] ]
-    csi             = VCF_TABIX_STATS.out.csi         // channel: [ val(meta), [ csi ] ]
     stats           = VCF_TABIX_STATS.out.stats       // channel: [ val(meta), [ txt ] ]
 
     snpeff_vcf      = VARIANTS_QC.out.snpeff_vcf      // channel: [ val(meta), [ vcf.gz ] ]
@@ -102,6 +98,4 @@ workflow VARIANTS_BCFTOOLS {
     snpeff_txt      = VARIANTS_QC.out.snpeff_txt      // channel: [ val(meta), [ txt ] ]
     snpeff_html     = VARIANTS_QC.out.snpeff_html     // channel: [ val(meta), [ html ] ]
     snpsift_txt     = VARIANTS_QC.out.snpsift_txt     // channel: [ val(meta), [ txt ] ]
-
-    versions        = ch_versions                     // channel: [ versions.yml ]
 }

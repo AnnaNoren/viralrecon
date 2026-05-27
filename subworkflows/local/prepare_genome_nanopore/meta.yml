@@ -8,7 +8,7 @@ keywords:
 components:
   - gunzip
   - untar
-  - custom/getchromsizes
+  - samtools/faidx
   - nextclade/datasetget
   - collapse/primers
   - kraken2/build
