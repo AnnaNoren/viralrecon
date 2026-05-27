@@ -542,7 +542,7 @@ def main():
     )
     template = env.get_template("hiv_template_report.html")
 
-    logo_path = os.path.join(asset_path, "nf-core-viralrecon-light.png")
+    logo_path = os.path.join(asset_path, "nf-core-viralrecon_logo_light.png")
 
     # Load image and encode to base64
     with open(logo_path, "rb") as f:
