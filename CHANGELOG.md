@@ -36,7 +36,7 @@ Thank you to everyone else that has contributed by reporting bugs, enhancements 
 ### Parameters
 
 | Old parameter       | New parameter                |
-| ------------------- | -----------------------------|
+| ------------------- | ---------------------------- |
 |                     | `--taxidlist`                |
 |                     | `--perform_ev_typing`        |
 |                     | `--perform_hiv_resistance`   |
