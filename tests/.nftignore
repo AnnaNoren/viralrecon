@@ -65,5 +65,9 @@ artic/bcftools_stats/*.bcftools_stats.txt
 artic/samtools_stats/*.bam.stats
 artic/*.{vcf,vcf.gz,vcf.gz.tbi,csv}
 artic/**/*.{vcf,vcf.gz,vcf.gz.tbi,csv,txt}
+minimap2/bcftools/*.{vcf.gz,vcf.gz.tbi}
+minimap2/clair3/*.{vcf.gz,vcf.gz.tbi}
+minimap2/snpeff/*.{vcf.gz,vcf.gz.tbi}
+multiqc/multiqc_data/multiqc_samtools_flagstat.yaml
 pycoqc/pycoqc.html
 pycoqc/pycoqc.json
