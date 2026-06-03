@@ -993,7 +993,6 @@
                 "multiqc_nextclade_clade.yaml:md5,cf5a1379e07f4414d64414738dfd2b16",
                 "multiqc_pangolin.yaml:md5,99b13cbe1975345678da242d8f276708",
                 "multiqc_quast.yaml:md5,8cadb76521768c3ad7c1d6cc05033b49",
-                "multiqc_samtools_flagstat.yaml:md5,9f66768fc62252331235ba22f246d04b",
                 "multiqc_snpeff.yaml:md5,af6465b4dd08db7020e7f5569da9162e",
                 "multiqc_summary_variants_metrics_plot_table.yaml:md5,1d43187c88e4ea455778e01c3158a6e5",
                 "pangolin_run_table.yaml:md5,9a4d14095f8dac4f9ca55c99c677df1d",
