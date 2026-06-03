@@ -65,7 +65,7 @@ artic/bcftools_stats/*.bcftools_stats.txt
 artic/samtools_stats/*.bam.stats
 artic/*.{vcf,vcf.gz,vcf.gz.tbi,csv}
 artic/**/*.{vcf,vcf.gz,vcf.gz.tbi,csv,txt}
-minimap2/align/*.sort.bam
+minimap2/align/*.{sort.bam,sort.bam.bai}
 minimap2/bcftools/*.{vcf.gz,vcf.gz.tbi}
 minimap2/clair3/*.{vcf.gz,vcf.gz.tbi}
 minimap2/samtools_stats/*.mapped.sorted.bam.stats
