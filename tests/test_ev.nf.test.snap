@@ -9,7 +9,7 @@
                     "bandage": "0.9.0"
                 },
                 "BLAST_BLASTN": {
-                    "blast": "2.17.0+"
+                    "blastn": "2.17.0+"
                 },
                 "BLAST_REPORT": {
                     "python": "3.13.2"
@@ -243,6 +243,6 @@
             "nf-test": "0.9.3",
             "nextflow": "26.04.0"
         },
-        "timestamp": "2026-05-06T13:15:36.357602835"
+        "timestamp": "2026-06-12T15:23:41.756189166"
     }
 }
