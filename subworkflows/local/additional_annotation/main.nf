@@ -2,7 +2,6 @@
 // Run snpEff, bgzip, tabix, stats and SnpSift commands
 //
 
-include { GUNZIP as GUNZIP_GFF                                            } from '../../../modules/nf-core/gunzip/main'
 include { SNPEFF_BUILD                                                    } from '../../../modules/local/snpeff/build'
 include { SNPEFF_ANN                                                      } from '../../../modules/local/snpeff/ann'
 include { SNPSIFT_EXTRACTFIELDS                                           } from '../../../modules/local/snpsift/extractfields'
@@ -21,23 +20,6 @@ workflow ADDITIONAL_ANNOTATION {
 
     main:
 
-    ch_versions = channel.empty()
-
-    //
-    // Uncompress additional annotation file
-    //
-    ch_annot = channel.empty()
-
-    if (params.additional_annotation.endsWith('.gz')) {
-        GUNZIP_GFF (
-            [ [:], annot ]
-        )
-        ch_annot       = GUNZIP_GFF.out.gunzip.map { it[1] }
-        ch_versions = ch_versions.mix(GUNZIP_GFF.out.versions)
-    } else {
-        ch_annot = channel.value(file(params.additional_annotation))
-    }
-
     //
     // Make snpEff database
     //
@@ -46,7 +28,7 @@ workflow ADDITIONAL_ANNOTATION {
 
     SNPEFF_BUILD (
         fasta,
-        ch_annot
+        annot
     )
     ch_snpeff_db     = SNPEFF_BUILD.out.db
     ch_snpeff_config = SNPEFF_BUILD.out.config
@@ -64,7 +46,6 @@ workflow ADDITIONAL_ANNOTATION {
         [ [:], [] ],
         [ [:], [] ]
     )
-    ch_versions = ch_versions.mix(VCF_BGZIP_TABIX_STATS.out.versions)
 
     SNPSIFT_EXTRACTFIELDS (
         VCF_BGZIP_TABIX_STATS.out.vcf
@@ -76,7 +57,6 @@ workflow ADDITIONAL_ANNOTATION {
         [],
         []
     )
-    ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
 
     MAKE_VARIANTS_LONG_TABLE_ADDITIONAL (
         BCFTOOLS_QUERY.out.output.collect{it[1]},
@@ -86,6 +66,4 @@ workflow ADDITIONAL_ANNOTATION {
 
     emit:
     long_table  = MAKE_VARIANTS_LONG_TABLE_ADDITIONAL.out.csv // channel: [ val(meta), [ csv ] ]
-
-    versions    = ch_versions    // channel: [ versions.yml ]
 }

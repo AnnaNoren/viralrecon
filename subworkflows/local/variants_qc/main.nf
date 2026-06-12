@@ -18,8 +18,6 @@ workflow VARIANTS_QC {
 
     main:
 
-    ch_versions = channel.empty()
-
     //
     // Annotate variants
     //
@@ -44,7 +42,6 @@ workflow VARIANTS_QC {
         ch_snpeff_txt   = SNPEFF_SNPSIFT.out.txt
         ch_snpeff_html  = SNPEFF_SNPSIFT.out.html
         ch_snpsift_txt  = SNPEFF_SNPSIFT.out.snpsift_txt
-        ch_versions     = ch_versions.mix(SNPEFF_SNPSIFT.out.versions)
     }
 
     emit:
@@ -55,6 +52,4 @@ workflow VARIANTS_QC {
     snpeff_txt      = ch_snpeff_txt      // channel: [ val(meta), [ txt ] ]
     snpeff_html     = ch_snpeff_html     // channel: [ val(meta), [ html ] ]
     snpsift_txt     = ch_snpsift_txt     // channel: [ val(meta), [ txt ] ]
-
-    versions        = ch_versions        // channel: [ versions.yml ]
 }

@@ -1,0 +1,1656 @@
+
+🚀[1m nf-test 0.9.3[0m
+https://www.nf-test.com
+(c) 2021 - 2024 Lukas Forer and Sebastian Schoenherr
+
+Load .nf-test/plugins/nft-utils/0.0.3/nft-utils-0.0.3.jar
+Warning: every snapshot that fails during this test run is re-recorded.
+
+[1mTest pipeline[0m
+
+  [1mTest[0m [eade4675] '-profile test_nanopore --gff false' 
+    > [33mNextflow 26.04.2 is available - Please consider updating your version to it(B[m
+    > N E X T F L O W  ~  version 26.04.0
+    > Launching `/home/s.varona/Repositories/viralrecon/tests/../main.nf` [trusting_aryabhata] - revision: dcf0253127
+    > 
+    > -[2m----------------------------------------------------[0m-
+    >                                         [0;32m,--.[0;30m/[0;32m,-.[0m
+    > [0;34m        ___     __   __   __   ___     [0;32m/,-._.--~'[0m
+    > [0;34m  |\ | |__  __ /  ` /  \ |__) |__         [0;33m}  {[0m
+    > [0;34m  | \| |       \__, \__/ |  \ |___     [0;32m\`-._,-`-,[0m
+    >                                         [0;32m`._,._,'[0m
+    > [0;35m  nf-core/viralrecon 3.1.0dev[0m
+    > -[2m----------------------------------------------------[0m-
+    > 
+    > Input/output options
+    >   input                       : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/v2.6/samplesheet_test_amplicon_nanopore.csv
+    >   platform                    : nanopore
+    >   outdir                      : /home/s.varona/Repositories/viralrecon/.nf-test/tests/eade467559d1a881c9a6c7c2533019e5/output
+    > 
+    > Reference genome options
+    >   genome                      : MN908947.3
+    >   fasta                       : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.fna.gz
+    >   primer_set                  : artic
+    >   primer_set_version          : 3
+    > 
+    > Nanopore options
+    >   fastq_dir                   : s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/
+    >   sequencing_summary          : s3://ngi-igenomes/test-data/viralrecon/minion_test/sequencing_summary.txt
+    >   clair3_model                : r941_prom_hac_g360+g422
+    > 
+    > Nanopore/Illumina options
+    >   nextclade_dataset           : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz
+    >   nextclade_dataset_name      : sars-cov-2
+    >   nextclade_dataset_tag       : 2024-10-17--16-48-48Z
+    >   skip_freyja_boot            : true
+    >   freyja_repeats              : 10
+    > 
+    > Illumina QC, read trimming and filtering options
+    >   kraken2_db                  : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/kraken2/kraken2_hs22.tar.gz
+    > 
+    > Illumina variant calling options
+    >   pango_database              : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/pangolin_db_v1.36.tar.gz
+    > 
+    > Generic options
+    >   pipelines_testdata_base_path: https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/viralrecon/
+    >   trace_report_suffix         : 2026-05-27_17-58-54
+    > 
+    > Institutional config options
+    >   config_profile_name         : Test profile
+    >   config_profile_description  : Minimal test dataset to check pipeline function for Nanopore data
+    > 
+    > Core Nextflow options
+    >   runName                     : trusting_aryabhata
+    >   containerEngine             : singularity
+    >   launchDir                   : /home/s.varona/Repositories/viralrecon/.nf-test/tests/eade467559d1a881c9a6c7c2533019e5
+    >   workDir                     : /home/s.varona/Repositories/viralrecon/.nf-test/tests/eade467559d1a881c9a6c7c2533019e5/work
+    >   projectDir                  : /home/s.varona/Repositories/viralrecon
+    >   userName                    : s.varona
+    >   profile                     : test_nanopore,singularity
+    >   configFiles                 : /home/s.varona/Repositories/viralrecon/nextflow.config, /home/s.varona/Repositories/viralrecon/nextflow.config, /home/s.varona/Repositories/viralrecon/tests/nextflow.config
+    > 
+    > !! Only displaying parameters that differ from the pipeline defaults !!
+    > ------------------------------------------------------
+    > 
+    > * The pipeline
+    >     https://doi.org/10.5281/zenodo.3901628
+    > 
+    > * The nf-core framework
+    >     https://doi.org/10.1038/s41587-020-0439-x
+    > 
+    > * Software dependencies
+    >     https://github.com/nf-core/viralrecon/blob/master/CITATIONS.md
+    > 
+    > WARN: The following invalid input values have been detected:
+    > 
+    > * --modules_testdata_base_path: https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/
+    > 
+    > 
+    > WARN: The `file()` function was called with a glob pattern that matched a collection of files -- use `files()` instead.
+    > WARN: The `file()` function was called with a glob pattern that matched a collection of files -- use `files()` instead.
+    > [6f/d1fe30] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_UPDATE (SARS-CoV-2)
+    > [46/6493b8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:GUNZIP_FASTA (GCA_009858895.3_ASM985889v3_genomic.200409.fna.gz)
+    > [9c/42e185] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:COLLAPSE_PRIMERS (nCoV-2019.primer.bed)
+    > [17/f6fd1a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:SAMTOOLS_FAIDX (GCA_009858895.3_ASM985889v3_genomic.200409.fna)
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/sequencing_summary.txt
+    > Staging foreign file: https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz
+    > Staging foreign file: https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/kraken2/kraken2_hs22.tar.gz
+    > Staging foreign file: https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/pangolin_db_v1.36.tar.gz
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode01
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode02
+    > [76/60581c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:UNTAR (nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz)
+    > [4c/e9664a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_03)
+    > [7d/d239f0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_02)
+    > [e8/4d5b1a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_03)
+    > [28/7e8dc6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_02)
+    > [62/611055] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_03)
+    > [05/75d418] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_01)
+    > [c8/b03223] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_04)
+    > [05/001caf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_02)
+    > [ef/ac0f20] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PYCOQC (sequencing_summary.txt)
+    > [46/2d65bb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_05)
+    > [89/9ba764] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_06)
+    > [02/132538] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_07)
+    > [36/667f27] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_08)
+    > [2b/0826a0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_01)
+    > [92/4c2941] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_01)
+    > [f8/6aae59] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:UNTAR_KRAKEN2_DB (kraken2_hs22.tar.gz)
+    > [1e/aadaeb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:UNTAR_PANGODB (pangolin_db_v1.36.tar.gz)
+    > [87/8bffec] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_04)
+    > [e2/b00cce] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_09)
+    > [f8/0b3d24] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_04)
+    > [42/263c6c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_03)
+    > [a0/009a5e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_03)
+    > [f8/28c3a6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_03)
+    > [7a/f05bad] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_02)
+    > [83/bc3923] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_02)
+    > [55/6b2589] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_02)
+    > [6a/339452] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_05)
+    > [68/8a1db8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_05)
+    > [02/9f078b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_06)
+    > [ba/9e9f94] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_06)
+    > [5a/6c6c3b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_07)
+    > [43/ad88c5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_07)
+    > [53/2641dc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_08)
+    > [0a/8d57a5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_08)
+    > [95/9628c7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_03)
+    > [8f/9c664c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_07)
+    > [3c/854a54] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_04)
+    > [90/c5c228] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_08)
+    > [ed/12fd65] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_02)
+    > [8c/6cacdf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_01)
+    > [02/8f5e91] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_06)
+    > [2a/4e65a7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_05)
+    > [83/395d8b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_03)
+    > [26/c5975e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_02)
+    > [a6/06147b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_09)
+    > [09/9082f4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_09)
+    > [c2/6ccc7a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_09)
+    > [f9/b7a33d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_01)
+    > [cc/0f451a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_01)
+    > [76/2ebfff] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_01)
+    > [f9/3e61bd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_01)
+    > [e8/1cb1d6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_03)
+    > [e0/e9d37e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_02)
+    > [28/e56be4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_01)
+    > [4d/f6da66] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_03)
+    > [64/51ea55] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_02)
+    > [61/f202f2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_01)
+    > [be/b4fdfd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_03)
+    > [b4/db7008] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_02)
+    > [6f/ffcaba] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_04)
+    > [7b/eaf041] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_04)
+    > [d7/5ab786] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_04)
+    > [86/80dd25] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_04)
+    > [b9/342025] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_05)
+    > [f8/e1bf6d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_05)
+    > [4c/4c10af] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_05)
+    > [eb/57e78c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_05)
+    > [6b/0a2013] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_06)
+    > [be/c46f70] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_06)
+    > [a4/b96bb0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_06)
+    > [0b/26afe5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_06)
+    > [75/c31c8a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_07)
+    > [c2/4af774] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_07)
+    > [0b/a8c6d6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_07)
+    > [d5/caec34] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_07)
+    > [2d/4cbb4a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_08)
+    > [de/3cc101] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_08)
+    > [fb/2cbb51] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_08)
+    > [60/cb11a6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_08)
+    > [c0/f54d8d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_01)
+    > [ee/f5d201] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_03)
+    > [bf/b9084e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_03)
+    > [22/a81632] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_03)
+    > [d3/0ec701] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_02)
+    > [a2/0731b4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_02)
+    > [e2/8d8afd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_02)
+    > [5a/5cc9cc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_04)
+    > [61/8b0b9e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_05)
+    > [0f/eabf7c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_06)
+    > [27/73fde2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_07)
+    > [2b/353fc5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_08)
+    > [06/34c868] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_01)
+    > [8a/f22a63] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_01)
+    > [55/ed2bf2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_01)
+    > [fc/84e266] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_04)
+    > [47/7db44d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_05)
+    > [a1/529efb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_06)
+    > [e1/bf537d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_07)
+    > [cb/f7aa7d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_08)
+    > [db/3c8dfa] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_04)
+    > [24/91f305] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_05)
+    > [0f/c61633] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_09)
+    > [ac/a423c4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_09)
+    > [5a/f5af69] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_09)
+    > [b1/08657d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_09)
+    > [ce/961c81] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_06)
+    > [3a/3dc585] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_07)
+    > [03/4e7cc6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_08)
+    > [af/ebe93f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_03)
+    > [b3/3be276] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_03)
+    > [c8/21a8b2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_03)
+    > [ba/4d0df0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_02)
+    > [78/7e8bbf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_02)
+    > [d0/871078] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_02)
+    > [02/d3fc74] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_01)
+    > [37/fb38a2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_01)
+    > [cd/944d3f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_01)
+    > [de/8f44be] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_04)
+    > [71/84887d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_04)
+    > [11/8c18de] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_04)
+    > [62/3dc0ee] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_05)
+    > [9e/a269c4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_05)
+    > [92/7a4a42] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_05)
+    > [3f/50d0ea] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_09)
+    > [e0/947e27] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_06)
+    > [47/b9e34e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_06)
+    > [dc/7e5c10] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_06)
+    > [52/ccdf85] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_07)
+    > [fb/1ffdba] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_07)
+    > [30/66dc7f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_09)
+    > [1b/214177] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_07)
+    > [3c/6ce6c0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_08)
+    > [86/ec8db6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_08)
+    > [f5/af6c8d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_08)
+    > [e3/48ad94] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_09)
+    > [72/58a9b8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_09)
+    > [b1/5969b4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_09)
+    > [fa/3c9d48] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_09)
+    > [4c/5cd164] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_03)
+    > [42/f06c93] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_02)
+    > [c4/c5b7f3] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_04)
+    > [0f/0fee39] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_04)
+    > [44/57a082] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_04)
+    > [27/2b67f5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_05)
+    > [ef/3e2173] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_05)
+    > [8f/501196] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_05)
+    > [bf/74e3cf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_06)
+    > [f1/33bfbb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_06)
+    > [4e/3a3322] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_06)
+    > [83/21003f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_01)
+    > [22/b6533e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_07)
+    > [42/ff8060] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_07)
+    > [af/150474] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_07)
+    > [30/18d021] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_09)
+    > [c6/d195ed] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_09)
+    > [f7/18ba14] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_09)
+    > [b5/1125b2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:QUAST (quast)
+    > [61/159723] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_04)
+    > [63/aed333] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_05)
+    > [75/5d4b14] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_06)
+    > [1d/e5b7d9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_07)
+    > [cd/71dd32] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PLOT_MOSDEPTH_REGIONS_AMPLICON
+    > [02/e85d2e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_09)
+    > [8b/97e281] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PLOT_MOSDEPTH_REGIONS_GENOME
+    > [2e/b467e0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MULTIQC (null)
+    > -[0;35m[nf-core/viralrecon][0;32m Pipeline completed successfully[0m-
+    [32mPASSED[0m (352.23s)
+  [1mTest[0m [5c8a4247] '-profile test_nanopore --additional_annotation 'https://github.com/nf-core/test-datasets/raw/refs/heads/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.gtf.gz'' 
+    > [33mNextflow 26.04.2 is available - Please consider updating your version to it(B[m
+    > N E X T F L O W  ~  version 26.04.0
+    > Launching `/home/s.varona/Repositories/viralrecon/tests/../main.nf` [zen_church] - revision: dcf0253127
+    > 
+    > -[2m----------------------------------------------------[0m-
+    >                                         [0;32m,--.[0;30m/[0;32m,-.[0m
+    > [0;34m        ___     __   __   __   ___     [0;32m/,-._.--~'[0m
+    > [0;34m  |\ | |__  __ /  ` /  \ |__) |__         [0;33m}  {[0m
+    > [0;34m  | \| |       \__, \__/ |  \ |___     [0;32m\`-._,-`-,[0m
+    >                                         [0;32m`._,._,'[0m
+    > [0;35m  nf-core/viralrecon 3.1.0dev[0m
+    > -[2m----------------------------------------------------[0m-
+    > 
+    > Input/output options
+    >   input                       : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/v2.6/samplesheet_test_amplicon_nanopore.csv
+    >   platform                    : nanopore
+    >   outdir                      : /home/s.varona/Repositories/viralrecon/.nf-test/tests/5c8a42472803399b2cf4278e5bec91fd/output
+    > 
+    > Reference genome options
+    >   genome                      : MN908947.3
+    >   fasta                       : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.fna.gz
+    >   gff                         : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.gff.gz
+    >   additional_annotation       : https://github.com/nf-core/test-datasets/raw/refs/heads/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.gtf.gz
+    >   primer_set                  : artic
+    >   primer_set_version          : 3
+    > 
+    > Nanopore options
+    >   fastq_dir                   : s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/
+    >   sequencing_summary          : s3://ngi-igenomes/test-data/viralrecon/minion_test/sequencing_summary.txt
+    >   clair3_model                : r941_prom_hac_g360+g422
+    > 
+    > Nanopore/Illumina options
+    >   nextclade_dataset           : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz
+    >   nextclade_dataset_name      : sars-cov-2
+    >   nextclade_dataset_tag       : 2024-10-17--16-48-48Z
+    >   skip_freyja_boot            : true
+    >   freyja_repeats              : 10
+    > 
+    > Illumina QC, read trimming and filtering options
+    >   kraken2_db                  : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/kraken2/kraken2_hs22.tar.gz
+    > 
+    > Illumina variant calling options
+    >   pango_database              : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/pangolin_db_v1.36.tar.gz
+    > 
+    > Generic options
+    >   pipelines_testdata_base_path: https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/viralrecon/
+    >   trace_report_suffix         : 2026-05-27_18-04-49
+    > 
+    > Institutional config options
+    >   config_profile_name         : Test profile
+    >   config_profile_description  : Minimal test dataset to check pipeline function for Nanopore data
+    > 
+    > Core Nextflow options
+    >   runName                     : zen_church
+    >   containerEngine             : singularity
+    >   launchDir                   : /home/s.varona/Repositories/viralrecon/.nf-test/tests/5c8a42472803399b2cf4278e5bec91fd
+    >   workDir                     : /home/s.varona/Repositories/viralrecon/.nf-test/tests/5c8a42472803399b2cf4278e5bec91fd/work
+    >   projectDir                  : /home/s.varona/Repositories/viralrecon
+    >   userName                    : s.varona
+    >   profile                     : test_nanopore,singularity
+    >   configFiles                 : /home/s.varona/Repositories/viralrecon/nextflow.config, /home/s.varona/Repositories/viralrecon/nextflow.config, /home/s.varona/Repositories/viralrecon/tests/nextflow.config
+    > 
+    > !! Only displaying parameters that differ from the pipeline defaults !!
+    > ------------------------------------------------------
+    > 
+    > * The pipeline
+    >     https://doi.org/10.5281/zenodo.3901628
+    > 
+    > * The nf-core framework
+    >     https://doi.org/10.1038/s41587-020-0439-x
+    > 
+    > * Software dependencies
+    >     https://github.com/nf-core/viralrecon/blob/master/CITATIONS.md
+    > 
+    > WARN: The following invalid input values have been detected:
+    > 
+    > * --modules_testdata_base_path: https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/
+    > 
+    > 
+    > WARN: The `file()` function was called with a glob pattern that matched a collection of files -- use `files()` instead.
+    > WARN: The `file()` function was called with a glob pattern that matched a collection of files -- use `files()` instead.
+    > [da/bc0408] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_UPDATE (SARS-CoV-2)
+    > [bf/69e041] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:GUNZIP_GFF (GCA_009858895.3_ASM985889v3_genomic.200409.gff.gz)
+    > [af/239b83] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:GUNZIP_FASTA (GCA_009858895.3_ASM985889v3_genomic.200409.fna.gz)
+    > [15/c48788] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:COLLAPSE_PRIMERS (nCoV-2019.primer.bed)
+    > [4c/50514f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:GUNZIP_GFF (GCA_009858895.3_ASM985889v3_genomic.200409.gtf.gz)
+    > [b7/ba8d08] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:SAMTOOLS_FAIDX (GCA_009858895.3_ASM985889v3_genomic.200409.fna)
+    > [f2/cb6c6d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:SNPEFF_BUILD (GCA_009858895.3_ASM985889v3_genomic.200409.fna)
+    > [06/0416c4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPEFF_BUILD (GCA_009858895.3_ASM985889v3_genomic.200409.fna)
+    > Staging foreign file: https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/kraken2/kraken2_hs22.tar.gz
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/sequencing_summary.txt
+    > Staging foreign file: https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz
+    > Staging foreign file: https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/pangolin_db_v1.36.tar.gz
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode01
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode02
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode03
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode04
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode05
+    > [2a/279b65] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:UNTAR (nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz)
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode06
+    > [7b/e24548] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_06)
+    > [c0/09b6cc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_02)
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode07
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode08
+    > [5d/f5977c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_03)
+    > [51/7a14f8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_08)
+    > [3b/3ce092] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_06)
+    > [4d/0a6cdc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_04)
+    > [ad/43b183] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_05)
+    > [9c/e4fd7d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_06)
+    > [2a/0ffd24] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PYCOQC (sequencing_summary.txt)
+    > [04/98643c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_01)
+    > [86/ed1e4b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_07)
+    > [ee/2621de] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_02)
+    > [9e/06e7e7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_02)
+    > [b3/4f0bb4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_08)
+    > [60/7a629d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_03)
+    > [5d/d39fbb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_08)
+    > [5c/124f35] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_09)
+    > [ba/d2bd61] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_03)
+    > [d1/fda745] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_04)
+    > [c6/254514] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_04)
+    > [5c/efe929] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_05)
+    > [5a/9885f0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:UNTAR_KRAKEN2_DB (kraken2_hs22.tar.gz)
+    > [86/38d2e8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:UNTAR_PANGODB (pangolin_db_v1.36.tar.gz)
+    > [b6/f2cf68] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_05)
+    > [82/af020a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_01)
+    > [3f/c8eebc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_01)
+    > [1b/542d32] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_07)
+    > [2c/e239c1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_07)
+    > [2a/ac9372] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_06)
+    > [13/7d7926] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_06)
+    > [e4/7a6c9d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_06)
+    > [07/894d9e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_02)
+    > [9b/b225fd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_02)
+    > [9a/771ff5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_02)
+    > [3e/774725] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_09)
+    > [89/359040] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_09)
+    > [e0/7249be] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_08)
+    > [ff/e71b43] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_08)
+    > [74/f0ecb0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_08)
+    > [fb/fd2d4d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_03)
+    > [6c/28f5c0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_03)
+    > [34/d62687] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_03)
+    > [0b/2f6e9f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_07)
+    > [83/14b829] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_05)
+    > [6d/eff3a7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_04)
+    > [5a/38d849] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_06)
+    > [c9/b52512] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_01)
+    > [95/7c671d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_09)
+    > [80/d0ff06] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_02)
+    > [87/9f0ebf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_08)
+    > [77/ef2c72] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_03)
+    > [0a/8fb05d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_03)
+    > [a2/0ae2eb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_02)
+    > [7c/8ed2ad] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_08)
+    > [55/2d3909] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_06)
+    > [c7/cb5604] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_04)
+    > [e4/aff343] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_04)
+    > [18/e1a6b9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_04)
+    > [96/aabcff] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_04)
+    > [86/c3ab78] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_05)
+    > [d6/0eec0f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_05)
+    > [79/85e5f7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_05)
+    > [90/755d21] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_05)
+    > [bd/53d9f4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_01)
+    > [b4/c14299] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_01)
+    > [70/f54c30] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_01)
+    > [08/10de88] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_01)
+    > [34/641c76] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_06)
+    > [53/351334] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPEFF_ANN (SAMPLE_06)
+    > [d7/b63d7a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_06)
+    > [59/6ac7a5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_02)
+    > [4d/fdad26] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_08)
+    > [d8/40018a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_03)
+    > [88/688c18] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_04)
+    > [bd/2fdc6b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_05)
+    > [62/9cdabc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_01)
+    > [91/255b24] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_06)
+    > [3c/2927cd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:BCFTOOLS_QUERY (SAMPLE_06)
+    > [91/767692] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_06)
+    > [aa/4d3253] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_06)
+    > [e7/80d6e1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_02)
+    > [ab/48504c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_02)
+    > [2a/963bbf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:BCFTOOLS_QUERY (SAMPLE_02)
+    > [a7/1e6d55] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:BCFTOOLS_QUERY (SAMPLE_08)
+    > [72/12a283] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_08)
+    > [44/daa0f4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_06)
+    > [fa/ba2248] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_08)
+    > [44/00f208] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_03)
+    > [a0/e674da] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_03)
+    > [56/bfcb91] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_02)
+    > [f0/339242] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:BCFTOOLS_QUERY (SAMPLE_03)
+    > [4b/b9ef49] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_01)
+    > [6b/11186b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_04)
+    > [62/187fdd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_07)
+    > [09/01e4cc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_07)
+    > [21/d7a6c9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:BCFTOOLS_QUERY (SAMPLE_04)
+    > [32/1baff6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_07)
+    > [8c/28354b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_04)
+    > [11/34ed98] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_08)
+    > [7f/fb357c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_03)
+    > [9d/522cbb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:BCFTOOLS_QUERY (SAMPLE_05)
+    > [fc/2ba662] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_09)
+    > [d3/e457eb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_09)
+    > [0a/2a1e8b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_05)
+    > [76/833d65] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_09)
+    > [44/5346a6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_05)
+    > [f7/270af0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_01)
+    > [e5/95505f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_04)
+    > [8e/59d44c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_05)
+    > [64/daa2ff] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_01)
+    > [8c/7af16d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:BCFTOOLS_QUERY (SAMPLE_01)
+    > [72/31ca4a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_06)
+    > [af/275bc5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_06)
+    > [4b/aa20bf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_06)
+    > [0d/a85db9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_06)
+    > [6d/bf43f5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_06)
+    > [4d/1cd275] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_02)
+    > [49/7003b5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_02)
+    > [19/89fa10] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_02)
+    > [21/91d760] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_01)
+    > [f4/976f4a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_01)
+    > [e6/187046] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_01)
+    > [8d/ccba13] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_07)
+    > [6b/46b885] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_08)
+    > [44/42f6c8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_08)
+    > [ba/26dc96] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_08)
+    > [8b/db9231] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_03)
+    > [4b/b96743] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_03)
+    > [1a/ebadfc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_03)
+    > [1d/3488c8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_09)
+    > [ba/4e7689] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_04)
+    > [c4/202c2c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_04)
+    > [e4/76835f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_04)
+    > [b0/af7abb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_05)
+    > [e1/3ac34a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_05)
+    > [83/96baaa] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_05)
+    > [a6/ec31a9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_06)
+    > [99/9174c0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_06)
+    > [81/5b9c75] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:BCFTOOLS_QUERY (SAMPLE_07)
+    > [60/a4475d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_07)
+    > [e3/4306b2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_07)
+    > [4a/3115a2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_09)
+    > [7f/45c6f7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_09)
+    > [49/ee5bcc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:BCFTOOLS_QUERY (SAMPLE_09)
+    > [f4/983ff7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_06)
+    > [2a/42ad0b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_07)
+    > [aa/b43803] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_09)
+    > [42/dc952f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPEFF_ANN (SAMPLE_02)
+    > [45/19f3c5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_02)
+    > [69/bfe3aa] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_07)
+    > [c9/26b907] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_08)
+    > [6f/512357] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPEFF_ANN (SAMPLE_08)
+    > [bf/082fc3] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPEFF_ANN (SAMPLE_03)
+    > [d2/b2a610] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_03)
+    > [cc/32c0c8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_09)
+    > [9e/5f3d1c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_04)
+    > [44/abc9ac] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPEFF_ANN (SAMPLE_04)
+    > [f0/dc38fb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPEFF_ANN (SAMPLE_05)
+    > [1c/332dae] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_05)
+    > [f5/f4a4cf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPEFF_ANN (SAMPLE_01)
+    > [20/671778] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_01)
+    > [e5/f7493c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_06)
+    > [7a/ccad59] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_07)
+    > [f4/0cfb06] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPEFF_ANN (SAMPLE_07)
+    > [c0/a70070] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPEFF_ANN (SAMPLE_09)
+    > [c1/e75228] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_09)
+    > [1b/f134b2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPSIFT_EXTRACTFIELDS (SAMPLE_06)
+    > [cb/7aef95] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_06)
+    > [83/84db0e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_06)
+    > [e7/98b178] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_06)
+    > [07/2bfd7d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_02)
+    > [eb/79ae67] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_02)
+    > [9e/d0aeec] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_02)
+    > [21/d193b9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_01)
+    > [9d/ec72de] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_01)
+    > [0f/dafb68] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_01)
+    > [6f/3f5d6e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_03)
+    > [48/1b7486] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_03)
+    > [7c/dd2adf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_03)
+    > [0d/5fba30] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_04)
+    > [ea/660190] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_04)
+    > [15/534200] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_04)
+    > [13/208456] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_05)
+    > [95/dd6e7e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_05)
+    > [21/696196] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_05)
+    > [13/3fb61e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_07)
+    > [03/d59e5e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_07)
+    > [97/d14fb7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_07)
+    > [74/a2bd3b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_09)
+    > [fd/45b063] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_09)
+    > [3b/08a577] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_09)
+    > [af/4ae353] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_02)
+    > [46/37a53e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_02)
+    > [30/0d52f6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_08)
+    > [e2/27cf1d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_08)
+    > [ce/1cf089] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_03)
+    > [b0/7541ae] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_03)
+    > [64/1f0551] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_04)
+    > [c0/f1bbd8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_04)
+    > [ae/6bdc43] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_05)
+    > [bb/8fd43a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_05)
+    > [1c/22b84e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_01)
+    > [62/21b634] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_01)
+    > [df/123a81] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_07)
+    > [8c/64caf8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_07)
+    > [1f/8f33ef] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_09)
+    > [ea/86d150] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_09)
+    > [fd/89b00d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_02)
+    > [31/c9f812] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_02)
+    > [ae/02366b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_08)
+    > [c8/997fb9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_08)
+    > [df/e482f5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_03)
+    > [f2/5865dd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_03)
+    > [c6/711a92] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_04)
+    > [0e/485c82] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_04)
+    > [39/5e4a8c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_05)
+    > [ea/48ee78] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_05)
+    > [43/87bd9b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_01)
+    > [85/9e6d66] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_01)
+    > [39/596a77] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_07)
+    > [cc/c82870] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_07)
+    > [b0/57eec3] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_09)
+    > [4e/461bfb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_09)
+    > [8d/928111] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_02)
+    > [43/48ad3b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_02)
+    > [29/2d2a01] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_08)
+    > [3f/f6d946] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_08)
+    > [31/4e3533] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_03)
+    > [09/158a55] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_03)
+    > [84/6c4613] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_04)
+    > [35/aeae60] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_04)
+    > [fd/0dfa7b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_05)
+    > [19/ea28d7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_05)
+    > [ff/922cc6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_01)
+    > [1f/a70f98] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_01)
+    > [39/734391] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_07)
+    > [a8/c54604] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_07)
+    > [bb/640892] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_09)
+    > [ea/fb277c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_09)
+    > [bd/24e697] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_06)
+    > [e1/b25cdd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_02)
+    > [f1/c47ac6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_01)
+    > [7d/903bf4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_03)
+    > [23/de1072] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_04)
+    > [1b/f47d31] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_05)
+    > [ec/e75960] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_07)
+    > [f2/53e241] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_07)
+    > [ec/47bdce] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_07)
+    > [23/c27bb3] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_09)
+    > [a2/bce78a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:QUAST (quast)
+    > [fe/c6f509] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_09)
+    > [03/a43be6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_09)
+    > [3b/a7b30a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPSIFT_EXTRACTFIELDS (SAMPLE_02)
+    > [2b/4d066e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_02)
+    > [85/46bc33] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_08)
+    > [6b/c377e4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPSIFT_EXTRACTFIELDS (SAMPLE_08)
+    > [de/ad5cb7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPSIFT_EXTRACTFIELDS (SAMPLE_03)
+    > [a7/960b1b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_03)
+    > [85/12d08f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_04)
+    > [d9/e8a9b5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPSIFT_EXTRACTFIELDS (SAMPLE_04)
+    > [9d/8d7cc1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPSIFT_EXTRACTFIELDS (SAMPLE_05)
+    > [bf/356e89] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_05)
+    > [7e/5bd311] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPSIFT_EXTRACTFIELDS (SAMPLE_01)
+    > [5b/c6b145] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_01)
+    > [ed/7287b4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_07)
+    > [bc/b50fd3] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPSIFT_EXTRACTFIELDS (SAMPLE_07)
+    > [2f/652c7a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:SNPSIFT_EXTRACTFIELDS (SAMPLE_09)
+    > [95/230b43] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_09)
+    > [67/fb09ab] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_07)
+    > [b0/c65a6d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_09)
+    > [f4/c23c3b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ADDITIONAL_ANNOTATION:MAKE_VARIANTS_LONG_TABLE_ADDITIONAL
+    > [c7/e57144] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:MAKE_VARIANTS_LONG_TABLE
+    > [05/8da243] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PLOT_MOSDEPTH_REGIONS_GENOME
+    > [96/589e98] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PLOT_MOSDEPTH_REGIONS_AMPLICON
+    > [96/eabf76] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MULTIQC (null)
+    > -[0;35m[nf-core/viralrecon][0;32m Pipeline completed successfully[0m-
+    [32mPASSED[0m (395.006s)
+  [1mTest[0m [fecdf48e] '-profile test_nanopore --min_barcode_reads 10000' 
+    > [33mNextflow 26.04.2 is available - Please consider updating your version to it(B[m
+    > N E X T F L O W  ~  version 26.04.0
+    > Launching `/home/s.varona/Repositories/viralrecon/tests/../main.nf` [naughty_elion] - revision: dcf0253127
+    > 
+    > -[2m----------------------------------------------------[0m-
+    >                                         [0;32m,--.[0;30m/[0;32m,-.[0m
+    > [0;34m        ___     __   __   __   ___     [0;32m/,-._.--~'[0m
+    > [0;34m  |\ | |__  __ /  ` /  \ |__) |__         [0;33m}  {[0m
+    > [0;34m  | \| |       \__, \__/ |  \ |___     [0;32m\`-._,-`-,[0m
+    >                                         [0;32m`._,._,'[0m
+    > [0;35m  nf-core/viralrecon 3.1.0dev[0m
+    > -[2m----------------------------------------------------[0m-
+    > 
+    > Input/output options
+    >   input                       : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/v2.6/samplesheet_test_amplicon_nanopore.csv
+    >   platform                    : nanopore
+    >   outdir                      : /home/s.varona/Repositories/viralrecon/.nf-test/tests/fecdf48e069e56890b6008bf708b5add/output
+    > 
+    > Reference genome options
+    >   genome                      : MN908947.3
+    >   fasta                       : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.fna.gz
+    >   gff                         : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.gff.gz
+    >   primer_set                  : artic
+    >   primer_set_version          : 3
+    > 
+    > Nanopore options
+    >   fastq_dir                   : s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/
+    >   sequencing_summary          : s3://ngi-igenomes/test-data/viralrecon/minion_test/sequencing_summary.txt
+    >   min_barcode_reads           : 10000
+    >   clair3_model                : r941_prom_hac_g360+g422
+    > 
+    > Nanopore/Illumina options
+    >   nextclade_dataset           : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz
+    >   nextclade_dataset_name      : sars-cov-2
+    >   nextclade_dataset_tag       : 2024-10-17--16-48-48Z
+    >   skip_freyja_boot            : true
+    >   freyja_repeats              : 10
+    > 
+    > Illumina QC, read trimming and filtering options
+    >   kraken2_db                  : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/kraken2/kraken2_hs22.tar.gz
+    > 
+    > Illumina variant calling options
+    >   pango_database              : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/pangolin_db_v1.36.tar.gz
+    > 
+    > Generic options
+    >   pipelines_testdata_base_path: https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/viralrecon/
+    >   trace_report_suffix         : 2026-05-27_18-11-24
+    > 
+    > Institutional config options
+    >   config_profile_name         : Test profile
+    >   config_profile_description  : Minimal test dataset to check pipeline function for Nanopore data
+    > 
+    > Core Nextflow options
+    >   runName                     : naughty_elion
+    >   containerEngine             : singularity
+    >   launchDir                   : /home/s.varona/Repositories/viralrecon/.nf-test/tests/fecdf48e069e56890b6008bf708b5add
+    >   workDir                     : /home/s.varona/Repositories/viralrecon/.nf-test/tests/fecdf48e069e56890b6008bf708b5add/work
+    >   projectDir                  : /home/s.varona/Repositories/viralrecon
+    >   userName                    : s.varona
+    >   profile                     : test_nanopore,singularity
+    >   configFiles                 : /home/s.varona/Repositories/viralrecon/nextflow.config, /home/s.varona/Repositories/viralrecon/nextflow.config, /home/s.varona/Repositories/viralrecon/tests/nextflow.config
+    > 
+    > !! Only displaying parameters that differ from the pipeline defaults !!
+    > ------------------------------------------------------
+    > 
+    > * The pipeline
+    >     https://doi.org/10.5281/zenodo.3901628
+    > 
+    > * The nf-core framework
+    >     https://doi.org/10.1038/s41587-020-0439-x
+    > 
+    > * Software dependencies
+    >     https://github.com/nf-core/viralrecon/blob/master/CITATIONS.md
+    > 
+    > WARN: The following invalid input values have been detected:
+    > 
+    > * --modules_testdata_base_path: https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/
+    > 
+    > 
+    > WARN: The `file()` function was called with a glob pattern that matched a collection of files -- use `files()` instead.
+    > WARN: The `file()` function was called with a glob pattern that matched a collection of files -- use `files()` instead.
+    > [06/d1abee] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_UPDATE (SARS-CoV-2)
+    > [0f/92e619] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:COLLAPSE_PRIMERS (nCoV-2019.primer.bed)
+    > [d7/dad80e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:GUNZIP_FASTA (GCA_009858895.3_ASM985889v3_genomic.200409.fna.gz)
+    > [ac/509adb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:GUNZIP_GFF (GCA_009858895.3_ASM985889v3_genomic.200409.gff.gz)
+    > [66/ab9ec7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:SAMTOOLS_FAIDX (GCA_009858895.3_ASM985889v3_genomic.200409.fna)
+    > [73/769e5b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:SNPEFF_BUILD (GCA_009858895.3_ASM985889v3_genomic.200409.fna)
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/sequencing_summary.txt
+    > Staging foreign file: https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/pangolin_db_v1.36.tar.gz
+    > Staging foreign file: https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/kraken2/kraken2_hs22.tar.gz
+    > Staging foreign file: https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz
+    > [d7/218baa] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:UNTAR (nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz)
+    > [33/e14db3] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PYCOQC (sequencing_summary.txt)
+    > [25/4cd8d2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:UNTAR_KRAKEN2_DB (kraken2_hs22.tar.gz)
+    > [f0/006379] Submitted process > NFCORE_VIRALRECON:VIRALRECON:UNTAR_PANGODB (pangolin_db_v1.36.tar.gz)
+    > [fa/c3b8bc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MULTIQC (null)
+    > -[0;35m[nf-core/viralrecon][0;32m Pipeline completed successfully[0m-
+    [32mPASSED[0m (48.41s)
+  [1mTest[0m [7535119d] '-profile test_nanopore --min_guppyplex_reads 10000' 
+    > [33mNextflow 26.04.2 is available - Please consider updating your version to it(B[m
+    > N E X T F L O W  ~  version 26.04.0
+    > Launching `/home/s.varona/Repositories/viralrecon/tests/../main.nf` [chaotic_aryabhata] - revision: dcf0253127
+    > 
+    > -[2m----------------------------------------------------[0m-
+    >                                         [0;32m,--.[0;30m/[0;32m,-.[0m
+    > [0;34m        ___     __   __   __   ___     [0;32m/,-._.--~'[0m
+    > [0;34m  |\ | |__  __ /  ` /  \ |__) |__         [0;33m}  {[0m
+    > [0;34m  | \| |       \__, \__/ |  \ |___     [0;32m\`-._,-`-,[0m
+    >                                         [0;32m`._,._,'[0m
+    > [0;35m  nf-core/viralrecon 3.1.0dev[0m
+    > -[2m----------------------------------------------------[0m-
+    > 
+    > Input/output options
+    >   input                       : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/v2.6/samplesheet_test_amplicon_nanopore.csv
+    >   platform                    : nanopore
+    >   outdir                      : /home/s.varona/Repositories/viralrecon/.nf-test/tests/7535119ddf12eb69294c28d75390d760/output
+    > 
+    > Reference genome options
+    >   genome                      : MN908947.3
+    >   fasta                       : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.fna.gz
+    >   gff                         : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.gff.gz
+    >   primer_set                  : artic
+    >   primer_set_version          : 3
+    > 
+    > Nanopore options
+    >   fastq_dir                   : s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/
+    >   sequencing_summary          : s3://ngi-igenomes/test-data/viralrecon/minion_test/sequencing_summary.txt
+    >   min_guppyplex_reads         : 10000
+    >   clair3_model                : r941_prom_hac_g360+g422
+    > 
+    > Nanopore/Illumina options
+    >   nextclade_dataset           : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz
+    >   nextclade_dataset_name      : sars-cov-2
+    >   nextclade_dataset_tag       : 2024-10-17--16-48-48Z
+    >   skip_freyja_boot            : true
+    >   freyja_repeats              : 10
+    > 
+    > Illumina QC, read trimming and filtering options
+    >   kraken2_db                  : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/kraken2/kraken2_hs22.tar.gz
+    > 
+    > Illumina variant calling options
+    >   pango_database              : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/pangolin_db_v1.36.tar.gz
+    > 
+    > Generic options
+    >   pipelines_testdata_base_path: https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/viralrecon/
+    >   trace_report_suffix         : 2026-05-27_18-12-09
+    > 
+    > Institutional config options
+    >   config_profile_name         : Test profile
+    >   config_profile_description  : Minimal test dataset to check pipeline function for Nanopore data
+    > 
+    > Core Nextflow options
+    >   runName                     : chaotic_aryabhata
+    >   containerEngine             : singularity
+    >   launchDir                   : /home/s.varona/Repositories/viralrecon/.nf-test/tests/7535119ddf12eb69294c28d75390d760
+    >   workDir                     : /home/s.varona/Repositories/viralrecon/.nf-test/tests/7535119ddf12eb69294c28d75390d760/work
+    >   projectDir                  : /home/s.varona/Repositories/viralrecon
+    >   userName                    : s.varona
+    >   profile                     : test_nanopore,singularity
+    >   configFiles                 : /home/s.varona/Repositories/viralrecon/nextflow.config, /home/s.varona/Repositories/viralrecon/nextflow.config, /home/s.varona/Repositories/viralrecon/tests/nextflow.config
+    > 
+    > !! Only displaying parameters that differ from the pipeline defaults !!
+    > ------------------------------------------------------
+    > 
+    > * The pipeline
+    >     https://doi.org/10.5281/zenodo.3901628
+    > 
+    > * The nf-core framework
+    >     https://doi.org/10.1038/s41587-020-0439-x
+    > 
+    > * Software dependencies
+    >     https://github.com/nf-core/viralrecon/blob/master/CITATIONS.md
+    > 
+    > WARN: The following invalid input values have been detected:
+    > 
+    > * --modules_testdata_base_path: https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/
+    > 
+    > 
+    > WARN: The `file()` function was called with a glob pattern that matched a collection of files -- use `files()` instead.
+    > WARN: The `file()` function was called with a glob pattern that matched a collection of files -- use `files()` instead.
+    > [c0/ca1626] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_UPDATE (SARS-CoV-2)
+    > [bd/7cbabf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:GUNZIP_FASTA (GCA_009858895.3_ASM985889v3_genomic.200409.fna.gz)
+    > [95/a299a1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:GUNZIP_GFF (GCA_009858895.3_ASM985889v3_genomic.200409.gff.gz)
+    > [f4/01cbd9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:SAMTOOLS_FAIDX (GCA_009858895.3_ASM985889v3_genomic.200409.fna)
+    > [3f/3b1e5a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:SNPEFF_BUILD (GCA_009858895.3_ASM985889v3_genomic.200409.fna)
+    > [67/26a9e6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:COLLAPSE_PRIMERS (nCoV-2019.primer.bed)
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/sequencing_summary.txt
+    > Staging foreign file: https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/kraken2/kraken2_hs22.tar.gz
+    > Staging foreign file: https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode04
+    > Staging foreign file: https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/pangolin_db_v1.36.tar.gz
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode01
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode02
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode03
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode05
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode06
+    > [aa/1220eb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:UNTAR (nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz)
+    > [1b/12310e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_04)
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode07
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode08
+    > [ff/1c31e9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_04)
+    > [7c/0786a1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_02)
+    > [3d/194785] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_07)
+    > [6e/18b336] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_01)
+    > [a0/d58058] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_08)
+    > [fe/ccd5d2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_03)
+    > [11/723032] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_05)
+    > [87/c58e41] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_06)
+    > [7b/d0bfa1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_02)
+    > [05/d0a3e9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_09)
+    > [1e/e94f5a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PYCOQC (sequencing_summary.txt)
+    > [ca/5c5121] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_07)
+    > [d9/635916] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_08)
+    > [05/6b434c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_01)
+    > [2a/1b7d5a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:UNTAR_KRAKEN2_DB (kraken2_hs22.tar.gz)
+    > [ae/b6281a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_03)
+    > [84/011054] Submitted process > NFCORE_VIRALRECON:VIRALRECON:UNTAR_PANGODB (pangolin_db_v1.36.tar.gz)
+    > [a6/2f9d32] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_05)
+    > [92/5387c6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_06)
+    > [de/6f9bca] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_09)
+    > [5a/d72682] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_07)
+    > [ba/3107c3] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_06)
+    > [fa/9048e9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_05)
+    > [f9/ed6749] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_03)
+    > [98/e047b9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_02)
+    > [4c/bd0f7a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_08)
+    > [53/0a1051] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_09)
+    > [55/4c8e86] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_04)
+    > [25/ef6bbf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_01)
+    > [e6/c30ebe] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MULTIQC (null)
+    > -[0;35m[nf-core/viralrecon][0;32m Pipeline completed successfully[0m-
+    [32mPASSED[0m (63.718s)
+  [1mTest[0m [f09537bc] '-profile test_nanopore --sequencing_summary false' 
+    > [33mNextflow 26.04.2 is available - Please consider updating your version to it(B[m
+    > N E X T F L O W  ~  version 26.04.0
+    > Launching `/home/s.varona/Repositories/viralrecon/tests/../main.nf` [boring_poisson] - revision: dcf0253127
+    > 
+    > -[2m----------------------------------------------------[0m-
+    >                                         [0;32m,--.[0;30m/[0;32m,-.[0m
+    > [0;34m        ___     __   __   __   ___     [0;32m/,-._.--~'[0m
+    > [0;34m  |\ | |__  __ /  ` /  \ |__) |__         [0;33m}  {[0m
+    > [0;34m  | \| |       \__, \__/ |  \ |___     [0;32m\`-._,-`-,[0m
+    >                                         [0;32m`._,._,'[0m
+    > [0;35m  nf-core/viralrecon 3.1.0dev[0m
+    > -[2m----------------------------------------------------[0m-
+    > 
+    > Input/output options
+    >   input                       : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/v2.6/samplesheet_test_amplicon_nanopore.csv
+    >   platform                    : nanopore
+    >   outdir                      : /home/s.varona/Repositories/viralrecon/.nf-test/tests/f09537bc6b182d6fbcf2fdae38fa746f/output
+    > 
+    > Reference genome options
+    >   genome                      : MN908947.3
+    >   fasta                       : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.fna.gz
+    >   gff                         : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.gff.gz
+    >   primer_set                  : artic
+    >   primer_set_version          : 3
+    > 
+    > Nanopore options
+    >   fastq_dir                   : s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/
+    >   clair3_model                : r941_prom_hac_g360+g422
+    > 
+    > Nanopore/Illumina options
+    >   nextclade_dataset           : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz
+    >   nextclade_dataset_name      : sars-cov-2
+    >   nextclade_dataset_tag       : 2024-10-17--16-48-48Z
+    >   skip_freyja_boot            : true
+    >   freyja_repeats              : 10
+    > 
+    > Illumina QC, read trimming and filtering options
+    >   kraken2_db                  : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/kraken2/kraken2_hs22.tar.gz
+    > 
+    > Illumina variant calling options
+    >   pango_database              : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/pangolin_db_v1.36.tar.gz
+    > 
+    > Generic options
+    >   pipelines_testdata_base_path: https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/viralrecon/
+    >   trace_report_suffix         : 2026-05-27_18-13-16
+    > 
+    > Institutional config options
+    >   config_profile_name         : Test profile
+    >   config_profile_description  : Minimal test dataset to check pipeline function for Nanopore data
+    > 
+    > Core Nextflow options
+    >   runName                     : boring_poisson
+    >   containerEngine             : singularity
+    >   launchDir                   : /home/s.varona/Repositories/viralrecon/.nf-test/tests/f09537bc6b182d6fbcf2fdae38fa746f
+    >   workDir                     : /home/s.varona/Repositories/viralrecon/.nf-test/tests/f09537bc6b182d6fbcf2fdae38fa746f/work
+    >   projectDir                  : /home/s.varona/Repositories/viralrecon
+    >   userName                    : s.varona
+    >   profile                     : test_nanopore,singularity
+    >   configFiles                 : /home/s.varona/Repositories/viralrecon/nextflow.config, /home/s.varona/Repositories/viralrecon/nextflow.config, /home/s.varona/Repositories/viralrecon/tests/nextflow.config
+    > 
+    > !! Only displaying parameters that differ from the pipeline defaults !!
+    > ------------------------------------------------------
+    > 
+    > * The pipeline
+    >     https://doi.org/10.5281/zenodo.3901628
+    > 
+    > * The nf-core framework
+    >     https://doi.org/10.1038/s41587-020-0439-x
+    > 
+    > * Software dependencies
+    >     https://github.com/nf-core/viralrecon/blob/master/CITATIONS.md
+    > 
+    > WARN: The following invalid input values have been detected:
+    > 
+    > * --modules_testdata_base_path: https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/
+    > * --artic_minion_caller: medaka
+    > * --fast5_dir:
+    > 
+    > 
+    > WARN: The `file()` function was called with a glob pattern that matched a collection of files -- use `files()` instead.
+    > WARN: The `file()` function was called with a glob pattern that matched a collection of files -- use `files()` instead.
+    > [1c/0e7df5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_UPDATE (SARS-CoV-2)
+    > [02/1b7345] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:GUNZIP_FASTA (GCA_009858895.3_ASM985889v3_genomic.200409.fna.gz)
+    > [1f/8cd1bf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:COLLAPSE_PRIMERS (nCoV-2019.primer.bed)
+    > [62/1f60b7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:GUNZIP_GFF (GCA_009858895.3_ASM985889v3_genomic.200409.gff.gz)
+    > [42/f46780] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:SAMTOOLS_FAIDX (GCA_009858895.3_ASM985889v3_genomic.200409.fna)
+    > [27/c6afb6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:SNPEFF_BUILD (GCA_009858895.3_ASM985889v3_genomic.200409.fna)
+    > Staging foreign file: https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/kraken2/kraken2_hs22.tar.gz
+    > Staging foreign file: https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz
+    > Staging foreign file: https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/pangolin_db_v1.36.tar.gz
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode01
+    > [3f/143266] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:UNTAR (nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz)
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode02
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode03
+    > [b0/415912] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_01)
+    > [cb/bbb5d9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_02)
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode04
+    > [c6/a5a9c5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_04)
+    > [d0/065f5e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_03)
+    > [e6/5e34a5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_01)
+    > [b2/174965] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_01)
+    > [90/ca82f7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_02)
+    > [2a/9ffbf8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_02)
+    > [2a/cf0829] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_05)
+    > [46/0537fd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_04)
+    > [c9/0ae3bd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_04)
+    > [0c/f6ef47] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_03)
+    > [9d/d3d14e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_03)
+    > [38/4800db] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_06)
+    > [a2/5d5bb4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:UNTAR_KRAKEN2_DB (kraken2_hs22.tar.gz)
+    > [70/324ad8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:UNTAR_PANGODB (pangolin_db_v1.36.tar.gz)
+    > [3e/c2606b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_08)
+    > [8a/4b6000] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_07)
+    > [13/89c84c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_09)
+    > [c5/04f14c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_01)
+    > [3d/0a7526] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_01)
+    > [34/4e0733] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_01)
+    > [4d/8502e1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_01)
+    > [d5/dec06e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_05)
+    > [7c/d25401] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_05)
+    > [1e/7e3e82] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_02)
+    > [34/8dc181] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_02)
+    > [9d/019950] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_02)
+    > [5d/5072b3] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_04)
+    > [74/a41618] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_04)
+    > [14/5176cd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_04)
+    > [6b/fad1b6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_06)
+    > [cb/830ed1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_06)
+    > [01/bc5cd7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_02)
+    > [09/4e4e7d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_03)
+    > [79/614d06] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_04)
+    > [27/7a1b3e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_01)
+    > [48/2f031f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_05)
+    > [fa/ce4aff] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_06)
+    > [82/cc2d24] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_02)
+    > [27/d7fd88] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_04)
+    > [af/1d69b3] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_01)
+    > [59/50b9a0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_08)
+    > [20/eed9be] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_08)
+    > [9a/a31f5d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_08)
+    > [0f/cb46bb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_03)
+    > [ca/9f9e56] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_03)
+    > [bb/d5408e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_03)
+    > [f7/d4bc67] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_03)
+    > [f6/122b30] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_07)
+    > [d3/e2ba34] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_07)
+    > [32/c26383] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_07)
+    > [29/f55416] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_09)
+    > [13/9e3dad] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_09)
+    > [65/fd7058] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:ARTIC_MINION (SAMPLE_09)
+    > [5f/b7489c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_01)
+    > [27/cb1440] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_01)
+    > [af/ad826e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_01)
+    > [08/6ed6bc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_02)
+    > [50/426b3d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_04)
+    > [a2/063ab1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_03)
+    > [57/8be5d2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_01)
+    > [3f/4081ab] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_02)
+    > [c7/33b5c0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_02)
+    > [8a/d30660] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_04)
+    > [b7/083add] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_04)
+    > [be/4a4232] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_03)
+    > [6a/038967] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_03)
+    > [f1/edb7a6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_01)
+    > [5a/024058] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_01)
+    > [d9/9d7448] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_02)
+    > [15/6235cf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_02)
+    > [0b/e10e6c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_04)
+    > [80/0b5875] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_04)
+    > [7f/edf248] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_05)
+    > [ba/3fbde1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_05)
+    > [d4/e61ecc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_05)
+    > [98/9dd67b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_05)
+    > [ee/4dd9c5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_06)
+    > [9e/c6988e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_06)
+    > [26/da3390] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_06)
+    > [a6/2e269f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_06)
+    > [c6/f5b851] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_03)
+    > [7b/43a99f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_03)
+    > [98/56af2b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_08)
+    > [d1/f7b48e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_08)
+    > [3f/ccc00e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_08)
+    > [39/b1283a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_08)
+    > [a0/968f4b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_07)
+    > [fb/687665] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_07)
+    > [8c/a6eb62] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_07)
+    > [c9/4dd81b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_07)
+    > [d1/5df503] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_01)
+    > [fc/e39299] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_01)
+    > [c7/e5d29f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_01)
+    > [43/953943] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_01)
+    > [2b/857718] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_01)
+    > [4b/cd3f13] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_02)
+    > [42/7fb8bc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_02)
+    > [93/13f8d0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_02)
+    > [21/e5d4cd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_02)
+    > [44/915eea] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_04)
+    > [2b/293ef2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_04)
+    > [6f/2c8ef1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_04)
+    > [80/d25349] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_04)
+    > [38/cb6663] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_05)
+    > [1f/f64555] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_06)
+    > [e3/dd3e9f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_03)
+    > [dd/577538] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_03)
+    > [d3/51febe] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_03)
+    > [26/047c84] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_03)
+    > [7f/79c335] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_08)
+    > [3c/bb1fd8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_07)
+    > [82/b94571] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_02)
+    > [44/12e251] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_04)
+    > [70/2d67e2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_05)
+    > [4b/701b8f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_05)
+    > [d0/a582ac] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_06)
+    > [8d/66e988] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_06)
+    > [6b/51866a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_03)
+    > [17/a80ef7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_08)
+    > [58/a7dea4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_08)
+    > [94/96ff79] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_07)
+    > [82/f88540] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_07)
+    > [cb/820510] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_02)
+    > [36/64efd7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_04)
+    > [30/0ab374] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_03)
+    > [7a/d9e725] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_05)
+    > [ac/82facd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_06)
+    > [43/5d2d2b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_05)
+    > [e5/084dee] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_06)
+    > [32/78b91f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_09)
+    > [ca/36d4ea] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:VCFLIB_VCFUNIQ (SAMPLE_09)
+    > [dc/d6b375] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_09)
+    > [dc/ab488f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_09)
+    > [ed/f2b60b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_08)
+    > [ae/bcbc09] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_08)
+    > [b0/12bb61] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_07)
+    > [98/17706f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_07)
+    > [e5/b09821] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_01)
+    > [e4/a66d01] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_01)
+    > [91/16599b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_01)
+    > [38/5cb21c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_02)
+    > [a3/978671] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_02)
+    > [02/29e320] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_02)
+    > [df/6f2b54] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_02)
+    > [41/d6ba15] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_04)
+    > [2e/022419] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_04)
+    > [e7/41c1eb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_04)
+    > [2e/d00b3c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_04)
+    > [48/72dcfd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_03)
+    > [21/39bddb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_03)
+    > [75/306ecb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_03)
+    > [24/136876] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_03)
+    > [2b/996221] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_05)
+    > [38/fbcab6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_05)
+    > [b5/712ade] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_05)
+    > [cb/73b254] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_06)
+    > [84/b3b6e7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_06)
+    > [26/6dfdff] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_06)
+    > [71/3160f3] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_05)
+    > [af/33c03c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_06)
+    > [f8/e20307] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_MINION_PROTOCOL:TABIX_TABIX (SAMPLE_09)
+    > [63/69721a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_08)
+    > [12/c3bc47] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_08)
+    > [20/a044cd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_08)
+    > [4a/e9e101] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_08)
+    > [99/761621] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_07)
+    > [00/b1b688] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_07)
+    > [19/e09445] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_07)
+    > [17/6f8de2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_07)
+    > [e6/ee1994] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_05)
+    > [39/f8ddc2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_06)
+    > [b2/b91177] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_09)
+    > [06/a78b8c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_09)
+    > [34/ca1d81] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_08)
+    > [aa/024d18] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_09)
+    > [2e/b20d29] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_07)
+    > [f5/627caa] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_05)
+    > [2d/e00afc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_06)
+    > [5b/1df1b6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_08)
+    > [44/37a6c5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_07)
+    > [87/0c7c78] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_09)
+    > [99/1251a6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_01)
+    > [c2/c6fcb8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_02)
+    > [69/efde45] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_09)
+    > [70/056a84] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_09)
+    > [9d/dabf5e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_09)
+    > [e6/0b888c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_09)
+    > [ae/137554] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_09)
+    > [4f/0d8e95] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_09)
+    > [fb/56dc38] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_04)
+    > [54/9177d5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_05)
+    > [3e/163d99] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_05)
+    > [55/537054] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_05)
+    > [2a/6a4586] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_06)
+    > [d0/f8e659] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_06)
+    > [12/955b2b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_06)
+    > [3b/ca800c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_05)
+    > [e0/3a5fdf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_06)
+    > [67/50511d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_08)
+    > [68/f72e4d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_07)
+    > [79/ce0f04] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_07)
+    > [55/63afb4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_07)
+    > [0e/491a8c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_07)
+    > [1e/098e8e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_03)
+    > [69/12a5a2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_09)
+    > [38/078620] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_09)
+    > [9d/9bd14b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_09)
+    > [1a/76c022] Submitted process > NFCORE_VIRALRECON:VIRALRECON:QUAST (quast)
+    > [20/7fae9d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_09)
+    > [71/8f70ec] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_05)
+    > [22/7f73c9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:MAKE_VARIANTS_LONG_TABLE
+    > [2a/1c944d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_06)
+    > [18/718195] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_07)
+    > [1b/00634e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_09)
+    > [59/890885] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PLOT_MOSDEPTH_REGIONS_GENOME
+    > [c8/9a9fcf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PLOT_MOSDEPTH_REGIONS_AMPLICON
+    > [22/3d215e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MULTIQC (null)
+    > -[0;35m[nf-core/viralrecon][0;32m Pipeline completed successfully[0m-
+    [32mPASSED[0m (372.707s)
+  [1mTest[0m [6fb2a1a7] '-profile test_nanopore --mapper_nanopore 'minimap2'' 
+    > [33mNextflow 26.04.2 is available - Please consider updating your version to it(B[m
+    > N E X T F L O W  ~  version 26.04.0
+    > Launching `/home/s.varona/Repositories/viralrecon/tests/../main.nf` [sharp_cray] - revision: dcf0253127
+    > 
+    > -[2m----------------------------------------------------[0m-
+    >                                         [0;32m,--.[0;30m/[0;32m,-.[0m
+    > [0;34m        ___     __   __   __   ___     [0;32m/,-._.--~'[0m
+    > [0;34m  |\ | |__  __ /  ` /  \ |__) |__         [0;33m}  {[0m
+    > [0;34m  | \| |       \__, \__/ |  \ |___     [0;32m\`-._,-`-,[0m
+    >                                         [0;32m`._,._,'[0m
+    > [0;35m  nf-core/viralrecon 3.1.0dev[0m
+    > -[2m----------------------------------------------------[0m-
+    > 
+    > Input/output options
+    >   input                       : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/v2.6/samplesheet_test_amplicon_nanopore.csv
+    >   platform                    : nanopore
+    >   outdir                      : /home/s.varona/Repositories/viralrecon/.nf-test/tests/6fb2a1a7ead01c1e25fc46f0991c2a06/output
+    > 
+    > Reference genome options
+    >   genome                      : MN908947.3
+    >   fasta                       : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.fna.gz
+    >   gff                         : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/GCA_009858895.3_ASM985889v3_genomic.200409.gff.gz
+    >   primer_set                  : artic
+    >   primer_set_version          : 3
+    > 
+    > Nanopore options
+    >   fastq_dir                   : s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/
+    >   sequencing_summary          : s3://ngi-igenomes/test-data/viralrecon/minion_test/sequencing_summary.txt
+    >   clair3_model                : r941_prom_hac_g360+g422
+    >   mapper_nanopore             : minimap2
+    > 
+    > Nanopore/Illumina options
+    >   nextclade_dataset           : https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz
+    >   nextclade_dataset_name      : sars-cov-2
+    >   nextclade_dataset_tag       : 2024-10-17--16-48-48Z
+    >   skip_freyja_boot            : true
+    >   freyja_repeats              : 10
+    > 
+    > Illumina QC, read trimming and filtering options
+    >   kraken2_db                  : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/kraken2/kraken2_hs22.tar.gz
+    > 
+    > Illumina variant calling options
+    >   pango_database              : https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/pangolin_db_v1.36.tar.gz
+    > 
+    > Generic options
+    >   pipelines_testdata_base_path: https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/viralrecon/
+    >   trace_report_suffix         : 2026-05-27_18-19-29
+    > 
+    > Institutional config options
+    >   config_profile_name         : Test profile
+    >   config_profile_description  : Minimal test dataset to check pipeline function for Nanopore data
+    > 
+    > Core Nextflow options
+    >   runName                     : sharp_cray
+    >   containerEngine             : singularity
+    >   launchDir                   : /home/s.varona/Repositories/viralrecon/.nf-test/tests/6fb2a1a7ead01c1e25fc46f0991c2a06
+    >   workDir                     : /home/s.varona/Repositories/viralrecon/.nf-test/tests/6fb2a1a7ead01c1e25fc46f0991c2a06/work
+    >   projectDir                  : /home/s.varona/Repositories/viralrecon
+    >   userName                    : s.varona
+    >   profile                     : test_nanopore,singularity
+    >   configFiles                 : /home/s.varona/Repositories/viralrecon/nextflow.config, /home/s.varona/Repositories/viralrecon/nextflow.config, /home/s.varona/Repositories/viralrecon/tests/nextflow.config
+    > 
+    > !! Only displaying parameters that differ from the pipeline defaults !!
+    > ------------------------------------------------------
+    > 
+    > * The pipeline
+    >     https://doi.org/10.5281/zenodo.3901628
+    > 
+    > * The nf-core framework
+    >     https://doi.org/10.1038/s41587-020-0439-x
+    > 
+    > * Software dependencies
+    >     https://github.com/nf-core/viralrecon/blob/master/CITATIONS.md
+    > 
+    > WARN: The following invalid input values have been detected:
+    > 
+    > * --modules_testdata_base_path: https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/
+    > * --fast5_dir:
+    > 
+    > 
+    > WARN: The `file()` function was called with a glob pattern that matched a collection of files -- use `files()` instead.
+    > WARN: The `file()` function was called with a glob pattern that matched a collection of files -- use `files()` instead.
+    > [16/5713d9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_UPDATE (SARS-CoV-2)
+    > [cc/bc7f90] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:COLLAPSE_PRIMERS (nCoV-2019.primer.bed)
+    > [8a/69078b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:GUNZIP_FASTA (GCA_009858895.3_ASM985889v3_genomic.200409.fna.gz)
+    > [01/99edb5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:GUNZIP_GFF (GCA_009858895.3_ASM985889v3_genomic.200409.gff.gz)
+    > [fa/79a735] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:SAMTOOLS_FAIDX (GCA_009858895.3_ASM985889v3_genomic.200409.fna)
+    > [eb/c3fcc1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MINIMAP2_INDEX
+    > [27/faeb8d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:SNPEFF_BUILD (GCA_009858895.3_ASM985889v3_genomic.200409.fna)
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/sequencing_summary.txt
+    > Staging foreign file: https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/kraken2/kraken2_hs22.tar.gz
+    > Staging foreign file: https://github.com/nf-core/test-datasets/raw/viralrecon/genome/MN908947.3/nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz
+    > Staging foreign file: https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/genome/pangolin_db_v1.36.tar.gz
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode01
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode02
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode03
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode04
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode05
+    > Staging foreign file: s3://ngi-igenomes/test-data/viralrecon/minion_test/fastq_pass/barcode06
+    > [a9/276546] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:UNTAR (nextclade_sars-cov-2_MN908947_2024-10-17--16_48_48Z.tar.gz)
+    > [9b/664e36] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_04)
+    > [00/db7061] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_06)
+    > [e9/041612] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_01)
+    > [62/1a8007] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_02)
+    > [d8/edd3c4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PYCOQC (sequencing_summary.txt)
+    > [c4/c1acf6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_04)
+    > [89/8d9269] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MINIMAP2_ALIGN (SAMPLE_04)
+    > [49/a33a33] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_06)
+    > [7d/db15e7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MINIMAP2_ALIGN (SAMPLE_06)
+    > [33/32c159] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_07)
+    > [cd/9ac6aa] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_08)
+    > [ca/b1a4f6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PREPARE_GENOME_NANOPORE:UNTAR_KRAKEN2_DB (kraken2_hs22.tar.gz)
+    > [54/1b43db] Submitted process > NFCORE_VIRALRECON:VIRALRECON:UNTAR_PANGODB (pangolin_db_v1.36.tar.gz)
+    > [cd/bf24ae] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_03)
+    > [24/ae53a0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_05)
+    > [6f/49fa77] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_01)
+    > [ed/d11b55] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MINIMAP2_ALIGN (SAMPLE_01)
+    > [84/42cfb2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_02)
+    > [eb/4d39a2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MINIMAP2_ALIGN (SAMPLE_02)
+    > [7a/bc7b33] Submitted process > NFCORE_VIRALRECON:VIRALRECON:ARTIC_GUPPYPLEX (SAMPLE_09)
+    > [7e/eb33a6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (SAMPLE_04)
+    > [d0/5b24a7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (SAMPLE_06)
+    > [22/baa871] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_07)
+    > [64/ef8b6e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MINIMAP2_ALIGN (SAMPLE_07)
+    > [b3/8539fc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_08)
+    > [9a/0f94f7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MINIMAP2_ALIGN (SAMPLE_08)
+    > [b8/4ec8ab] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_06)
+    > [7c/e99491] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_02)
+    > [cf/c644fd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_07)
+    > [8f/3fbec0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_01)
+    > [c0/87e12f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_04)
+    > [b2/8c185e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_08)
+    > [80/54b0b8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_03)
+    > [36/01ee5d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_03)
+    > [b1/b7523a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MINIMAP2_ALIGN (SAMPLE_03)
+    > [35/06fdea] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_05)
+    > [87/dd35fc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_05)
+    > [71/54acfb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MINIMAP2_ALIGN (SAMPLE_05)
+    > [0b/53f807] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (SAMPLE_01)
+    > [f3/5e7d50] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (SAMPLE_02)
+    > [83/4ddc34] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_04)
+    > [4f/697fd6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_06)
+    > [e0/7c534a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NANOPLOT (SAMPLE_09)
+    > [d2/c7a2d7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:KRAKEN2_KRAKEN2 (SAMPLE_09)
+    > [5e/9b3062] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MINIMAP2_ALIGN (SAMPLE_09)
+    > [e5/1cdae8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (SAMPLE_07)
+    > [3a/6e966f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (SAMPLE_08)
+    > [dd/d96421] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (SAMPLE_03)
+    > [62/9985da] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (SAMPLE_05)
+    > [ad/de986f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_01)
+    > [36/4b5171] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_04)
+    > [7e/803faf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_04)
+    > [b0/f919da] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_02)
+    > [6a/08f91c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_04)
+    > [16/9fda4d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_06)
+    > [01/40a2b6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_06)
+    > [db/32503a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_06)
+    > [ff/e85033] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_01)
+    > [ad/082add] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_01)
+    > [41/83771d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_01)
+    > [5e/4a8e9b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_02)
+    > [e0/233906] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_02)
+    > [a7/713922] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_07)
+    > [f1/92cb43] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_02)
+    > [aa/80e45a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_04)
+    > [a6/fda5a5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_07)
+    > [bc/65ccf2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_06)
+    > [0b/7fe65b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_07)
+    > [ea/960909] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_08)
+    > [d5/c59a43] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_07)
+    > [4b/17dabf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_03)
+    > [08/2cee7e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_05)
+    > [53/30880e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_08)
+    > [68/eb7219] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_01)
+    > [d2/2917ce] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_02)
+    > [5f/15be8e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_08)
+    > [96/91bb6e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_07)
+    > [53/d55156] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_04)
+    > [6c/ee9c53] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_08)
+    > [7c/b8cf59] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_06)
+    > [ce/a541ff] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_08)
+    > [c9/5779ab] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_03)
+    > [85/501d7c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_03)
+    > [cc/52972a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_03)
+    > [d4/e27ccd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_03)
+    > [b0/4dde6e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_05)
+    > [80/a780de] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_05)
+    > [e7/74ccab] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_05)
+    > [46/8f2b2b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_05)
+    > [89/37ad79] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_04)
+    > [83/08350d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_04)
+    > [40/3f1884] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_04)
+    > [27/985cdc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_01)
+    > [4f/996805] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_06)
+    > [5e/995acc] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_06)
+    > [89/712eb2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_06)
+    > [98/6da5b5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_02)
+    > [1b/c5b39f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_01)
+    > [c5/1a5903] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_01)
+    > [71/6dfe14] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_01)
+    > [05/1214e7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_07)
+    > [83/f46db9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_02)
+    > [9f/ad49b8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_02)
+    > [fd/1661e6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_02)
+    > [25/4593f7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_08)
+    > [2c/9fcb6e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_07)
+    > [5b/ed8168] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_07)
+    > [14/420374] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_07)
+    > [ed/3e0efb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_03)
+    > [58/0d4698] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_08)
+    > [77/41c795] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_08)
+    > [3f/6a09ed] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_08)
+    > [eb/ac164f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_05)
+    > [4f/21f272] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_03)
+    > [ea/cfae96] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_03)
+    > [5a/68c6dd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_03)
+    > [91/1f8672] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:CLAIR3 (SAMPLE_08)
+    > [91/d3379d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_05)
+    > [0d/abcb5a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_05)
+    > [24/fbebbb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_05)
+    > [53/da75ee] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:CLAIR3 (SAMPLE_04)
+    > [fb/7807ef] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:CLAIR3 (SAMPLE_06)
+    > [a0/368343] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (SAMPLE_09)
+    > [44/9597a8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:CLAIR3 (SAMPLE_01)
+    > [8e/3ff906] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:CLAIR3 (SAMPLE_02)
+    > [d1/4d5782] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:CLAIR3 (SAMPLE_07)
+    > [8f/c9b2b5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:CLAIR3 (SAMPLE_03)
+    > [75/98458e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:CLAIR3 (SAMPLE_05)
+    > [b6/d4a561] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_04)
+    > [97/133c71] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_04)
+    > [38/5e46c3] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_04)
+    > [82/dced71] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_06)
+    > [91/1cd6eb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_06)
+    > [27/a99bae] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_06)
+    > [37/54634b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_01)
+    > [49/2e7f1e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_01)
+    > [62/8eda25] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_01)
+    > [89/ab5cd0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_02)
+    > [0c/3991c2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_02)
+    > [4d/b7a8ba] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_02)
+    > [ff/828409] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_07)
+    > [99/5fa49e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_07)
+    > [05/08715d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_07)
+    > [b7/8cd694] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_03)
+    > [17/9792a3] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_03)
+    > [5c/42224f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_03)
+    > [bc/e61327] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_05)
+    > [b5/a537a2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_05)
+    > [b6/45462d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_05)
+    > [2a/5c6203] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_FILTER (SAMPLE_04)
+    > [64/37a50c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_FILTER (SAMPLE_08)
+    > [9f/8e5d6b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_09)
+    > [83/f3e9ff] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_FILTER (SAMPLE_06)
+    > [bd/968d0e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_FILTER (SAMPLE_01)
+    > [ef/d0515a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_FILTER (SAMPLE_07)
+    > [6d/aed5a8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_FILTER (SAMPLE_02)
+    > [1d/dc030f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_FILTER (SAMPLE_03)
+    > [f9/2d0946] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_FILTER (SAMPLE_05)
+    > [07/803604] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_04)
+    > [2d/8a3841] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_06)
+    > [94/09fc08] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_09)
+    > [39/61ad31] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_09)
+    > [0c/303068] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_09)
+    > [f4/142c29] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_01)
+    > [55/656cee] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_02)
+    > [c6/905d56] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_07)
+    > [86/9fb62a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_03)
+    > [61/d6bf6b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX (SAMPLE_04)
+    > [fe/8cb870] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX (SAMPLE_08)
+    > [e6/77690b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:CLAIR3 (SAMPLE_09)
+    > [ef/bd5876] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_VIEW (SAMPLE_09)
+    > [d4/a61672] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX (SAMPLE_06)
+    > [92/2e6255] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX (SAMPLE_01)
+    > [8c/b3c10d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX (SAMPLE_07)
+    > [79/b31092] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_05)
+    > [66/05585e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX (SAMPLE_02)
+    > [51/277a6c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX (SAMPLE_03)
+    > [39/0a2846] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX (SAMPLE_05)
+    > [de/37ea36] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_NORM (SAMPLE_04)
+    > [3a/32d5f9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_NORM (SAMPLE_08)
+    > [2e/ac9028] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:SAMTOOLS_INDEX (SAMPLE_09)
+    > [d1/23a136] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_NORM (SAMPLE_06)
+    > [e4/7c27ee] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_NORM (SAMPLE_01)
+    > [3e/47b0b4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_NORM (SAMPLE_07)
+    > [97/d0c19d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_FILTER (SAMPLE_09)
+    > [de/cbe667] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_NORM (SAMPLE_02)
+    > [08/c1c312] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_NORM (SAMPLE_03)
+    > [15/3cde35] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_NORM (SAMPLE_05)
+    > [03/def519] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS_FILTER (SAMPLE_04)
+    > [41/a30e84] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_04)
+    > [21/14273d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_04)
+    > [07/6aab60] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_04)
+    > [a6/13ad25] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_08)
+    > [c5/9e41fd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_08)
+    > [f1/7144f5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (SAMPLE_09)
+    > [44/c7240a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (SAMPLE_09)
+    > [e1/7350f9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:FILTER_BAM_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (SAMPLE_09)
+    > [20/e1d0a8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_06)
+    > [5c/a9fda8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_06)
+    > [a0/f79061] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_01)
+    > [3e/bf3ec8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_01)
+    > [c9/8ba26b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_07)
+    > [de/0cebd9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_07)
+    > [2a/73db6b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_02)
+    > [51/64737e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_02)
+    > [93/e3a767] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_03)
+    > [0c/8a6186] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_03)
+    > [5e/f01f16] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_05)
+    > [43/c81c8a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_05)
+    > [9b/55a2b6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MAKE_BED_MASK (SAMPLE_04)
+    > [b8/e3a413] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS_FILTER (SAMPLE_08)
+    > [7f/2a4f3a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_08)
+    > [ef/723917] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS_FILTER (SAMPLE_06)
+    > [46/3c032e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_06)
+    > [b7/991a7f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_01)
+    > [af/16b4b2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS_FILTER (SAMPLE_01)
+    > [2d/2f3736] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS_FILTER (SAMPLE_07)
+    > [1a/a7ae55] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_07)
+    > [15/ec38d4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX (SAMPLE_09)
+    > [ce/e43e13] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_02)
+    > [0c/38b53c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS_FILTER (SAMPLE_02)
+    > [37/59e460] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS_FILTER (SAMPLE_03)
+    > [c1/e374bf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_03)
+    > [2c/f8719a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS_FILTER (SAMPLE_05)
+    > [41/4c73dd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_05)
+    > [d0/96c57b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX_FILTER (SAMPLE_04)
+    > [91/e411de] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_VARIANTS (SAMPLE_09)
+    > [90/b3d577] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_AMPLICON (SAMPLE_09)
+    > [93/84992e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MOSDEPTH_GENOME (SAMPLE_09)
+    > [bf/7662c9] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MERGE (SAMPLE_04)
+    > [7b/8ab9cd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MAKE_BED_MASK (SAMPLE_08)
+    > [78/68a9bb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_04)
+    > [84/8d99c1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MAKE_BED_MASK (SAMPLE_06)
+    > [52/5abb20] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX_FILTER (SAMPLE_08)
+    > [90/feb874] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX_FILTER (SAMPLE_06)
+    > [eb/932b58] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_08)
+    > [34/b15598] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_06)
+    > [20/3e5b4c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX_FILTER (SAMPLE_01)
+    > [99/838f8e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MAKE_BED_MASK (SAMPLE_01)
+    > [06/ede53c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MAKE_BED_MASK (SAMPLE_07)
+    > [cb/a49dd8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_01)
+    > [a3/c4394a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX_FILTER (SAMPLE_07)
+    > [29/1ec531] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_07)
+    > [6c/8e296e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX_FILTER (SAMPLE_02)
+    > [5f/8cc0db] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MAKE_BED_MASK (SAMPLE_02)
+    > [70/db2043] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MAKE_BED_MASK (SAMPLE_03)
+    > [7a/183e40] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_02)
+    > [f5/143dff] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX_FILTER (SAMPLE_03)
+    > [8a/c8b619] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MAKE_BED_MASK (SAMPLE_05)
+    > [cd/faf03c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX_FILTER (SAMPLE_05)
+    > [54/0976a1] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_03)
+    > [05/e9486b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_05)
+    > [a6/d68bbb] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MASKFASTA (SAMPLE_04)
+    > [9d/06595b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_04)
+    > [0e/c97925] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MERGE (SAMPLE_08)
+    > [13/7fbd70] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MERGE (SAMPLE_06)
+    > [6e/61e4c0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_06)
+    > [4c/4f5aba] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_08)
+    > [b7/378c2f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_01)
+    > [f6/e8b87e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_07)
+    > [08/19ab98] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MERGE (SAMPLE_01)
+    > [b0/84a3dd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MERGE (SAMPLE_07)
+    > [23/4d1a6c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_02)
+    > [cc/5eb334] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MERGE (SAMPLE_03)
+    > [c7/07ebcf] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MERGE (SAMPLE_02)
+    > [16/7ca773] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_03)
+    > [32/01a3f4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_05)
+    > [1f/79b904] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MERGE (SAMPLE_05)
+    > [f8/28761d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_04)
+    > [4a/29e34b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MASKFASTA (SAMPLE_08)
+    > [c2/9c32ba] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MASKFASTA (SAMPLE_06)
+    > [fd/f00c2a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_06)
+    > [15/2fea9a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_08)
+    > [ae/8e4a7a] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_01)
+    > [28/53ccc0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MASKFASTA (SAMPLE_01)
+    > [20/4e96de] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_07)
+    > [d8/6aa39b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MASKFASTA (SAMPLE_07)
+    > [43/1e600e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MASKFASTA (SAMPLE_03)
+    > [54/6417c0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_02)
+    > [ff/47ea2b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MASKFASTA (SAMPLE_02)
+    > [9f/9f13b8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_03)
+    > [43/28733c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_05)
+    > [1b/b65351] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MASKFASTA (SAMPLE_05)
+    > [58/70eeca] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BAM_VARIANT_DEMIX_BOOT_FREYJA:FREYJA_DEMIX (SAMPLE_09)
+    > [d8/f3b47e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_NORM (SAMPLE_09)
+    > [fe/f52b35] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PLOT_MOSDEPTH_REGIONS_AMPLICON
+    > [9d/ba87c0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PLOT_MOSDEPTH_REGIONS_GENOME
+    > [65/0d8e42] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_04)
+    > [c3/9ee933] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_06)
+    > [66/7e4345] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_08)
+    > [f5/84a17e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_01)
+    > [08/c648e6] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_07)
+    > [f7/5425c4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_02)
+    > [fa/dcf68d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_03)
+    > [95/dd58f3] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_05)
+    > [bb/e08531] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS (SAMPLE_04)
+    > [2e/66b65d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS (SAMPLE_08)
+    > [03/36d0de] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS (SAMPLE_06)
+    > [42/ebb0c8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS (SAMPLE_01)
+    > [6e/4eb13d] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS (SAMPLE_07)
+    > [24/4ea06b] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS (SAMPLE_03)
+    > [dc/9b460c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS (SAMPLE_02)
+    > [14/d01a94] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS (SAMPLE_05)
+    > [64/4f45ee] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPEFF_ANN (SAMPLE_09)
+    > [8e/dd0b05] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:BCFTOOLS_QUERY (SAMPLE_09)
+    > [c3/405b7c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:BCFTOOLS_STATS (SAMPLE_09)
+    > [18/83e9c8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:RENAME_FASTA_HEADER (SAMPLE_04)
+    > [73/574269] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:RENAME_FASTA_HEADER (SAMPLE_08)
+    > [98/4c1b40] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:RENAME_FASTA_HEADER (SAMPLE_06)
+    > [e2/984546] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:RENAME_FASTA_HEADER (SAMPLE_01)
+    > [5d/2c7cb7] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:RENAME_FASTA_HEADER (SAMPLE_07)
+    > [25/45308f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:RENAME_FASTA_HEADER (SAMPLE_03)
+    > [5b/90402c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:RENAME_FASTA_HEADER (SAMPLE_02)
+    > [b0/1d5435] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:RENAME_FASTA_HEADER (SAMPLE_05)
+    > [8e/141694] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS_FILTER (SAMPLE_09)
+    > [d7/7c213f] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_04)
+    > [33/e684ae] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_04)
+    > [4b/89ccbd] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_08)
+    > [d3/96f639] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_08)
+    > [1f/1c39a0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_06)
+    > [4f/1dd4c2] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_06)
+    > [1a/9f0d4c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_01)
+    > [77/11419c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_01)
+    > [05/ac1684] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_07)
+    > [8c/ab5831] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_07)
+    > [3f/54c069] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_03)
+    > [5e/68580c] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_03)
+    > [d9/cb6fba] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_02)
+    > [fe/ffc6c8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_02)
+    > [b3/9d0b8e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_05)
+    > [36/d690c0] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_05)
+    > [9b/e33561] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_INDEX_FILTER (SAMPLE_09)
+    > [ce/6876a4] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:MAKE_BED_MASK (SAMPLE_09)
+    > [b2/83bd3e] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:TABIX_BGZIP (SAMPLE_09)
+    > [e6/b150d8] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:TABIX_TABIX (SAMPLE_09)
+    > [04/bbaf12] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:SNPSIFT_EXTRACTFIELDS (SAMPLE_09)
+    > [01/9e1e05] Submitted process > NFCORE_VIRALRECON:VIRALRECON:SNPEFF_SNPSIFT:VCF_BGZIP_TABIX_STATS:VCF_TABIX_STATS:BCFTOOLS_STATS (SAMPLE_09)
+    > [2e/ab1aa5] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MERGE (SAMPLE_09)
+    > [76/501e85] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BEDTOOLS_MASKFASTA (SAMPLE_09)
+    > [1c/261f75] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:BCFTOOLS_CONSENSUS (SAMPLE_09)
+    > [4e/d9ce50] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MINIMAP2_MAPPING:RENAME_FASTA_HEADER (SAMPLE_09)
+    > [6f/270898] Submitted process > NFCORE_VIRALRECON:VIRALRECON:NEXTCLADE_RUN (SAMPLE_09)
+    > [f7/185f01] Submitted process > NFCORE_VIRALRECON:VIRALRECON:PANGOLIN_RUN (SAMPLE_09)
+    > [c8/5ec852] Submitted process > NFCORE_VIRALRECON:VIRALRECON:QUAST (quast)
+    > [fe/119a57] Submitted process > NFCORE_VIRALRECON:VIRALRECON:VARIANTS_LONG_TABLE:MAKE_VARIANTS_LONG_TABLE
+    > [b5/d60f80] Submitted process > NFCORE_VIRALRECON:VIRALRECON:MULTIQC (null)
+    > -[0;35m[nf-core/viralrecon][0;32m Pipeline completed successfully[0m-
+    [32mPASSED[0m (293.675s)
+  Snapshots:
+    1 updated [-profile test_nanopore --mapper_nanopore 'minimap2']
+
+
+Snapshot Summary:
+  1 updated
+
+[1m[32mSUCCESS: [0m[0mExecuted 6 tests in 1525.881s
+

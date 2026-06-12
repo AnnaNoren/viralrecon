@@ -13,24 +13,48 @@ Special thanks to the following for their code contributions to the release:
 
 - [Sarai Varona](https://github.com/svarona)
 - [Anna Norén](https://github.com/AnnaNoren)
+- [Joon Klaps](https://github.com/Joon-Klaps)
+- [Sara Monzon](https://github.com/saramonzon)
+- [Magdalena Matito](https://github.com/magdasmat)
+- [Jordan Speizer](https://github.com/speizerj)
 
 Thank you to everyone else that has contributed by reporting bugs, enhancements or in any other way, shape or form.
 
 ### Enhancements & fixes
 
+- [[PR #589](https://github.com/nf-core/viralrecon/pull/589)] - Add strict syntax implementation plan, fix trivial errors
+- [[PR #585](https://github.com/nf-core/viralrecon/pull/585)] - Accept semver primer_set_version values (e.g. 5.3.2)
 - [[PR #546](https://github.com/nf-core/viralrecon/pull/546)] - Bumped dev branch version to development version
 - [[PR #562](https://github.com/nf-core/viralrecon/pull/562)] - Added pangolin-data database from test-datasets to test config
 - [[PR #541](https://github.com/nf-core/viralrecon/pull/541)] - Implement new blastn module with taxid filtering in pipeline
 - [[PR #572](https://github.com/nf-core/viralrecon/pull/572)] - Template update for nf-core/tools v3.5.1
 - [[PR #574](https://github.com/nf-core/viralrecon/pull/574)] - Added BLAST HTML report
+- [[PR #559](https://github.com/nf-core/viralrecon/pull/559)] - Added HIV resistance detection subworkflow
+- [[PR #580](https://github.com/nf-core/viralrecon/pull/580)] - Fix bug related to deprecated argument `--meta` in `Freyja` suite
+- [[PR #594](https://github.com/nf-core/viralrecon/pull/594)] - Added mapping/variant calling/consensus steps for nanpore data appart from ARTIC protocol
+- [[PR #596](https://github.com/nf-core/viralrecon/pull/596)] - Template update for nf-core/tools v4.0.2
 
 ### Parameters
 
-| Old parameter | New parameter         |
-| ------------- | --------------------- |
-|               | `--taxidlist`         |
-|               | `--perform_ev_typing` |
-
+| Old parameter              | New parameter                |
+| -------------------------- | ---------------------------- |
+|                            | `--taxidlist`                |
+|                            | `--perform_hiv_resistance`   |
+|                            | `--hivdb_xml`                |
+|                            | `--apobec_drm`               |
+|                            | `--apobec_csv`               |
+|                            | `--unusual_csv`              |
+|                            | `--sdrms_csv`                |
+|                            | `--mutation_csv`             |
+| `--freyja_lineages`        | `--freyja_lineages_meta`     |
+|                            | `--freyja_lineages_topology` |
+| `--protocol`               | `--trim_primers`             |
+| `--artic_minion_model_dir` | `--clair3_model_dir`         |
+| `--artic_minion_model`     | `--clair3_model`             |
+|                            | `--mapper_nanopore`          |
+| `--skip_multiqc`           |                              |
+|                            | `--taxidlist`                |
+|                            | `--perform_ev_typing`        |
 > **NB:** Parameter has been **updated** if both old and new parameter information is present.
 > **NB:** Parameter has been **added** if just the new parameter information is present.
 > **NB:** Parameter has been **removed** if new parameter information isn't present.
@@ -39,14 +63,24 @@ Thank you to everyone else that has contributed by reporting bugs, enhancements 
 
 Note, since the pipeline is now using Nextflow DSL2, each process will be run with its own [Biocontainer](https://biocontainers.pro/#/registry). This means that on occasion it is entirely possible for the pipeline to be using different versions of the same tool. However, the overall software dependency changes compared to the last release have been listed below for reference.
 
-| Dependency | Old version | New version |
-| ---------- | ----------- | ----------- |
-| `blast`    | 2.16.0      | 2.17.0      |
+| Dependency     | Old version | New version      |
+| -------------- | ----------- | ---------------- |
+| `blast`        | 2.16.0      | 2.17.0           |
+| `Freyja`       | 2.0.1       | 2.0.3            |
+| `sierra-local` |             | 0.4.3            |
+| `liftoff`      |             | 1.6.3            |
+| `pysam`        |             | 0.23.3           |
+| `bcftools`     | 1.22        | 1.23.1           |
+| `htslib`       | 1.22        | 1.23.1           |
+| `cutadapt`     | 5.0         | 5.2              |
+| `fastp`        | 1.0.1       | 1.1.0            |
+| `minia`        | 3.2.6       | 3.2.6=h22625ea_6 |
+| `mosdepth`     | 0.3.11      | 0.3.14           |
+| `samtools`     | 1.22.1      | 1.23.1           |
+| `cutadapt`     | 5.0         | 5.2              |
 
 > **NB:** Dependency has been **updated** if both old and new version information is present.
->
 > **NB:** Dependency has been **added** if just the new version information is present.
->
 > **NB:** Dependency has been **removed** if new version information isn't present.
 
 ## [[3.0.0](https://github.com/nf-core/viralrecon/releases/tag/3.0.0)] Waterdog Hibiscus - 2025-10-21

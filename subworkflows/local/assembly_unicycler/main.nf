@@ -29,7 +29,7 @@ workflow ASSEMBLY_UNICYCLER {
     UNICYCLER (
         reads
     )
-    ch_versions = ch_versions.mix(UNICYCLER.out.versions.first())
+    ch_versions = ch_versions.mix(UNICYCLER.out.versions)
 
     //
     // Unzip scaffolds file
@@ -37,7 +37,6 @@ workflow ASSEMBLY_UNICYCLER {
     GUNZIP_SCAFFOLDS (
         UNICYCLER.out.scaffolds
     )
-    ch_versions = ch_versions.mix(GUNZIP_SCAFFOLDS.out.versions.first())
 
     //
     // Unzip gfa file
@@ -45,6 +44,7 @@ workflow ASSEMBLY_UNICYCLER {
     GUNZIP_GFA (
         UNICYCLER.out.gfa
     )
+
 
     //
     // Filter for empty scaffold files
@@ -72,7 +72,6 @@ workflow ASSEMBLY_UNICYCLER {
         )
         ch_bandage_png = BANDAGE_IMAGE.out.png
         ch_bandage_svg = BANDAGE_IMAGE.out.svg
-        ch_versions    = ch_versions.mix(BANDAGE_IMAGE.out.versions.first())
     }
 
     //
@@ -114,5 +113,5 @@ workflow ASSEMBLY_UNICYCLER {
     plasmidid_fasta    = ASSEMBLY_QC.out.plasmidid_fasta    // channel: [ val(meta), [ fasta_files/ ] ]
     plasmidid_kmer     = ASSEMBLY_QC.out.plasmidid_kmer     // channel: [ val(meta), [ kmer/ ] ]
 
-    versions           = ch_versions                        // channel: [ versions.yml ]
+    versions           = ch_versions                        // channel: versions.yml
 }

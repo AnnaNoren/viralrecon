@@ -166,7 +166,7 @@ If you wish to repeatedly use the same parameters for multiple runs, rather than
 Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <file>`.
 
 > [!WARNING]
-> Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
+> Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/running/run-pipelines#configuring-pipelines), other infrastructural tweaks (such as output directories), or module arguments (args).
 
 The above pipeline run specified with a params file in yaml format:
 
@@ -262,19 +262,19 @@ Specify the path to a specific config file (this is a core Nextflow command). Se
 
 Whilst the default requirements set within the pipeline will hopefully work for most people and with most input data, you may find that you want to customise the compute resources that the pipeline requests. Each step in the pipeline has a default set of requirements for number of CPUs, memory and time. For most of the pipeline steps, if the job exits with any of the error codes specified [here](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L18) it will automatically be resubmitted with higher resources request (2 x original, then 3 x original). If it still fails after the third attempt then the pipeline execution is stopped.
 
-To change the resource requests, please see the [max resources](https://nf-co.re/docs/usage/configuration#max-resources) and [tuning workflow resources](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources) section of the nf-core website.
+To change the resource requests, please see the [max resources](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#set-max-resources) and [customise process resources](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#customize-process-resources) section of the nf-core website.
 
 ### Custom Containers
 
 In some cases, you may wish to change the container or conda environment used by a pipeline steps for a particular tool. By default, nf-core pipelines use containers and software from the [biocontainers](https://biocontainers.pro/) or [bioconda](https://bioconda.github.io/) projects. However, in some cases the pipeline specified version maybe out of date.
 
-To use a different container from the default container or conda environment specified in a pipeline, please see the [updating tool versions](https://nf-co.re/docs/usage/configuration#updating-tool-versions) section of the nf-core website.
+To use a different container from the default container or conda environment specified in a pipeline, please see the [updating tool versions](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#update-tool-versions) section of the nf-core website.
 
 ### Custom Tool Arguments
 
 A pipeline might not always support every possible argument or option of a particular tool used in pipeline. Fortunately, nf-core pipelines provide some freedom to users to insert additional parameters that the pipeline does not include by default.
 
-To learn how to provide additional arguments to a particular tool of the pipeline, please see the [customising tool arguments](https://nf-co.re/docs/usage/configuration#customising-tool-arguments) section of the nf-core website.
+To learn how to provide additional arguments to a particular tool of the pipeline, please see the [customising tool arguments](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#modifying-tool-arguments) section of the nf-core website.
 
 #### Freyja
 
@@ -385,3 +385,171 @@ process {
     }
 }
 ```
+
+## HIV
+
+`nf-core/viralrecon` has been optimized to support **HIV genome reconstruction and resistance detection**.
+
+This implementation takes inspiration from the parameterization used in the [**HIVdb** pipeline at Stanford University](https://hivdb.stanford.edu/hivdb/by-reads/).
+
+The goal is to adapt the viralrecon framework to ensure accurate minor variant calling, reliable consensus sequence generation, and compatibility with resistance analysis tools for HIV.
+
+### HIV profile and recomended params
+
+The HIV profile (`-profile hiv`) introduces specific adjustments compared to a standard `viralrecon` run, mainly in the variant calling and consensus generation steps, to align with the requirements of HIV resistance interpretation pipelines.
+
+⚠️ By default, de novo assembly is deactivated for HIV as the resistance detection is only performed for the consensus genome through mapping approach, which has been already benchmarked agains Stanford's [HIVdb](https://hivdb.stanford.edu/hivdb/by-reads/) results.
+
+#### **Reference genome**
+
+The default reference used in the HIV config of `nf-core/viralrecon` is the one **derived from the codfreq JSON profile**. This reference has been specifically generated from the [codfreq .json profile](https://github.com/hivdb/codfreq/blob/main/profiles/HIV1.json). By aligning to this codfreq-based reference, the resulting codon frequencies and codon coverages are directly comparable to those produced by [**HIVdb**](https://hivdb.stanford.edu/hivdb/by-reads/), ensuring accurate interpretation of resistance data.
+
+However, users may provide their **own custom reference genome** using the parameters:
+
+```bash
+--fasta <path_to_reference.fasta>
+--gff   <path_to_annotation.gff>
+```
+
+When a custom reference is supplied, all variant calling, consensus generation, and resistance detection steps will use this user-defined reference.
+
+⚠️ Note that this may produce results that are not directly comparable to those obtained with HIVdb. Users employing custom references do so at their own discretion and risk, as the chosen reference can affect the INDELs calling and their coverage and frequency.
+
+> **Important**: When performing HIV resistance detection, an annotation file (.gff) is mandatory. The GFF file is required to correctly annotate the pol gene regions (PR, RT and IN), which are essential for both sierra-local and codfreq analyses.
+
+#### **Available genome options**
+
+Two HIV genome references are distributed with viralrecon and can be selected using the `--genome` parameter:
+
+- `--genome codfreq`: The codfreq-derived reference (DEFAULT), generated from the original codfreq JSON annotation files. This reference ensures that codon-level frequency tables and coverage results are fully compatible with HIVdb and sierra-local resistance prediction outputs.
+- `--genome 'NC_001802.1'`: nextclade refeence, based on NC_001802.1 (HXB2 genome, K03455), the reference used by Nextclade for HIV-1 analysis.
+
+#### **HIV-specific parameters**
+
+The following parameters have been added to handle **HIV resistance detection** and related tools.
+
+- General HIV resistance options:
+  - **`perform_hiv_resistance`**: Whether to perform HIV resistance analysis or not.
+- Options related with files required by `sierra-local` software for resistance detecton in HIV. If not provided, the files included with the software will be used.
+  - **`hivdb_xml`**: Path to the HIVdb ASI2 XML file. Updated files can be found [here](https://github.com/hivdb/hivfacts/tree/main/data/algorithms), where the different algorithm versions are stored. The one included in the software is the one with `HIVDB_9.8.xml` name.
+  - **`apobec_drm`**: Path to the JSON HIVdb APOBEC DRM file. Updated files can be found [here](https://github.com/hivdb/hivfacts/tree/main/data/apobecs) with the `apobec_drms.json` name.
+  - **`apobec_csv`**: Path to the CSV APOBEC file. Updated files can be found [here](https://github.com/hivdb/hivfacts/tree/main/data/apobecs) with the `apobecs.csv` name.
+  - **`unusual_csv`**: Path to the CSV file used to determine unusual mutations. The file included with the software can be found [here](https://github.com/PoonLab/sierra-local/tree/master/sierralocal/data) with the name `rx-all_subtype-all.csv`
+  - **`sdrms_csv`**: Path to the CSV file used to define SDRM mutations. Updated files can be found [here](https://github.com/hivdb/hivfacts/tree/main/data/) with the `sdrms_hiv1.csv` name.
+  - **`mutation_csv`**: Path to the CSV file defining mutation types. Updated files can be found [here](https://github.com/hivdb/hivfacts/tree/main/data/) with the `mutation-type-pairs_hiv1.csv` name.
+
+#### **Nextclade configuration**
+
+The following default parameters are used in the `--genome codfreq` and `--genome 'NC_001802.1'` for **Nextclade HIV-1 analysis**. Make sure to update `nextclade_dataset_tag` to the latest one so the pipeline can download it.
+
+```bash
+nextclade_dataset_tag  = '2025-09-09--12-13-13Z'
+nextclade_dataset_name = 'neherlab/hiv-1'
+nextclade_dataset      = false
+```
+
+#### **HIV-specific configuration**
+
+When using `--genome 'codfreq'` or `--genome 'NC_001802.1'` or `--perform_hiv_resistance`, which are activated in the `-profile hiv` configuration, the following configuration is activated by default.
+
+_Variant calling_
+
+Variant calling is performed using **iVar variants** with parameters optimized for HIV intra-host diversity:
+
+- **Variant frequency threshold:** `0.01`: Variants are called if their allele frequency is at least 1%, allowing detection of minority variants relevant for resistance analysis.
+- **Minimum base quality:** `30`: Ensures reliability of detected variants.
+- **Minimum depth of coverage:** `50`: Matches the minimum coverage used in HIVdb protocols to support robust variant calling.
+
+_Consensus generation_
+
+Consensus sequences are generated using **iVar consensus**, which supports ambiguous nucleotide codes, a key feature for HIV resistance interpretation tools.  
+The parameters are defined as follows:
+
+- **Frequency threshold:** `0.9`: A variant is included in the consensus until a position's allele frequency is representing at least 90% of the allele frequency. This means that variants with frequencies below 50% may still be incorporated if necessary to achieve the 90% threshold in a given position.
+- **Minimum base quality:** `30`
+- **Minimum depth of coverage:** `50`
+- **Low coverage regions:**: Positions with fewer than 10 reads are masked as `N`.
+
+The user can change this configuration by providing a custom config file with `-c` param. This config file should contain this piece of code with the specific configuration for `IVAR_VARIANTS` and `IVAR_CONSENSUS`. `RESISTANCE_REPORT`'s `ext.args2` should be the same as `IVAR_CONSENSUS`'s `ext.args` for the final report to contain the appropriate information.
+
+```bash
+process {
+    withName: 'IVAR_CONSENSUS' {
+        ext.args = '-t 0.9 -q 30 -m 50 -n N'
+    }
+    withName: 'IVAR_VARIANTS' {
+        ext.args = '-t 0.01 -q 30 -m 50'
+    }
+    withName: 'RESISTANCE_REPORT' {
+        ext.args2 = '-t 0.9 -q 30 -m 50 -n N'
+    }
+}
+```
+
+### HIV resistance detection protocol
+
+The detection of HIV drug resistance in `nf-core/viralrecon` is performed using the [**sierra-local**](https://github.com/PoonLab/sierra-local/) software, complemented with codon-level frequency analysis generated by a modified version of [**codfreq**](https://github.com/hivdb/codfreq/).
+
+This integrated approach ensures that both **mutation interpretation** and **codon frequency information** are available for downstream resistance reporting.
+
+#### **1. Sierra-local: HIV resistance prediction**
+
+[**sierra-local**](https://github.com/PoonLab/sierra-local/) is a Python3 implementation of the [Stanford University HIV Drug Resistance Database](https://hivdb.stanford.edu/) (HIVdb) [Sierra web service](https://hivdb.stanford.edu/page/webservice/).
+
+It allows laboratories to generate **HIV-1 drug resistance predictions locally**, without the need to transmit patient data over a network. This provides full control over **data provenance**, **security**, and **regulatory compliance**.
+
+> _Sierra-local computes drug resistance predictions directly from consensus HIV-1 sequences, producing JSON-formatted output that includes key resistance-associated mutations and drug susceptibility scores._
+
+Within the HIV module of `nf-core/viralrecon`, sierra-local is executed using the consensus .FASTA file generated for each sample. The output is a `.json` file containing the main resistance data.
+
+However, sierra-local operates at the **codon level**, and its JSON output does not include **codon-level frequencies** or **codon depth information**.  
+These additional metrics are crucial for resistance reporting and neeed consistency with other viralrecon outputs, which are based on nucleotide-level variant calls.
+
+#### **2. Codon-level frequency analysis with codfreq**
+
+To obtain codon frequency information, `nf-core/viralrecon` integrates a modified version of [**codfreq**](https://github.com/hivdb/codfreq/) tool.
+
+The modified version of codfreq produces a codon frequency table in the _CodFreq_ format, which contains seven columns:
+
+| Column                | Description                                                         |
+| :-------------------- | :------------------------------------------------------------------ |
+| `gene`                | HIV gene (PR, RT, or IN)                                            |
+| `position`            | Codon position at protein level                                     |
+| `total`               | Total reads covering that position (tiplet)                         |
+| `codon`               | Nucleotide triplet or INDELS                                        |
+| `count`               | Total reads supporting that codon                                   |
+| `total_quality_score` | Qualituy score of that codon assigned by codfreq                    |
+| `aa_codon`            | If the codon is multiple of 3, the corresponding aminoacid sequence |
+
+This format enables codon-level analysis of intra-sample diversity.
+
+However, codfreq requires a **custom JSON file** that describes the HIV gene structure (PR, RT, and IN). To generate this JSON dynamically according to the user’s selected reference genome, several preprocessing steps are performed.
+
+#### **3. Generation of codfreq annotation JSON**
+
+The generation of the required JSON file for codfreq involves the following steps:
+
+1. **Conversion of reference annotations**: The original codfreq HIV profile (in JSON format) has been converted into a `.fasta` and `.gff` file containing the necessary annotations for PR, RT, and IN genes. These files are included within `nf-core/viralrecon` assets.
+
+2. **Reference genome alignment with Liftoff**: Only performed when the provided genome is not the one from codfreq. Using the provided reference genome and the `.fasta` and `.gff` from the step 1, annotation files are processed with **[Liftoff](https://github.com/agshumate/Liftoff)** to transfer the HIV gene annotations to the user’s specific reference genome.
+
+3. **Custom JSON generation**: The annotated `.gff` file and the reference `.fasta` are used as input for a **custom Python script** `bin/gff2json.py` within `nf-core/viralrecon`. This script produces the JSON file required by `codfreq`, ensuring accurate gene coordinates and consistency with the reference genome.
+
+4. **Annotation harmonization for variant mapping**: Only performed when the provided genome is not the one from codfreq. Once the new `.gff` file is produced by Liftoff, an additional annotation step is performed. The variant caller outputs (based on **nucleotide-level variants**) are re-annotated using this updated `.gff`, generating a **secondary annotation layer**. This process allows a direct mapping between **codon-based resistance results** (from `sierra-local` and `codfreq`) and **nucleotide-based variant calls**, ensuring that both analyses can be compared and integrated accurately in downstream reviews.
+
+This automated workflow guarantees that the codfreq JSON file always matches the user-defined HIV reference, maintaining compatibility with both sierra-local and the consensus sequence data.
+
+#### **4. Integration of codfreq with mapped reads**
+
+Once the annotation JSON is generated, the **mapped BAM files** and the **codfreq JSON** are processed using a **modified version of codfreq** within the pipeline.  
+This version has been adapted to work seamlessly with `nf-core/viralrecon` output formats and file structures.
+
+The result is a set of `.codfreq` tables containing codon-level read frequencies for PR, RT, and IN genes, harmonized with the annotation used by Sierra-local.
+
+#### **5. Integration and final reporting**
+
+Finally, the outputs from **sierra-local** (`.json`) and **codfreq** (`.codfreq`) are merged to produce custom HIV resistance summary tables.
+
+The resulting integrated reports provide a **comprehensive view of HIV drug resistance**, maintaining compatibility with established databases and ensuring consistency with the rest of the `viralrecon` analytical framework.
+
+To know more about the output files generated in the HIV resistance steps, check the [output documentation](output.md#illumina-hiv-resistance-detection).
