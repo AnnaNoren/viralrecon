@@ -198,7 +198,6 @@
             [
                 "SRR13266665.contigs.fa.gz:md5,d6fb919c8683a3025cf6c5fd512f5245",
                 "gc.icarus.txt:md5,3f5e959947cbc0d2744053261dbf77c4",
-                "gc.icarus.txt:md5,3f5e959947cbc0d2744053261dbf77c4",
                 "SRR13266665.fastp.json:md5,365cd8099c91d57ce07c0615d4899128",
                 "SRR13266665.kraken2.report.txt:md5,ba7c54a91f0a60efe950bed82f8d6e87",
                 "fastp-insert-size-plot.yaml:md5,f24342085c60ebe502748e94858075d8",
