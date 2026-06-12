@@ -54,9 +54,9 @@ workflow ASSEMBLY_SPADES {
             // Choose scaffold if it exists and is not empty, otherwise contig
             def scaffold = files.find { it.name.contains('scaffold') }
             def contig = files.find { it.name.contains('contig') }
-            
+
             def assembly = scaffold ? scaffold : contig
-            
+
             if (!assembly) {
                 error "No assembly found for sample ${meta}"
             }

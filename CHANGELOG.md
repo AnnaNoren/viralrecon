@@ -55,6 +55,7 @@ Thank you to everyone else that has contributed by reporting bugs, enhancements 
 | `--skip_multiqc`           |                              |
 |                            | `--taxidlist`                |
 |                            | `--perform_ev_typing`        |
+
 > **NB:** Parameter has been **updated** if both old and new parameter information is present.
 > **NB:** Parameter has been **added** if just the new parameter information is present.
 > **NB:** Parameter has been **removed** if new parameter information isn't present.
