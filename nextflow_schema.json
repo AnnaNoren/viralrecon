@@ -31,9 +31,15 @@
                 },
                 "protocol": {
                     "type": "string",
-                    "description": "Specifies the type of protocol used for sequencing.",
+                    "description": "Specifies the type of protocol used for sequencing. **DEPRECATED: use --trim_primers instead**.",
                     "fa_icon": "fas fa-vials",
-                    "enum": ["metagenomic", "amplicon"]
+                    "enum": ["metagenomic", "amplicon"],
+                    "hidden": true
+                },
+                "trim_primers": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-scissors",
+                    "description": "Specify whether to trim amplicon primers from reads. Set to 'true' for amplicon data with primers to trim, or 'false' for metagenomics or pre-trimmed data."
                 },
                 "outdir": {
                     "type": "string",
@@ -77,10 +83,18 @@
                     "help_text": "If you have no genome reference available, the pipeline can build one using a FASTA file. This requires additional time and resources, so it's better to use a pre-build index if possible."
                 },
                 "gff": {
-                    "type": "string",
-                    "format": "file-path",
-                    "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.gff(\\.gz)?$",
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "file-path",
+                            "mimetype": "text/plain",
+                            "pattern": "^\\S+\\.gff(\\.gz)?$"
+                        },
+                        {
+                            "type": "boolean",
+                            "const": false
+                        }
+                    ],
                     "description": "Full path to GFF annotation file.",
                     "fa_icon": "fas fa-file-invoice"
                 },
@@ -123,9 +137,9 @@
                     "help_text": "Where possible we are trying to collate links and settings for standard primer sets to make it easier to run the pipeline with standard keys. See https://github.com/nf-core/configs/blob/master/conf/pipeline/viralrecon/genomes.config"
                 },
                 "primer_set_version": {
-                    "type": "number",
+                    "type": ["number", "string"],
                     "fa_icon": "fas fa-code-branch",
-                    "description": "Version of the primer set e.g. '--primer_set artic --primer_set_version 3'.",
+                    "description": "Version of the primer set e.g. '--primer_set artic --primer_set_version 3' or '--primer_set_version 5.3.2'.",
                     "help_text": "Where possible we are trying to collate links and settings for standard primer sets to make it easier to run the pipeline with standard keys. See https://github.com/nf-core/configs/blob/master/conf/pipeline/viralrecon/genomes.config"
                 },
                 "primer_left_suffix": {
@@ -162,10 +176,18 @@
                     "fa_icon": "fas fa-folder-open"
                 },
                 "sequencing_summary": {
-                    "type": "string",
-                    "format": "file-path",
-                    "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.txt$",
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "file-path",
+                            "mimetype": "text/plain",
+                            "pattern": "^\\S+\\.txt$"
+                        },
+                        {
+                            "type": "boolean",
+                            "const": false
+                        }
+                    ],
                     "description": "Sequencing summary file generated after Nanopore run completion.",
                     "help_text": " e.g. '--sequencing_summary ./20191023_1522_MC-110615_0_FAO93606_12bf9b4f/sequencing_summary.txt'.",
                     "fa_icon": "fas fa-file"
@@ -188,17 +210,24 @@
                     "help_text": "e.g. '--artic_scheme ncov-2019'. See https://artic.readthedocs.io/en/latest/primer-schemes/ and https://github.com/artic-network/primer-schemes/blob/master/schemes_manifest.json.",
                     "fa_icon": "fas fa-stream"
                 },
-                "artic_minion_model_dir": {
+                "clair3_model_dir": {
                     "type": "string",
                     "description": "Path containing clair3 models. Defaults to models packaged with conda installation",
                     "help_text": "See https://artic.readthedocs.io/en/latest/commands/#usage-example_1",
                     "fa_icon": "fas fa-train"
                 },
-                "artic_minion_model": {
+                "clair3_model": {
                     "type": "string",
                     "description": "Clair3 model to use. If not provided the pipeline will attempt to determine the appropriate model based on the basecall_model_version_id field in the input FASTQ header (recommended)",
                     "help_text": "See https://artic.readthedocs.io/en/latest/commands/#usage-example_1",
                     "fa_icon": "fas fa-train"
+                },
+                "mapper_nanopore": {
+                    "type": "string",
+                    "default": "artic",
+                    "description": "Specify which mapping software you would like to use. Available options are 'artic' for the ARTIC protocol and 'minimap2' that performs variant calling with Clair3 and consensus caller with bcftools",
+                    "fa_icon": "fas fa-random",
+                    "enum": ["artic", "minimap2"]
                 },
                 "skip_pycoqc": {
                     "type": "boolean",
@@ -245,9 +274,9 @@
                 },
                 "freyja_db_name": {
                     "type": "string",
-                    "default": "freyja_db",
+                    "default": "SARS-CoV-2",
                     "fa_icon": "fas fa-folder-open",
-                    "description": "Specify the name where to store UShER database (default: 'freyja_db')."
+                    "description": "Specify the name where to store UShER database (default: 'SARS-CoV-2')."
                 },
                 "freyja_depthcutoff": {
                     "type": "integer",
@@ -270,11 +299,17 @@
                     "fa_icon": "fas fa-file",
                     "description": "Lineage defining barcodes, default is most recent from UShER database."
                 },
-                "freyja_lineages": {
+                "freyja_lineages_meta": {
                     "type": "string",
                     "format": "path",
                     "fa_icon": "fas fa-file",
                     "description": "Metadata of lineages that match barcode, default is most recent from UShER database."
+                },
+                "freyja_lineages_topology": {
+                    "type": "string",
+                    "format": "path",
+                    "fa_icon": "fas fa-file",
+                    "description": "Topological information of lineages that match barcode, default is most recent from UShER database."
                 },
                 "max_multiqc_email_size": {
                     "type": "string",
@@ -308,11 +343,6 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-fast-forward",
                     "description": "Skip long table generation for reporting variants."
-                },
-                "skip_multiqc": {
-                    "type": "boolean",
-                    "fa_icon": "fas fa-fast-forward",
-                    "description": "Skip MultiQC."
                 }
             },
             "fa_icon": "fas fa-retweet"
@@ -581,6 +611,73 @@
             },
             "fa_icon": "fas fa-random"
         },
+        "hiv_resistance_options": {
+            "title": "HIV resistance options",
+            "type": "object",
+            "description": "Options used during the detection of HIV resistance",
+            "default": "",
+            "properties": {
+                "hivdb_xml": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.xml$",
+                    "fa_icon": "fas fa-file",
+                    "description": "Path to HIVdb ASI2 XML file (default: HIVDB_9.4.xml)",
+                    "help_text": "This file is used by sierra-local software. If not provided, the XML file comming with the software will be used."
+                },
+                "apobec_drm": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.json$",
+                    "fa_icon": "fas fa-file",
+                    "description": "Path to JSON HIVdb APOBEC DRM file",
+                    "help_text": "This file is used by sierra-local software. If not provided, the JSON file comming with the software will be used."
+                },
+                "apobec_csv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "fa_icon": "fas fa-file",
+                    "description": " Path to CSV APOBEC csv file (default: apobecs.csv)",
+                    "help_text": "This file is used by sierra-local software. If not provided, the CSV file comming with the software will be used."
+                },
+                "unusual_csv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "fa_icon": "fas fa-file",
+                    "description": "Path to CSV file to determine if is unusual (default: rx-all_subtype-all.csv)",
+                    "help_text": "This file is used by sierra-local software. If not provided, the CSV file comming with the software will be used."
+                },
+                "sdrms_csv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "fa_icon": "fas fa-file",
+                    "description": "Path to CSV file to determine SDRM mutations (default: sdrms_hiv1.csv)",
+                    "help_text": "This file is used by sierra-local software. If not provided, the CSV file comming with the software will be used."
+                },
+                "mutation_csv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "fa_icon": "fas fa-file",
+                    "description": "Path to CSV file to determine mutation type (default: mutation-type-pairs_hiv1.csv",
+                    "help_text": "This file is used by sierra-local software. If not provided, the CSV file comming with the software will be used."
+                },
+                "perform_hiv_resistance": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-fast-forward",
+                    "description": "Whether to perform sierra local HIV resistance analysis."
+                }
+            }
+        },
         "generic_options": {
             "title": "Generic options",
             "type": "object",
@@ -624,13 +721,6 @@
                     "fa_icon": "fas fa-palette",
                     "hidden": true,
                     "help_text": "Set to disable colourful command line output and live life in monochrome."
-                },
-                "hook_url": {
-                    "type": "string",
-                    "description": "Incoming hook URL for messaging service",
-                    "fa_icon": "fas fa-people-group",
-                    "help_text": "Incoming hook URL for messaging service. Currently, only MS Teams is supported.",
-                    "hidden": true
                 },
                 "multiqc_config": {
                     "type": "string",
@@ -755,6 +845,9 @@
         },
         {
             "$ref": "#/$defs/illumina_de_novo_assembly_options"
+        },
+        {
+            "$ref": "#/$defs/hiv_resistance_options"
         },
         {
             "$ref": "#/$defs/generic_options"

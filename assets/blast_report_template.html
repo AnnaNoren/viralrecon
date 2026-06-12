@@ -32,7 +32,7 @@
 
       <div class="content">
         <div class="description">
-          {% if is_error_report %}
+          {% if data.is_error_report %}
           <p><strong>Compilation of results</strong> for all contigs (unfiltered data).</p>
           {% else %}
           <p>
@@ -58,7 +58,7 @@
           {% endif %}
         </div>
 
-        {% if is_error_report %}
+        {% if data.is_error_report %}
         <div class="warning">
           <span class="warning-icon">⚠️</span>
           <span class="warning-text"
@@ -66,7 +66,7 @@
             results for all available contigs.</span
           >
         </div>
-        {% endif %} {% if data.warningtext and not is_error_report %}
+        {% endif %} {% if data.warningtext and not data.is_error_report %}
         <div class="warning">{{ data.warningtext | safe }}</div>
         {% endif %}
 

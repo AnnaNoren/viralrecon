@@ -296,3 +296,5 @@ sp:
     fn: "*.global.dist.txt"
   cutadapt:
     fn: "*.cutadapt.log"
+  amplicon_heatmap:
+    fn: "*.mosdepth.heatmap.tsv"

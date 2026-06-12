@@ -16,8 +16,6 @@ workflow SNPEFF_SNPSIFT {
 
     main:
 
-    ch_versions = channel.empty()
-
     SNPEFF_ANN (
         vcf,
         db,
@@ -31,7 +29,6 @@ workflow SNPEFF_SNPSIFT {
         [ [:], [] ],
         [ [:], [] ]
     )
-    ch_versions = ch_versions.mix(VCF_BGZIP_TABIX_STATS.out.versions)
 
     SNPSIFT_EXTRACTFIELDS (
         VCF_BGZIP_TABIX_STATS.out.vcf
@@ -44,10 +41,7 @@ workflow SNPEFF_SNPSIFT {
 
     vcf         = VCF_BGZIP_TABIX_STATS.out.vcf   // channel: [ val(meta), [ vcf.gz ] ]
     tbi         = VCF_BGZIP_TABIX_STATS.out.tbi   // channel: [ val(meta), [ tbi ] ]
-    csi         = VCF_BGZIP_TABIX_STATS.out.csi   // channel: [ val(meta), [ csi ] ]
     stats       = VCF_BGZIP_TABIX_STATS.out.stats // channel: [ val(meta), [ txt ] ]
 
     snpsift_txt = SNPSIFT_EXTRACTFIELDS.out.txt   // channel: [ val(meta), [ txt ] ]
-
-    versions    = ch_versions                     // channel: [ versions.yml ]
 }

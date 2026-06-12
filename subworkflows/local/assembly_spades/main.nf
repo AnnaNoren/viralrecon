@@ -44,15 +44,33 @@ workflow ASSEMBLY_SPADES {
         [],
         hmm
     )
-    ch_versions = ch_versions.mix(SPADES.out.versions.first())
 
+    SPADES.out.scaffolds
+        .mix(SPADES.out.contigs)
+        .dump(tag:"scaffold_joined_contig")
+        .groupTuple(by: 0)
+        .dump(tag:"grouped_scaffold_contig")
+        .map { meta, files ->
+            // Choose scaffold if it exists and is not empty, otherwise contig
+            def scaffold = files.find { it.name.contains('scaffold') }
+            def contig = files.find { it.name.contains('contig') }
+
+            def assembly = scaffold ? scaffold : contig
+
+            if (!assembly) {
+                error "No assembly found for sample ${meta}"
+            }
+
+            [meta, file(assembly)]
+        }
+        .set { ch_assembly }
+    ch_assembly.dump(tag:"ch_assembly")
     //
     // Unzip scaffolds file
     //
     GUNZIP_SCAFFOLDS (
-        SPADES.out.scaffolds
+        ch_assembly
     )
-    ch_versions = ch_versions.mix(GUNZIP_SCAFFOLDS.out.versions.first())
 
     //
     // Unzip gfa file
@@ -61,13 +79,13 @@ workflow ASSEMBLY_SPADES {
         SPADES.out.gfa
     )
 
+
     //
     // Filter for empty scaffold files
     //
     GUNZIP_SCAFFOLDS
         .out
         .gunzip
-        .filter { meta, scaffold -> scaffold.size() > 0 }
         .set { ch_scaffolds }
 
     GUNZIP_GFA
@@ -87,7 +105,6 @@ workflow ASSEMBLY_SPADES {
         )
         ch_bandage_png = BANDAGE_IMAGE.out.png
         ch_bandage_svg = BANDAGE_IMAGE.out.svg
-        ch_versions    = ch_versions.mix(BANDAGE_IMAGE.out.versions.first())
     }
 
     //
@@ -106,12 +123,17 @@ workflow ASSEMBLY_SPADES {
 
     ch_blast_report = channel.empty()
     ch_reversed_fasta = channel.empty()
+    ch_genotype = channel.empty()
+
     if (!params.skip_blast && (params.genome == 'NC_002058.3' || params.perform_ev_typing)) {
+        ch_blast_report_input = ASSEMBLY_QC.out.blast_txt.join(ch_scaffolds, by: [0])
+            .filter{ meta, blast, fasta -> blast.countLines() > 1 }
         BLAST_REPORT (
-            ASSEMBLY_QC.out.blast_filter_txt.join(ch_scaffolds, by: [0])
+            ch_blast_report_input
         )
         ch_blast_report = BLAST_REPORT.out.blast_report
         ch_reversed_fasta = BLAST_REPORT.out.reversed_contigs
+        ch_genotype = BLAST_REPORT.out.genotype
     }
 
     emit:
@@ -129,6 +151,7 @@ workflow ASSEMBLY_SPADES {
     blast_filter_txt   = ASSEMBLY_QC.out.blast_filter_txt   // channel: [ val(meta), [ txt ] ]
     blast_report       = ch_blast_report                    // channel: [ val(meta), [ html ] ]
     reversed_fasta     = ch_reversed_fasta                  // channel: [ val(meta), [ fasta ] ]
+    genotype           = ch_genotype                        // channel: [ val(meta), [ csv ] ]
 
     quast_results      = ASSEMBLY_QC.out.quast_results      // channel: [ val(meta), [ results ] ]
     quast_tsv          = ASSEMBLY_QC.out.quast_tsv          // channel: [ val(meta), [ tsv ] ]
@@ -144,5 +167,5 @@ workflow ASSEMBLY_SPADES {
     plasmidid_fasta    = ASSEMBLY_QC.out.plasmidid_fasta    // channel: [ val(meta), [ fasta_files/ ] ]
     plasmidid_kmer     = ASSEMBLY_QC.out.plasmidid_kmer     // channel: [ val(meta), [ kmer/ ] ]
 
-    versions           = ch_versions                        // channel: [ versions.yml ]
+    versions           = ch_versions                       // channel: versions.yml
 }

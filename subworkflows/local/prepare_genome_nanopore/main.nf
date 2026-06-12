@@ -7,7 +7,7 @@ include { GUNZIP as GUNZIP_GFF        } from '../../../modules/nf-core/gunzip/ma
 include { GUNZIP as GUNZIP_PRIMER_BED } from '../../../modules/nf-core/gunzip/main'
 include { UNTAR                       } from '../../../modules/nf-core/untar/main'
 include { UNTAR as UNTAR_KRAKEN2_DB   } from '../../../modules/nf-core/untar/main'
-include { CUSTOM_GETCHROMSIZES        } from '../../../modules/nf-core/custom/getchromsizes/main'
+include { SAMTOOLS_FAIDX              } from '../../../modules/nf-core/samtools/faidx/main'
 include { NEXTCLADE_DATASETGET        } from '../../../modules/nf-core/nextclade/datasetget/main'
 include { COLLAPSE_PRIMERS            } from '../../../modules/local/collapse_primers'
 include { KRAKEN2_BUILD               } from '../../../modules/local/kraken2/build'
@@ -36,7 +36,6 @@ workflow PREPARE_GENOME_NANOPORE {
             [ [:], fasta ]
         )
         ch_fasta    = GUNZIP_FASTA.out.gunzip.map { it[1] }
-        ch_versions = ch_versions.mix(GUNZIP_FASTA.out.versions)
     } else {
         ch_fasta = channel.value(file(fasta))
     }
@@ -51,7 +50,6 @@ workflow PREPARE_GENOME_NANOPORE {
                 [ [:], gff ]
             )
             ch_gff      = GUNZIP_GFF.out.gunzip.map { it[1] }
-            ch_versions = ch_versions.mix(GUNZIP_GFF.out.versions)
         } else {
             ch_gff = channel.value(file(gff))
         }
@@ -60,12 +58,12 @@ workflow PREPARE_GENOME_NANOPORE {
     //
     // Create chromosome sizes file
     //
-    CUSTOM_GETCHROMSIZES (
-        ch_fasta.map { [ [:], it ] }
+    SAMTOOLS_FAIDX (
+        ch_fasta.map { [ [:], it, [] ] },
+        true
     )
-    ch_fai         = CUSTOM_GETCHROMSIZES.out.fai.map { it[1] }
-    ch_chrom_sizes = CUSTOM_GETCHROMSIZES.out.sizes.map { it[1] }
-    ch_versions    = ch_versions.mix(CUSTOM_GETCHROMSIZES.out.versions)
+    ch_fai         = SAMTOOLS_FAIDX.out.fai.map { it[1] }
+    ch_chrom_sizes = SAMTOOLS_FAIDX.out.sizes.map { it[1] }
 
     //
     // Prepare reference files required for variant calling
@@ -78,7 +76,6 @@ workflow PREPARE_GENOME_NANOPORE {
                     [ [:], params.kraken2_db ]
                 )
                 ch_kraken2_db = UNTAR_KRAKEN2_DB.out.untar.map { it[1] }
-                ch_versions   = ch_versions.mix(UNTAR_KRAKEN2_DB.out.versions)
             } else {
                 ch_kraken2_db = channel.value(file(params.kraken2_db))
             }
@@ -100,7 +97,6 @@ workflow PREPARE_GENOME_NANOPORE {
                 [ [:], primer_bed ]
             )
             ch_primer_bed = GUNZIP_PRIMER_BED.out.gunzip.map { it[1] }
-            ch_versions   = ch_versions.mix(GUNZIP_PRIMER_BED.out.versions)
         } else {
             ch_primer_bed = channel.value(file(primer_bed))
         }
@@ -123,6 +119,7 @@ workflow PREPARE_GENOME_NANOPORE {
     // Prepare Nextclade dataset
     //
     ch_nextclade_db = channel.empty()
+    ch_versions = channel.empty()
     if (!params.skip_consensus && !params.skip_nextclade) {
         if (nextclade_dataset) {
             if (nextclade_dataset.endsWith('.tar.gz')) {
@@ -130,7 +127,6 @@ workflow PREPARE_GENOME_NANOPORE {
                     [ [:], nextclade_dataset ]
                 )
                 ch_nextclade_db = UNTAR.out.untar.map { it[1] }
-                ch_versions     = ch_versions.mix(UNTAR.out.versions)
             } else {
                 ch_nextclade_db = channel.value(file(nextclade_dataset))
             }
@@ -158,17 +154,30 @@ workflow PREPARE_GENOME_NANOPORE {
         ch_snpeff_config = SNPEFF_BUILD.out.config
     }
 
-    emit:
-    fasta                = ch_fasta                // path: genome.fasta
-    gff                  = ch_gff                  // path: genome.gff
-    fai                  = ch_fai                  // path: genome.fai
-    chrom_sizes          = ch_chrom_sizes          // path: genome.sizes
-    primer_bed           = ch_primer_bed           // path: primer.bed
-    primer_collapsed_bed = ch_primer_collapsed_bed // path: primer.collapsed.bed
-    nextclade_db         = ch_nextclade_db         // path: nextclade_db
-    kraken2_db           = ch_kraken2_db           // path: kraken2_db/
-    snpeff_db            = ch_snpeff_db            // path: snpeff_db
-    snpeff_config        = ch_snpeff_config        // path: snpeff.config
+    //
+    // Materialize reference channels so they can be reused by multiple consumers
+    //
+    def ch_reference_fasta                = ch_fasta.collect(flat: false).map { files -> files[0] }
+    def ch_reference_fai                  = ch_fai.collect(flat: false).map { files -> files[0] }
+    def ch_reference_gff                  = gff ? ch_gff.collect(flat: false).map { files -> files[0] } : []
+    def ch_reference_primer_bed           = ch_primer_bed.collect(flat: false).map { files -> files[0] }
+    def ch_reference_primer_collapsed_bed = !params.skip_mosdepth ? ch_primer_collapsed_bed.collect(flat: false).map { files -> files[0] } : []
+    def ch_reference_nextclade_db         = !params.skip_nextclade ? ch_nextclade_db.collect(flat: false).map { dirs -> dirs[0] } : []
+    def ch_reference_kraken2_db           = !params.skip_kraken2 ? ch_kraken2_db.collect(flat: false).map { dirs -> dirs[0] } : []
+    def ch_reference_snpeff_db            = (gff && !params.skip_snpeff) ? ch_snpeff_db.collect(flat: false).map { dirs -> dirs[0] } : []
+    def ch_reference_snpeff_config        = (gff && !params.skip_snpeff) ? ch_snpeff_config.collect(flat: false).map { files -> files[0] } : []
 
-    versions             = ch_versions             // channel: [ versions.yml ]
+    emit:
+    fasta                = ch_reference_fasta                // path: genome.fasta
+    gff                  = ch_reference_gff                  // path: genome.gff
+    fai                  = ch_reference_fai                  // path: genome.fai
+    chrom_sizes          = ch_chrom_sizes                    // path: genome.sizes
+    primer_bed           = ch_reference_primer_bed           // path: primer.bed
+    primer_collapsed_bed = ch_reference_primer_collapsed_bed // path: primer.collapsed.bed
+    nextclade_db         = ch_reference_nextclade_db         // path: nextclade_db
+    kraken2_db           = ch_reference_kraken2_db           // path: kraken2_db/
+    snpeff_db            = ch_reference_snpeff_db            // path: snpeff_db
+    snpeff_config        = ch_reference_snpeff_config        // path: snpeff.config
+
+    versions             = ch_versions                       // channel: versions.yml
 }

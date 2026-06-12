@@ -11,17 +11,17 @@ process BLAST_REPORT {
     tuple val(meta), path(blast), path(fasta)
 
     output:
-    tuple val(meta), path("*.html") , emit: blast_report
-    tuple val(meta), path("*.fa")   , emit: reversed_contigs
-    tuple val("${task.process}"), val('python'), eval('python --version | sed "s/Python //g"'), emit: versions_python, topic: versions
-
+    tuple val(meta), path("*.html")          , emit: blast_report
+    tuple val(meta), path("*.fa")            , emit: reversed_contigs
+    tuple val(meta), path("*_genotype.csv")  , emit: genotype
+    tuple val("${task.process}"), val("python"), eval("python --version 2>&1 | sed 's/Python //g'"), topic: versions, emit: versions_python
+    
     when:
     task.ext.when == null || task.ext.when
 
     script:  // This script is bundled with the pipeline, in nf-core/viralrecon/bin/
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: meta.id
-    def suggestions = task.ext.args2 ?: '--no_suggest'
 
     """
     blast_report.py \\
@@ -30,7 +30,7 @@ process BLAST_REPORT {
         --sample_name ${meta.id} \\
         --output_html ${prefix}_blast_report.html \\
         --output_fasta ${prefix}_reversed_contigs.fa \\
-        $suggestions \\
+        --output_genotype ${prefix}_genotype.csv \\
         $args
     """
 }
