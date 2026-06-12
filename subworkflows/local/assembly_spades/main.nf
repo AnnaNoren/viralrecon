@@ -32,7 +32,7 @@ workflow ASSEMBLY_SPADES {
     ch_reads = reads
     if (mode.contains('meta') || mode.contains('bio')) {
         reads
-            .filter { meta, illumina, pacbio, nanopore -> !meta.single_end }
+            .filter { meta, _illumina, _pacbio, _nanopore -> !meta.single_end }
             .set { ch_reads }
     }
 
@@ -91,7 +91,7 @@ workflow ASSEMBLY_SPADES {
     GUNZIP_GFA
         .out
         .gunzip
-        .filter { meta, gfa -> gfa.size() > 0 }
+        .filter { _meta, gfa -> gfa.size() > 0 }
         .set { ch_gfa }
 
     //
@@ -127,7 +127,7 @@ workflow ASSEMBLY_SPADES {
 
     if (!params.skip_blast && (params.genome == 'NC_002058.3' || params.perform_ev_typing)) {
         ch_blast_report_input = ASSEMBLY_QC.out.blast_txt.join(ch_scaffolds, by: [0])
-            .filter{ meta, blast, fasta -> blast.countLines() > 1 }
+            .filter{ _meta, blast, _assembly_fasta -> blast.countLines() > 1 }
         BLAST_REPORT (
             ch_blast_report_input
         )

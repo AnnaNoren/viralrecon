@@ -1,10 +1,10 @@
 name: blast_report
 description: Generate HTML reports from BLAST results
 keywords:
-- blast
-- genotype
-- report
-- html
+  - blast
+  - genotype
+  - report
+  - html
 input:
   - - meta:
         type: map
@@ -26,41 +26,41 @@ input:
           - edam: http://edamontology.org/format_1929 # FASTA
 output:
   blast_report:
-  - - meta:
-        type: map
-        description: |
-          Groovy map containing sample information
-          e.g. [ id:'test' ]
-    - "*.html":
-        type: file
-        description: Results report in HTML format
-        pattern: "*.{html}"
-        ontologies:
-          - edam: http://edamontology.org/format_2331 # HTML
+    - - meta:
+          type: map
+          description: |
+            Groovy map containing sample information
+            e.g. [ id:'test' ]
+      - "*.html":
+          type: file
+          description: Results report in HTML format
+          pattern: "*.{html}"
+          ontologies:
+            - edam: http://edamontology.org/format_2331 # HTML
   reversed_contigs:
-  - - meta:
-        type: map
-        description: |
-          Groovy map containing sample information
-          e.g. [ id:'test' ]
-    - fasta:
-        type: file
-        description: Fasta file containing forward and reverse complement contigs
-        pattern: "*.{fa}"
-        ontologies:
-          - edam: http://edamontology.org/format_1929 # FASTA
+    - - meta:
+          type: map
+          description: |
+            Groovy map containing sample information
+            e.g. [ id:'test' ]
+      - fasta:
+          type: file
+          description: Fasta file containing forward and reverse complement contigs
+          pattern: "*.{fa}"
+          ontologies:
+            - edam: http://edamontology.org/format_1929 # FASTA
   genotype:
-  - - meta:
-        type: map
-        description: |
-          Groovy map containing sample information
-          e.g. [ id:'test' ]
-    - "*.csv":
-        type: file
-        description: Genotype results in CSV format
-        pattern: "*.{csv}"
-        ontologies:
-          - edam: http://edamontology.org/format_3752 # CSV
+    - - meta:
+          type: map
+          description: |
+            Groovy map containing sample information
+            e.g. [ id:'test' ]
+      - "*.csv":
+          type: file
+          description: Genotype results in CSV format
+          pattern: "*.{csv}"
+          ontologies:
+            - edam: http://edamontology.org/format_3752 # CSV
   versions_python:
     - - ${task.process}:
           type: string
