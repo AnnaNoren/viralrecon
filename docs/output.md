@@ -945,7 +945,8 @@ In the variant calling branch of the pipeline we are using [iVar trim](#ivar-tri
       - sscinames: Subject Scientific Name(s), separated by a ';'. Without taxid mapped blast database, N/A will appear.
       - qaccver: Query accesion version. Contig name.
       - saccver: Subject accession version. Reference genome accession version.
-      - pident: Percentage of identical matches. - length: Alignment length.
+      - pident: Percentage of identical matches.
+      - length: Alignment length.
       - mismatch: Number of mismatches.
       - gapopen: Number of gap openings.
       - qstart: Start of alignment in query (sample's contig).
@@ -954,7 +955,8 @@ In the variant calling branch of the pipeline we are using [iVar trim](#ivar-tri
       - send: Start of alignment in subject (reference genome).
       - evalue: Expect value.
       - bitscore: Bit score. The bit-score is the requires size of a sequence database in which the current match could be found just by chance. The bit-score is a log2 scaled and normalized raw-score. Each increase by one doubles the required database size (2bit-score).
-      - slen: Subject (reference genome) sequence length. - qlen: Query (contig) sequence length.
+      - slen: Subject (reference genome) sequence length.
+      - qlen: Query (contig) sequence length.
       - qcovs: Query Coverage Per Subject.
       - %cgAligned: Percentage of contig covered in the alignment. It is calculated dividing `length/qlen`.
       - %refCovered: Percentage of reference genome covered in the alignment. It is calculated dividing `length/slen`.

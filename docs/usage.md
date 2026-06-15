@@ -335,7 +335,7 @@ By default, variant calling is deactivated for enterovirus typing because de nov
 #### De novo assembly
 
 De novo assembly is performed using **spades** to generate contigs for BLASTN typing.
-Note that **unicycler** and **minia** is not default assemblers for enterovirus, and not compatible with the generation of the html report.
+Note that **unicycler** and **minia** are not default assemblers for enterovirus, and not compatible with the generation of the html report.
 
 #### BLASTN
 
