@@ -47,9 +47,7 @@ workflow ASSEMBLY_SPADES {
 
     SPADES.out.scaffolds
         .mix(SPADES.out.contigs)
-        .dump(tag:"scaffold_joined_contig")
         .groupTuple(by: 0)
-        .dump(tag:"grouped_scaffold_contig")
         .map { meta, files ->
             // Choose scaffold if it exists and is not empty, otherwise contig
             def scaffold = files.find { it.name.contains('scaffold') }
@@ -64,7 +62,6 @@ workflow ASSEMBLY_SPADES {
             [meta, file(assembly)]
         }
         .set { ch_assembly }
-    ch_assembly.dump(tag:"ch_assembly")
     //
     // Unzip scaffolds file
     //
