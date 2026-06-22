@@ -219,7 +219,7 @@ def generate_report_data(df, fasta_file, sample_name, id, unique_contigs, sugges
                 ax.axhspan(i - 0.5, i + 0.5, facecolor='gray', alpha=0.2, zorder=-1)
     ax.set_ylim(-0.5, n_sscinames-0.3)
     ax.grid(True, axis="x", linestyle="--")
-    ax.set(xlabel='BLAST identitety (%)', ylabel='Genotype')
+    ax.set(xlabel='BLAST identity (%)', ylabel='Genotype')
     wrap_ylabels(ax, width=30)
 
     # Plot 2: bit score
