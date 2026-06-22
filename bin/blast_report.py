@@ -472,7 +472,7 @@ def generate_error_report_data(df, fasta_file, sample_name, id, unique_contigs, 
                 contig_count = len(contig_headers)
                 contigs_summary = '<br>'.join(contig_headers)
         else:
-            print(f"Warning: FASTA file not found: {seq_file_original}")
+            print(f"Warning: FASTA file not found: {fasta_file}")
     except Exception as e:
         print(f"Error reading FASTA file for {file_name}: {e}")
 
