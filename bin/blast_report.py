@@ -335,7 +335,12 @@ def generate_error_report_data(df, fasta_file, sample_name, id, unique_contigs, 
 
         if n_contigs == 0 or n_sscinames == 0:
             print(f"Warning: Invalid contig or genotype count for {file_name}")
-            return img_data_uri, contigs_content, contigs_summary, contig_count
+            return {
+                'img_data_uri': img_data_uri,
+                'contigs_content': contigs_content,
+                'contigs_summary': contigs_summary,
+                'contig_count': contig_count
+            }
 
         pident_medians = df.groupby('sscinames')['pident'].median().sort_values(ascending=True)
         bitscore_medians = df.groupby('sscinames')['bitscore'].median().sort_values(ascending=True)
