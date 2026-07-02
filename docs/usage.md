@@ -326,9 +326,9 @@ NXF_OPTS='-Xms1g -Xmx4g'
 
 The goal of this addition is to enable rapid and accurate **Enterovirus genotype identification** directly from consensus sequences in the de novo assembly track, reducing BLASTN runtime while maintaining high typing accuracy.
 
-### Enterovirus profile and recommended params
+### Enterovirus typing profile and recommended params
 
-The Enterovirus profile introduces specific adjustments compared to a standard `viralrecon` run, primarily to optimize **genotype typing**.
+The Enterovirus profile `ev_typing.conf` introduces specific adjustments compared to a standard `viralrecon` run, primarily to optimize **genotype typing**.
 
 By default, variant calling is deactivated for enterovirus typing because de novo assembly performs better through assembled contigs and BLAST comparison.
 
@@ -339,7 +339,7 @@ Note that **unicycler** and **minia** are not default assemblers for enterovirus
 
 #### BLASTN
 
-Typing through **blastn** is performed through supplying a blast database with taxid mapping and a taxidlist, to improve typing specificity and reduce runtime.
+Typing through **blastn** is performed through supplying a blast database with taxid mapping and a taxid list, to improve typing specificity and reduce runtime.
 The new optional parameter, `--taxidlist`, allows users to provide a list of **NCBI Taxonomy IDs** corresponding to Enterovirus taxa of interest.
 
 Taxonomy IDs related to enterovirus can be retriewed from [NCBI](https://www.ncbi.nlm.nih.gov/taxonomy/?term=txid12059[Organism:noexp]).
@@ -349,7 +349,7 @@ Example usage:
 ```bash
 --blastdb path/to/blastdb
 --taxidlist path/to/taxidlist.txt
---profile test_ev
+--profile ev_typing
 ```
 
 #### Reference genome
@@ -365,7 +365,7 @@ Users may provide their **own custom reference genomes** using the parameters:
 
 #### Blast report
 
-When using `--genome 'NC_002058.3'` or `--perform_ev_typing`, which are enabled in the `-profile test_ev` configuration, the pipeline generates an HTML report with the enterovirus typing results, a genotype CSV file, and a FASTA file containing forward and reverse complement contigs, if any reverse-oriented contigs are detected from **spades** assembly. In the HTML report, a genotype is suggested based on a number of parameters listed below which are configured with default values:
+When using `--genome 'NC_002058.3'` or `--perform_ev_typing`, which are enabled in the `-profile ev_typing` configuration, the pipeline generates an HTML report with the enterovirus typing results, a genotype CSV file, and a FASTA file containing forward and reverse complement contigs, if any reverse-oriented contigs are detected from **spades** assembly. In the HTML report, a genotype is suggested based on a number of parameters listed below which are configured with default values:
 
 | Parameter                      | Default | Description                                                             |
 | :----------------------------- | :------ | ----------------------------------------------------------------------- |
