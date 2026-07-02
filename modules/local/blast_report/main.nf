@@ -15,6 +15,10 @@ process BLAST_REPORT {
     tuple val(meta), path("*.fa")            , emit: reversed_contigs
     tuple val(meta), path("*_genotype.csv")  , emit: genotype
     tuple val("${task.process}"), val("python"), eval("python --version 2>&1 | sed 's/Python //g'"), topic: versions, emit: versions_python
+    tuple val("${task.process}"), val("matplotlib"), eval("python -c 'import matplotlib; print(matplotlib.__version__)'"), topic: versions, emit: versions_matplotlib
+    tuple val("${task.process}"), val("seaborn"), eval("python -c 'import seaborn; print(seaborn.__version__)'"), topic: versions, emit: versions_seaborn
+    tuple val("${task.process}"), val("pandas"), eval("python -c 'import pandas; print(pandas.__version__)'"), topic: versions, emit: versions_pandas
+    tuple val("${task.process}"), val("jinja2"), eval("python -c 'import jinja2; print(jinja2.__version__)'"), topic: versions, emit: versions_jinja2
 
     when:
     task.ext.when == null || task.ext.when
